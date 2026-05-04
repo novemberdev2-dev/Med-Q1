@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biochemistry_Quiz_2015-2026</title>
+
+    <style>
+        :root {
+    
+    --bg-body: #0c0d0e;
+    --text-main: #f1f5f9;
+    --text-opts: #f1f5f9;
+    --header-bg: #1e293b;
+    --header-text: #38bdf8;
+    --border-color: #26292b;
+    --input-bg: #1a1c1e;
+    --input-border: #2a2f36;
+    --ans-bg: #1e293b;
+    --ans-text: #f0cf6a;
+}
+
+[data-theme="light"] {
+
+    --bg-body: #ffffff;
+    --text-main: #000000;
+    --text-opts: #333333;
+    --header-bg: #2D2D2D;
+    --header-text: #ffffff;
+    --border-color: #e0e0e0;
+    --input-bg: #ffffff;
+    --input-border: #cccccc;
+    --ans-bg: #f1f8e9;
+    --ans-text: #2e7d32;
+}
+
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+      
+
+        .container {
+    width: 100%;
+    max-width: 1150px;
+    padding: 20px;
+    box-sizing: border-box; 
+}
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 7px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 7px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+.filter-container {
+    background-color: var(--filter-bg);
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+}
+      
+
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 6px 14px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+        }
+        
+  
+
+        .filter-btn.active {
+            background-color: #729fcf;
+            color: white;
+            border-color: #729fcf;
+        }
+
+        .divider { border: none; border-top: 1px solid var(--border-color); margin-bottom: 25px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+        .ans-row { display: flex; justify-content: space-between; align-items: center; }
+        .ans-text { font-weight: 700; color: var(--ans-text); visibility: hidden; background-color: var(--ans-bg); padding: 6px 12px; border-radius: 4px; }
+        .q-block.revealed .ans-text { visibility: visible; }
+        .ans-btn { background-color: #729fcf; color: white; border: none; padding: 8px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+
+        mark { background-color: #f0cf6a; color: #000; }
+        a { color: inherit; text-decoration: none; }
+
+        @media (max-width: 600px) { .header { flex-direction: column; gap: 12px; } }
+    </style>
+</head>
+
+<body oncontextmenu="return false;"> 
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">Quizzes</h3>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Biochemistry 🧪 • 2015-2026</p>
+        </div>
+        
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+           <button class="theme-toggle" onclick="toggleTheme()">
+    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+</button>
+    </div>
+   
+
+    <div class="filter-container" id="filter-bar">
+        <button class="filter-btn active" onclick="filterBySubject('All', this)">All</button>
+        <button class="filter-btn" onclick="filterBySubject('15', this)">2014 - 2015</button>
+        <button class="filter-btn" onclick="filterBySubject('17', this)">2016 - 2017</button>
+        <button class="filter-btn" onclick="filterBySubject('20', this)">2019 - 2020</button>
+         <button class="filter-btn" onclick="filterBySubject('21', this)">2020 - 2021</button>
+        <button class="filter-btn" onclick="filterBySubject('24', this)">2023 - 2024</button>
+        <button class="filter-btn" onclick="filterBySubject('25', this)">2024 - 2025</button>
+        <button class="filter-btn" onclick="filterBySubject('26', this)">2025 - 2026</button>
+       
+        <button class="filter-btn" onclick="filterBySubject('U', this)">Unkown year</button>
+        
+        
+    
+    </div>
+   
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+
+
+
+<script>
+function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    
+    
+    const isLight = body.getAttribute('data-theme') === 'light';
+
+    if (isLight) {
+        
+        body.removeAttribute('data-theme');
+        
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+
+        body.setAttribute('data-theme', 'light');
+        
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}
+
+const data = [
+      { 
+  n: 1, 
+  s: "15", 
+  q: "The first organic compound prepared in laboratory was:", 
+  o: [
+    "A. Methanol",
+    "B. Ammonia",
+    "C. Methanol",
+    "D. Urea",
+    "E. Acetic acid"
+  ], 
+  a: "D" 
+},
+
+{ 
+  n: 2, 
+  s: "15", 
+  q: "Xylene is:", 
+  o: [
+    "A. Methyl benzene",
+    "B. Dimethyl benzene",
+    "C. Trimethyl benzene",
+    "D. Amino benzene",
+    "E. Ester compound"
+  ], 
+  a: "B" 
+},
+{ n: 3, s: "15", q: "Nitration of benzene is reaction between:", o: ["A. Benzene + HCl", "B. Benzene + HNO₃", "C. Benzene + H₂SO₄", "D. Benzene + HBr", "E. Benzene + HI"], a: "B" },
+ { n: 4, s: "15", q: "The chemical name of Aspirin is:", o: ["A. Methyl salicylate", "B. Acetyl salicylic acid", "C. Sodium salicylate", "D. Phenyl salicylate", "E. Benzoic acid"], a: "B" },
+  
+   { n: 5, s: "15", q: "Benzapyrine is:", o: [
+    "A. Inflammatory compound",
+    "B. Non-inflammatory compound",
+    "C. Carcinogenic compound",
+    "D. Analgesic drug",
+    "E. Anti-fever" ], a: "C" },
+{ n: 6, s: "15", q: "All the followings are derivatives of benzene except:", o: ["A. Aspirin", "B. Phenylalanine", "C. Acetyl acetate", "D. Toluene", "E. Benzaldehyde"], a: "C" },
+  { n: 7, s: "15", q: "Which of the following is a cycloether?", o: ["A. Pyridine", "B. Furan", "C. Tetrahydrofuran", "D. Methanol", "E. Phenol"], a: "C" },
+
+{ n: 8, s: "15", q: "Which of the following is a heterocyclic compound containing oxygen?", o: ["A. Pyridine", "B. Furan", "C. Methanol", "D. Isopropanol", "E. Hydrogen sulfide (H₂S)"], a: "B" },
+
+{ n: 9, s: "15", q: "Which of the following is a part of nicotine?", o: ["A. Pyridine", "B. Glycerol", "C. Phenol", "D. Methanol", "E. Quinine"], a: "A" },
+
+{ n: 10, s: "15", q: "Which of the following is used for preparation of thiols?", o: ["A. 2-propenethiol", "B. Hydrogen sulfide (H₂S)", "C. Methanol", "D. Phenol", "E. Isopropanol"], a: "B" },
+
+{ n: 11, s: "15", q: "Which of the following is a strong antiseptic?", o: ["A. Methanol", "B. Isopropanol", "C. Phenol", "D. Glycerol", "E. Pyridine"], a: "C" },
+
+{ n: 12, s: "15", q: "Which of the following is a heterocyclic compound containing two nitrogen atoms?", o: ["A. Methanol", "B. Isopropanol", "C. Phenol", "D. Glycerol", "E. Imidazole"], a: "E" },
+
+{ n: 13, s: "15", q: "Which of the following is an alcohol containing three hydroxyl groups?", o: ["A. Glycerol ", "B. Isopropanol", "C. Phenol", "D. Methanol", "E. Pyridine"], a: "A" },
+  { n: 14, s: "20", q: "Resorcinol is:", o: ["A. 1,2-dihydroxy benzene", "B. 1,3-dihydroxy benzene", "C. 1,2-dimethyl benzene", "D. 1,3-dimethyl benzene", "E. 1,2-dihydroxy benzaldehyde"], a: "B" },
+  
+  { n: 15, s: "20", q: "The chemical name of Aspirin is:", o: ["A. Methyl salicylate", "B. Acetyl salicylic acid", "C. Sodium salicylate", "D. Phenyl salicylate", "E. Benzoic acid"], a: "B" },
+  
+   { n: 16, s: "20", q: "Benzapyrine is:", o: [
+    "A. Inflammatory compound",
+    "B. Non-inflammatory compound",
+    "C. Carcinogenic compound",
+    "D. Analgesic drug",
+    "E. Anti-fever" ], a: "C" },
+    { n: 17, s: "20", q: "One of the causes of respiratory alkalosis is:", o: ["A. Diabetes mellitus", "B. Fauvism", "C. Fever", "D. Hypertension", "E. Hypothyroidism"], a: "C" },
+
+{ n: 18, s: "20", q: "One of the following compounds used as preservative of urine samples:", o: ["A. Xylene", "B. Phenol", "C. Sodium hydroxide", "D. Tyrosine", "E. Toluene"], a: "E" },
+
+{ n: 19, s: "20", q: "Imidazole is found in:", o: ["A. Benzpyrine", "B. Cimetidine", "C. Heme", "D. Metronidazole", "E. Nicotine"], a: "B" },
+ { n: 20, s: "20", q: "Tetrahydrofuran is:", o: ["A. Cyclic alkane", "B. Cyclic alkene", "C. Cyclic ether", "D. Normal ether", "E. heterocyclic compound"], a: "C" }, 
+ { n: 21, s: "20", q: "Reaction between a ketone with an alcohol produce:", o: ["A. Acetal", "B. Ester", "C. Hemicetal", "D. Hemiketal", "E. Ketal"], a: "D" }, 
+ { n: 22, s: "20", q: "In living cells malate is converted to oxaloacetate by:", o: ["A. Malate dehydrogenase", "B. Malate hydrogenase", "C. Malate deoxygenase", "D. Malate monooxygenase", "E. Malate oxidase"], a: "A" },
+  { n: 23, s: "20", q: "Phenols are regarded as:", o: ["A. Strong bases", "B. Weak bases", "C. Weak acids", "D. Strong acids", "E. Weak esters"], a: "C" },
+  { n: 24, s: "20", q: "One of the causes of respiratory acidosis is:", o: ["A. Diabetes mellitus", "B. Emphysema", "C. Fever", "D. Hypertension", "E. Hypothyroidism"], a: "B" },
+  { n: 25, s: "20", q: "One of the causes of respiratory alkalosis is:", o: ["A. Diabetes mellitus", "B. Favism", "C. Fever", "D. Hypertension", "E. Hypothyroidism"], a: "C" },
+  
+   { n: 26, s: "20", q: "Dehydration of alcohols produces corresponding:", o: ["A. Ethers", "B. Aldehydes", "C. Ketones", "D. Carboxylic acids", "E. Alkenes"], a: "B" },
+   
+   { n: 27, s: "20", q: "The normal range of blood PH is between:", o: ["A. 7.00 - 7.10", "B. 7.25 - 7.35", "C. 7.35 - 7.45", "D. 7.45 - 7.55", "E. 7.55 - 7.65"], a: "C" },
+  
+  { n: 28, s: "20", q: "Which of the following is a poisonous liquid?", o: ["A. Cholesterol", "B. Ethanol", "C. Phenol", "D. Methanol", "E. Propanol"], a: "D" },
+{ n: 29, s: "21", q: "Benzopyrene is a carcinogenic agent is:", o: ["A. An alcohol", "B. An amide", "C. An amine", "D. A heterocyclic compound", "E. A polycyclic aromatic compound"], a: "E" },
+  { n: 30, s: "21", q: "Xylene is:", o: ["A. Methyl benzene", "B. Dimethyl benzene", "C. Trimethyl benzene", "D. Dihydroxy benzene", "E. Ester compound"], a: "B" },
+
+{ n: 31, s: "21", q: "One of the following is carcinogenic polycyclic aromatic compound:", o: ["A. Ammonia", "B. Benzene", "C. Benzopyrene", "D. Pyridine", "E. Pyrimidine"], a: "C" },
+
+{ n: 32, s: "21", q: "Pick out the non-correct one about extensive ingestion of alcohol over a long period of time:", o: ["A. Cirrhosis", "B. Deterioration of the liver", "C. Diarrhea", "D. Loss of memory", "E. Strong physiological addiction"], a: "C" },
+
+{ n: 33, s: "21", q: "Catechol is:", o: ["A. 1,2-dihydroxy benzene", "B. 1,2-dimethyl benzene", "C. 1,3-dihydroxy benzene", "D. 1,3-dimethyl benzene", "E. 1,2-dihydroxy hexane"], a: "A" },
+{ n: 34, s: "21", q: "Hydroquinone is:", o: ["A. 1,2-dihydroxy benzene", "B. 1,3-dihydroxy benzene", "C. 1,2-dimethyl benzene", "D. 1,3-dimethyl benzene", "E. 1,4-dihydroxy benzene"], a: "E" },
+
+{ n: 35, s: "21", q: "Preparation of ethane thiol required reactants:", o: ["A. Ethanal + H₂S", "B. Ethane + H₂S", "C. Ethanol + H₂S", "D. Ethane chloride + H₂S", "E. Ethane fluoride + H₂S"], a: "D" },
+
+{ n: 36, s: "21", q: "Ethylene oxide is:", o: ["A. Cyclic alkane", "B. Cyclic alkene", "C. Cyclic ether", "D. Normal ether", "E. Heterocyclic compound"], a: "C" },
+
+{ n: 37, s: "21", q: "The disease that causes metabolic acidosis is:", o: ["A. Asthma", "B. Diabetes mellitus", "C. Emphysema", "D. Parkinson's disease", "E. Pneumonia"], a: "B" },
+  
+ { n: 38, s: "21", q: "One of the following heterocyclic compound is part of nicotine:", o: ["A. Furan", "B. Purine", "C. Pyridine", "D. Pyrimidine", "E. Pyrrole"], a: "C" },
+
+{ n: 39, s: "21", q: "Ethylene glycol is:", o: ["A. Primary alcohol with one hydroxyl group", "B. Primary alcohol with two hydroxyl group", "C. Secondary alcohol with one hydroxyl group", "D. Secondary alcohol with two hydroxyl group", "E. Tertiary alcohol with one hydroxyl group"], a: "B" },
+
+{ n: 40, s: "21", q: "Salicylic acid is:", o: ["A. Meta hydroxyl benzoic acid", "B. Meta hydroxyl toluene", "C. Ortho hydroxyl benzoic acid", "D. Ortho hydroxyl toluene", "E. Para hydroxyl benzoic acid"], a: "C" },
+
+{ n: 41, s: "21", q: "Pyrrole is heterocyclic aromatic compound is:", o: ["A. Hexacyclic contain one nitrogen", "B. Hexacyclic contain one oxygen", "C. Hexacyclic contain two nitrogen", "D. Pentacyclic contain one nitrogen", "E. Pentacyclic contain one oxygen"], a: "D" },
+
+{ n: 42, s: "21", q: "Glycerol is an alcohol with:", o: ["A. One hydroxyl group", "B. Two hydroxyl groups both primary alcohols", "C. Three hydroxyl groups, all primary alcohols", "D. Three hydroxyl groups, one primary and two secondary alcohols", "E. Three hydroxyl groups, two primary and one secondary alcohol"], a: "E" },
+{ n: 43, s: "21", q: "M-Xylene is:", o: ["A. 1,2-dihydroxy benzene", "B. 1,3-dihydroxy benzene", "C. 1,2-dimethyl benzene", "D. 1,3-dimethyl benzene", "E. 1,2-dihydroxy benzaldehyde"], a: "D" },
+
+{ n: 44, s: "21", q: "One of the following is incorrect about aldol condensation:", o: ["A. Increase the number of carbon atoms", "B. Increase the number of functional groups", "C. Occur in living system catalyzed by aldolase", "D. Required strong acid as a catalyst", "E. Required strong base as a catalyst"], a: "D" },
+
+{ n: 45, s: "21", q: "Pick out the disease that does NOT cause respiratory acidosis:", o: ["A. Asthma", "B. Diabetes mellitus", "C. Emphysema", "D. Lung disease", "E. Pneumonia"], a: "B" },
+{ n: 46, s: "21", q: "Pyridine is found in:", o: ["A. Benzopyrene", "B. Cimetidine", "C. Heme", "D. Metronidazole", "E. Nicotine"], a: "B" },
+
+{ n: 47, s: "21", q: "Secondary alcohols are oxidized to:", o: ["A. Aldehydes", "B. Carboxylic acids", "C. Ketones", "D. No oxidation", "E. Phenols"], a: "C" },
+
+{ n: 48, s: "21", q: "One of the following is solid alcohol:", o: ["A. Cholesterol", "B. Ethanol", "C. Methanol", "D. Phenol", "E. Propanol"], a: "A" },
+
+{ n: 49, s: "21", q: "One of the following heterocyclic aromatic compounds contain one nitrogen atom:", o: ["A. Furan", "B. Imidazole", "C. Purine", "D. Pyrimidine", "E. Pyrrole"], a: "E" },
+
+{ n: 50, s: "21", q: "Conversion of malate to oxaloacetate is:", o: ["A. Acid hydrolysis reaction", "B. Basic hydrolysis reaction", "C. Hydrolysis reaction", "D. Oxidation reaction", "E. Reduction reaction"], a: "D" },
+
+{ n: 51, s: "21", q: "Ethylene oxide is:", o: ["A. Cyclic ether", "B. Ether", "C. Heterocyclic aromatic compound", "D. Secondary amine", "E. Tertiary amide"], a: "A" },
+{ n: 52, s: "21", q: "Catechol is:", o: ["A. Methyl benzene", "B. Dimethyl benzene", "C. Trimethyl benzene", "D. Dihydroxy benzene", "E. Ester compound"], a: "D" },
+
+{ n: 53, s: "21", q: "Imidazole is heterocyclic aromatic compound is:", o: ["A. Hexa with one nitrogen", "B. Hexa with one oxygen", "C. Hexa with two nitrogen", "D. Penta with one nitrogen", "E. Penta with two nitrogen"], a: "E" },
+
+{ n: 54, s: "21", q: "Pick out incorrect statement about malate:", o: ["A. Found in human body", "B. Is primary alcohol", "C. Is secondary alcohol", "D. Required malate dehydrogenase as a catalyst", "E. Required NAD as a coenzyme"], a: "B" },
+
+{ n: 55, s: "U", q: "Organic compounds are:", o: ["A. Soluble in water", "B. Most have ionic bonds", "C. Insoluble in water", "D. Almost all are insoluble in organic solvents", "E. Aqueous solutions form ions that conduct electricity"], a: "C" },
+
+{ n: 56, s: "U", q: "Nitration of benzene is reaction between:", o: ["A. Benzene + nitric acid catalyzed by sulfuric acid", "B. Benzene + nitric acid catalyzed by acetic acid", "C. Benzene + nitric acid catalyzed by sodium hydroxide", "D. Benzene + nitric acid catalyzed by carbonic acid", "E. Benzene + nitric acid catalyzed by potassium hydroxide"], a: "A" },
+
+{ n: 57, s: "U", q: "Tertiary alcohols are oxidized to:", o: ["A. Aldehydes", "B. Carboxylic acids", "C. Ketones", "D. Non-oxidized", "E. Phenols"], a: "D" },
+
+{ n: 58, s: "U", q: "Condensation reaction occurs in living cells in:", o: ["A. Carbohydrate metabolism", "B. Lipid metabolism", "C. Nucleotide metabolism", "D. Protein metabolism", "E. Purine metabolism"], a: "D" },
+
+{ n: 59, s: "U", q: "Acetone is an important product of:", o: ["A. Carbohydrate metabolism", "B. Lipid metabolism", "C. Nucleotide metabolism", "D. Protein metabolism", "E. Purine metabolism"], a: "B" },
+
+{ n: 60, s: "U", q: "Acetic acid is one of the components of:", o: ["A. Apple", "B. Banana", "C. Grape", "D. Malossis", "E. Vinegar"], a: "E" },
+
+{ n: 61, s: "U", q: "Urea is:", o: ["A. Primary amide", "B. Primary amine", "C. Secondary amide", "D. Secondary amine", "E. Tertiary amide"], a: "A" },
+
+{ n: 62, s: "U", q: "Osmolality of Na2HPO4 is equal to:", o: ["A. Molarity × 2", "B. Molarity × 3", "C. Molarity + 2", "D. Molarity + 3", "E. Molarity"], a: "B" },
+
+{ n: 63, s: "U", q: "One of the following minerals is a macromineral:", o: ["A. Co", "B. Cu", "C. Mg", "D. Mn", "E. Zn"], a: "C" },
+{ n: 64, s: "U", q: "Pick out non denaturizing protein:", o: ["A. Heat", "B. Organic solvents", "C. Strong acids", "D. Strong bases", "E. Vitamin C"], a: "E" },
+{ n: 65, s: "U", q: "Monosaccharides are the simplest carbohydrates that consist of:", o: ["A. A carbonyl group aldehyde", "B. A carbonyl group ketone", "C. A carbonyl group aldehyde with several hydroxyl group", "D. A carbonyl group aldehyde or ketone with several hydroxyl group", "E. Multiple hydroxyl groups"], a: "D" },
+
+   { n: 66, s: "U", q: "Methyl group donors during detoxification pathway by methylation are:", o: ["A. Choline, inositol, methionine", "B. Cysteine, glutamic acid, and glycine", "C. Alanine, glutamic acid, and glycine", "D. Methionine, glutamic acid, and serine", "E. Methionine, glutamic acid, and aspartic acid"], a: "A" },
+   { n: 67, s: "U", q: "Which of the following statements correctly describes the process of oxidation?", o: ["A. Loss of oxygen", "B. Gain in hydrogen", "C. Gain of electron", "D. Loss of hydrogen", "E. None of the answers are correct"], a: "D" },
+
+{ n: 68, s: "U", q: "Following statement regarding Nitric oxide (NO) is correct:", o: ["A. Prevents platelet aggregation by decreasing synthesis of c-GMP", "B. Prevents platelet aggregation by increasing synthesis of c-GMP", "C. Prevents platelet aggregation by increasing synthesis of c-AMP", "D. Prevents platelet aggregation by decreasing synthesis of c-AMP", "E. Prevents platelet aggregation by decreasing synthesis of c-CMP"], a: "B" },
+
+{ n: 69, s: "U", q: "Which of the following statements regarding Reactive Oxygen Species false?", o: ["A. Superoxide anion radical", "B. Hydroxyl radical", "C. Hydrogen peroxide (radical species )", "D. Lipid peroxide radical", "E. Singlet oxygen (non radical species )"], a: "C" },
+
+{ n: 70, s: "U", q: "The following statement is false:", o: ["A. We live in anaerobic environment , O2 is the life sustaining element", "B. We consume approximately 3.5 kg of O2 every day", "C. O2 is not only fundamentally essential for energy metabolism and respiration, but implicated in many diseases and degenerative conditions", "D. 2.8 % of the O2 is not properly used and forms free radicals ,Several kg of peroxides are produced in our body every year", "E. High pressure oxygen inhibits bacterial growth"], a: "A" },
+
+{ n: 71, s: "U", q: "Oxidative Stress is:", o: ["A. Essentially an imbalance between the production of free radicals and the ability of the body to detoxify their harmful effects through neutralization by antioxidants", "B. Damages caused by reactive oxygen species", "C. Reduction of antioxidants", "D. Cellular damages at membrane levels", "E. All the answers are correct"], a: "E" },
+
+{ n: 72, s: "U", q: "Nitric oxide is produced by a group of enzymes called nitric oxide synthases. These enzymes convert:", o: ["A. L-arginine into L-citrulline", "B. L-citrulline into L- arginine", "C. D-arginine into D- citrulline", "D. D-arginine intoL- citrulline", "E. None of the answers is right"], a: "A" },
+
+{ n: 73, s: "U", q: "Recommended daily vitamin E intake (RDI):", o: ["A. 10 mg/day", "B. 20 mg/day", "C. 30 mg/day", "D. 40 mg/day", "E. 50 mg/day"], a: "B" },
+
+{ n: 74, s: "U", q: "A useful biomarker of oxidative protein damage", o: ["A. 2-Nitrotyrosine", "B. 3-Nitrotyrosine", "C. 4-Nitrotyrosine", "D. 5-Nitrotyrosine", "E. 6-Nitrotyrosine"], a: "B" },
+
+{ n: 75, s: "U", q: "Antioxidant is:", o: ["A. A Substance that is able to activate neutralize molecules", "B. preventing the pro-reduction process", "C. Preventing of biological oxidative damage produces as a result of metabolic processes and environmental sources", "D. Reactive oxygen species", "E. Not important for maintaining vital cellular and biological functions"], a: "C" },
+
+{ n: 76, s: "U", q: "Preventive antioxidants like:", o: ["A. Catalase", "B. SOD", "C. Vit E", "D. Vit C", "E. Vit A"], a: "A" },
+
+{ n: 77, s: "U", q: "RNA Nucleotide monomers are :", o: ["A. Phosphate", "B. Ribose Sugar", "C. Organic Nitrogen Base (A/G/C/U)", "D. All of the answers are correct", "E. Pentose sugar"], a: "D" },
+
+{ n: 78, s: "U", q: "A promoter:", o: ["A. Is a region of RNA that initiates transcription of a particular gene.", "B. Promoters are located near the translation start sites of genes,", "C. Promoters can be about 100–1000 base pairs long", "D. Like TFIIA", "E. Like TFIIB"], a: "C" },
+
+{ n: 79, s: "U", q: "Transcription:", o: ["A. Is the synthesis of transportable complementary strand of RNA", "B. All the answers are true", "C. RNA Polymerase is used", "D. First stage of gene expression and the principle conservation step.", "E. Starts from 5’→ 3’ direction"], a: "B" },
+
+{ n: 80, s: "U", q: "Promoter melting requires hydrolysis by ATP and is mediated by………..is a ten-subunit protein, including both ATPase and protein kinase activities:", o: ["A. TFIIA", "B. TFIIB", "C. TFIID", "D. TFIIE", "E. TFIIH"], a: "E" },
+
+{ n: 81, s: "U", q: "during termination , Factor dependent requires Termination Factors along with:", o: ["A. RNA Pol I", "B. RNA Pol II", "C. RNA Pol III", "D. DNA Pol I", "E. RNA Pol III"], a: "B" },
+
+{ n: 82, s: "U", q: "A transcription factor:", o: ["A. Is a protein that binds to specific DNA sequences, thereby controlling the rate of transcription of genetic information from DNA to messenger RNA", "B. Transcription factors perform this function alone or with other proteins in a complex", "C. promoting (as an activator), the recruitment of RNA polymerase to specific genes", "D. blocking (as a repressor) the recruitment of RNA polymerase to specific genes", "E. all the answers are correct"], a: "E" },
+
+{ n: 83, s: "U", q: "Termination occurs", o: ["A. when a stop codon in the mRNA reaches the A site of the ribosome", "B. when a stop codon in the mRNA reaches the P site of the ribosome", "C. when a stop codon in the mRNA reaches the E site of the ribosome", "D. when a stop codon in the tRNA reaches the P site of the ribosome", "E. when a stop codon in the tRNA reaches the A site of the ribosome"], a: "A" },
+
+{ n: 84, s: "U", q: "a stop codon is:", o: ["A. UAG", "B. UGG", "C. UAC", "D. AUG", "E. AGU"], a: "A" },
+
+{ n: 85, s: "U", q: "The mutation causing sickle cell anemia is a single nucleotide substitution in the codon for amino acid , The change converts a glutamic acid codon into:", o: ["A. Valine", "B. Glycine", "C. Alanine", "D. Methionine", "E. Cysteine"], a: "A" },
+
+{ n: 86, s: "U", q: "Super oxide dismutase (SOD):", o: ["A. Catalyze the dismutation of superoxide into oxygen and hydrogen peroxide", "B. Catalyze the reduction of lipid hydroperoxides to their corresponding alcohols", "C. Catalyze the oxidation of lipid hydroperoxides to their corresponding alcohols", "D. Catalyze the reduction of lipid peroxides to their corresponding alcohols", "E. Catalyze the oxidation of lipid peroxides to their corresponding alcohols"], a: "A" },
+
+{ n: 87, s: "U", q: "…………………… is considered to be one of the most important antioxidant in extra cellular fluids.", o: ["A. SOD", "B. Catalase", "C. Vitam C", "D. Vitan. E", "E. Cupper"], a: "C" },
+
+{ n: 88, s: "U", q: "Biotransformation reactions during detoxication process are catalysed by:", o: ["A. Monooxygenase", "B. Epoxide hydrolases", "C. Deaminases", "D. Esterases", "E. All the answers are correct"], a: "E" },
+
+{ n: 89, s: "U", q: "The Basic Nutrients Needed for Liver Detoxification:", o: ["A. Methionine", "B. Taurine", "C. Cysteine", "D. Glycine", "E. All the answers are true"], a: "E" },
+
+{ n: 90, s: "U", q: "……………………. Is a neutralized form of a medication recommended by the World Health Organization for the treatment of certain types of Epilepsy.", o: ["A. Hydroxy Phenobarbital", "B. Arylamin metabolites", "C. Chloramphenicol metabolites", "D. Asprine", "E. None of the answers"], a: "A" },
+{ n: 91, s: "U", q: "The major pathway for ketone detoxification is:", o: ["A. inositol", "B. Reduction", "C. hydroxylation", "D. cysteine", "E. Oxidation"], a: "B" },
+
+{ n: 92, s: "U", q: "The major pathway for amines, alcohols, Aromatic hydrocarbons, Sulfur compounds, drugs detoxification:", o: ["A. Reduction", "B. Tyrosine", "C. Threonin", "D. Hydration", "E. Oxidation"], a: "E" },
+
+{ n: 93, s: "U", q: "Glutathione precursor is:", o: ["A. Cysteine", "B. Tryptophan", "C. Tyrosine", "D. Threonin", "E. Leucine"], a: "A" },
+
+{ n: 94, s: "U", q: "Methylation inducer is:", o: ["A. Inositol", "B. Reduction", "C. Hydroxylation", "D. Hydration", "E. Oxidation"], a: "A" },
+
+{ n: 95, s: "U", q: "Sulphate may be ingested from food, but is also produced by the action of the enzyme dioxygenase on the amino acid:", o: ["A. Inositol", "B. Reduction", "C. Hydroxylation", "D. Cysteine", "E. Oxidation"], a: "D" },
+{ n: 96, s: "U", q: "Adapters between nucleic acid code and amino acid code:", o: ["A. TFIIH", "B. D-loop", "C. RNA Pol II", "D. tRNA", "E. L-loop"], a: "D" },
+
+{ n: 97, s: "U", q: "recognition site for aminoacyl-tRNA synthetase:", o: ["A. TFIIH ", "B. L-loop", "C. D-loop", "D. RNA Pol III", "E. snRNA"], a: "C" },
+
+{ n: 98, s: "U", q: "RNA polymerase I transcribes genes encoding:", o: ["A. rRNA", "B. mRNA", "C. tRNA", "D. snRNA", "E. RNA Pol II"], a: "A" },
+
+{ n: 99, s: "U", q: "Factor Independent termination:", o: ["A. D-loop", "B. L-loop", "C. RNA Pol II", "D. TFIIIH", "E. RNA Pol III"], a: "B" },
+
+{ n: 100, s: "U", q: "is a ten-subunit protein, including both ATPase and protein kinase activities:", o: ["A. TFIIH", "B. TFIIIH", "C. RNA Pol II", "D. RNA Pol III", "E. snRNA"], a: "A" },
+
+{ n: 101, s: "U", q: "Most susceptible amino acids for oxidation:", o: ["A. Ubiquinol", "B. Cysteine", "C. Vitamin E", "D. 5-9 mg/dl", "E. Alanine"], a: "B" },
+
+{ n: 102, s: "U", q: "The oxidized α-tocopheroxyl radicals produced in detoxification process may be recycled back to the active reduced form through reduction by other antioxidants, such as:", o: ["A. Vitamin C", "B. Vitamin B", "C. Ubiquinol", "D. Cysteine", "E. Alanine"], a: "A" },
+
+{ n: 103, s: "U", q: "Arterial blood O2 partial pressure is:", o: ["A. 2-7 mg/dl ", "B. 40-60", "C. 5-9 mg/dl", "D. 80-100", "E. Vitamin E"], a: "D" },
+
+{ n: 104, s: "U", q: "inhibits the conversion of nitrites to nitrosamines:", o: ["A. Cysteine ", "B. Vitamin E", "C. Vitamin B", "D. Ubiquinol", "E. Vitamin C"], a: "E" },
+
+{ n: 105, s: "U", q: "Recommended Daily Beta-CaroteneIntake is:", o: ["A. 2-7 mg/dl", "B. 5-9 mg/dl", "C. 40-60", "D. 80-100", "E. Vitamin B"], a: "B" },
+{ n: 106, s: "U", q: "All of the amino acids have asymmetric carbon center:", o: ["A. Except proline", "B. Except phenylalanine", "C. Except Glycine", "D. Except glutamine", "E. all above"], a: "C" },
+
+{ n: 107, s: "U", q: "Uncommon amino acid which is a constituent of myosin contractile protein of muscle is:", o: ["A. Gama-carboxyglutamate", "B. 4-hydroxyproline", "C. 5-hydroxylysine", "D. 6-N-Methyllysine", "E. γ-carboxyglutamate"], a: "D" },
+
+{ n: 108, s: "U", q: "An example of dimeric molecule:", o: ["A. Glycine", "B. Cysteine", "C. Glutamine", "D. Cystine", "E. Glutathione"], a: "D" },
+
+{ n: 109, s: "U", q: "An example of non-polar aliphatic, essential amino acid containing (-S-) group is:", o: ["A. Glycine", "B. Valine", "C. Cysteine", "D. Methionine", "E. Cystine"], a: "D" },
+
+{ n: 110, s: "U", q: "Linolenic acid can be represented as:", o: ["A. [16:1Δ9]", "B. [18:2Δ9,12]", "C. [18:3Δ9,12,15]", "D. [18:1Δ9]", "E. [20:4Δ5,8,11,14]"], a: "C" },
+
+{ n: 111, s: "U", q: "Arachidonic acid considered as essential or conditionally essential fatty acid because:", o: ["A. It contains double bond at Δ5", "B. It contains double bond at Δ5,8", "C. It contains double bond at Δ11", "D. It contains double bond at Δ11,14", "E. All above are true"], a: "E" },
+
+{ n: 112, s: "U", q: "Cerebroside will produced from ceramide by:", o: ["A. Ether linkage to glucose or galactose", "B. Ester linkage to glucose or galactose", "C. Adding three or more sugar residues", "D. An addition of phosphate group", "E. An addition of (choline or ethanolamine)"], a: "A" },
+
+{ n: 113, s: "U", q: "An example of single polypeptide chain:", o: ["A. Oxytocin", "B. Vasopressin", "C. Myoglobin", "D. Haemoglobin", "E. Glutathione"], a: "C" },
+
+{ n: 114, s: "U", q: "An ether phospholipids present in heart tissue:", o: ["A. Platelet-activating factor", "B. Plasmalogens", "C. Triacylglycerols", "D. Ceramide", "E. Cerebrosides"], a: "B" },
+
+{ n: 115, s: "U", q: "Fetal hemoglobin differs from maternal hemoglobin because it composed of:", o: ["A. Two alpha and two beta subunit", "B. Two beta and two gamma subunit", "C. Two alpha and two gamma subunit", "D. Four alpha subunit", "E. Four gamma subunit"], a: "C" },
+
+{ n: 116, s: "U", q: "A potent proinflammatory agents, cause bronchoconstriction and play a role in asthma is:", o: ["A. Ether-soluble prostaglandins (PGE)", "B. Phosphate buffer-soluble prostaglandins (PGF)", "C. Thromboxane", "D. Leukotriene", "E. Arachidonic acid"], a: "D" },
+
+{ n: 117, s: "U", q: "According to omega system numbering is considered as (ω3):", o: ["A. Stearic acid", "B. Linoleic acid", "C. Linolenic acid", "D. Olic acid", "E. Arachidonic acid"], a: "C" },
+
+{ n: 118, s: "U", q: "Collagen consists of repetitive units that can be symbolized as:", o: ["A. Ala-X-Y", "B. Gly-X-Y", "C. X-Ala-Y", "D. X-Gly-Y", "E. Val-X"], a: "B" },
+
+{ n: 119, s: "U", q: "Glutathione is an example of:", o: ["A. Polypeptide", "B. Dipeptide molecule", "C. Tripeptide molecule", "D. Dimeric molecule", "E. Oligopeptide molecule"], a: "C" },
+
+{ n: 120, s: "U", q: "One of eicosanoids that its production not inhibited by NSAID (Aspirin):", o: ["A. Prostaglandin", "B. Leukotriene", "C. Thromboxane", "D. Lipoxin", "E. Prostaglandin and thromboxane"], a: "B" },
+
+{ n: 121, s: "U", q: "An example of diterpene is:", o: ["A. β-carotene", "B. Retinol", "C. Squalene", "D. Isoprene", "E. Vitamin A"], a: "B" },
+{ n: 122, s: "U", q: "Lipoprotein particles consist of a core of:", o: ["A. Cholesterol ester and or phospholipids", "B. Cholesterol ester and or Triacylglycerols", "C. Phospholipids and cholesterol", "D. Proteins and Triacylglycerols", "E. Phospholipids and proteins"], a: "B" },
+
+{ n: 123, s: "U", q: "Squalene is an example of:", o: ["A. Diterpene", "B. Triterpene", "C. Tetraterpene", "D. Isoprene", "E. All above"], a: "B" },
+
+{ n: 124, s: "U", q: "The Lipoprotein that binds triacylglycerol synthesized in the liver and carries them to adipose tissue or other tissues for storage is:", o: ["A. Chylomicrons", "B. Very low density lipoprotein (VLDL)", "C. Low density lipoprotein (LDL)", "D. High density lipoprotein (HDL)", "E. All above"], a: "B" },
+
+{ n: 125, s: "U", q: "Cystine is an example of:", o: ["A. Dipeptide molecule", "B. Dimeric molecule", "C. Tripeptide molecule", "D. Polypeptide", "E. All above"], a: "B" },
+
+{ n: 126, s: "U", q: "Melatonin is a hormone which is derivative of:", o: ["A. Tyrosine", "B. Glutamate", "C. Tryptophan", "D. Histidine", "E. Glycine"], a: "C" },
+
+{ n: 127, s: "U", q: "An example of non proteinic amino acid that contain benzene ring is:", o: ["A. Tyrosine", "B. Tryptophan", "C. Dopa", "D. Phenylalanine", "E. Proline"], a: "C" },
+
+{ n: 128, s: "U", q: "Gama amino butyric acid (GABA) is a derivative of:", o: ["A. Tyrosine", "B. Tryptophan", "C. Glutamic acid", "D. Cysteine", "E. Glycine"], a: "C" },
+
+{ n: 129, s: "U", q: "Protein is denatured by:", o: ["A. Strong acids", "B. Strong bases", "C. Organic solvents", "D. Heat", "E. All above"], a: "E" },
+
+{ n: 130, s: "U", q: "Artificial sweeteners Aspartame is composed of:", o: ["A. L-aspartyl- D-phenylalanine", "B. D-aspartyl- L-phenylalanine", "C. L-aspartyl- L-phenylalanine", "D. D-aspartyl-D-phenylalanine", "E. All above"], a: "C" },
+
+{ n: 131, s: "U", q: "Human serum albumin contains:", o: ["A. 548 amino acids", "B. 584 amino acids", "C. 458 amino acids", "D. 485 amino acids", "E. 845 amino acids"], a: "B" },
+
+{ n: 132, s: "U", q: "The melting point of fatty acid will be decreased by:", o: ["A. Cis double bond", "B. Trans double bond", "C. Branches in the chain", "D. Decrease in carbon number", "E. All above"], a: "B" },
+
+{ n: 133, s: "U", q: "An example of saturated fatty acid is:", o: ["A. Linoleic acid", "B. Palmitolic acid", "C. Olic acid", "D. Stearic acid", "E. Linolic acid"], a: "D" },
+
+{ n: 134, s: "U", q: "A triterpene compound it acts as a precursor of cholesterol is:", o: ["A. Retinol", "B. β-carotene", "C. Squalene", "D. Vitamin A", "E. Diterpene"], a: "C" },
+
+{ n: 135, s: "U", q: "One of eicosanoids produced by platelets has a six-membered ring containing ether is:", o: ["A. Prostaglandin", "B. Thromboxanes", "C. Leukotrienes", "D. Arachidonic acid", "E. Lipoxin"], a: "B" },
+
+{ n: 136, s: "U", q: "Rancidity of fat that caused by oxidation of unsaturated fatty acyl residues produce ...................... which have a bad odor and taste.", o: ["A. Keton", "B. Aldehyde", "C. Isoprene", "D. Cerebrosides", "E. Olic acid"], a: "B" },
+
+{ n: 137, s: "17", q: "One of the following is correct:", o: ["A. Beans has moderate glycemic index", "B. Orange juice has low glycemic index", "C. Hypoglycemia occurs in healthy people", "D. Type 2 diabetes mellitus leads to hyperinsulinemia"], a: "D" },
+
+{ n: 138, s: "17", q: "One of the following is correct:", o: ["A. Glucagon activates glucose synthesis in the liver from amino acids", "B. Soluble fiber stimulates gastric emptying", "C. Carbohydrate intake (50-100 gmlday) leads to ketosis", "D. Resistant starches and fibers may be digested in small intestine by bacteria"], a: "A" },
+
+{ n: 139, s: "17", q: "One of the following is correct:", o: ["A. Maltose is digested by sucrose", "B. Milk is digested by maltase", "C. Starch is digested by a-amylase", "D. Sucrose is made of two glucose units"], a: "C" },
+
+{ n: 140, s: "17", q: "One of the following is correct:", o: ["A. Oligosaccharides contain 3-10 units of disaccharides", "B. Glycosaminoglycans are oligosaccharides made of repeating units of disaccharides", "C. Glycosaminoglycans have negatively charged carboxylate or sulfate group", "D. Amylase is branched polysaccharide"], a: "C" },
+
+{ n: 141, s: "17", q: "DNA is found:", o: ["A. Throughout the cell", "B. In mitochondria only", "C. In the nucleus with small amounts in mitochondria and a chloroplasts", "D. In mitochondria and a chloroplasts only"], a: "C" },
+
+{ n: 142, s: "17", q: "_________ are composed of two acyl group and a phosphate ester on the third carbon of glycerol.", o: ["A. Phosphoglycerides", "B. Sphingolipids", "C. Glycolipids", "D. Triacylglycerols", "E. Waxes"], a: "A" },
+
+{ n: 143, s: "17", q: "The D and L-amino acid which are mirror image of each other can be called as _________.", o: ["A. Diastereomers", "B. Enantiomers", "C. Epimers", "D. Anomers", "E. Conformers"], a: "B" },
+{ n: 144, s: "17", q: "Uncommon amino acids that are present in collagen structure are ________ and ________.", o: ["A. Alanine and Glycine", "B. Valine and Leucine", "C. Hydroxyproline and Hydroxylysine", "D. Serine and Threonine", "E. Aspartate and Glutamate"], a: "C" },
+{ n: 145, s: "24", q: "Semi-essential amino acid that produced in the body but not in sufficient quantities:", o: ["A. Alanine", "B. Leucine", "C. Arginine", "D. Lysine", "E. Glycine"], a: "C" },
+
+{ n: 146, s: "24", q: "Nonpolar, essential amino acid containing (-S-) group:", o: ["A. Cysteine", "B. Valine", "C. Methionine", "D. Serine", "E. Leucine"], a: "C" },
+
+{ n: 147, s: "24", q: "An example of Mg containing proteins:", o: ["A. Proteases and Lipases", "B. Dehydrogenases and Oxidases", "C. Kinases and Phosphatases", "D. Ligases and Isomerases", "E. Transferases only"], a: "C" },
+
+{ n: 148, s: "24", q: "Polar, uncharged, essential amino acid containing (-OH):", o: ["A. Serine", "B. Glycine", "C. Threonine", "D. Valine", "E. Phenylalanine"], a: "C" },
+
+{ n: 149, s: "24", q: "Non proteinic amino acids:", o: ["A. Glycine", "B. Alanine", "C. β-Alanine", "D. Leucine", "E. Lysine"], a: "C" },
+
+{ n: 150, s: "24", q: "An example of a derived protein:", o: ["A. Hemoglobin from myoglobin", "B. Insulin from proinsulin", "C. Fibrin from fibrinogen", "D. Albumin from globulin", "E. Keratin from elastin"], a: "C" },
+{ n: 151, s: "25", q: "Example of copper containing protein:", o: ["A. Hemoglobin and Myoglobin", "B. Ceruloplasmin and Cytochrome oxidase", "C. Albumin and Globulin", "D. Insulin and Glucagon", "E. Collagen and Elastin"], a: "B" },
+
+{ n: 152, s: "25", q: "Non polar, aromatic amino acid:", o: ["A. Alanine, Glycine, and Valine", "B. Serine, Threonine, and Cysteine", "C. Aspartate, Glutamate, and Asparagine", "D. Phenylalanine, Tyrosine, and Tryptophan", "E. Lysine, Arginine, and Histidine"], a: "D" },
+
+{ n: 153, s: "25", q: "Iron containing enzyme:", o: ["A. Catalase, Peroxidase, and Tryptophan pyrrolase", "B. Amylase, Lipase, and Protease", "C. Kinase, Phosphatase, and Ligase", "D. Pepsin, Trypsin, and Chymotrypsin", "E. Hexokinase, Dehydrogenase, and Isomerase"], a: "A" },
+{ n: 154, s: "25", q: "____________ is considered as a symmetric amino acid.", o: ["A. Alanine", "B. Valine", "C. Glycine", "D. Leucine", "E. Serine"], a: "C" },
+{ n: 155, s: "26", q: "Monosaccharides are the simplest carbohydrates, and:", o: ["A. An example about epimers includes D-Glucose and L-Galactose", "B. Glucose forms a pyranose ring structure", "C. Only linear form of monosaccharides are reducing sugars", "D. They are aldehydes or ketones with several carboxyl groups", "E. They consist of 5-7 carbon atoms"], a: "B" },
+
+{ n: 156, s: "26", q: "One of the differences between starch and cellulose is:", o: ["A. Cellulose can be digested by human enzymes; while starch can't be digested", "B. Starch has a linear and branched chain structure, while cellulose has only a linear chain structure", "C. Starch has structural function; while cellulose has nutritional function", "D. Starch is a homopolysaccharide; while cellulose is a heteropolysaccharide", "E. Starch is a polymer of glucose with α-1,4 and α-1,6; while cellulose is with only β-1,4"], a: "E" },
+
+{ n: 157, s: "26", q: "Disaccharides are formed as a result of combination of 2 monosaccharide units, and:", o: ["A. Sucrose is an example of this sugar, which produced by combination of fructose with glucose", "B. All disaccharides are reducing sugars", "C. The glycosidic bond in lactose is α, 1-4", "D. They can yield two monosaccharides on hydrolysis", "E. Disaccharides are digested in the duodenum, the first part of the small intestine"], a: "D" },
+
+{ n: 158, s: "26", q: "The followings about Carbs are correct, EXCEPT:", o: ["A. Carbs serve as energy source in the living system", "B. Mono and disaccharides are simple sugars", "C. Oligosaccharides are short carbohydrate chains of 3-10 monosaccharides", "D. Starch and Cellulose are examples of plant origin complex carbohydrates", "E. Sugar alcohols are a type of Carbs with high digestible rate"], a: "E" },
+
+{ n: 159, s: "26", q: "Oligosaccharides are short chain Carbs, and:", o: ["A. Are found only in plants like legumes", "B. Raffinose is an example of this class, which digested in the small intestine by pancreatic α-amylase", "C. They belong to simple class of sugars", "D. They are composed from 3-15 monosaccharide units", "E. They function as prebiotics"], a: "E" },
+    { n: 160, s: "20", q: "_____ is a derivative of glutamic acid, an inhibitory neurotransmitter; its underproduction is associated with epilepsy.", o: ["A. 5-hydroxylysine", "B. Gamma-carboxyglutamate", "C. 6-N-Methyllysine", "D. 4-hydroxyproline", "E. Gamma-amino butyric acid"], a: "E" },
+
+{ n: 161, s: "20", q: "The following statement about nucleic acids is correct:", o: ["A. The bases in DNA are adenine, guanine and thiamine", "B. The total purine content of native DNA is not equal to total pyrimidine content", "C. The normal nitrogenous bases in RNA are adenine, guanine, cytosine and uracil", "D. Information for protein synthesis is stored as triple code in tRNA", "E. The total purine content of RNA is always equal to total pyrimidine content"], a: "C" },
+
+{ n: 162, s: "20", q: "Following statement about nucleic acids is correct:", o: ["A. cGMP is the first messenger in signal transduction", "B. Ribosomes are associated with mRNA in an assembly called the polysome", "C. cAMP is broken down by cGMP phosphodiesterase", "D. Nucleoside consists of sugar, phosphate and nitrogenous base", "E. Ribonucleic acids carry hereditary or genetic information"], a: "B" },
+
+{ n: 163, s: "20", q: "Fatty acids melting point increased by:", o: ["A. Increasing number of double bonds", "B. Increasing van der Waals contacts", "C. Decreasing branched chains", "D. Increasing carbon number", "E. All of the above"], a: "E" },
+
+{ n: 164, s: "20", q: "Which one is correct?", o: ["A. Oxygen and carbon dioxide diffuse in and out of the lung using energy", "B. Glucose passes into muscles by facilitated diffusion", "C. Glucose transports into adipose tissue by osmosis", "D. Endocytosis is also called cell drinking", "E. None of the above"], a: "B" },
+
+{ n: 165, s: "20", q: "Addison's disease causes:", o: ["A. Hypokalemia", "B. Hypocalcemia", "C. Hypernatremia", "D. Hyponatremia", "E. Hypercalcemia"], a: "D" },
+
+{ n: 166, s: "20", q: "Following statement about plasma membrane is correct:", o: ["A. Does not contain unsaturated fatty acids", "B. Lipids in the cell membrane may be covalently bound to carbohydrate residues", "C. Proteins in the cell membrane may comprise 10% or less of the membrane mass", "D. Lipids in the cell membrane are arranged symmetrically", "E. Lipids in the cell membrane diffuse easily across the lipid bilayer"], a: "B" },
+
+{ n: 167, s: "20", q: "Fetal hemoglobin has a greater affinity for oxygen than maternal hemoglobin because it is composed of:", o: ["A. Two alpha and two beta subunits", "B. Four alpha subunits", "C. Two alpha and two gamma subunits", "D. Two beta and two gamma subunits", "E. Four gamma subunits"], a: "C" },
+];
+
+
+const container = document.getElementById('quiz-content');
+
+function renderQuiz() {
+    container.innerHTML = '';
+    data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.subject = item.s;
+        div.dataset.searchText = (item.s + " " + item.q + " " + item.o.join(" ")).toLowerCase();
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <span class="ans-text">Answer: ${item.a}</span>
+                <button class="ans-btn" onclick="this.closest('.q-block').classList.toggle('revealed')">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function filterBySubject(subject, btn) {
+    currentSubject = subject;   
+    document.getElementById('search-input').value = '';
+
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        resetBlock(block);
+
+        if (subject === 'All' || block.dataset.subject === subject) {
+            block.style.display = "block";
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+
+function handleSearch() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+
+    blocks.forEach(block => {
+        resetBlock(block);
+
+        const matchesSubject =
+            currentSubject === "All" ||
+            block.dataset.subject === currentSubject;
+
+        const matchesSearch =
+            searchTerm === "" ||
+            block.dataset.searchText.includes(searchTerm);
+
+        if (matchesSubject && matchesSearch) {
+            block.style.display = "block";
+
+            if (searchTerm !== "") {
+                highlight(block, searchTerm);
+            }
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+
+    qText.innerHTML = qText.innerHTML.replace(regex, '<mark>$1</mark>');
+    opts.forEach(li => {
+        li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>');
+    });
+}
+
+renderQuiz();
+
+const firstFilterBtn = document.querySelector('.filter-btn');
+filterBySubject("All", firstFilterBtn);
+</script>
+</body>
+</html>

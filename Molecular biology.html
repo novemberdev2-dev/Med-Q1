@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>End-Rotation_Molecular biology_2022-2025</title>
+
+    <style>
+        :root {
+
+    --bg-body: #0c0d0e;
+    --text-main: #f1f5f9;
+    --text-opts: #f1f5f9;
+    --header-bg: #1e293b;
+    --header-text: #38bdf8;
+    --border-color: #26292b;
+    --input-bg: #1a1c1e;
+    --input-border: #334155;
+    --ans-bg: #1e293b;
+    --ans-text: #f0cf6a;
+}
+
+[data-theme="light"] {
+    
+    --bg-body: #ffffff;
+    --text-main: #000000;
+    --text-opts: #333333;
+    --header-bg: #2D2D2D;
+    --header-text: #ffffff;
+    --border-color: #e0e0e0;
+    --input-bg: #ffffff;
+    --input-border: #cccccc;
+    --ans-bg: #f1f8e9;
+    --ans-text: #2e7d32;
+}
+
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: none;
+            padding: 20px 30px;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .divider { border: none; border-top: 1px solid var(--border-color); margin-bottom: 25px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+        .ans-row { display: flex; justify-content: space-between; align-items: center; }
+        .ans-text { font-weight: 700; color: var(--ans-text); visibility: hidden; background-color: var(--ans-bg); padding: 6px 12px; border-radius: 4px; }
+        .q-block.revealed .ans-text { visibility: visible; }
+        .ans-btn { background-color: #729fcf; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+
+        mark { background-color: #f0cf6a; color: #000; }
+        a { color: inherit; text-decoration: none; }
+
+        @media (max-width: 600px) { .header { flex-direction: column; gap: 12px; } }
+    </style>
+</head>
+
+<body oncontextmenu="return false;"> 
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">Final & End-Rotation</h3>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Molecular biology 🧬 • 2022-2025</p>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+       <button class="theme-toggle" onclick="toggleTheme()">
+    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+</button>
+    </div>
+   
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+<script>
+function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    
+    
+    const isLight = body.getAttribute('data-theme') === 'light';
+
+    if (isLight) {
+        
+        body.removeAttribute('data-theme');
+        
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+        
+        body.setAttribute('data-theme', 'light');
+        
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}
+
+const data = [
+
+  {
+    n: 1,
+    q: "Which one is incorrect?",
+    o: [
+      "A. Guanine pairs with Cytosine",
+      "B. Adenine pairs with Guanine",
+      "C. Adenine pairs with Thymine",
+      "D. Cytosine pairs with Guanine",
+      "E. Thymine pairs with Adenine"
+    ],
+    a: "B"
+  },
+  {
+    n: 2,
+    q: "Which one is also correct about genetic code?",
+    o: [
+      "A. It is ambiguous and overlapping",
+      "B. It varies significantly between species",
+      "C. It is read in groups of two bases",
+      "D. It has stop and start codons",
+      "E. It only codes for fatty acids"
+    ],
+    a: "D"
+  },
+  {
+    n: 3,
+    q: "Is an epigenetic mechanism that involve modifications to DNA by:",
+    o: [
+      "A. Histone acetylation only",
+      "B. Protein phosphorylation",
+      "C. Cytosine methylation",
+      "D. Glucose attachment",
+      "E. Ribosome binding"
+    ],
+    a: "C"
+  },
+  {
+    n: 4,
+    q: "Which one is breaking hydrogen bond of DNA during replication?",
+    o: [
+      "A. DNA Polymerase",
+      "B. Primase",
+      "C. Topoisomerase",
+      "D. Ligase",
+      "E. Helicase"
+    ],
+    a: "E"
+  },
+  {
+    n: 5,
+    q: "Nucleotide of DNA made from?",
+    o: [
+      "A. A T G C, phosphate & ribose sugar",
+      "B. A T G C, phosphate & deoxyribose sugar",
+      "C. Amino acids, phosphate & deoxyribose sugar",
+      "D. A T G C, sulfate & deoxyribose sugar",
+      "E. A U G C, phosphate & deoxyribose sugar"
+    ],
+    a: "B"
+  },
+  {
+    n: 6,
+    q: "Which one is correct about base pairing of DNA?",
+    o: [
+      "A. Three hydrogen bonds between C and G & two bonds between A and T",
+      "B. Two hydrogen bonds between C and G & three bonds between A and T",
+      "C. Single hydrogen bonds between all nitrogenous bases",
+      "D. Covalent bonds connect the complementary base pairs",
+      "E. Ionic bonds between A and G & C and T"
+    ],
+    a: "A"
+  },
+  {
+    n: 7,
+    q: "Which one will cause denaturation of DNA?",
+    o: [
+      "A. Freezing at extremely low temperatures",
+      "B. Addition of isotonic saline solution",
+      "C. Exposure to visible light for short periods",
+      "D. Relatively weak chemical reagents and careful heating",
+      "E. Increasing the pressure of the environment"
+    ],
+    a: "D"
+  },
+  {
+    n: 8,
+    q: "Harshey and Chase labeled Bacteriophages capsular protein of with radioactive sulfur (35S) Bacteriophages DNA with radioactive phosphorus (32P). It proved that:",
+    o: [
+      "A. Proteins are the source of genetic material",
+      "B. Sulfur is a key component of DNA structure",
+      "C. DNA was the exclusive carrier of genetic information",
+      "D. Phosphorus is only found in protein coats",
+      "E. Viruses do not contain genetic material"
+    ],
+    a: "C"
+  },
+  {
+    n: 9,
+    q: "What does 5' and 3' mean in the DNA nucleic acid molecules?",
+    o: [
+      "A. The number of hydrogen bonds between the strands",
+      "B. The total number of nucleotides in a single gene",
+      "C. The distance in nanometers between the two strands",
+      "D. The ratio of Purines to Pyrimidines in the sequence",
+      "E. The phosphate group at position 5' carbon of one sugar joins the hydroxyl group and at position 3' carbon of the next sugar by means of a phosphodiester bond"
+    ],
+    a: "E"
+  },
+  {
+    n: 10,
+    q: "What is the main function of mRNA?",
+    o: [
+      "A. Transport amino acids to the ribosome",
+      "B. Serve as intermediary between DNA and protein synthesis",
+      "C. Act as a structural component of the cell wall",
+      "D. Catalyze the formation of peptide bonds",
+      "E. Store genetic information permanently in the nucleus"
+    ],
+    a: "B"
+  },
+  {
+    n: 11,
+    q: "During DNA replication, Okazaki fragments are formed in..........",
+    o: [
+      "A. Leading strand, synthesis of the strand is continuous",
+      "B. Both strands simultaneously in a continuous manner",
+      "C. The promoter region to initiate transcription",
+      "D. Lagging strand, synthesis of the strand is said to be discontinuous",
+      "E. The center of the replication bubble only"
+    ],
+    a: "D"
+  },
+  {
+    n: 12,
+    q: "Which one is NOT a structure of DNA?",
+    o: [
+      "A. Deoxyribose sugar",
+      "B. Phosphate group",
+      "C. Polypeptide bond.",
+      "D. Nitrogenous base",
+      "E. Double helix"
+    ],
+    a: "C"
+  },
+  {
+    n: 13,
+    q: "The open reading frame (ORF) is a region between the start and stop codons that contains the sequence for forming what?",
+    o: [
+      "A. Only a single specific polypeptide",
+      "B. A complex of multiple different lipids",
+      "C. A single long strand of ribosomal RNA",
+      "D. Several unrelated messenger RNA molecules",
+      "E. The entire chromosome structure"
+    ],
+    a: "A"
+  },
+  {
+    n: 14,
+    q: "Which type of RNA has a catalytic ability?",
+    o: [
+      "A. mRNA",
+      "B. tRNA",
+      "C. snRNA",
+      "D. miRNA",
+      "E. rRNA"
+    ],
+    a: "E"
+  },
+  {
+    n: 15,
+    q: "Which one is true regarding to tRNA?",
+    o: [
+      "A. Large (500-1000 nucleotides) and very unstable molecule",
+      "B. Short (70-90 nucleotides), stable RNA with extensive intramolecular base pairing; contains an amino acid binding site and an mRNA binding site",
+      "C. Carries the primary genetic code from the nucleus to cytoplasm",
+      "D. Acts as the main structural component of the large subunit",
+      "E. Contains introns that must be spliced before function"
+    ],
+    a: "B"
+  },
+  {
+    n: 16,
+    q: "Ligase function is:",
+    o: [
+      "A. Unwind the double helix",
+      "B. Add RNA primers to the strand",
+      "C. Degrade faulty proteins",
+      "D. Join the fragments of the DNA",
+      "E. Synthesize new nucleotides"
+    ],
+    a: "D"
+  },
+  {
+    n: 17,
+    q: "What is the primary function of mRNA?",
+    o: [
+      "A. Transports nucleotides",
+      "B. Assists in DNA replication",
+      "C. Serves as a temporary template of a gene, directs protein synthesis",
+      "D. Provides structural support to the ribosome",
+      "E. Regulates the speed of the cell cycle"
+    ],
+    a: "C"
+  },
+  {
+    n: 18,
+    q: "What is the main function of telomerase?",
+    o: [
+      "A. Inhibit DNA synthesis",
+      "B. Repair DNA damage",
+      "C. Facilitate RNA transcription",
+      "D. Degrade mRNA after translation",
+      "E. Protect and maintain genomic stability"
+    ],
+    a: "E"
+  },
+  {
+    n: 19,
+    q: "What is the definition of a gene?",
+    o: [
+      "A. A reading frame located between the start and stop codon",
+      "B. A segment of DNA that contains only the coding area of a single polypeptide",
+      "C. A piece of DNA containing coding and non-coding areas that is responsible for phenotype and cellular function",
+      "D. A protein that binds to the promoter region",
+      "E. The sugar-phosphate backbone of the helix"
+    ],
+    a: "C"
+  },
+  {
+    n: 20,
+    q: "Some errors introduced during replication are corrected shortly after the replication machinery has moved, This mechanism is called:",
+    o: [
+      "A. Mismatch repair",
+      "B. Nucleotide excision repair",
+      "C. Homologous recombination",
+      "D. Base excision repair",
+      "E. SOS response system"
+    ],
+    a: "A"
+  },
+  {
+    n: 21,
+    q: "During DNA replication, Okazaki fragments elongate:",
+    o: [
+      "A. Leading strand toward replication fork",
+      "B. Both strands toward the centromere",
+      "C. Leading strand away from replication fork",
+      "D. Lagging strand away from replication fork",
+      "E. Lagging strand toward replication fork"
+    ],
+    a: "D"
+  },
+  {
+    n: 22,
+    q: "DNA sequence that at the ends of all human chromosome",
+    o: [
+      "A. Centromeres",
+      "B. Promoters",
+      "C. Telomeres",
+      "D. Exons",
+      "E. Enhancers"
+    ],
+    a: "C"
+  },
+  {
+    n: 23,
+    q: "Promoter methylation causes the genetic expression to be?",
+    o: [
+      "A. Highly increased",
+      "B. Permanently mutated",
+      "C. Speeded up during translation",
+      "D. Unchanged in efficiency",
+      "E. Turned off"
+    ],
+    a: "E"
+  },
+  {
+    n: 24,
+    q: "Promoters are?",
+    o: [
+      "A. Regions where translation is terminated",
+      "B. Sequences of nucleotides that lie upstream to the DNA",
+      "C. Protein structures that bind to the cell membrane",
+      "D. Coding regions found only in mRNA",
+      "E. Enzymes that synthesize RNA"
+    ],
+    a: "B"
+  },
+  {
+    n: 25,
+    q: "The sequence of DNA which replication is initiate is?",
+    o: [
+      "A. TATA box region",
+      "B. Termination sequence",
+      "C. Poly-A tail",
+      "D. Origin of replication",
+      "E. Shine-Dalgarno sequence"
+    ],
+    a: "D"
+  },
+  
+  {
+    n: 26,
+    q: "Site specific mutation happens between?",
+    o: [
+      "A. Completely random DNA sequences",
+      "B. Homologous chromosomes during prophase",
+      "C. Sequences of DNA with limited stretches of similarity",
+      "D. Non-coding junk DNA exclusively",
+      "E. Sister chromatids only"
+    ],
+    a: "C"
+  },
+  {
+    n: 27,
+    q: "Eukaryotic gene structure is composed of?",
+    o: [
+      "A. Exon, start signals, stop signals, regulatory control elements",
+      "B. Only introns and ribosomes",
+      "C. Polypeptide chains and lipid bilayers, stop signals, regulatory control elements",
+      "D. Mitochondria and nuclear pores",
+      "E. Single circular plasmids"
+    ],
+    a: "A"
+  },
+  {
+    n: 28,
+    q: "Homologous recombination?",
+    o: [
+      "A. Mitosis",
+      "B. Binary fission",
+      "C. Viral budding",
+      "D. Apoptosis",
+      "E. Meiosis"
+    ],
+    a: "E"
+  },
+  {
+    n: 29,
+    q: "miRNA and siRNA have?",
+    o: [
+      "A. Structural function in cell wall",
+      "B. Regulatory function",
+      "C. Energy storage function",
+      "D. Enzymatic function in digestion",
+      "E. No known biological function"
+    ],
+    a: "B"
+  },
+  {
+    n: 30,
+    q: "Mutation in CCR5 gene can be protective against?",
+    o: [
+      "A. Influenza",
+      "B. Malaria",
+      "C. Diabetes",
+      "D. AIDS",
+      "E. Cancer"
+    ],
+    a: "D"
+  },
+  {
+    n: 31,
+    q: "Which of the following is the function of DNA polymerases?",
+    o: [
+      "A. Unzip the double helix",
+      "B. Produce ribosomal subunits",
+      "C. Synthesis new DNA strands",
+      "D. Transport mRNA to cytoplasm",
+      "E. Break down old proteins"
+    ],
+    a: "C"
+  },
+  {
+    n: 32,
+    q: "Nucleosides lack of?",
+    o: [
+      "A. Sugar",
+      "B. Nitrogen base",
+      "C. Hydrogen bonds",
+      "D. Carbon atoms",
+      "E. Phosphate"
+    ],
+    a: "E"
+  },
+  {
+    n: 33,
+    q: "Methylation of a gene causes:",
+    o: [
+      "A. Turn gene on",
+      "B. Turn gene off",
+      "C. Duplicate the gene",
+      "D. Delete the gene",
+      "E. Mutate the gene to a new form"
+    ],
+    a: "B"
+  },
+  {
+    n: 34,
+    q: "Nucleotide contain:",
+    o: [
+      "A. Nitrogen base",
+      "B. Only sulfur atoms",
+      "C. Lipid molecules",
+      "D. Polysaccharides",
+      "E. Metal ions"
+    ],
+    a: "A"
+  },
+  {
+    n: 35,
+    q: "Is a component which is find at the beginning of the transcription but removed before translation:",
+    o: [
+      "A. Exon",
+      "B. Promoter",
+      "C. Ribosome",
+      "D. Intron",
+      "E. Start codon"
+    ],
+    a: "D"
+  },
+  {
+    n: 36,
+    q: "What was the genetic material inside the corona virus that let it transmit between humans and animals?",
+    o: [
+      "A. Plasmid",
+      "B. DNA",
+      "C. RNA",
+      "D. Envelope",
+      "E. Spike"
+    ],
+    a: "C"
+  },
+  {
+    n: 37,
+    q: "If a DNA template be like 5'TTCAGGCGA'3, the compliment DNA template will be?",
+    o: [
+      "A. 5'AAGTCCGCT'3",
+      "B. 3'TCGCCTGAA'5",
+      "C. 5'UUCAGGCGA'3",
+      "D. 5'GGCAACGTT'3",
+      "E. 5'TCGCCTGAA'3"
+    ],
+    a: "E"
+  },
+  {
+    n: 38,
+    q: "___________ Carry genetic codes from nucleus to the cytoplasm acts as a template for protein synthesis.",
+    o: [
+      "A. tRNA",
+      "B. mRNA",
+      "C. rRNA",
+      "D. DNA Polymerase",
+      "E. SnRNA"
+    ],
+    a: "B"
+  },
+  {
+    n: 39,
+    q: "What does redundancy in the code mean in genetic translation?",
+    o: [
+      "A. One codon codes for multiple amino acids",
+      "B. The code is different for every cell type",
+      "C. The genetic code is read in pairs of four",
+      "D. Different codons code for the same amino acid",
+      "E. Every amino acid has only one specific codon"
+    ],
+    a: "D"
+  },
+  {
+    n: 40,
+    q: "What happens to introns and exons when the final mRNA is produced for translation?",
+    o: [
+      "A. Exons are removed and introns are joined together",
+      "B. Both introns and exons are translated into protein",
+      "C. Introns are removed from the primary transcript, and exons become part of the final mRNA to be used for translation",
+      "D. Introns are converted into exons by enzymes",
+      "E. Exons are degraded while introns move to the ribosome"
+    ],
+    a: "C"
+  },
+  {
+    n: 41,
+    q: "What is a type of error in DNA that occurs during replication?",
+    o: [
+      "A. Error in the nucleotide placed, for example, A is substituted with a C",
+      "B. The addition of a glucose molecule to the backbone",
+      "C. The total disappearance of the phosphate group",
+      "D. Conversion of DNA into RNA mid-process",
+      "E. Temporary reversal of the helix direction"
+    ],
+    a: "A"
+  },
+  {
+    n: 42,
+    q: "What does gel electrophoresis do in regards to DNA?",
+    o: [
+      "A. It synthesizes new DNA strands from primers",
+      "B. It permanently destroys the DNA samples",
+      "C. It maps the location of proteins on a membrane",
+      "D. It copies the DNA into a digital format",
+      "E. It separates DNA fragments (by size and number)"
+    ],
+    a: "E"
+  },
+  {
+    n: 43,
+    q: "What are the two key details about DNA fingerprinting?",
+    o: [
+      "A. The DNA color and texture",
+      "B. The DNA size and fragments",
+      "C. The mitochondrial count and cell age",
+      "D. The ribosome location and RNA length",
+      "E. The sugar concentration and lipid type"
+    ],
+    a: "B"
+  },
+  {
+    n: 44,
+    q: "What characteristic defines prokaryotic genomes?",
+    o: [
+      "A. They have mitochondrial DNA",
+      "B. They have linear DNA",
+      "C. They have single-stranded DNA",
+      "D. They have plasmids",
+      "E. They have histone-wrapped nuclei"
+    ],
+    a: "D"
+  },
+  {
+    n: 45,
+    q: "What is (are) the major types of genetic variation?",
+    o: [
+      "A. Only translation errors and protein folding",
+      "B. Cell wall thickness and membrane permeability",
+      "C. Mutation & polymorphisms & silent mutation & copy number variation",
+      "D. Glucose levels and ATP concentration",
+      "E. Mitotic spindle length and fiber count"
+    ],
+    a: "C"
+  },
+  {
+    n: 46,
+    q: "If DNA template be like 5'TTGACGTTA'3, the RNA would be like:",
+    o: [
+      "A. 5'UAACGUCNA'3",
+      "B. 3'AACUGCAAU'5",
+      "C. 5'TTGACGTTA'3",
+      "D. 3'TTGACGTTA'5",
+      "E. 5'AACUGCAAU'3"
+    ],
+    a: "E"
+  },
+  {
+    n: 47,
+    q: "Cloning sites are clustered together into one area called?",
+    o: [
+      "A. The central dogma region",
+      "B. The multiple cloning site",
+      "C. The restriction point",
+      "D. The plasmid origin",
+      "E. The transcription bubble"
+    ],
+    a: "B"
+  },
+  {
+    n: 48,
+    q: "pBR322:",
+    o: [
+      "A. Resistance for 2 antibiotics (Tetracycline and Ampicillin)",
+      "B. Is a protein used for DNA unzipping",
+      "C. A type of radioactive isotope",
+      "D. A viral vector for human therapy",
+      "E. A yeast artificial chromosome"
+    ],
+    a: "D"
+  },
+  {
+    n: 49,
+    q: "Which of the following are major genetic variation:",
+    o: [
+      "A. SNPs and Indels",
+      "B. Copy number variations",
+      "C. All of them",
+      "D. Structural rearrangements",
+      "E. Chromosomal inversions"
+    ],
+    a: "C"
+  },
+  {
+    n: 50,
+    q: "The DNA template strand is 3'C........5. Which of the following is the new produced RNA:",
+    o: [
+      "A. 3'T....A......5'",
+      "B. 5'C....A......3'",
+      "C. 5'G....U......3'",
+      "D. 3'G....U......5'",
+      "E. 5'U....G......3'"
+    ],
+    a: "C"
+  },
+  
+
+  {
+    n: 51,
+    q: "Which one is eukaryotic gene structure?",
+    o: [
+      "A. Operons, polycistronic mRNA and regulatory control elements",
+      "B. Only naked circular DNA loops",
+      "C. Peptidoglycan and flagella genes",
+      "D. Intron-free mRNA only",
+      "E. Exon, start signal, stop signal and regulatory control elements"
+    ],
+    a: "E"
+  },
+  {
+    n: 52,
+    q: "The enzyme that cut the DNA sequence at specific site is?",
+    o: [
+      "A. DNA Ligase",
+      "B. Restriction enzyme",
+      "C. RNA Polymerase",
+      "D. Helicase",
+      "E. Exonuclease"
+    ],
+    a: "B"
+  },
+  {
+    n: 53,
+    q: "Modification to DNA occur through:",
+    o: [
+      "A. Proteolysis",
+      "B. Glycolysis",
+      "C. Hydrolysis of the backbone",
+      "D. Methylation",
+      "E. Carbonation of the sugar"
+    ],
+    a: "D"
+  },
+  {
+    n: 54,
+    q: "What holds the unwounded DNA?",
+    o: [
+      "A. DNA Polymerase III",
+      "B. Histone proteins",
+      "C. Single stranded DNA binding protein",
+      "D. Ribosomal subunits",
+      "E. RNA Primers"
+    ],
+    a: "C"
+  },
+  {
+    n: 55,
+    q: "During DNA replication, Okazaki fragments are formed in.........",
+    o: [
+      "A. Leading strand, synthesis of the strand is continuous",
+      "B. Both strands at the same speed",
+      "C. The cytoplasm before entering the nucleus",
+      "D. The promoter region of the gene",
+      "E. Lagging strand, synthesis of the strand is said to be discontinuous"
+    ],
+    a: "E"
+  },
+  {
+    n: 56,
+    q: "In transcription recognition binding site for RNA polymerase is called",
+    o: [
+      "A. Operator",
+      "B. Promoter",
+      "C. Enhancer",
+      "D. Exon",
+      "E. Codon"
+    ],
+    a: "B"
+  },
+  {
+    n: 57,
+    q: "Site specific recombination occurs between DNA sequences with:",
+    o: [
+      "A. High level of random mutations",
+      "B. Multiple polypeptide bonds",
+      "C. No similar sequences at all",
+      "D. Limited stretch of similarity",
+      "E. Circular plasmid loops only"
+    ],
+    a: "D"
+  },
+  {
+    n: 58,
+    q: "Which one is incorrect about processing of mRNA?",
+    o: [
+      "A. Capping of the 5' end",
+      "B. Addition of a poly-A tail",
+      "C. Transferring premature RNA to the cytoplasm or splicing of exons",
+      "D. Splicing out of introns",
+      "E. Formation of a mature transcript"
+    ],
+    a: "C"
+  },
+  {
+    n: 59,
+    q: "Telomeres seal:",
+    o: [
+      "A. The end of chromosome",
+      "B. The middle of the nucleus",
+      "C. The mitochondrial membrane",
+      "D. The ribosome binding site",
+      "E. The replication fork"
+    ],
+    a: "A"
+  },
+  {
+    n: 60,
+    q: "Which one is correct:",
+    o: [
+      "A. Telomerase shortens DNA during every cycle",
+      "B. Telomeres are found in bacterial DNA",
+      "C. DNA polymerase synthesizes telomeres directly",
+      "D. Telomeres are made of pure protein",
+      "E. Telomers remain by the function of telomerase"
+    ],
+    a: "E"
+  },
+  {
+    n: 61,
+    q: "Telomer is:",
+    o: [
+      "A. Found only in the cytoplasm",
+      "B. End of the chromosomes",
+      "C. Responsible for breaking hydrogen bonds",
+      "D. A type of lipid used in cell walls",
+      "E. The start signal for translation"
+    ],
+    a: "B"
+  },
+  {
+    n: 62,
+    q: "Phosphodiester bonds:",
+    o: [
+      "A. Connect the two strands via nitrogen bases",
+      "B. Hold the histones to the DNA strand",
+      "C. Are broken by the helicase enzyme",
+      "D. Connect nucleotides of the 3 end to the adjacent 5 end",
+      "E. Link amino acids in a polypeptide"
+    ],
+    a: "D"
+  },
+  {
+    n: 63,
+    q: "Site specific mutation with:",
+    o: [
+      "A. Entire chromosomal translocation",
+      "B. Random UV light exposure",
+      "C. Stretch limited with similarity",
+      "D. Heavy metal toxicity",
+      "E. Errors in mitochondrial fission"
+    ],
+    a: "C"
+  },
+     { n: 64, q: "Which enzyme is responsible for breaking the hydrogen bonds between DNA strands during replication?", o: ["A. DNA Ligase", "B. DNA Helicase", "C. DNA Polymerase I", "D. Primase", "E. Topoisomerase"], a: "B" },
+ 
+ { n: 65, q: "Which of the following is a correct statement regarding the function of ribosomal RNA (rRNA)?", o: ["A. It carries the genetic code from the nucleus", "B. It transports specific amino acids to the ribosome", "C. It ensures the proper alignment of mRNA and tRNA", "D. It serves as the primary template for transcription", "E. It catalyzes the formation of the lipid bilayer"], a: "C" },
+ { n: 66, q: "To what is the primary structural stability of the DNA molecule attributed?", o: ["A. Variable hydrogen bonding between sugars", "B. Ionic bonds between nitrogenous bases", "C. Disulfide bridges within the helix", "D. Weak van der Waals forces only", "E. The repeating sugar-phosphate backbone"], a: "E" },
+
+ { n: 67, q: "How is a phosphodiester bond (bridge) formed in a nucleic acid chain?", o: ["A. A phosphate group at the 5' carbon joins the 3' hydroxyl group of the next sugar", "B. A nitrogenous base joins a phosphate group via a peptide bond", "C. Two hydrogen atoms are shared between adjacent ribose sugars", "D. An oxygen atom connects the 1' carbon to the 4' carbon", "E. A sulfur atom bridges the 2' carbon of one sugar to the 5' carbon of the next"], a: "A" },
+ { n: 68, q: "Which of the following is not a recognized function of a nucleotide?", o: ["A. Serving as a precursor for nucleic acid synthesis", "B. Acting as a chemical energy carrier like ATP", "C. Functioning as a component of coenzymes", "D. Carrying enzymes for the breakdown of intracellular substances", "E. Participating in intracellular signaling as cAMP"], a: "D" },
+ { n: 69, q: "Which of the following is not a true statement regarding the packaging and supercoiling of DNA?", o: ["A. Histones provide a protein core for DNA wrapping", "B. Nucleosomes represent the basic unit of DNA packaging", "C. Topoisomerase uses a positive charge to join with negatively charged DNA", "D. DNA gyrase can introduce negative supercoils", "E. Scaffolding proteins help organize chromatin loops"], a: "C" },
+ { n: 70, q: "Which of the following best provides a definition for a Genome?", o: ["A. The total collection of proteins within a cell", "B. The specific sequence of a single mRNA strand", "C. The entire genetic constituent encoded within an organism's nucleic acids", "D. The physical location of a gene on a chromosome", "E. A temporary storage form of genetic information"], a: "C" },
+ { n: 71, q: "Which of the following statements is correct regarding the process of DNA fingerprinting?", o: ["A. It primarily targets the coding regions of exons", "B. It utilizes the variability found in non-coding regions", "C. It relies on the consistency of the mitochondrial membrane", "D. It ignores repetitive sequences like STRs", "E. It is only applicable to prokaryotic organisms"], a: "B" },
+
+
+];
+
+const container = document.getElementById('quiz-content');
+
+function renderQuiz() {
+    container.innerHTML = '';
+    data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.searchText = (item.s + " " + item.q + " " + item.o.join(" ")).toLowerCase();
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <span class="ans-text">Answer: ${item.a}</span>
+                <button class="ans-btn" onclick="this.closest('.q-block').classList.toggle('revealed')">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function handleSearch() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+    
+    blocks.forEach(block => {
+        const qTextElem = block.querySelector('.q-text');
+        const optElems = block.querySelectorAll('li');
+        
+        
+        qTextElem.innerHTML = qTextElem.dataset.original;
+        optElems.forEach(li => li.innerHTML = li.dataset.original);
+
+        if (searchTerm === "") {
+            block.style.display = "block";
+        } else if (block.dataset.searchText.includes(searchTerm)) {
+            block.style.display = "block";
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            qTextElem.innerHTML = qTextElem.innerHTML.replace(regex, '<mark>$1</mark>');
+            optElems.forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+
+renderQuiz();
+</script>
+</body>
+</html>

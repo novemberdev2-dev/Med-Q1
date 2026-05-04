@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>End-Rotation_Cell biology_2022-2025</title>
+
+    <style>
+         :root {
+    
+    --bg-body: #0c0d0e;
+    --text-main: #f1f5f9;
+    --text-opts: #f1f5f9;
+    --header-bg: #1e293b;
+    --header-text: #38bdf8;
+    --border-color: #26292b;
+    --input-bg: #1a1c1e;
+    --input-border: #334155;
+    --ans-bg: #1e293b;
+    --ans-text: #f0cf6a;
+}
+
+[data-theme="light"] {
+    
+    --bg-body: #ffffff;
+    --text-main: #000000;
+    --text-opts: #333333;
+    --header-bg: #2D2D2D;
+    --header-text: #ffffff;
+    --border-color: #e0e0e0;
+    --input-bg: #ffffff;
+    --input-border: #cccccc;
+    --ans-bg: #f1f8e9;
+    --ans-text: #2e7d32;
+}
+
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: none;
+            padding: 20px 30px;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .divider { border: none; border-top: 1px solid var(--border-color); margin-bottom: 25px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+        .ans-row { display: flex; justify-content: space-between; align-items: center; }
+        .ans-text { font-weight: 700; color: var(--ans-text); visibility: hidden; background-color: var(--ans-bg); padding: 6px 12px; border-radius: 4px; }
+        .q-block.revealed .ans-text { visibility: visible; }
+        .ans-btn { background-color: #729fcf; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+
+        mark { background-color: #f0cf6a; color: #000; }
+        a { color: inherit; text-decoration: none; }
+
+        @media (max-width: 600px) { .header { flex-direction: column; gap: 12px; } }
+    </style>
+</head>
+
+<body oncontextmenu="return false;"> 
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">Final & End-Rotation</h3>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Cell biology 🔬 • 2022-2025</p>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+          <button class="theme-toggle" onclick="toggleTheme()">
+    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+</button>
+    </div>
+   
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+<script>
+function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    
+    
+    const isLight = body.getAttribute('data-theme') === 'light';
+
+    if (isLight) {
+        
+        body.removeAttribute('data-theme');
+        
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+        
+        body.setAttribute('data-theme', 'light');
+        
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}
+
+const data = [
+
+  {
+    n: 1,
+    q: "Synapse is a process where _______ come closer to each other.",
+    o: [
+      "A. Two Sister Chromatids",
+      "B. Two Homologous Chromosomes",
+      "C. Any Chromosomes",
+      "D. Non-Homologous Chromosomes",
+      "E. Centromeres Of Different Cells"
+    ],
+    a: "B"
+  },
+  {
+    n: 2,
+    q: "Deficiency of ......... causes goiter.",
+    o: [
+      "A. Magnesium",
+      "B. Potassium",
+      "C. Calcium",
+      "D. Iodine",
+      "E. Vitamin C"
+    ],
+    a: "D"
+  },
+  {
+    n: 3,
+    q: "Flagella is made of?",
+    o: [
+      "A. 7 Pairs of micro tubules and two central pairs, 7+2",
+      "B. 6 Pairs of micro tubules and three central pairs, 6+3",
+      "C. 9 Pairs of micro tubules and two central pairs, 9+2",
+      "D. 9 Triplets of micro tubules and no central pair, 9+0",
+      "E. 5 Pairs Of micro tubules and four central pairs, 5+4"
+    ],
+    a: "C"
+  },
+  {
+    n: 4,
+    q: "What is the function of chromatin?",
+    o: [
+      "A. Only to store large amounts of lipids within the nucleus",
+      "B. To synthesize ribosomal RNA exclusively",
+      "C. To directly pump ions across the nuclear membrane",
+      "D. To form the primary structure of the cell wall in animal cells",
+      "E. To reinforce DNA macromolecule to allow mitoses, control gene expression and DNA replication"
+    ],
+    a: "E"
+  },
+  {
+    n: 5,
+    q: "Which of the following is the main function of carbohydrates?",
+    o: [
+      "A. Primary Storage Of Genetic Information",
+      "B. Cell Recognition and Adhesion, Blood Type",
+      "C. Catalyzing All Metabolic Reactions In The Cytoplasm",
+      "D. Synthesis Of Steroid Hormones",
+      "E. Forming The Contractile Ring During Cytokinesis"
+    ],
+    a: "B"
+  },
+  {
+    n: 6,
+    q: "Iron deficiency causes?",
+    o: [
+      "A. Anaemia",
+      "B. Rickets",
+      "C. Scurvy",
+      "D. Night Blindness",
+      "E. Osteoporosis"
+    ],
+    a: "A"
+  },
+  {
+    n: 7,
+    q: "All are true about SER except?",
+    o: [
+      "A. Storage of calcium ions",
+      "B. Involved in lipid synthesis",
+      "C. Detoxification of drugs in the liver",
+      "D. Segregatation of proteins synthesised by ribosomes",
+      "E. Carbohydrate metabolism"
+    ],
+    a: "D"
+  },
+  {
+    n: 8,
+    q: "At which phase sister chromatids separate?",
+    o: [
+      "A. Prophase Of Mitosis",
+      "B. Metaphase Of Mitosis",
+      "C. Anaphase Of Mitosis",
+      "D. Interphase Of Mitosis",
+      "E. Telophase Of Mitosis"
+    ],
+    a: "C"
+  },
+  {
+    n: 9,
+    q: "Which of the following cell types are most likely to remain permanently in the G0 phase?",
+    o: [
+      "A. Skin And Hair",
+      "B. Liver And Kidney",
+      "C. Blood And Bone",
+      "D. Epithelial And Connective",
+      "E. Muscle And Nerve"
+    ],
+    a: "E"
+  },
+  {
+    n: 10,
+    q: "Exchange of genetic material between HOMOLOGOUS CHROMOSOME happens in:",
+    o: [
+      "A. Cytokinesis",
+      "B. Crossing Over",
+      "C. Binary Fission",
+      "D. Spindle Formation",
+      "E. DNA Denaturation"
+    ],
+    a: "B"
+  },
+  {
+    n: 11,
+    q: "Which of the following is in charge of digestion & detoxification in liver cells?",
+    o: [
+      "A. Nucleolus And Ribosomes",
+      "B. Rough Endoplasmic Reticulum And Vaults",
+      "C. Golgi Apparatus And Centrioles",
+      "D. Smooth Endoplasmic Reticulum And Peroxisome",
+      "E. Mitochondria And Cytoskeleton"
+    ],
+    a: "D"
+  },
+  {
+    n: 12,
+    q: "Deficiency of _______cause anemia.",
+    o: [
+      "A. Zinc",
+      "B. Fluoride",
+      "C. Iron",
+      "D. Selenium",
+      "E. Copper"
+    ],
+    a: "C"
+  },
+  {
+    n: 13,
+    q: "Sodium-glucose cotransporter 1 (SGLT-1) is an example of:",
+    o: [
+      "A. Secondary Active Transport",
+      "B. Primary Active Transport",
+      "C. Simple Diffusion",
+      "D. Facilitated Diffusion Through Channels",
+      "E. Exocytosis"
+    ],
+    a: "A"
+  },
+  {
+    n: 14,
+    q: "Which of following is responsible for intracellular digestion & autophagy?",
+    o: [
+      "A. Desmosomes",
+      "B. Nucleosomes",
+      "C. Ribosomes",
+      "D. Proteasomes",
+      "E. Lysosomes"
+    ],
+    a: "E"
+  },
+  {
+    n: 15,
+    q: "What one is Correct pairs?",
+    o: [
+      "A. Ribosome - Lipid and carbohydrate Production",
+      "B. Mitochondria - ATP Production and Ca+² Storage",
+      "C. Golgi Apparatus - Genetic Code Storage",
+      "D. Centriole - Photosynthesis",
+      "E. Nucleus - Protein Digestion"
+    ],
+    a: "B"
+  },
+  {
+    n: 16,
+    q: "Why does second meiotic cell division occur even though the number of chromosomes are reduced in the first meiotic division?",
+    o: [
+      "A. To double the chromosome number again",
+      "B. To increase the size of the cell",
+      "C. To eliminate mutations from the dna",
+      "D. To produce four gametes",
+      "E. To synthesize extra cytoplasm for the zygote"
+    ],
+    a: "D"
+  },
+  {
+    n: 17,
+    q: "Which one of the following helps in penetration of sperm into egg?",
+    o: [
+      "A. Nucleolus",
+      "B. Mitochondrion",
+      "C. Lysosome",
+      "D. Smooth ER",
+      "E. Ribosome"
+    ],
+    a: "C"
+  },
+  {
+    n: 18,
+    q: "Why is mitosis important?",
+    o: [
+      "A. To create genetic variation in offspring",
+      "B. To reduce the chromosome number by half",
+      "C. To produce haploid gametes",
+      "D. To facilitate the exchange of genetic segments",
+      "E. To replace worn-out cells and healing of wounds"
+    ],
+    a: "E"
+  },
+  {
+    n: 19,
+    q: "What are the tension-bearing elements of the cytoskeleton?",
+    o: [
+      "A. Myosin And Kinesin",
+      "B. Microfilaments And Intermediate Filaments",
+      "C. Ribosomal RNA And Messenger RNA",
+      "D. Collagen And Elastin",
+      "E. Phospholipids And Cholesterol"
+    ],
+    a: "B"
+  },
+  {
+    n: 20,
+    q: "How can you recognize a cell in meiosis 1 metaphase 1?",
+    o: [
+      "A. Homologous pairs of chromosomes arranged as a double row along the metaphase plate",
+      "B. Chromosomes moving toward opposite poles of the cell",
+      "C. Nuclear Envelope Reforming Around Four Different Nuclei",
+      "D. Single chromosomes arranged in a single row at the center",
+      "E. The cell undergoing cytokinesis into two identical daughter cells"
+    ],
+    a: "A"
+  },
+  {
+    n: 21,
+    q: "The source of genetic diversity (variation) in meiosis?",
+    o: [
+      "A. Spindle Fiber Contraction",
+      "B. Nuclear Membrane Breakdown",
+      "C. ATP Hydrolysis",
+      "D. Crossing Over",
+      "E. Protein Synthesis"
+    ],
+    a: "D"
+  },
+  {
+    n: 22,
+    q: "Which one is correct about diffusion?",
+    o: [
+      "A. It moves substances against their concentration gradient",
+      "B. It always requires energy in the form of ATP",
+      "C. It moves substances down thier concentration gradient",
+      "D. It occurs only in dead cells",
+      "E. It requires a specific protein pump to function"
+    ],
+    a: "C"
+  },
+  {
+    n: 23,
+    q: "What's required to happen during mitosis?",
+    o: [
+      "A. Reduction of chromosome number by half",
+      "B. Conversion of DNA into RNA permanently",
+      "C. Exchange of genetic material between different species",
+      "D. Fusion of two haploid nuclei",
+      "E. Duplication of chromosome and disturbution of organelle and cytopplasm between the daughter cells"
+    ],
+    a: "E"
+  },
+  {
+    n: 24,
+    q: "Which of the followings do not divide and are in G₀ phase?",
+    o: [
+      "A. Skin cells and intestinal cells",
+      "B. Mature nerve cell and muscle cell",
+      "C. Liver cells and stem cells",
+      "D. Bone marrow cells and red blood cells",
+      "E. Cancer cells and embryonic cells"
+    ],
+    a: "B"
+  },
+  {
+    n: 25,
+    q: "Is the ability of protoplasm to remove the toxic action of substance?",
+    o: [
+      "A. Tyndall effect",
+      "B. Elasticity",
+      "C. Cyclosis",
+      "D. Antagonism",
+      "E. Permeability"
+    ],
+    a: "D"
+  },
+  
+  
+  {
+    n: 26,
+    q: "Detoxify substances which enter the blood:",
+    o: [
+      "A. Nucleus and Ribosomes",
+      "B. Golgi Apparatus and Lysosomes",
+      "C. Peroxisome and Smooth Endoplasmic Reticulum",
+      "D. Mitochondria and Cytoskeleton",
+      "E. Centrioles and Rough Endoplasmic Reticulum"
+    ],
+    a: "C"
+  },
+  {
+    n: 27,
+    q: "Which type of CDK partner is responsible for controlling M stage of cell cycle?",
+    o: [
+      "A. Cdk 1",
+      "B. Cdk 6",
+      "C. Cdk 2",
+      "D. Cdk 4",
+      "E. Cdk 7"
+    ],
+    a: "A"
+  },
+  {
+    n: 28,
+    q: "Which of the following is true about integral membrane proteins?",
+    o: [
+      "A. They only bind to carbohydrates",
+      "B. They are only found on the cytoplasmic surface",
+      "C. They are easily removed by changing ph",
+      "D. They lack hydrophobic regions",
+      "E. They are usually transmembrane proteins"
+    ],
+    a: "E"
+  },
+  {
+    n: 29,
+    q: "The function of nucleolus is:",
+    o: [
+      "A. Lipid Synthesis",
+      "B. Ribosomal RNA Synthesis",
+      "C. Transfer RNA Synthesis",
+      "D. ATP Production",
+      "E. DNA Replication"
+    ],
+    a: "B"
+  },
+  {
+    n: 30,
+    q: "In eukaryotic cell cycle, what does the 'G₀' state of cells mean:",
+    o: [
+      "A. Rapid Cell Division",
+      "B. Programmed Cell Death",
+      "C. Doubling Of Genetic Material",
+      "D. Exit Of Cells From The Cell Cycle",
+      "E. Preparation For Mitosis"
+    ],
+    a: "D"
+  },
+  {
+    n: 31,
+    q: "Which type of cyclin is responsible for controlling G1/S stage of cell cycle?",
+    o: [
+      "A. Cyclin B",
+      "B. Cyclin A",
+      "C. Cyclin E",
+      "D. Cyclin D",
+      "E. Cyclin H"
+    ],
+    a: "C"
+  },
+  {
+    n: 32,
+    q: "Which of the following is one of the ways that the plasma membrane are able to remain fluid?",
+    o: [
+      "A. By increasing the density of integral proteins",
+      "B. By decreasing the temperature of the cell",
+      "C. By increasing the amount of saturated fatty acids",
+      "D. By removing all cholesterol molecules",
+      "E. By increasing the percentage of unsaturated phospholipid"
+    ],
+    a: "E"
+  },
+  {
+    n: 33,
+    q: "Mark the incorrect statement about nuclear lamina:",
+    o: [
+      "A. It provides mechanical support to the nucleus",
+      "B. It has bounded with ribosome",
+      "C. It consists of intermediate filaments",
+      "D. It is located inside the inner nuclear membrane",
+      "E. It helps organize chromatin"
+    ],
+    a: "B"
+  },
+  {
+    n: 34,
+    q: "Which of the following is correct match between a phase of the cell cycle and it's description:",
+    o: [
+      "A. S- Duplication Of DNA",
+      "B. G2- Separation Of Sister Chromatids",
+      "C. G1- Breakdown Of The Nuclear Envelope",
+      "D. M- Growth And Protein Synthesis Only",
+      "E. Cytokinesis- Replication Of Organelles"
+    ],
+    a: "A"
+  },
+  {
+    n: 35,
+    q: "What type of CDK partner is responsible for G1 phase?",
+    o: [
+      "A. Cdk1-Cdk2",
+      "B. Cdk7-Cdk9",
+      "C. Cdk3-Cdk5",
+      "D. Cdk4-Cdk6",
+      "E. Cdk11-Cdk12"
+    ],
+    a: "D"
+  },
+  {
+    n: 36,
+    q: "The function of glycolipids and glycoproteins are?",
+    o: [
+      "A. To Store Energy For The Cell",
+      "B. To Act As Primary Structural Fibers",
+      "C. To Participate In Cell Recognition And Cell-Signaling",
+      "D. To Transport Oxygen Across The Membrane",
+      "E. To Catalyze DNA Transcription"
+    ],
+    a: "C"
+  },
+  {
+    n: 37,
+    q: "..........bound to the wrapped DNA around the histone octamer core.",
+    o: [
+      "A. H3 Tail Histone",
+      "B. H2A Histone",
+      "C. H4 Core Histone",
+      "D. Non-Histone Scaffold Protein",
+      "E. H1 Linker Histone"
+    ],
+    a: "E"
+  },
+  {
+    n: 38,
+    q: "Human somatic cells have.......chromosomes.",
+    o: [
+      "A. 46 Pairs",
+      "B. 23 Pairs",
+      "C. 23 Single",
+      "D. 48 Pairs",
+      "E. 12 Pairs"
+    ],
+    a: "B"
+  },
+  {
+    n: 39,
+    q: "Mutation in ________ causes Hutchinson-Gilford progeria.",
+    o: [
+      "A. Lamin B",
+      "B. Lamin G",
+      "C. Lamin H",
+      "D. Lamin A",
+      "E. Lamin C"
+    ],
+    a: "D"
+  },
+  {
+    n: 40,
+    q: "Outcome of Mitosis __________ occur, and outcome of Meiosis ______occur",
+    o: [
+      "A. Formation Of Four Haploid Cells (1n), Formation Of Two Diploid Cells (2n)",
+      "B. Formation Of Two Haploid Cells (1n), Formation Of Two Diploid Cells (2n)",
+      "C. Formation Of Two Diploid Cells (2n), Formation Of Four Haploid Cells (1n)",
+      "D. Formation Of Four Diploid Cells (2n), Formation Of Two Haploid Cells (1n)",
+      "E. Formation Of One Diploid Cell (2n), Formation Of Eight Haploid Cells (1n)"
+    ],
+    a: "C"
+  },
+  {
+    n: 41,
+    q: "Thick filaments are composed mostly of which protein?",
+    o: [
+      "A. Myosin",
+      "B. Actin",
+      "C. Troponin",
+      "D. Tropomyosin",
+      "E. Titin"
+    ],
+    a: "A"
+  },
+  {
+    n: 42,
+    q: "........directly uses energy (ATP) to transport molecules across plasma membrane.",
+    o: [
+      "A. Simple Diffusion",
+      "B. Facilitated Diffusion",
+      "C. Osmosis",
+      "D. Passive Transport",
+      "E. Primary Active Transport"
+    ],
+    a: "E"
+  },
+  {
+    n: 43,
+    q: "Not found in prokaryotic cells:",
+    o: [
+      "A. DNA",
+      "B. Mitochondria",
+      "C. Ribosomes",
+      "D. Plasma Membrane",
+      "E. Cytoplasm"
+    ],
+    a: "B"
+  },
+  {
+    n: 44,
+    q: "Essential In prokaryotic cells:",
+    o: [
+      "A. Nucleus",
+      "B. Golgi Body",
+      "C. Lysosome",
+      "D. Ribosome",
+      "E. Endoplasmic Reticulum"
+    ],
+    a: "D"
+  },
+  {
+    n: 45,
+    q: "Active motion of protoplasm:",
+    o: [
+      "A. Elasticity",
+      "B. Antagonism",
+      "C. Cyclosis",
+      "D. Permeability",
+      "E. Tyndall effect"
+    ],
+    a: "C"
+  },
+  {
+    n: 46,
+    q: "Heterochromatin is:",
+    o: [
+      "A. Loosely Packed And Highly Active",
+      "B. Only Found In Prokaryotic Cells",
+      "C. The Region Where Ribosomes Are Made",
+      "D. Composed Entirely Of Lipid Molecules",
+      "E. Tightly Condenses And Inactive Transcript"
+    ],
+    a: "E"
+  },
+  {
+    n: 47,
+    q: "Homologous recombination occurs in:",
+    o: [
+      "A. Metaphase II, Meiosis II",
+      "B. Prophase I, Meiosis I",
+      "C. Anaphase I, Meiosis I",
+      "D. Telophase II, Meiosis II",
+      "E. Interphase Of Mitosis"
+    ],
+    a: "B"
+  },
+  {
+    n: 48,
+    q: "Is the most critical checkpoint in the cell cycle:",
+    o: [
+      "A. G2/M",
+      "B. S/G2",
+      "C. M/G1",
+      "D. G1/S",
+      "E. G0/G1"
+    ],
+    a: "D"
+  },
+  {
+    n: 49,
+    q: "Uses the oxidation in mitochondria:",
+    o: [
+      "A. Anaerobic System",
+      "B. Fermentation System",
+      "C. Aerobic System",
+      "D. Glycolytic System",
+      "E. Lactic Acid System"
+    ],
+    a: "C"
+  },
+  {
+    n: 50,
+    q: "Receptor-mediated endocytosis create:",
+    o: [
+      "A. Clathrin",
+      "B. Tubulin",
+      "C. Myosin",
+      "D. Keratin",
+      "E. Spectrin"
+    ],
+    a: "A"
+  },
+  
+  
+  {
+    n: 51,
+    q: "Which of the following is true about ribosome subunit 80s of eukaryotic cells:",
+    o: [
+      "A. Large Subunit Is 50s And Small Subunit Is 30s",
+      "B. Large Subunit Is 50s And Small Subunit Is 40s",
+      "C. Large Subunit Is 40s And Small Subunit Is 40s",
+      "D. Large Subunit Is 70s And Small Subunit Is 10s",
+      "E. Large Subunit Is 60s And Small Subunit Is 40s"
+    ],
+    a: "E"
+  },
+  {
+    n: 52,
+    q: "What determines blood type?",
+    o: [
+      "A. Phospholipids",
+      "B. Carbohydrates",
+      "C. Nucleic Acids",
+      "D. Cholesterol",
+      "E. Peripheral Proteins"
+    ],
+    a: "B"
+  },
+  {
+    n: 53,
+    q: "Detoxification is a function of:",
+    o: [
+      "A. Rough Endoplasmic Reticulum And Lysosomes",
+      "B. Nucleolus And Centrioles",
+      "C. Mitochondria And Cytoskeleton",
+      "D. Smooth Endoplasmic Reticulum And Peroxisomes",
+      "E. Golgi Apparatus And Ribosomes"
+    ],
+    a: "D"
+  },
+  {
+    n: 54,
+    q: "____________ deficiency is the most common cause of goiter.",
+    o: [
+      "A. Iron",
+      "B. Calcium",
+      "C. Iodine",
+      "D. Sodium",
+      "E. Zinc"
+    ],
+    a: "C"
+  },
+  {
+    n: 55,
+    q: "What is the stage of meiosis where the centromere separates?",
+    o: [
+      "A. Prophase I",
+      "B. Anaphase II",
+      "C. Metaphase I",
+      "D. Telophase I",
+      "E. Anaphase I"
+    ],
+    a: "B"
+  },
+  {
+    n: 56,
+    q: "An animal cell lacking oligosaccharides on the external surface of it's plasma membrane would likely be impaired in which function?",
+    o: [
+      "A. Osmosis Regulation",
+      "B. Cell-Cell Recognition",
+      "C. DNA Replication",
+      "D. Protein Synthesis",
+      "E. ATP Production"
+    ],
+    a: "B"
+  },
+  {
+    n: 57,
+    q: "Nucleosome is made up of .......",
+    o: [
+      "A. RNA, Polymerase, And Ribosomes",
+      "B. Plasma Membrane And Cytoplasm",
+      "C. Lipids, Glucose, And ATP",
+      "D. DNA, Histone Core Protein, Linker H1",
+      "E. Tubulin, Actin, And Myosin"
+    ],
+    a: "D"
+  },
+  {
+    n: 58,
+    q: "The bacterial cell wall differs from that of all other organisms by the presence of..",
+    o: [
+      "A. Cellulose",
+      "B. Chitin",
+      "C. Peptidoglycan",
+      "D. Cholesterol",
+      "E. Glycogen"
+    ],
+    a: "C"
+  },
+  {
+    n: 59,
+    q: "Which of the following is not a function of the smooth endoplasmic reticulum (ER)?",
+    o: [
+      "A. Synthesis Of Proteins",
+      "B. Dephosphorylation Of Glucose-6-Phosphate Into Glucose",
+      "C. Storage And Release Of Calcium Ions",
+      "D. Synthesis Of Lipids",
+      "E. Detoxification Of Drugs"
+    ],
+    a: "A"
+  },
+  {
+    n: 60,
+    q: "What is the mechanism or way that glucose is absorbed in intestinal epithelium?",
+    o: [
+      "A. Phagocytosis",
+      "B. Simple Diffusion Through Lipids",
+      "C. Potassium Leak Channels",
+      "D. Osmosis Through Aquaporins",
+      "E. Na+/Glucose Symporters"
+    ],
+    a: "E"
+  },
+  {
+    n: 61,
+    q: "What is the direct effect for a mutation that causes the absence of the carbohydrates in membrane proteins?",
+    o: [
+      "A. Mitochondrial respiration stops",
+      "B. Disruption of Cell-Cell Communication",
+      "C. DNA cannot be copied",
+      "D. Lysosomes burst automatically",
+      "E. The cell loses all water content"
+    ],
+    a: "B"
+  },
+  {
+    n: 62,
+    q: "Which cyclin is activated in S-Cdk Complex?",
+    o: [
+      "A. Cyclin D",
+      "B. Cyclin B",
+      "C. Cyclin G",
+      "D. Cyclin A",
+      "E. Cyclin C"
+    ],
+    a: "D"
+  },
+  {
+    n: 63,
+    q: "The organ that contribute in the formation and decommission of hydrogen peroxide to water and oxygen",
+    o: [
+      "A. Nucleus",
+      "B. Golgi Apparatus",
+      "C. Peroxisome",
+      "D. Mitochondrion",
+      "E. Ribosome"
+    ],
+    a: "C"
+  },
+  {
+    n: 64,
+    q: "Which of the following do not divide and are in G0 phase?",
+    o: [
+      "A. Mature nerve cell & muscle cell",
+      "B. Mature cardiac muscle cell & skeletal muscle cell",
+      "C. Hepatocytes & fibroblasts",
+      "D. Smooth muscle cell & epithelial cell",
+      "E. Chondrocytes & osteoblasts"
+    ],
+    a: "A"
+  },
+  
+  
+  
+   { n: 65, q: "Which cyclin-dependent kinases (CDKs) are the primary partners during the G1 phase of the cell cycle?", o: ["A. CDK1 and CDK2", "B. CDK4 and CDK6", "C. CDK7 and CDK9", "D. CDK11 and CDK12", "E. CDK2 and CDK5"], a: "B" },
+ 
+ { n: 66, q: "To which structures do Lamins A and C primarily attach, and to which do Lamins B and D primarily attach?", o: ["A. Chromatin and Nuclear membrane", "B. Nucleolus and Cytoskeleton", "C. Mitochondria and Ribosomes", "D. Endoplasmic reticulum and Golgi", "E. Centrioles and Spindle fibers"], a: "A" },
+ 
+ { n: 67, q: "In which specific stage of meiosis does the exchange of genetic information occur?", o: ["A. Cytokinesis", "B. Segregation", "C. Crossing over", "D. Independent assortment", "E. Replication"], a: "C" },
+ 
+ { n: 68, q: "What is the primary biological objective of the meiotic division process in humans?", o: ["A. To repair damaged somatic tissues", "B. To clone parent cells exactly", "C. To produce two identical diploid cells", "D. To increase the number of mitochondria", "E. To produce four genetically unique gamete cells"], a: "E" },
+
+
+];
+
+const container = document.getElementById('quiz-content');
+
+function renderQuiz() {
+    container.innerHTML = '';
+    data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.searchText = (item.s + " " + item.q + " " + item.o.join(" ")).toLowerCase();
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <span class="ans-text">Answer: ${item.a}</span>
+                <button class="ans-btn" onclick="this.closest('.q-block').classList.toggle('revealed')">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function handleSearch() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+    
+    blocks.forEach(block => {
+        const qTextElem = block.querySelector('.q-text');
+        const optElems = block.querySelectorAll('li');
+        
+    
+        qTextElem.innerHTML = qTextElem.dataset.original;
+        optElems.forEach(li => li.innerHTML = li.dataset.original);
+
+        if (searchTerm === "") {
+            block.style.display = "block";
+        } else if (block.dataset.searchText.includes(searchTerm)) {
+            block.style.display = "block";
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            qTextElem.innerHTML = qTextElem.innerHTML.replace(regex, '<mark>$1</mark>');
+            optElems.forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+
+renderQuiz();
+</script>
+</body>
+</html>
+

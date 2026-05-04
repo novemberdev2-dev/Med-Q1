@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical_BEC_End-Rotation_HDSF</title>
+    
+    <style>
+         :root {
+            --bg-body: #0c0d0e;
+            --text-main: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --card-bg: #1a1c1e;
+            --card-border: #26292b;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --ans-border: #2e7d32;
+            --input-border: #2a2f36;
+        }
+        
+
+        [data-theme="light"] {
+          
+            --bg-body: #f4f4f9;
+            --text-main: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --card-bg: #ffffff;
+            --card-border: #cccccc;
+            --ans-bg: #e8f5e9;
+            --ans-text: #2e7d32;
+            --ans-border: #2e7d32;
+            --input-border: #cccccc;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .container { width: 100%; max-width: none; }
+
+        .header { 
+            text-align: center; 
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .controls-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            align-items: center;
+        }
+
+        
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-main);
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 8px;
+            outline: none;
+        }
+        
+        mark { background-color: #f0cf6a; color: #000; }
+        
+
+        .theme-toggle {
+            flex-shrink: 0;
+            background-color: var(--card-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            background-color: var(--card-bg);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            margin-bottom: 25px;
+        }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background-color: #729fcf;
+            color: white;
+            border-color: #729fcf;
+        }
+
+        .site-footer {
+            margin: 40px auto;      
+            padding: 10px 30px;   
+            width: fit-content;     
+            display: block;     
+            border-top: 1px solid var(--card-border);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            text-align: center;
+        }
+
+        .quiz-card {
+            display: flex;
+            flex-direction: row; 
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            margin-bottom: 30px; 
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .question-section { flex: 1.2; padding: 25px; justify-content: flex-start;}
+        
+        .image-section {
+            flex: 1;
+            padding: 15px;
+            background-color: var(--card-bg); 
+            border-left: 1px solid var(--card-border);
+            text-align: center;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .image-section img { max-width: 100%; height: auto; border-radius: 6px; }
+        .question-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--card-border); }
+        .question-item:last-child { border-bottom: none; }
+        
+        .answer-box { display: none !important; }
+        
+        .Q-number{
+          font-size:12px;
+          border:1px solid green;
+          padding:3px;
+          border-radius:3px;
+          color:green;
+          margin-left:auto;
+        }
+         .repeat{
+          font-size:12px;
+          border:1px solid red;
+          padding:3px;
+          border-radius:3px;
+          color:red;
+          margin-left:15px;
+        }
+
+        button.ans-btn {
+            background-color: #729fcf;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            text-align: left;
+            width: auto;    
+            display: inline-block;
+            white-space: pre-line;
+        }
+
+        .lab-title {
+            text-align: left;
+            margin: 40px 0 20px 0;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #729fcf;
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+            width: 100%; 
+        }
+
+        @media (max-width: 700px) {
+            .quiz-card { flex-direction: column-reverse; }
+            .image-section { border-left: none; border-bottom: 1px solid var(--card-border); }
+            .header { flex-direction: column; gap: 12px; }
+            .filter-btn { padding: 6px 10px; font-size: 0.8rem; }
+            .controls-row { flex-direction: row; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">End-Rotation & Final</h3>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">BEC Labs ⚕️ • 2021-2025</p>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+         <button class="theme-toggle" onclick="toggleTheme()">
+    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+</button>
+    </div>
+
+    <div class="filter-container">
+        <button class="filter-btn active" onclick="filterLabs('All', this)">All Labs</button>
+        <button class="filter-btn" onclick="filterLabs('21', this)">2020 - 2021</button>
+        <button class="filter-btn" onclick="filterLabs('21S', this)">2020 - 2021 Second Trial</button>
+        <button class="filter-btn" onclick="filterLabs('22', this)">2021 - 2022</button>
+        <button class="filter-btn" onclick="filterLabs('22S', this)">2021 - 2022 Second Trial</button>
+        <button class="filter-btn" onclick="filterLabs('23', this)">2022 - 2023</button>
+        <button class="filter-btn" onclick="filterLabs('24', this)">2023 - 2024</button>
+        <button class="filter-btn" onclick="filterLabs('25', this)">2024 - 2025</button>
+        <button class="filter-btn" onclick="filterLabs('U', this)">Unkown years</button>
+    </div>
+
+    <div id="quiz-content">
+        
+        <div class="lab-wrapper" data-subject="21">
+            <div class="lab-center"><div class="lab-title">2020 - 2021<span class="Q-number">1 question</span></div></div>
+            
+             <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">1.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> What is the maneuver?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1a', this)">Show Answer</button>
+                        <div id="ans1a" class="answer-box">Back blows.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> Purpose of the procedure?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1b', this)">Show Answer</button>
+                        <div id="ans1b" class="answer-box">Rescuing an infant from choking by applying pressure behind the blockage is often enough to expel the object and allow the infant to breathe again.</div>
+                        </div>
+                        
+                       <div class="question-item">
+            <span><strong>C.</strong> For which age if performed?</span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans1c', this)">Show Answer</button>
+            <div id="ans1c" class="answer-box">It is performed for infants (less than one year old).</div>
+        </div>
+    </div>
+                <div class="image-section"><img src="https://i.imgur.com/gkCqMqH.jpeg"" alt="Exam Image"></div>
+            </div>
+</div>
+
+            
+   <div class="lab-wrapper" data-subject="21S">
+    <div class="lab-center"><div class="lab-title">2020 - 2021 Second Trial <span class="Q-number">1 question</span></div></div> 
+      
+    
+        <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">2.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> What is this in the image?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans2a', this)">Show Answer</button>
+                        <div id="ans2a" class="answer-box">Electrical Shock.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> Factors determining severity of injury?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans2b', this)">Show Answer</button>
+                        <div id="ans2b" class="answer-box">1. Power of current
+2. Age
+3. Path of current
+4. Time of contact</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="https://i.imgur.com/MX8DQQr.jpeg"" alt="Exam Image"></div>
+            </div>
+</div>
+
+              
+            
+   <div class="lab-wrapper" data-subject="22">
+    <div class="lab-center"><div class="lab-title">2021 - 2022<span class="Q-number">2 questions</span></div></div> 
+                      
+      <div class="quiz-card">
+    <div class="question-section">
+          <h3 class="question-number">3.</h3>
+        
+        <div class="question-item">
+            <span><strong>A.</strong> How is this burn classified?</span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans3a', this)">Show Answer</button>
+            <div id="ans3a" class="answer-box">Second-degree burn.</div>
+        </div>
+
+        <div class="question-item">
+            <span><strong>B.</strong> What clinical signs support this classification?</span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans3b', this)">Show Answer</button>
+            <div id="ans3b" class="answer-box">Presence of blisters and blanching.</div>
+        </div>
+
+        <div class="question-item">
+            <span><strong>C.</strong> What is the management protocol?</span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans3c', this)">Show Answer</button>
+            <div id="ans3c" class="answer-box">1. DRABC assessment<br>
+                2. I.V. Fluids & Antibiotics<br>
+                3. Tetanus prophylaxis
+            </div>
+        </div>
+    </div>
+    <div class="image-section">
+        <img src="https://i.imgur.com/bahnjxd.jpeg" alt="Burn Case Image" style="height:150px;">
+    </div>
+</div>
+ <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">4.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> What is the maneuver?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans4a', this)">Show Answer</button>
+                        <div id="ans4a" class="answer-box">Back blows.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> Purpose of the procedure?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans4b', this)">Show Answer</button>
+                        <div id="ans4b" class="answer-box">Removing foreign body aspiration.</div>
+                        </div>
+                        
+                       <div class="question-item">
+            <span><strong>C.</strong> For which age if performed?</span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans4c', this)">Show Answer</button>
+            <div id="ans4c" class="answer-box">For infants.
+            </div>
+        </div>
+    </div>
+                    
+                
+                <div class="image-section"><img src="https://i.imgur.com/gkCqMqH.jpeg"" alt="Exam Image"></div>
+            </div>
+</div>
+
+ <div class="lab-wrapper" data-subject="22S">
+    <div class="lab-center"><div class="lab-title">2021 - 2022 Second Trial<span class="Q-number">2 questions</span></div></div> 
+    
+      <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">5.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> What action is performed in the figure?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans5a', this)">Show Answer</button>
+                        <div id="ans5a" class="answer-box">Elevating.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> What is the purpose of it?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans5b', this)">Show Answer</button>
+                        <div id="ans5b" class="answer-box">It limits blood flow and minimizes swelling.</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="https://i.imgur.com/5EkfDjl.gif"" alt="Exam Image"></div>
+            </div>
+
+   <div class="quiz-card">
+                <div class="question-section">
+                  
+                    <div class="question-item">
+                        <span><strong>6.</strong> What does the figure show?</span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans6', this)">Show Answer</button>
+                        <div id="ans6" class="answer-box">Snake bite.</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="https://i.imgur.com/JYT7OFu.jpeg"" alt="Exam Image"></div>
+            </div>
+</div>
+
+   
+   
+     <div class="lab-wrapper" data-subject="23">
+    <div class="lab-center"><div class="lab-title">2022 - 2023<span class="Q-number">2 questions</span></div></div> 
+    
+     <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">7.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> What is the procedure done?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans7a', this)">Show Answer</button>
+                        <div id="ans7a" class="answer-box">CPR.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> When is it used? </span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans7b', this)">Show Answer</button>
+                        <div id="ans7b" class="answer-box">When there is no sign of life or when there is no pulse of heart or breathing.</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="https://i.imgur.com/huQINkd.jpeg"" alt="Exam Image" style="width:400px; height:250px;"></div>
+            </div>
+
+                 
+      <div class="quiz-card">
+    <div class="question-section">
+          <h3 class="question-number">8.</h3>
+        
+        <div class="question-item">
+            <span><strong>A.</strong> How is this burn classified?</span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans8a', this)">Show Answer</button>
+            <div id="ans8a" class="answer-box">Second-degree burn.</div>
+        </div>
+
+        <div class="question-item">
+            <span><strong>B.</strong> What clinical signs support this classification?</span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans8b', this)">Show Answer</button>
+            <div id="ans8b" class="answer-box">Presence of blisters and blanching.</div>
+        </div>
+
+        <div class="question-item">
+            <span><strong>C.</strong> What is the management protocol?</span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans8c', this)">Show Answer</button>
+            <div id="ans8c" class="answer-box">1. ABC assessment<br>
+                2. I.V. Fluids & Antibiotics<br>
+                3. Tetanus prophylaxis
+            </div>
+        </div>
+    </div>
+    <div class="image-section">
+        <img src="https://i.imgur.com/bahnjxd.jpeg" alt="Burn Case Image" style="height:150px;">
+    </div>
+</div>
+  
+   
+</div>
+</div> <div class="lab-wrapper" data-subject="24">
+    <div class="lab-center"><div class="lab-title">2023 - 2024<span class="Q-number">2 questions</span></div></div> 
+
+    <div class="quiz-card">
+        <div class="question-section">
+            <h3 class="question-number">9.</h3>
+            <div class="question-item">
+                <span><strong>A.</strong> Which vessel is cut?</span><br>
+                <button class="ans-btn" onclick="toggleAnswer('ans9a', this)">Show Answer</button>
+                <div id="ans9a" class="answer-box">Artery.</div>
+            </div>
+            <div class="question-item">
+                <span><strong>B.</strong> What is its charactersics? </span><br>
+                <button class="ans-btn" onclick="toggleAnswer('ans9b', this)">Show Answer</button>
+                <div id="ans9b" class="answer-box">Spurting blood, pulsating flow, and bright red color.</div>
+            </div>
+        </div>
+        <div class="image-section"><img src="Bleeding.jpg" alt="Exam Image"></div>
+    </div>
+
+    <div class="quiz-card">
+        <div class="question-section">
+            <h3 class="question-number">10.</h3>
+            <div class="question-item">
+                <span><strong>A.</strong> What degree is the type of the burn?</span><br>
+                <button class="ans-btn" onclick="toggleAnswer('ans10a', this)">Show Answer</button>
+                <div id="ans10a" class="answer-box">Second degree.</div>
+            </div>
+            <div class="question-item">
+                <span><strong>B.</strong> What is its charactersics?</span><br>
+                <button class="ans-btn" onclick="toggleAnswer('ans10b', this)">Show Answer</button>
+                <div id="ans10b" class="answer-box">It has blister and it's caused by a flame or hot liquid and it's very painful.</div>
+            </div>
+        </div>
+        <div class="image-section"><img src="Burn.jpg" alt="Exam Image"></div>
+    </div>
+    </div>
+
+
+
+    <div class="lab-wrapper" data-subject="25">
+    <div class="lab-center"><div class="lab-title">2024 - 2025<span class="Q-number">7 questions</span></div></div>
+
+    <div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>11.</strong> A boy was involved in an accident while playing football. Physical examination shows no bone deformity. During management, what is the most appropriate initial protocol?
+            </span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans11', this)">Show Answer</button>
+            <div id="ans11" class="answer-box">Apply the RICE protocol (Rest, Ice, Compression, Elevation).</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>12.</strong> A patient presents with a wound caused by a piece of glass. The wound has regular margins and resembles one formed during a surgical procedure. What type of wound is this?
+                <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                    <div>A. Incision</div>
+                    <div>B. Puncture</div>
+                    <div>C. Avulsion</div>
+                    <div>D. Laceration</div>
+                    <div>E. Abrasion</div>
+                </ul>
+            </span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans12', this)">Show Answer</button>
+            <div id="ans12" class="answer-box">A. Incision</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>13.</strong> A man has an embedded object in his eye. What is the correct first aid management?
+            </span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans13', this)">Show Answer</button>
+            <div id="ans13" class="answer-box">Do not remove the object. Cover both eyes to minimize eye movement and seek immediate medical aid.</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>14.</strong> Which of the following conditions is directly associated with cerebral hypoperfusion?
+                <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                    <div>A. Sinusitis</div>
+                    <div>B. Synovitis</div>
+                    <div>C. Syncope</div>
+                    <div>D. Spondylosis</div>
+                    <div>E. Scoliosis</div>
+                </ul>
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans14', this)">Show Answer</button>
+            <div id="ans14" class="answer-box">C. Syncope</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>15.</strong> An ECG reading that displays a flat line with no electrical signal is known as:
+            </span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans15', this)">Show Answer</button>
+            <div id="ans15" class="answer-box">Asystole.</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>16.</strong> Which of the following conditions is typically NOT associated with acute chest pain?
+                <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                    <div>A. Myocardial Infarction</div>
+                    <div>B. Pulmonary Embolism</div>
+                    <div>C. Pancreatitis</div>
+                    <div>D. Aortic Dissection</div>
+                    <div>E. Pneumothorax</div>
+                </ul>
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans16', this)">Show Answer</button>
+            <div id="ans16" class="answer-box">C. Pancreatitis.</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>17.</strong> A patient presents with ptosis (drooping eyelid), shortness of breath, and limb weakness after being bitten by a snake. Which type of venom was the patient most likely exposed to?
+            </span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans17', this)">Show Answer</button>
+            <div id="ans17" class="answer-box">Neurotoxin (These symptoms indicate neuromuscular blockade).</div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="lab-wrapper" data-subject="U">
+    <div class="lab-center"><div class="lab-title">Unkown years<span class="Q-number">5 questions</span></div></div> 
+                        
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>18.</strong> Which part of the body acts as the primary barrier to protect internal structures from infection and mechanical injury?
+            </span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans18', this)">Show Answer</button>
+            <div id="ans18" class="answer-box">The skin and outer part of body.</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>19.</strong> What type of bleeding is characterized by a pulsating, spurting flow and a bright red color?
+            </span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans19', this)">Show Answer</button>
+            <div id="ans19" class="answer-box">Artery: pulsating flow, bright red color.</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>20.</strong> What type of burn is associated with pink, moist skin and blisters, is very painful, and is often caused by flash flames or hot liquids?
+            </span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans20', this)">Show Answer</button>
+            <div id="ans20" class="answer-box">Second degree burn: pink, moist, blister, very painful.</div>
+        </div>
+    </div>
+</div>
+<div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">21.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> What is the procedure done?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans7a', this)">Show Answer</button>
+                        <div id="ans7a" class="answer-box">CPR.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> When is it used? </span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans7b', this)">Show Answer</button>
+                        <div id="ans7b" class="answer-box">When there is no sign of life or when there is no pulse of heart or breathing.</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="https://i.imgur.com/huQINkd.jpeg"" alt="Exam Image" style="width:400px; height:250px;"></div>
+            </div>
+
+                 
+      <div class="quiz-card">
+    <div class="question-section">
+          <h3 class="question-number">22.</h3>
+        
+        <div class="question-item">
+            <span><strong>A.</strong> How is this burn classified?</span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans8a', this)">Show Answer</button>
+            <div id="ans8a" class="answer-box">Second-degree burn.</div>
+        </div>
+
+        <div class="question-item">
+            <span><strong>B.</strong> What clinical signs support this classification?</span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans8b', this)">Show Answer</button>
+            <div id="ans8b" class="answer-box">Presence of blisters and blanching.</div>
+        </div>
+
+        <div class="question-item">
+            <span><strong>C.</strong> What is the management protocol?</span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans8c', this)">Show Answer</button>
+            <div id="ans8c" class="answer-box">1. ABC assessment<br>
+                2. I.V. Fluids & Antibiotics<br>
+                3. Tetanus prophylaxis
+            </div>
+        </div>
+    </div>
+    <div class="image-section">
+        <img src="https://i.imgur.com/bahnjxd.jpeg" alt="Burn Case Image" style="height:150px;">
+    </div>
+</div>
+</div>
+</div>
+       
+
+    <footer class="site-footer">Developed by <strong>Shabaz Rasheed</strong></footer>
+</div>
+
+<script>
+    function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    
+    
+    const isLight = body.getAttribute('data-theme') === 'light';
+
+    if (isLight) {
+    
+        body.removeAttribute('data-theme');
+    
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+
+        body.setAttribute('data-theme', 'light');
+        
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}
+
+
+    function filterLabs(subject, btn) {
+        document.getElementById('search-input').value = '';
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const wrappers = document.querySelectorAll('.lab-wrapper');
+        wrappers.forEach(wrap => {
+            wrap.style.display = (subject === 'All' || wrap.dataset.subject === subject) ? "block" : "none";
+        });
+        
+        document.querySelectorAll('.quiz-card').forEach(card => card.style.display = "flex");
+    }
+
+    function toggleAnswer(id, btn) {
+        const answerDiv = document.getElementById(id);
+        if (btn.innerText === "Show Answer") {
+            btn.innerText = answerDiv.innerText;
+            btn.style.backgroundColor = "var(--ans-border)";
+        } else {
+            btn.innerText = "Show Answer";
+            btn.style.backgroundColor = "#729fcf";
+        }
+    }
+
+          function handleSearch() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const cards = document.querySelectorAll('.quiz-card');
+    const wrappers = document.querySelectorAll('.lab-wrapper');
+
+    
+    if (searchTerm !== "") {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        const allBtn = document.querySelector('.filter-btn[onclick*="All"]');
+        if (allBtn) allBtn.classList.add('active');
+        wrappers.forEach(w => w.style.display = "block");
+    }
+
+    cards.forEach(card => {
+        const span = card.querySelector('.question-item span');
+        const answerBox = card.querySelector('.answer-box');
+        
+
+        const questionText = span.innerText;
+        const answerText = answerBox.innerText;
+        const combinedText = (questionText + " " + answerText).toLowerCase();
+
+    
+        if (!span.dataset.original) {
+            span.dataset.original = span.innerHTML;
+        }
+        span.innerHTML = span.dataset.original;
+
+        if (searchTerm === "") {
+            card.style.display = "flex";
+        } else if (combinedText.includes(searchTerm)) {
+            card.style.display = "flex";
+            
+            
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            
+            span.innerHTML = span.dataset.original.replace(regex, '<mark>$1</mark>');
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+
+    wrappers.forEach(wrap => {
+        const hasVisibleCards = Array.from(wrap.querySelectorAll('.quiz-card'))
+                                     .some(c => c.style.display === "flex");
+        wrap.style.display = hasVisibleCards ? "block" : "none";
+    });
+}
+
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>End-Rotation_Histology_2022-2025</title>
+
+    <style>
+       :root {
+    
+    --bg-body: #0c0d0e;
+    --text-main: #f1f5f9;
+    --text-opts: #f1f5f9;
+    --header-bg: #1e293b;
+    --header-text: #38bdf8;
+    --border-color: #26292b;
+    --input-bg: #1a1c1e;
+    --input-border: #334155;
+    --ans-bg: #1e293b;
+    --ans-text: #f0cf6a;
+}
+
+[data-theme="light"] {
+
+    --bg-body: #ffffff;
+    --text-main: #000000;
+    --text-opts: #333333;
+    --header-bg: #2D2D2D;
+    --header-text: #ffffff;
+    --border-color: #e0e0e0;
+    --input-bg: #ffffff;
+    --input-border: #cccccc;
+    --ans-bg: #f1f8e9;
+    --ans-text: #2e7d32;
+}
+
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: none;
+            padding: 20px 30px;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .divider { border: none; border-top: 1px solid var(--border-color); margin-bottom: 25px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+        .ans-row { display: flex; justify-content: space-between; align-items: center; }
+        .ans-text { font-weight: 700; color: var(--ans-text); visibility: hidden; background-color: var(--ans-bg); padding: 6px 12px; border-radius: 4px; }
+        .q-block.revealed .ans-text { visibility: visible; }
+        .ans-btn { background-color: #729fcf; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+
+        mark { background-color: #f0cf6a; color: #000; }
+        a { color: inherit; text-decoration: none; }
+
+        @media (max-width: 600px) { .header { flex-direction: column; gap: 12px; } }
+    </style>
+</head>
+
+<body oncontextmenu="return false;"> 
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">Final & End-Rotation</h3>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Histology 🫁 • 2022-2025</p>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+           <button class="theme-toggle" onclick="toggleTheme()">
+    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+</button>
+    </div>
+   
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+<script>
+function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    
+    
+    const isLight = body.getAttribute('data-theme') === 'light';
+
+    if (isLight) {
+        
+        body.removeAttribute('data-theme');
+        
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+    
+        body.setAttribute('data-theme', 'light');
+    
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}
+
+const data = [
+
+  {
+    n: 1,
+    q: "In the Haversian system, what tiny canal connects central canals to lacunae in compact bone?",
+    o: [
+      "A. Volkmann's canals",
+      "B. Perforating canals",
+      "C. Canaliculi",
+      "D. Haversian canals",
+      "E. Interstitial lamellae"
+    ],
+    a: "C"
+  },
+  {
+    n: 2,
+    q: "What type of tissue is found in alveoli of lungs?",
+    o: [
+      "A. Simple squamous epithelium",
+      "B. Stratified squamous epithelium",
+      "C. Simple cuboidal epithelium",
+      "D. Pseudostratified columnar epithelium",
+      "E. Transitional epithelium"
+    ],
+    a: "A"
+  },
+  {
+    n: 3,
+    q: "What is the name of the tissue that covers cartilage?",
+    o: [
+      "A. Periosteum",
+      "B. Endosteum",
+      "C. Perimysium",
+      "D. Perichondrium",
+      "E. Epimysium"
+    ],
+    a: "D"
+  },
+  {
+    n: 4,
+    q: "In what structure of the synapse are neurotransmitters stored?",
+    o: [
+      "A. Postsynaptic membrane",
+      "B. Synaptic vesicle",
+      "C. Synaptic cleft",
+      "D. Dendritic spine",
+      "E. Axon hillock"
+    ],
+    a: "B"
+  },
+  {
+    n: 5,
+    q: "Tendon is ____________ connective tissue.",
+    o: [
+      "A. Loose irregular",
+      "B. Dense irregular",
+      "C. Elastic regular",
+      "D. Reticular",
+      "E. Dense regular"
+    ],
+    a: "E"
+  },
+  {
+    n: 6,
+    q: "Which type of neuron found in the sensory gangilia:",
+    o: [
+      "A. Multipolar",
+      "B. Bipolar",
+      "C. Psudounipolar",
+      "D. Unipolar",
+      "E. Anaxonic"
+    ],
+    a: "C"
+  },
+  {
+    n: 7,
+    q: "Alveoli epithelial tissue is:",
+    o: [
+      "A. Stratified squams",
+      "B. Simple cuboidal",
+      "C. Simple columnar",
+      "D. Simple squams",
+      "E. Transitional"
+    ],
+    a: "D"
+  },
+  {
+    n: 8,
+    q: "What is the type of the epithelial tissue of the pharynx:",
+    o: [
+      "A. Simple squamous",
+      "B. Stratified squams",
+      "C. Pseudostratified columnar",
+      "D. Simple cuboidal",
+      "E. Keratinized stratified squamous"
+    ],
+    a: "B"
+  },
+  {
+    n: 9,
+    q: "Ability of muscle cells to recoil back to their original position.",
+    o: [
+      "A. Excitability",
+      "B. Contractility",
+      "C. Extensibility",
+      "D. Conductivity",
+      "E. Elasticity"
+    ],
+    a: "E"
+  },
+  {
+    n: 10,
+    q: "How chondrocytes get their nutrient",
+    o: [
+      "A. Blood vessels in the lacunae",
+      "B. Direct contact with capillaries",
+      "C. Diffusion of extra cellular matrix",
+      "D. Active transport from periosteum",
+      "E. Lymphatic drainage"
+    ],
+    a: "C"
+  },
+  {
+    n: 11,
+    q: "Dendrites?",
+    o: [
+      "A. Transmit impulses away from cell body",
+      "B. Synthesize neurotransmitters",
+      "C. Myelinate the axon",
+      "D. Increase the surface area for receiving signals",
+      "E. Maintain the resting potential"
+    ],
+    a: "D"
+  },
+  {
+    n: 12,
+    q: "In the Haversian system, what tiny canal connects central canals to lacunae in compact bone?",
+    o: [
+      "A. Volkmann's canal",
+      "B. Canaliculi",
+      "C. Nutrient foramen",
+      "D. Central canal",
+      "E. Perforating canal"
+    ],
+    a: "B"
+  },
+  {
+    n: 13,
+    q: "What type of tissue is found in alveoli of lungs?",
+    o: [
+      "A. Simple squamous epithelium",
+      "B. Simple columnar epithelium",
+      "C. Simple cuboidal epithelium",
+      "D. Stratified squamous epithelium",
+      "E. Endothelium"
+    ],
+    a: "A"
+  },
+  {
+    n: 14,
+    q: "Canal connect the center of haversian system to the lacuna",
+    o: [
+      "A. Haversian canal",
+      "B. Volkmann canal",
+      "C. Transverse canal",
+      "D. Perforating canal",
+      "E. Canaliculi"
+    ],
+    a: "E"
+  },
+  {
+    n: 15,
+    q: "What type of tissue forms the alveoli in the lung?",
+    o: [
+      "A. Stratified squamous epithelium",
+      "B. Simple cuboidal epithelium",
+      "C. Simple squamous epithelium",
+      "D. Simple columnar epithelium",
+      "E. Pseudostratified epithelium"
+    ],
+    a: "C"
+  },
+  
+  {
+    n: 16,
+    q: "What type of tissue presents in vagina? (isn't mentioned in the lecture)",
+    o: [
+      "A. Simple columnar epithelium",
+      "B. Pseudostratified columnar epithelium",
+      "C. Keratinized stratified squamous epithelium",
+      "D. Non keratinized stratified epithelium",
+      "E. Transitional epithelium"
+    ],
+    a: "D"
+  },
+  
+  {
+    n: 17,
+    q: "The type of the junction that seals the outermost layer of the cells leaflet is? (isn't mentioned in the lec)",
+    o: [
+      "A. Gap junction",
+      "B. Tight junction",
+      "C. Desmosome",
+      "D. Adherent junction",
+      "E. Hemidesmosome"
+    ],
+    a: "B"
+  },
+  {
+    n: 18,
+    q: "Haversian system (osteons) develop around ? (isn't mentioned in the lec)",
+    o: [
+      "A. Nerve endings",
+      "B. Osteoblasts",
+      "C. Canaliculi",
+      "D. Collagen fibers",
+      "E. Blood vessels"
+    ],
+    a: "E"
+  },
+  
+  {
+    n: 19,
+    q: "All are true regarding dense regular connective tissue except?",
+    o: [
+      "A. It consists primarily of Type 1 collagen",
+      "B. It forms tendons and ligaments",
+      "C. It withstand a great stress tension when it is applied in different direction",
+      "D. Fibroblasts are the primary cell type",
+      "E. It has a poor blood supply"
+    ],
+    a: "C"
+  },
+  {
+    n: 20,
+    q: "The most common type of circulatory WBC are?",
+    o: [
+      "A. Lymphocytes",
+      "B. Monocytes",
+      "C. Eosinophils",
+      "D. Neutrophils",
+      "E. Basophils"
+    ],
+    a: "D"
+  },
+  {
+    n: 21,
+    q: "Which of the following is wrong about elastic cartrilage?",
+    o: [
+      "A. It contains elastic fibers",
+      "B. It contain only type 2 collagen",
+      "C. It is found in the external ear",
+      "D. It possesses a perichondrium",
+      "E. It does not calcify with age"
+    ],
+    a: "B"
+  },
+  {
+    n: 22,
+    q: "Nissl bodies responsible for:",
+    o: [
+      "A. Lipid synthesis",
+      "B. ATP production",
+      "C. Intracellular digestion",
+      "D. Impulse conduction",
+      "E. Protein synthesis"
+    ],
+    a: "E"
+  },
+  {
+    n: 23,
+    q: "Which of the following is not specialized for secretion?",
+    o: [
+      "A. Serous cells",
+      "B. Mucous cells",
+      "C. Ion transporting cells",
+      "D. Endocrine cells",
+      "E. Myoepithelial cells"
+    ],
+    a: "C"
+  },
+  {
+    n: 24,
+    q: "Is called blood barrier in the CNS is? ( isn't mentioned in the lec)",
+    o: [
+      "A. Astrocytes",
+      "B. Microglia",
+      "C. Oligodendrocytes",
+      "D. Ependymal cells",
+      "E. Schwann cells"
+    ],
+    a: "A"
+  },
+  {
+  n: 25,
+  q: "Which of the following best describes the typical location of an osteoblast?",
+  o: [
+    "A. Found within lacunae",
+    "B. Multinucleated giant cell",
+    "C. Derived from monocytes",
+    "D. Lining the surface of newly formed bone",
+    "E. Maintains bone matrix"
+  ],
+  a: "D"
+},
+  {
+    n: 26,
+    q: "Chondrocytes receive nutrients by?",
+    o: [
+      "A. Blood vessels in the matrix",
+      "B. Diffusion through the matrix",
+      "C. Canaliculi connecting to bone",
+      "D. Lymphatic vessels",
+      "E. Active transport from nerves"
+    ],
+    a: "B"
+  },
+  {
+    n: 27,
+    q: "Is a thin connective tissue surrounds the muscle fiber:",
+    o: [
+      "A. Perimysium",
+      "B. Epimysium",
+      "C. Deep fascia",
+      "D. Sarcolemma",
+      "E. Endomysium"
+    ],
+    a: "E"
+  },
+  {
+    n: 28,
+    q: "Which type of epithelial cell lines the urinary bladder",
+    o: [
+      "A. Simple cuboidal",
+      "B. Stratified squamous",
+      "C. Transitional Epithelia",
+      "D. Pseudostratified",
+      "E. Simple squamous"
+    ],
+    a: "C"
+  },
+  
+  {
+    n: 29,
+    q: "What is false about gap junction?",
+    o: [
+      "A. Allow passage of ions",
+      "B. Formed by connexons",
+      "C. Facilitate electrical coupling",
+      "D. Widely dispersed in cardiac and skeletal muscle",
+      "E. Found in many epithelial tissues"
+    ],
+    a: "D"
+  },
+  {
+    n: 30,
+    q: "Type of neuron in sensory ganglia?",
+    o: [
+      "A. Multipolar",
+      "B. Pseudounipolar",
+      "C. Bipolar",
+      "D. Pyramidal",
+      "E. Purkinje"
+    ],
+    a: "B"
+  },
+
+  {
+    n: 31,
+    q: "Contractile portion of muscle?",
+    o: [
+      "A. Sarcolemma",
+      "B. Sarcoplasmic reticulum",
+      "C. T-tubules",
+      "D. Myoglobin",
+      "E. Myofibrils"
+    ],
+    a: "E"
+  },
+
+  {
+    n: 32,
+    q: "What type of tissue found in alveoli?",
+    o: [
+      "A. Simple cuboidal epithelium",
+      "B. Pseudostratified columnar epithelium",
+      "C. Simple squamous epithelium",
+      "D. Stratified squamous epithelium",
+      "E. Transitional epithelium"
+    ],
+    a: "C"
+  },
+  
+  {
+    n: 33,
+    q: "When collagen fibers removed from areolar tissue it becomes:",
+    o: [
+      "A. Rigid and brittle",
+      "B. Dense and irregular",
+      "C. Highly vascularized",
+      "D. Loose and elastic",
+      "E. Calcified"
+    ],
+    a: "D"
+  },
+  {
+    n: 34,
+    q: "Which of the following is wrong about cilia?",
+    o: [
+      "A. Contain microtubules",
+      "B. Found in epididymis",
+      "C. Involved in movement",
+      "D. Possess a basal body",
+      "E. Found in respiratory tract"
+    ],
+    a: "B"
+  },
+  {
+    n: 35,
+    q: "What is the role of dendrites in case of motor neurons?",
+    o: [
+      "A. Insulate the axon",
+      "B. Generate action potentials",
+      "C. Transport neurotransmitters",
+      "D. Store glycogen",
+      "E. Form synapse"
+    ],
+    a: "E"
+  },
+  {
+    n: 36,
+    q: "Which of them is correct about havarsian systems (osteons)?",
+    o: [
+      "A. Formed around blood vessels",
+      "B. Present in spongy bone only",
+      "C. Lacks lamellae structure",
+      "D. Found in embryonic cartilage",
+      "E. Connected by dendrites"
+    ],
+    a: "A"
+  },
+  
+  {
+    n: 37,
+    q: "When a 60-year-old man gets bacterial lung infection, which of the cells increase ?",
+    o: [
+      "A. Basophils",
+      "B. Eosinophils",
+      "C. Neutrophils",
+      "D. Lymphocytes",
+      "E. Erythrocytes"
+    ],
+    a: "C"
+  },
+  {
+    n: 38,
+    q: "Main cells in connective tissue proper?",
+    o: [
+      "A. Osteocytes",
+      "B. Chondrocytes",
+      "C. Adipocytes",
+      "D. Fibroblasts",
+      "E. Mast cells"
+    ],
+    a: "D"
+  },
+       { n: 39, q: "Which of the following is a false statement regarding gap junctions?", o: ["A. They allow for direct electrical coupling", "B. They consist of connexon protein channels", "C. They are widely dispersed in cardiac and skeletal muscle", "D. They facilitate the passage of small ions", "E. They are essential for coordinated cardiac contraction"], a: "C" },
+ 
+ { n: 40, q: "Which type of neuron is typically found in sensory ganglia?", o: ["A. Pseudounipolar", "B. Multipolar", "C. Bipolar", "D. Anaxonic", "E. Pyramidal"], a: "A" },
+ { n: 41, q: "What is the primary contractile portion of a muscle cell?", o: ["A. Sarcoplasm", "B. Sarcolemma", "C. T-tubules", "D. Sarcoplasmic reticulum", "E. Myofibrils"], a: "E" },
+ 
+ { n: 42, q: "Which type of tissue is primarily found in the alveoli of the lungs?", o: ["A. Stratified cuboidal epithelium", "B. Simple columnar epithelium", "C. Transitional epithelium", "D. Simple squamous epithelium", "E. Pseudostratified epithelium"], a: "D" },
+ { n: 43, q: "When collagen fibers are removed from areolar tissue, the remaining tissue becomes?", o: ["A. Dense and rigid", "B. Loose and elastic", "C. Calcified and hard", "D. Fluid and non-viscous", "E. Fibrous and inelastic"], a: "B" },
+ { n: 44, q: "Which of the following is a wrong statement regarding cilia?", o: ["A. They are composed of microtubules", "B. They exhibit a 9+2 arrangement", "C. They are found in the epididymis", "D. They move fluid across the cell surface", "E. They are anchored by basal bodies"], a: "C" },
+ { n: 45, q: "What is the primary role of dendrites in motor neurons?", o: ["A. To insulate the axon", "B. To generate action potentials", "C. To transport neurotransmitters to the periphery", "D. To provide metabolic support to the nucleus", "E. To form synapses and receive incoming signals"], a: "E" },
+ { n: 46, q: "Which of the following is correct regarding Haversian systems (osteons)?", o: ["A. They are formed around blood vessels", "B. They are found only in spongy bone", "C. They lack a central canal", "D. They are composed of unorganized collagen", "E. They facilitate the storage of yellow marrow"], a: "A" },
+ 
+ { n: 47, q: "Which are the main immune cells responding to a bacterial lung infection in the elderly?", o: ["A. Basophils", "B. Eosinophils", "C. Lymphocytes", "D. Neutrophils", "E. Monocytes"], a: "D" },
+ { n: 48, q: "Which are the primary cells found in connective tissue proper?", o: ["A. Adipocytes", "B. Chondrocytes", "C. Fibroblasts", "D. Osteoblasts", "E. Mast cells"], a: "C" },
+ { n: 49, q: "How do chondrocytes receive their necessary nutrients?", o: ["A. Direct blood supply", "B. Diffusion through the matrix", "C. Active transport from nerves", "D. Absorption from the periosteum", "E. Filtration from the lymphatic system"], a: "B" },
+ { n: 50, q: "What type of epithelial tissue is found lining the vagina?", o: ["A. Simple cuboidal", "B. Keratinized stratified squamous", "C. Ciliated columnar", "D. Transitional", "E. Non-keratinized stratified squamous"], a: "E" },
+
+
+];
+
+const container = document.getElementById('quiz-content');
+
+function renderQuiz() {
+    container.innerHTML = '';
+    data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.searchText = (item.s + " " + item.q + " " + item.o.join(" ")).toLowerCase();
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <span class="ans-text">Answer: ${item.a}</span>
+                <button class="ans-btn" onclick="this.closest('.q-block').classList.toggle('revealed')">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function handleSearch() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+    
+    blocks.forEach(block => {
+        const qTextElem = block.querySelector('.q-text');
+        const optElems = block.querySelectorAll('li');
+        
+        
+        qTextElem.innerHTML = qTextElem.dataset.original;
+        optElems.forEach(li => li.innerHTML = li.dataset.original);
+
+        if (searchTerm === "") {
+            block.style.display = "block";
+        } else if (block.dataset.searchText.includes(searchTerm)) {
+            block.style.display = "block";
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            qTextElem.innerHTML = qTextElem.innerHTML.replace(regex, '<mark>$1</mark>');
+            optElems.forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+
+renderQuiz();
+</script>
+</body>
+</html>

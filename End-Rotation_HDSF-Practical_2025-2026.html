@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical End-Rotation_HDSF</title>
+    
+    <style>
+        :root {
+            --bg-body: #0c0d0e;
+            --text-main: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --card-bg: #1a1c1e;
+            --card-border: #26292b;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --ans-border: #2e7d32;
+            --input-border: #334155;
+        
+        }
+
+        [data-theme="light"] {
+          
+            --bg-body: #f4f4f9;
+            --text-main: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --card-bg: #ffffff;
+            --card-border: #cccccc;
+            --ans-bg: #e8f5e9;
+            --ans-text: #2e7d32;
+            --ans-border: #2e7d32;
+            --input-border: #cccccc;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .container { width: 100%; max-width: none; }
+
+        .header { 
+            text-align: center; 
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        
+        
+        
+
+        .controls-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            align-items: center;
+        }
+
+        .filter-container {
+            display: flex;
+            flex: 1;
+            gap: 8px;
+            background-color: var(--card-bg);
+            padding: 6px;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            overflow-x: auto;
+        }
+
+        .filter-btn {
+            background-color: transparent;
+            border: 1px solid transparent;
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background-color: #729fcf;
+            color: white;
+        }
+
+        .theme-toggle {
+            flex-shrink: 0;
+            background-color: var(--card-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+    .site-footer {
+    margin-top: 80px;
+    padding: 15px;
+    text-align: center;
+    font-size: 0.75rem;
+    opacity: 0.5;
+    border-top: 1px solid var(--card-border);
+    
+}
+        
+        .question-number{
+          
+          margin-bottom: 40px;
+        }
+        
+
+        .quiz-card {
+            display: flex;
+            flex-direction: row; 
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            margin-bottom: 30px; 
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .quiz-card:last-child {
+    margin-bottom: 200px;
+}
+
+        .question-section { flex: 1.2; padding: 25px; }
+        .image-section {
+            flex: 1;
+            padding: 15px;
+            background-color: var(--card-bg); 
+            border-left: 1px solid var(--card-border);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-section img { max-width: 100%; height: auto; border-radius: 6px; }
+        .question-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--card-border); }
+        .question-item:last-child { border-bottom: none; }
+        
+        .answer-box {
+    display: none !important;
+}
+
+        button.ans-btn {
+            background-color: #729fcf;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .lab-title {
+            text-align: left;
+            margin: 80px 0 20px 0;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #729fcf;
+            padding-bottom: 5px;
+            display: flex;
+            align-items:center;
+            justify-content: space-between;
+            width: 100%;      
+            border-bottom: 1px solid var(--card-border);
+        }
+            
+        .lab-center { text-align: left; width: 100%; }
+        
+        .Q-number{
+          font-size:12px;
+          border:1px solid green;
+          padding:3px;
+          border-radius:3px;
+          color:green;
+          
+          
+        }
+
+        @media (max-width: 700px) {
+            .quiz-card { flex-direction: column-reverse; }
+            .image-section { border-left: none; border-bottom: 1px solid var(--card-border); }
+            .header { flex-direction: column; gap: 12px; }
+            .filter-btn { padding: 8px 8px; font-size: 0.75rem; }
+        }
+
+        @media print { body { display: none !important; } }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">End-Rotation</h3>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Microbiology & Anatomy Labs • 2025-2026</p>
+        </div>
+        
+    </div>
+    
+
+    <div class="controls-row">
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterLabs('All', this)">All Labs</button>
+            <button class="filter-btn" onclick="filterLabs('Anatomy', this)">Anatomy 🦴</button>
+            <button class="filter-btn" onclick="filterLabs('Microbiology', this)">Microbiology 🧫</button>
+        </div>
+        
+        <button class="theme-toggle" onclick="toggleTheme()">
+    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+</button>
+    </div>
+
+    <div id="quiz-content">
+      
+        
+        <div class="lab-wrapper" data-subject="Anatomy">
+            <div class="lab-center"><div class="lab-title">ANATOMY 🦴 <span class="Q-number">6 questions</span></div></div>
+            
+            <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">1.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> Name the structure A.</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1a', this)">Show Answer</button>
+                        <div id="ans1a" class="answer-box">Ileum.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> Name the structure B.</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1b', this)">Show Answer</button>
+                        <div id="ans1b" class="answer-box">Appendix.</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Ilium-Appendix.jpg" alt="Exam Image"></div>
+            </div>
+
+            <div class="quiz-card">
+                <div class="question-section">
+                       <h3 class="question-number">2.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> What is the pointed area?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1c', this)">Show Answer</button>
+                        <div id="ans1c" class="answer-box">Esophagus opening.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> What is its vertebral level?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1d', this)">Show Answer</button>
+                        <div id="ans1d" class="answer-box">T10.</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Esophagus opening.jpg" alt="Exam Image"></div>
+            </div>
+
+            <div class="quiz-card">
+                <div class="question-section">
+                       <h3 class="question-number">3.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> Name the structure A.</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1e', this)">Show Answer</button>
+                        <div id="ans1e" class="answer-box">Brachiocephalic artery.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> Name the structure B.</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1f', this)">Show Answer</button>
+                        <div id="ans1f" class="answer-box">Left subclavian artery.</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Arteries.jpg" alt="Exam Image"></div>
+            </div>
+        
+            <div class="quiz-card">
+                <div class="question-section">
+                       <h3 class="question-number">4.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> Name the structure A.</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1g', this)">Show Answer</button>
+                        <div id="ans1g" class="answer-box">Transverse proccess.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> Name the structure B.</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1h', this)">Show Answer</button>
+                        <div id="ans1h" class="answer-box">Transverse costal facet.</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Transverse process.jpg" alt="Exam Image"></div>
+            </div>
+      
+            <div class="quiz-card">
+                <div class="question-section">
+                     <h3 class="question-number">5.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> Name the structure A.</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1i', this)">Show Answer</button>
+                        <div id="ans1i" class="answer-box">Trigone.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> Name the structure B.</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1l', this)">Show Answer</button>
+                        <div id="ans1l" class="answer-box">Bulbourethral glands (Cowper's gland).</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Trigone.jpg" alt="Exam Image" style="height:260px; width:900px;"></div>
+            </div>
+      
+            <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">6.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> Name the pointed area.</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1m', this)">Show Answer</button>
+                        <div id="ans1m" class="answer-box">Auditory opening.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> Location.</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1n', this)">Show Answer</button>
+                        <div id="ans1n" class="answer-box">Lateral wall of nasopharynx.</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Nasopharynx.jpg" alt="Exam Image"></div>
+            </div>
+        </div>
+        </div>
+        
+        
+        
+        
+
+        <div class="lab-wrapper" data-subject="Microbiology">
+            <div class="lab-center"><div class="lab-title">MICROBIOLOGY LABS 🧫 <span class="Q-number">4 questions</span></div></div>
+
+             <div class="quiz-card">
+                <div class="question-section">
+                      <h3 class="question-number">7.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> What is this called?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans2b', this)">Show Answer</button>
+                        <div id="ans2b" class="answer-box">Autoclave.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> What is used for?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans2c', this)">Show Answer</button>
+                        <div id="ans2c" class="answer-box">Sterilizing culture media.</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Autoclave.jpg" alt="Exam Image"></div>
+            </div>
+                  
+                        
+
+            <div class="quiz-card">
+                <div class="question-section">
+                 <h3 class="question-number">8.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> Type of sample A?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans2x', this)">Show Answer</button>
+                        <div id="ans2x" class="answer-box">Swab sample.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> Type of sample B?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans2z', this)">Show Answer</button>
+                        <div id="ans2z" class="answer-box">Blood samlple.</div>
+                    </div>
+                </div>
+                <div class="samplps">
+                  
+                    <div class="image-section"><img src="Swabsample.jpg" alt="Exam Image" style="height:160px;"></div>
+                <div class="image-section"><img src="Bloodsample.jpg" alt="Exam Image" style="height:150px;"></div>
+                  
+                </div>
+              
+            </div>
+
+            <div class="quiz-card">
+                <div class="question-section">
+                        
+                    <div class="question-item">
+                        <span class="question-text"><strong>9.</strong> Which of the following is acid-fast bacteria?</span>
+    
+    <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+        <div>A. Staphylococcus aureus</div>
+        <div>B. Mycobacterium tuberculosis</div>
+        <div>C. Streptococcus pneumoniae</div>
+        <div>D. Neisseria gonorrhoeae</div>
+        <div>E. Escherichia coli</div>
+    </ul>
+                        <button class="ans-btn" onclick="toggleAnswer('ans2d', this)">Show Answer</button>
+                        <div id="ans2d" class="answer-box">B. Mycobacterium tuberculosis</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Acid-fast.jpg" alt="Exam Image"></div>
+            </div>
+
+            <div class="quiz-card">
+                <div class="question-section">
+                     <h3 class="question-number">10.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> Identify the media.</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans2e', this)">Show Answer</button>
+                        <div id="ans2e" class="answer-box">SDA agar.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> What type of organism?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans2f', this)">Show Answer</button>
+                        <div id="ans2f" class="answer-box">Mold.</div>
+                    </div>
+                </div>
+                <div>
+                   <div class="image-section"><img src="Fungi.jpg" alt="Exam Image" style="height:140px;"></div>
+                <div class="image-section"><img src="Mold.jpg" alt="Exam Image" style="height:195px;"></div>
+                  
+                </div>
+               
+            </div>
+    </div>
+</div>
+ <footer class="site-footer">
+    Developed by <strong>Shabaz Rasheed</strong>
+</footer>
+
+           
+<script>
+    function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    
+    // Check if we are currently in light mode
+    const isLight = body.getAttribute('data-theme') === 'light';
+
+    if (isLight) {
+        // Switch to DARK (The Default)
+        body.removeAttribute('data-theme');
+        // Change icon to SUN (so user can switch back to Light)
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+        // Switch to LIGHT
+        body.setAttribute('data-theme', 'light');
+        // Change icon to MOON (so user can switch back to Dark)
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}
+
+    function filterLabs(subject, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const wrappers = document.querySelectorAll('.lab-wrapper');
+        wrappers.forEach(wrap => {
+            wrap.style.display = (subject === 'All' || wrap.dataset.subject === subject) ? "block" : "none";
+        });
+    }
+
+    function toggleAnswer(id, btn) {
+        const answerDiv = document.getElementById(id);
+        const answerText = answerDiv.innerText;
+
+        if (btn.innerText === "Show Answer") {
+            btn.innerText = answerText;
+            btn.style.backgroundColor = "var(--ans-border)";
+        } else {
+            btn.innerText = "Show Answer";
+            btn.style.backgroundColor = "#729fcf";
+        }
+    }
+</script>
+
+</body>
+</html>

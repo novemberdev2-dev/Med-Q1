@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All questions_HDSF_2025-2026</title>
+
+    <style>
+       :root {
+            --bg-body: #121212;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #2a2f36;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --filter-bg: transparent;
+            --filter-txt-active: #1A1A1A;
+            --filter-bg-active:  #DDDDDD;
+            --filter-border-active: #DDDDDD;
+            --ans-btn-bg: #D3D3D3;
+            --ans-btn-txt: #1A1A1A;
+        }
+
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #eef6e4;
+            --ans-text: #2e7d32;
+            --filter-bg: transparent;
+            --filter-txt-active:  #ffffff;
+            --filter-bg-active: #4D4D4D;
+            --filter-border-active: #4D4D4D;
+            --ans-btn-bg:  #555555;
+            --ans-btn-txt: #ffffff;
+        }
+
+        .filter-btn.active {
+            background-color: var(--filter-bg-active);
+            color: var(--filter-txt-active);
+            border-color: var(--filter-border-active);
+        }
+
+        body {
+            -webkit-user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1150px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 7px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .filter-container {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        .divider { border: none; margin-bottom: 12px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+
+        .ans-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ans-btn {
+            background-color: var(--ans-btn-bg);
+            color: var(--ans-btn-txt);
+            border: none;
+            padding: 7px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-weight: 650;
+            font-size: 16px;
+        }
+
+        .q-block.revealed .ans-btn {
+            background-color: var(--ans-bg);
+            color: var(--ans-text);
+            font-weight: 700;
+            padding: 7px 12px;
+            font-size: 16px;
+        }
+
+        mark { background-color: #f0cf6a; color: #000; }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-opts);
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.6;
+            box-sizing: border-box;
+            width: 100%;
+            display: block; 
+        }
+
+        .section-heading-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mcq-count-badge {
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 2px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body oncontextmenu="return false;">
+
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">End-Rotation</h3>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Anatomy 🦴 • 2025-2026</p>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+        
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="filter-container" id="filter-bar"></div>
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+<script>
+
+const allQuestions = [
+  { n: 1, s: "Introduction to anatomy", q: "Where is superficial fascia?", o: ["A. Under skin the fatty tissue","B. Deep to deep fascia","C. Between muscle layers","D. Between skin layers","E. Around internal organs"], a: "A" },
+  { n: 2, s: "Introduction to anatomy", q: "A structure is anterior to another when it is.......", o: ["A. Behind it","B. Below it","C. Lateral to it","D. In front of it","E. Above it"], a: "D" },
+  { n: 3, s: "Introduction to anatomy", q: "Which of the following is correct about superficial fascia:", o: ["A. Dense connective tissue covering muscles","B. Fatty layer located directly under the skin","C. Fibrous layer around organs","D. Cartilaginous supportive tissue","E. Elastic tissue of joints"], a: "B" },
+  { n: 4, s: "Introduction to anatomy", q: "Adduction is .........", o: ["A. Movement away from the midline in sagittal plane","B. Rotation around long axis","C. Circular movement of a joint","D. Forward movement in sagittal plane","E. Movement of a part of body toward the midline in coronal plane"], a: "E" },
+  { n: 5, s: "Introduction to anatomy", q: "What's the type of fascia found in parotid gland? (Not in the lecture)", o: ["A. Pretracheal fascia","B. Prevertebral fascia","C. Investing fascia","D. Deep cervical fascia","E. Buccopharyngeal fascia"], a: "C" },
+  { n: 6, s: "Introduction to anatomy", q: " Which one of the following is a bone within a tendon:", o: ["A. Sesamoid bone","B. Flat bone","C. Long bone","D. Compact bone","E. Irregular bone"], a: "A" },
+
+  { n: 7, s: "Axil skeleton", q: "The transverse process of the thoracic vertebrae articulates with:", o: ["A. Head of the rib","B. Tubercle of the rib","C. Neck of the rib","D. Angle of the rib","E. Body of the rib"], a: "B" },
+  { n: 8, s: "Axil skeleton", q: "Which one of the following all cervical vertebrae have?", o: ["A. They all have a body","B. They all have an arch","C. Bifidius spine","D. Costal facet","E. Transverse foramen"], a: "E" },
+  { n: 9, s: "Axil skeleton", q: "The shaft of the bone that lies in the core is also called?", o: ["A. Epiphysis","B. Metaphysis","C. Apophysis","D. Diaphysis","E. Periosteum"], a: "D" },
+  { n: 10, s: "Axil skeleton", q: "Which of the following is a cranial (not facial) bone?", o: ["A. Maxilla bone","B. Zygomatic bone","C. Temporal bone","D. Palatine bone","E. Nasal bone"], a: "C" },
+  { n: 11, s: "Axil skeleton", q: "The tubercle of the ribs articulate with the:", o: ["A. Transverse process","B. Spinous process","C. Body of vertebra","D. Vertebral arch","E. Lamina"], a: "A" },
+  { n: 12, s: "Appendicular system", q: "Medial and lateral malleolus articulate with:", o: ["A. Calcaneus","B. Navicular","C. Cuboid","D. Cuneiform","E. Talus"], a: "E" },
+
+  { n: 13, s: "Respiratory system", q: "The trachea splits into two branches at ........", o: ["A. Larynx","B. Carina","C. Hilum","D. Bronchi","E. Epiglottis"], a: "B" },
+  { n: 14, s: "Respiratory system", q: "Located between the lungs:", o: ["A. Pleura","B. Pericardium","C. Mediastinum","D. Diaphragm","E. Hilum"], a: "C" },
+  { n: 15, s: "Respiratory system", q: "Choose the correct one about auditory tube:", o: ["A. Connects external ear to middle ear","B. Connects inner ear to brain","C. Connects cochlea to vestibule","D. Connects middle ear to the nasopharynx","E. Connects tympanic membrane to ossicles"], a: "D" },
+  { n: 16, s: "Respiratory system", q: "The root of the lungs located at:", o: ["A. Mediastinum surface of the lung","B. Diaphragmatic surface of lung","C. Apex of the lung","D. Costal surface of the lung","E. Pleural cavity"], a: "A" },
+  { n: 17, s: "Respiratory system", q: "Hilum of the lung is located in:", o: ["A. Costal surface","B. Mediastinum surface","C. Apex","D. Diaphragmatic surface","E. Pleural cavity"], a: "B" },
+  { n: 18, s: "Respiratory system", q: "Auditory tube go through the __________ nasopharynx.", o: ["A. Posterior wall","B. Roof","C. Anterior wall","D. Lateral wall","E. Floor"], a: "D" },
+  { n: 19, s: "Respiratory system", q: "It is the most important muscle of inhalation:", o: ["A. External intercostals","B. Internal intercostals","C. Sternocleidomastoid","D. Scalene muscles","E. Diaphragm"], a: "E" },
+  { n: 20, s: "Respiratory system", q: "The Palatine tonsil is located in:", o: ["A. Posterior wall of nasopharynx","B. Medial wall of laryngopharynx","C. Lateral wall of oro-pharynx","D. Floor of oral cavity","E. Roof of nasopharynx"], a: "C" },
+  { n: 21, s: "Respiratory system", q: "Cricoid cartilage is located at:", o: ["A. C6","B. C4","C. C5","D. C3","E. C7"], a: "A" },
+
+  { n: 22, s: "Joints", q: "Is an uniaxial joint:", o: ["A. Ball and socket joint","B. Saddle joint","C. Plane joint","D. Condyloid joint","E. Hinge joint"], a: "E" },
+  { n: 23, s: "Joints", q: "During excessive abduction or lateral rotation of the arm the head of humerus derived:", o: ["A. Superiorly","B. Inferiorly","C. Medially","D. Posteriorly","E. Anteriorly"], a: "B" },
+  { n: 24, s: "Joints", q: "Ellipsoid joints perform all the following except:", o: ["A. Flexion","B. Extension","C. Rotation","D. Abduction","E. Adduction"], a: "C" },
+  { n: 25, s: "Joints", q: "The clavicle articulates with which part of the sternum?", o: ["A. Body","B. Xiphoid process","C. Costal cartilage","D. Manubrium","E. Jugular notch"], a: "D" },
+
+{ n: 26, s: "Joints", q: "The superior tibiofibular joint is:", o: ["A. Gliding","B. Biaxial","C. Multiaxial","D. Uniaxial","E. Fibrous"], a: "A" },
+  { n: 27, s: "Joints", q: "The movement of the distal and proximal radio-ulnar joint:", o: ["A. Flexion and extension","B. Supination and pronation","C. Abduction and adduction","D. Rotation and circumduction","E. Elevation and depression"], a: "B" },
+  { n: 28, s: "Joints", q: "Medial end of clavicle articulates with:", o: ["A. Body of sternum","B. Xiphoid process","C. First rib","D. Acromion","E. Manubrium"], a: "E" },
+  { n: 29, s: "Joints", q: "Hip joint is:", o: ["A. Uniaxial joint","B. Biaxial joint","C. Plane joint","D. Multiaxial joint","E. Hinge joint"], a: "D" },
+  { n: 30, s: "Joints", q: "The possible movements of radioulnar joints are:", o: ["A. Flexion and extension","B. Abduction and adduction","C. Pronation and supination","D. Rotation and circumduction","E. Elevation and depression"], a: "C" },
+  { n: 31, s: "Joints", q: "Sternoclavicular joint is a:", o: ["A. Gliding joint","B. Saddle joint","C. Ball and socket joint","D. Hinge joint","E. Pivot joint"], a: "B" },
+  { n: 32, s: "Joints", q: "Head of the humerus articulates with:", o: ["A. Acromion","B. Coracoid process","C. Clavicle","D. Scapular spine","E. Glenoid cavity"], a: "E" },
+  { n: 33, s: "Joints", q: "Inferior radioulnar joint stabilized by:", o: ["A. Interosseous membrane","B. Articular disk","C. Annular ligament","D. Joint capsule","E. Collateral ligaments"], a: "B" },
+
+  { n: 34, s: "Digestive system", q: "Greater omentum attach the stomach to the:", o: ["A. Liver","B. Spleen","C. Transverse colon","D. Pancreas","E. Duodenum"], a: "C" },
+  { n: 35, s: "Digestive system", q: "The liver divided into right and left lobes by:", o: ["A. Coronary ligament","B. Round ligament","C. Triangular ligament","D. Falciform ligament","E. Hepatogastric ligament"], a: "D" },
+  { n: 36, s: "Digestive system", q: "Rectum continues as:", o: ["A. Anal canal","B. Sigmoid colon","C. Cecum","D. Ascending colon","E. Descending colon"], a: "A" },
+  { n: 37, s: "Digestive system", q: "Bile is stored in __________?", o: ["A. Liver","B. Gall bladder","C. Pancreas","D. Duodenum","E. Spleen"], a: "B" },
+  { n: 38, s: "Digestive system", q: "Cystic duct joins common hepatic duct to form?", o: ["A. Hepatic duct","B. Pancreatic duct","C. Accessory bile duct","D. Duodenal duct","E. Common bile duct"], a: "E" },
+  { n: 39, s: "Digestive system", q: "Which of the following organs is intraperitoneal:", o: ["A. Duodenum","B. Pancreas","C. Ascending colon","D. Stomach","E. Kidneys"], a: "D" },
+  { n: 40, s: "Digestive system", q: "The greater omentum is attached to:", o: ["A. Lesser curvature of the stomach","B. Liver","C. Greater curvature of the stomach","D. Pancreas","E. Duodenum"], a: "C" },
+  { n: 41, s: "Digestive system", q: "Parotid gland open into:", o: ["A. Into mouth vestibule opposite the second upper molar tooth","B. Oral cavity proper","C. Floor of mouth","D. Nasopharynx","E. Oropharynx"], a: "A" },
+  { n: 42, s: "Digestive system", q: "The structure that is in relation to anterior abdominal wall it's base situated one third the way up joining the right anterior superior iliac spine to umbilicus:", o: ["A. Cecum","B. Ascending colon","C. Ileum","D. Sigmoid colon","E. Appendix"], a: "E" },
+  { n: 43, s: "Digestive system", q: "Is a retroperitoneal organs:", o: ["A. Stomach","B. Duodenum","C. Spleen","D. Jejunum","E. Ileum"], a: "B" },
+  { n: 44, s: "Digestive system", q: "Rectum is continuation of:", o: ["A. Descending colon","B. Transverse colon","C. Sigmoid colon","D. Ascending colon","E. Cecum"], a: "C" },
+  { n: 45, s: "Digestive system", q: "Which of the following is retroperitoneal?", o: ["A. Transverse colon","B. Sigmoid colon","C. Jejunum","D. Ascending colon","E. Ileum"], a: "D" },
+  { n: 46, s: "Digestive system", q: "The pancreas lies:", o: ["A. Behind the stomach","B. In front of the stomach","C. Below the stomach","D. Above the stomach","E. Lateral to the stomach"], a: "A" },
+  { n: 47, s: "Digestive system", q: "Which of the following is true about the duodenum?", o: ["A. It is intraperitoneal","B. It is wholly retroperitoneal","C. It is partly intraperitoneal","D. It is mesenteric","E. It is subperitoneal"], a: "B" },
+  { n: 48, s: "Digestive system", q: "Which one is correct about the location of the appendix?", o: ["A. Pelvic","B. Pre-ileal","C. Post-ileal","D. Subcecal","E. Retrocecal"], a: "E" },
+  { n: 49, s: "Digestive system", q: "Which one is right about peritoneal cavity?", o: ["A. Contains air","B. Contains organs","C. Contains fat","D. Contains only fluid","E. Contains muscles"], a: "D" },
+  { n: 50, s: "Digestive system", q: "Which one of the following is a peritoneal organ?", o: ["A. Duodenum","B. Pancreas","C. Jejunum","D. Ascending colon","E. Ureters"], a: "C" },
+  
+  { n: 51, s: "Digestive system", q: "What attaches the small intestine to the posterior wall of abdomen?", o: ["A. Mesentery","B. Mesocolon","C. Omentum","D. Ligamentum teres","E. Falciform ligament"], a: "A" },
+
+  { n: 52, s: "Nervous system", q: "Sally understands the speech but cant use her vocalises to produce sound, which part of her brain is defected?", o: ["A. Wernicke's area","B. Motor cortex","C. Auditory cortex","D. Visual cortex","E. Broca's area"], a: "E" },
+  { n: 53, s: "Nervous system", q: "Ventral ramus is:", o: ["A. Sensory nerve","B. Mixed nerve","C. Motor nerve","D. Autonomic nerve","E. Visceral nerve"], a: "B" },
+  { n: 54, s: "Autonomic nervous system", q: "The fight or flight is being controlled by which part of CNS?", o: ["A. Parasympathetic system","B. Somatic nervous system","C. Sympathetic system","D. Central nervous system","E. Enteric nervous system"], a: "C" },
+  { n: 55, s: "Nervous system", q: "The white matter is referred to the myelinated axons in?", o: ["A. PNS","B. Autonomic nervous system","C. Enteric nervous system","D. CNS","E. Peripheral receptors"], a: "D" },
+  { n: 56, s: "Nervous system", q: "Central nervous system is composed of:", o: ["A. Brain and spinal cord","B. Brain and nerves","C. Spinal cord and ganglia","D. Nerves and ganglia","E. Brain and ganglia"], a: "A" },
+  { n: 57, s: "Nervous system", q: "The part which ONLY sensory (afferent) nerve fibers are present in?", o: ["A. Ventral root","B. Dorsal root","C. Ventral ramus","D. Spinal nerve","E. Sympathetic trunk"], a: "B" },
+  { n: 58, s: "Autonomic nervous system", q: "The sympathetic tract has:", o: ["A. 10 white rami communicantes","B. 12 white rami communicantes","C. 16 white rami communicantes","D. 18 white rami communicantes","E. 14 white rami communicantes"], a: "E" },
+  { n: 59, s: "Nervous system", q: "Accumulation of cell bodies in the PNS?", o: ["A. Nuclei","B. Tracts","C. Fasciculi","D. Ganglia","E. Roots"], a: "D" },
+  { n: 60, s: "Nervous system", q: "The node which is called as Pacemaker is?", o: ["A. Atrioventricular node","B. Bundle of His","C. Sinoatrial node","D. Purkinje fibers","E. Chordae tendineae"], a: "C" },
+  { n: 61, s: "Nervous system", q: "The type of the cell that connect between the neurons is?", o: ["A. Interneurons","B. Sensory neurons","C. Motor neurons","D. Neuroglia","E. Schwann cells"], a: "A" },
+
+  { n: 62, s: "Appendicular system", q: "Surgical neck of the humerus associated with:", o: ["A. Radial nerve","B. Median nerve","C. Ulnar nerve","D. Musculocutaneous nerve","E. Axillary nerve"], a: "E" },
+
+  { n: 63, s: "Nervous system", q: "Transport information from CNS?", o: ["A. Afferent","B. Efferent","C. Interneurons","D. Sensory","E. Receptor"], a: "B" },
+  { n: 64, s: "Nervous system", q: "The cranial nerve responsible for shoulder shrugging and neck rotation?", o: ["A. Trigeminal nerve","B. Facial nerve","C. Accessory nerve","D. Glossopharyngeal nerve","E. Hypoglossal nerve"], a: "C" },
+  { n: 65, s: "Autonomic nervous system", q: "Which of the following is not effectory organ in (ANS):", o: ["A. Heart","B. Smooth muscle","C. Glands","D. Medulla oblongata","E. Blood vessels"], a: "D" },
+  { n: 66, s: "Nervous system", q: "The nucleus of the parasympathetic ganglion is located in:", o: ["A. Lateral S2-S3-S4","B. Lateral C4-C7","C. Lateral S3-S4-S5","D. Lateral S4-S3-S2","E. Lateral T1-T5"], a: "A" },
+
+  { n: 67, s: "Muscles", q: "It is muscle of facial expression innervatated by facial nerve:", o: ["A. Masseter","B. Frontalis","C. Temporalis","D. Medial pterygoid","E. Lateral pterygoid"], a: "B" },
+
+  { n: 68, s: "Nervous system", q: "A patient has difficulty opening eyelid, which nerve is defected?", o: ["A. Trochlear nerve","B. Abducent nerve","C. Optic nerve","D. Trigeminal nerve","E. Superior division of oculomotor"], a: "E" },
+
+  { n: 69, s: "Appendicular system", q: "Which one is correct about the humerus?", o: ["A. Greater tubercle is supplied by radial nerve","B. Anatomical neck is supplied by median nerve","C. Shaft is supplied by ulnar nerve","D. Surgical neck is supplied by axillary nerve","E. Medial epicondyle is supplied by musculocutaneous nerve"], a: "D" },
+
+  { n: 70, s: "Nervous system", q: "Precentral gyrus is:", o: ["A. Sensory area","B. Visual area","C. Motor area","D. Auditory area","E. Association area"], a: "C" },
+
+  { n: 71, s: "Nervous system", q: "The nerve which is responsible for the movement of the shoulder?", o: ["A. Accessory nerve","B. Radial nerve","C. Median nerve","D. Ulnar nerve","E. Phrenic nerve"], a: "A" },
+  { n: 72, s: "Nervous system", q: "Nerve cells in CNS called:", o: ["A. Ganglia","B. Tracts","C. Fasciculi","D. Roots","E. Nucleus"], a: "E" },
+  { n: 73, s: "Nervous system", q: "Coordinates musculoskeletal movement to maintain posture, balance, and muscle tone:", o: ["A. Cerebrum","B. Cerebellum","C. Medulla oblongata","D. Pons","E. Thalamus"], a: "B" },
+  { n: 74, s: "Nervous system", q: "The numbers of cervical nerves are:", o: ["A. 6","B. 7","C. 8","D. 9","E. 10"], a: "C" },
+  { n: 75, s: "Nervous system", q: "What nerve is involved in shrugging of the shoulder and movement of the head?", o: ["A. Phrenic nerve","B. Vagus nerve","C. Hypoglossal nerve","D. Accessory nerve","E. Facial nerve"], a: "D" },
+  
+  
+  { n: 76, s: "Autonomic nervous system", q: "The sympathetic trunk contains ___________ rami communicants.", o: ["A. 14", "B. 12", "C. 10", "D. 16", "E. 18"], a: "A" },
+  { n: 77, s: "Nervous system", q: "If a patient can't move the mandible up and down, the defect might be in which nerve?", o: ["A. Maxillary nerve", "B. Mandibular nerve", "C. Facial nerve", "D. Hypoglossal nerve", "E. Glossopharyngeal nerve"], a: "B" },
+  { n: 78, s: "Nervous system", q: "The nucleus of parasympathetic preganglionic neurons is located in:", o: ["A. Lateral horns (T1-T5)", "B. Lateral horns (C5-C8)", "C. Lateral horns (S2-S4)", "D. Anterior horns (T1-T4)", "E. Anterior horns (S2-S4)"], a: "C" },
+  { n: 79, s: "Genitourinary system", q: "Internal female reproductive organs", o: ["A. Vulva and labia", "B. Mons pubis and clitoris", "C. Vestibule and hymen", "D. Vagina, cervix, uterus, fallopian tubes, and ovaries", "E. Labia majora and minora"], a: "D" },
+  { n: 80, s: "Nervous system", q: "Maintains posture and balance:", o: ["A. Cerebrum", "B. Medulla oblongata", "C. Cerebellum", "D. Pons", "E. Thalamus"], a: "C" },
+  { n: 81, s: "Nervous system", q: "The parasympathetic preganglionic neurons are located in?", o: ["A. Lateral horn of S2-S4", "B. Anterior horn of C5-C8", "C. Lateral horn of T1-T5", "D. Posterior horn of T1-T4", "E. Central canal"], a: "A" },
+  { n: 82, s: "Nervous system", q: "Responsible for vision sense:", o: ["A. Oculomotor", "B. Trochlear", "C. Abducent", "D. Trigeminal", "E. Optic"], a: "E" },
+  { n: 83, s: "Nervous system", q: "Which one is correct about the spinal cord?", o: ["A. It has 7 cervical segments", "B. It has 8 cervical segments", "C. It has 6 cervical segments", "D. It has 9 cervical segments", "E. It has 10 cervical segments"], a: "B" },
+  { n: 84, s: "Nervous system", q: "Posterior fontanelle is located between:", o: ["A. Frontal and parietal", "B. Temporal and parietal", "C. Parietal and occipital", "D. Frontal and temporal", "E. Occipital and temporal"], a: "C" },
+  { n: 85, s: "Nervous system", q: "In the brain, the vision area lies in:", o: ["A. Frontal lobe", "B. Parietal lobe", "C. Temporal lobe", "D. Occipital lobe", "E. Insular lobe"], a: "D" },
+  { n: 86, s: "Nervous system", q: "Parietal lobe is responsible for:", o: ["A. Vision", "B. General sensation", "C. Hearing", "D. Speech", "E. Smell"], a: "B" },
+  { n: 87, s: "Autonomic nervous system", q: "Sympathetic trunk is also called:", o: ["A. Craniosacral", "B. Thoracolumbar", "C. Enteric", "D. Somatic", "E. Parasympathetic"], a: "B" },
+  { n: 88, s: "Cardiovascular system", q: "Choose the correct one about the internal jugular vein:", o: ["A. Drains blood from the heart", "B. Is a branch of the subclavian vein", "C. Drains the upper limb", "D. Drains the abdominal organs", "E. Is a continuation of the sigmoid sinus"], a: "E" },
+  { n: 89, s: "Cardiovascular system", q: "Which of the following areas does lymph not enter the blood through the thoracic duct:", o: ["A. Left arm", "B. Both lower limbs", "C. Abdomen", "D. Right arm", "E. Pelvis"], a: "D" },
+  { n: 90, s: "Cardiovascular system", q: "The apex of the heart is formed by _____________", o: ["A. Right atrium", "B. Right ventricle", "C. Left ventricle", "D. Left atrium", "E. Interventricular septum"], a: "C" },
+  
+  
+  { n: 91, s: "Cardiovascular system", q: "Increases the capacity of the atrium?", o: ["A. Ventricular wall", "B. Auricle", "C. Papillary muscle", "D. Trabeculae carneae", "E. Chordae tendineae"], a: "B" },
+  { n: 92, s: "Cardiovascular system", q: "Which structure expands to the wall of the auricle?", o: ["A. Trabeculae carneae", "B. Papillary muscles", "C. Moderator band", "D. Interventricular septum", "E. Pectinate muscle"], a: "E" },
+  { n: 93, s: "Cardiovascular system", q: "Prevents backflow from the right ventricle to the right atrium?", o: ["A. Mitral valve", "B. Tricuspid valve", "C. Pulmonary valve", "D. Aortic valve", "E. Bicuspid valve"], a: "B" },
+  { n: 94, s: "Cardiovascular system", q: "What is the boundary between the right and left ventricle?", o: ["A. Interatrial septum", "B. Atrioventricular groove", "C. Anterior and posterior interventricular septum", "D. Coronary sulcus", "E. Pulmonary trunk"], a: "C" },
+  { n: 95, s: "Genitourinary system", q: "The testicular artery is a branch of:", o: ["A. Common iliac artery", "B. Internal iliac artery", "C. External iliac artery", "D. Abdominal aorta", "E. Femoral artery"], a: "D" },
+  { n: 96, s: "Cardiovascular system", q: "Choose the correct one about the subclavian vein:", o: ["A. Drains the pelvis", "B. Continuation of axillary vein", "C. Branch of internal jugular vein", "D. Drains the heart", "E. Branch of femoral vein"], a: "B" },
+  { n: 97, s: "Cardiovascular system", q: "Choose the correct one about the internal iliac vein:", o: ["A. Drains the lower limb", "B. Drains the abdominal wall", "C. Drains the thorax", "D. Drains the upper limb", "E. Drains blood from the pelvic area"], a: "E" },
+  { n: 98, s: "Cardiovascular system", q: "Arises from the left ventricle:", o: ["A. Pulmonary artery", "B. Pulmonary vein", "C. Superior vena cava", "D. Aorta", "E. Inferior vena cava"], a: "D" },
+  { n: 99, s: "Respiratory system", q: "The following is a movable partition between the two lungs:", o: ["A. Pleura", "B. Pericardium", "C. Mediastinum", "D. Diaphragm", "E. Hilum"], a: "C" },
+  { n: 100, s: "Respiratory system", q: "If gauze didn't work for epistaxis (severe nosebleeding) and you suspect that the posterior part is injured, which artery do you ligate? (Not in the lecture)", o: ["A. Facial artery", "B. Sphenopalatine artery", "C. Maxillary artery", "D. Greater palatine artery", "E. Superior labial artery"], a: "B" },
+  { n: 101, s: "Cardiovascular system", q: "Which of the following forms the base of the heart:", o: ["A. Right atrium", "B. Left ventricle", "C. Right ventricle", "D. Pericardium", "E. Left atrium"], a: "E" },
+  { n: 102, s: "Cardiovascular system", q: "The sternocostal surface of the heart is created by:", o: ["A. Left ventricle", "B. Left atrium", "C. Right atrium", "D. Right ventricle", "E. Interventricular septum"], a: "D" },
+  { n: 103, s: "Cardiovascular system", q: "The vein which drains the heart walls is called:", o: ["A. Great cardiac vein", "B. Small cardiac vein", "C. Coronary sinus", "D. Middle cardiac vein", "E. Anterior cardiac vein"], a: "C" },
+  { n: 104, s: "Cardiovascular system", q: "The thickest wall is that of:", o: ["A. Right atrium", "B. Left ventricle", "C. Left atrium", "D. Right ventricle", "E. Interventricular septum"], a: "B" },
+  { n: 105, s: "Cardiovascular system", q: "The heart is located in _____________ of the mediastinum.", o: ["A. Superior", "B. Anterior", "C. Inferior", "D. Posterior", "E. Middle"], a: "E" },
+  { n: 106, s: "Muscles", q: "Which muscle is responsible for extension of the elbow?", o: ["A. Biceps brachii", "B. Brachialis", "C. Anconeus", "D. Triceps brachii", "E. Supinator"], a: "D" },
+  { n: 107, s: "Muscles", q: "Which muscle is supplied by two nerves in the forearm?", o: ["A. Flexor digitorum superficialis", "B. Pronator teres", "C. Flexor digitorum profundus", "D. Palmaris longus", "E. Flexor carpi radialis"], a: "C" },
+  { n: 108, s: "Muscles", q: "The posterior muscle of the wrist is:", o: ["A. Flexor", "B. Extensor", "C. Adductor", "D. Abductor", "E. Rotator"], a: "B" },
+  { n: 109, s: "Muscles", q: "Facial expression happens due to facial muscles pulling (moving) _______", o: ["A. Bone", "B. Fascia", "C. Cartilage", "D. Ligament", "E. Skin"], a: "E" },
+  { n: 110, s: "Respiratory system", q: "Which is incorrect?", o: ["A. The diaphragm has a central tendon", "B. The diaphragm separates thorax and abdomen", "C. The diaphragm is the main muscle of respiration", "D. The tendon of diaphragm is attached to bone", "E. The diaphragm is dome-shaped"], a: "D" },
+  { n: 111, s: "Muscles", q: "One of these muscles doesn't contribute to facial expression?", o: ["A. Orbicularis oris", "B. Zygomaticus major", "C. Occipitalis muscle", "D. Buccinator", "E. Frontalis"], a: "C" },
+  { n: 112, s: "Muscles", q: "Which muscle in the forearm has a role in supination?", o: ["A. Pronator teres", "B. Biceps brachii", "C. Palmaris longus", "D. Brachialis", "E. Flexor carpi radialis"], a: "B" },
+  { n: 113, s: "Muscles", q: "These contract under voluntary control:", o: ["A. Smooth muscle", "B. Cardiac muscle", "C. Visceral muscle", "D. Involuntary muscle", "E. Skeletal muscle"], a: "E" },
+  { n: 114, s: "Muscles", q: "Smooth muscle is:", o: ["A. Striated", "B. Cells are located at the periphery", "C. Found in the heart", "D. Involuntary", "E. Multinucleated"], a: "D" },
+  { n: 115, s: "Muscles", q: "Muscles of mastication are supplied by ____________", o: ["A. Maxillary division of trigeminal nerve", "B. Facial nerve", "C. Mandibular division of trigeminal nerve", "D. Glossopharyngeal nerve", "E. Hypoglossal nerve"], a: "C" },
+  { n: 116, s: "Muscles", q: "Most of the superficial muscles of the posterior compartment of the forearm arise from ___________", o: ["A. Medial epicondyle of the humerus", "B. Lateral epicondyle of the humerus", "C. Olecranon process", "D. Shaft of the ulna", "E. Shaft of the radius"], a: "B" },
+  { n: 117, s: "Muscles", q: "Posterior muscles of the forearm are:", o: ["A. Flexors of the wrist", "B. Adductors of the wrist", "C. Rotators of the wrist", "D. Abductors of the wrist", "E. Extensors of the wrist"], a: "E" },
+  { n: 118, s: "Genitourinary system", q: "Male urethra is _______ long.", o: ["A. 10 cm", "B. 15 cm", "C. 18 cm", "D. 20 cm", "E. 25 cm"], a: "D" },
+  { n: 119, s: "Genitourinary system", q: "Which part of the uterus connects to the vagina:", o: ["A. Fundus", "B. Body", "C. Cervix", "D. Isthmus", "E. Cornu"], a: "C" },
+  { n: 120, s: "Genitourinary system", q: "Primary female sex organ?", o: ["A. Uterus", "B. Ovaries", "C. Fallopian tube", "D. Vagina", "E. Cervix"], a: "B" },
+  { n: 121, s: "Genitourinary system", q: "Not found in the spermatic cord:", o: ["A. Vas deferens", "B. Testicular artery", "C. Pampiniform plexus", "D. Lymphatic vessels", "E. Epididymis"], a: "E" },
+  { n: 122, s: "Genitourinary system", q: "Sperm is produced within __________?", o: ["A. Epididymis", "B. Prostate gland", "C. Vas deferens", "D. Seminiferous tubules", "E. Seminal vesicle"], a: "D" },
+  { n: 123, s: "Genitourinary system", q: "The epididymis is a coiled tube located posterior to the ____________.", o: ["A. Prostate", "B. Seminal vesicle", "C. Testes", "D. Vas deferens", "E. Scrotum"], a: "C" },
+  { n: 124, s: "Genitourinary system", q: "Which of the following is an external female sex organ:", o: ["A. Vagina", "B. Vulva", "C. Cervix", "D. Uterus", "E. Fallopian tubes"], a: "B" },
+  { n: 125, s: "Genitourinary system", q: "Fertilization occurs in the ___________", o: ["A. Ovary", "B. Uterus", "C. Cervix", "D. Vagina", "E. Uterine tube"], a: "E" },
+  { n: 126, s: "Genitourinary system", q: "What are the accessory male glands?", o: ["A. Testes and epididymis", "B. Vas deferens and ejaculatory duct", "C. Scrotum and spermatic cord", "D. Prostate, bulbourethral, seminal vesicle", "E. Penis and urethra"], a: "D" },
+  { n: 127, s: "Genitourinary system", q: "What structure holds the testes to the scrotum?", o: ["A. Vas deferens", "B. Spermatic cord", "C. Scrotal ligament", "D. Epididymis", "E. Tunica vaginalis"], a: "C" },
+  { n: 128, s: "Genitourinary system", q: "Secretions of which gland help to lubricate the tip of the penis?", o: ["A. Prostate gland", "B. Bulbourethral gland", "C. Seminal vesicle", "D. Testis", "E. Epididymis"], a: "B" },
+  { n: 129, s: "Genitourinary system", q: "The union of the vas deferens and seminal vesicle duct:", o: ["A. Prostatic duct", "B. Urethra", "C. Spermatic cord", "D. Bulbourethral duct", "E. Ejaculatory duct"], a: "E" },
+  
+  { n: 130, s: "Joints", q: "Which type of Joint found between clavicle and acromiom bone?", o: ["A. Hinge joint","B. Pivot joint","C. Plane joint","D. Saddle joint","E. Ball and socket joint"], a: "C" },
+  { n: 131, s: "Joints", q: "Which structure found in superior radioulnar joint?", o: ["A. Annular ligament","B. Articular disk","C. Radial collateral ligament","D. Interosseous membrane","E. Quadrate ligament"], a: "A" },
+  { n: 132, s: "Cardiovascular system", q: "Which chamber of heart receives blood from Superior Vena Cava?", o: ["A. Left atrium","B. Right ventricle","C. Left ventricle","D. Right atrium","E. Coronary sinus"], a: "D" },
+  { n: 133, s: "Cardiovascular system", q: "Found in dorsal venous of hand?", o: ["A. Basilic vein","B. Cephalic vein","C. Median cubital vein","D. Radial vein","E. Ulnar vein"], a: "B" },
+  { n: 134, s: "Cardiovascular system", q: "Which of The following makes the mediastinum of heart into superior and inferior part?", o: ["A. Xiphoid process","B. Jugular notch","C. Third costal cartilage","D. T2 vertebrae level","E. Sternal angle"], a: "E" },
+  { n: 135, s: "Axil skeleton", q: "Which one not cranial bone?", o: ["A. Ethmoid bone","B. Sphenoid bone","C. Mandible bone","D. Temporal bone","E. Occipital bone"], a: "C" },
+  { n: 136, s: "Axil skeleton", q: "A suture found between frontal bone and paraital bone?", o: ["A. Sagittal suture","B. Lambdoid suture","C. Squamous cranialsuture","D. Coronal suture","E. Metopic suture"], a: "D" },
+  { n: 137, s: "Appendicular system", q: "Which part of humerus is the narrowest part?", o: ["A. Anatomical neck of humerus","B. Surgical neck of humerus","C. Shaft of humerus","D. Radial groove","E. Intertubercular sulcus"], a: "B" },
+  { n: 138, s: "Respiratory system", q: "Paranasal sinuses open into ________ of nasal cavity?", o: ["A. Medial wall","B. Nasal septum","C. Lateral wall","D. Roof","E. Floor"], a: "C" },
+  { n: 139, s: "Respiratory system", q: "Pharynx ends at which level of vertebrae?", o: ["A. C4","B. C5","C. T1","D. T2","E. C6"], a: "E" },
+  
+  { n: 140, s: "Digestive system", q: "Bile duct and pancreatic duct open into which part of intestine?", o: ["A. Duodenum","B. Jejunum","C. Ileum","D. Cecum","E. Ascending colon"], a: "A" },
+  { n: 141, s: "Muscles", q: "Type of articulation in muscle that thin fibers flat tissue?", o: ["A. Tendon","B. Ligament","C. Raphe","D. Aponeurosis","E. Fascia"], a: "D" },
+  { n: 142, s: "Muscles", q: "___________ prevents unwanted movement of intermediate joint that help prime mover to act efficiently?", o: ["A. Antagonist","B. Fixator","C. Synergist","D. Agonist","E. Stabilizer"], a: "C" },
+  { n: 143, s: "Muscles", q: "_________ is a superficial muscle that extends from skull and vertebrae colomn medially, calvicle and scapula laterally?", o: ["A. Latissimus dorsi","B. Trapezius","C. Rhomboid major","D. Levator scapulae","E. Deltoid"], a: "B" },
+  { n: 144, s: "Muscles", q: "The attachment that moves the most is called ________.", o: ["A. Origin","B. Belly","C. Tendon","D. Fulcrum","E. Insertion"], a: "E" },
+  { n: 145, s: "Nervous system", q: "A bundle of axon in CNS?", o: ["A. Nerve","B. Ganglion","C. Tract","D. Nucleus","E. Plexus"], a: "C" },
+  { n: 146, s: "Nervous system", q: "Precentral gyrus is ________?", o: ["A. Motor area","B. Sensory area","C. Auditory area","D. Visual area","E. Association area"], a: "A" },
+  { n: 147, s: "Nervous system", q: "Which cell produce mylen sheath around axon in PNS?", o: ["A. Schwann cell","B. Oligodendrocyte","C. Astrocyte","D. Microglia","E. Ependymal cell"], a: "A" },
+  { n: 148, s: "Introduction to anatomy", q: "Palm of the hand faces backward, what is this movement?", o: ["A. Supination","B. Flexion","C. Extension","D. Abduction","E. Pronation"], a: "E" },
+  { n: 149, s: "Introduction to anatomy", q: "Sole of the foot faces inward, what is this movement?", o: ["A. Eversion","B. Dorsiflexion","C. Plantarflexion","D. Inversion","E. Rotation"], a: "D" },
+  { n: 150, s: "Nervous system", q: "Which one is true about Axon?", o: ["A. Axon carries impulse toward cell body","B. Axon carries impulse away from cell body","C. Axon contains the nucleus","D. Axon is the same as a dendrite","E. Axon receives chemical signals"], a: "B" },
+      { n: 151, s: "Introduction to anatomy", q: "A structure is anterior to another one when it is:", o: ["A. Nearer to the front of the body than the other", "B. Nearer to the median plane than the other", "C. Nearer to the root of the limb than the other", "D. Nearer to the back of the body than the other", "E. Situated closer to the ventral surface of the trunk"], a: "A" },
+
+{ n: 152, s: "Introduction to anatomy", q: "Abduction is:", o: ["A. A movement of a part of the body toward the median plane which takes place in the coronal plane", "B. A forward bending movement in the sagittal plane", "C. A movement of a part of the body away from the median plane which takes place in the coronal plane", "D. A straightening movement which takes place in the sagittal plane", "E. A rotation of a limb segment around its longitudinal axis"], a: "C" },
+
+{ n: 153, s: "Joints", q: "Regarding the joints:", o: ["A. Plane joints permit only gliding movement", "B. Rotation is possible at ellipsoid joints", "C. Ball and socket joints have restricted movement usually", "D. An example of primary cartilaginous joint is the knee joint", "E. Synovial joints are characterized by the absence of a joint cavity"], a: "A" },
+
+{ n: 154, s: "Muscles", q: "Smooth muscle:", o: ["A. Is voluntary", "B. Is non-striated", "C. Is not found in the wall of veins", "D. Contains peripherally located multiple nuclei per cell", "E. None of the above is true"], a: "B" },
+
+{ n: 155, s: "Nervous system", q: "Regarding the nerve supply of skeletal muscle:", o: ["A. Nerves supplying skeletal muscles are mixed nerves", "B. Motor fibers supply the muscle fibers and stimulate them to contract", "C. Each motor nerve fiber divides into a number of branches and supply several muscle fibers", "D. All of the above are true"], a: "D" },
+
+{ n: 156, s: "Cardiovascular system", q: "Lymphatic vessels:", o: ["A. Are tubes assisting cardiovascular system in removal of tissue fluid", "B. Those that bring lymph to a lymph node are called efferent lymph vessels", "C. The lymph vessels that transport the lymph away from the lymph node are called afferent lymph vessels", "D. Possess thick muscular walls similar to systemic arteries", "E. All of the above are true"], a: "A" },
+
+{ n: 157, s: "Nervous system", q: "Choose the false statement regarding the neurons:", o: ["A. Is the structural and functional unit of the nervous system", "B. Has the property of conductivity", "C. Each neuron has multiple axons and one dendrites", "D. Dendrites carry impulses toward the cell body", "E. Synaptic transmission occurs via neurotransmitter release"], a: "C" },
+
+{ n: 158, s: "Nervous system", q: "Choose the false statement regarding the peripheral nerves:", o: ["A. A peripheral nerve is composed of bundles of nerve fibers (axons)", "B. Endoneurium is a connective tissue sheath which surrounds each individual nerve fiber together with its Schwann cells and myelin", "C. Epineurium covers the outer surface of the nerve", "D. The perineurium organizes nerve fibers into distinct fascicles", "E. There are either motor or sensory nerves and there are no mixed nerve"], a: "E" },
+
+{ n: 159, s: "Muscles", q: "The following structures pass posterior to the flexor retinaculum EXCEPT which?", o: ["A. Flexor digitorum superficialis tendons", "B. Median nerve", "C. Flexor pollicis longus tendon", "D. Ulnar nerve", "E. Flexor digitorum profundus tendons"], a: "D" },
+
+{ n: 160, s: "Muscles", q: "Each of the following muscles form a boundary of the axilla EXCEPT the:", o: ["A. Serratus anterior", "B. Subscapularis", "C. Pectoralis major", "D. Supraspinatus", "E. Latissimus dorsi"], a: "D" },
+
+{ n: 161, s: "Cardiovascular system", q: "The cephalic vein is normally a tributary to the:", o: ["A. Brachial vein", "B. Axillary vein", "C. Medial brachial vein", "D. Subclavian vein", "E. Basilic vein"], a: "B" },
+
+{ n: 162, s: "Cardiovascular system", q: "The lymph from the upper lateral quadrant of the breast drains mainly into the:", o: ["A. Lateral axillary nodes", "B. Internal thoracic nodes", "C. Posterior axillary nodes", "D. Anterior axillary nodes", "E. Supraclavicular nodes"], a: "D" },
+
+{ n: 163, s: "Cardiovascular system", q: "In the upper limb:", o: ["A. The radial nerve spirals around the front of the humerus", "B. The ulnar nerve passes between the two heads of pronator teres", "C. The median nerve crosses in front of the brachial artery", "D. The axillary nerve arises from the medial cord of the brachial plexus", "E. The musculocutaneous nerve supplies the triceps brachii muscle"], a: "C" },
+
+{ n: 164, s: "Muscles", q: "The muscles of the arm (choose the false answer):", o: ["A. Biceps brachii is a powerful supinator", "B. Brachialis is the main flexor of the elbow and is partly supplied by radial nerve", "C. Coracobrachialis is supplied and pierced by musculocutaneous nerve", "D. Triceps is a strong lateral rotator of the elbow", "E. The long head of the triceps arises from the infraglenoid tubercle"], a: "D" },
+
+{ n: 165, s: "Cardiovascular system", q: "Choose the false statement regarding the ulnar artery:", o: ["A. Is the larger terminal branch of the brachial artery", "B. Gives rise to common interosseous artery", "C. At the wrist, is medial to pisiform bone and ulnar nerve", "D. Shares in the anastomoses around the elbow", "E. Enters the hand superficial to the flexor retinaculum"], a: "A" },
+];
+
+const filterLectures = [
+  { label: "All",                      val: "All" },
+  { label: "Introduction to Anatomy 🦴",      val: "Introduction to anatomy" },
+  { label: "Axial skeleton 💀",            val: "Axil skeleton" },
+  { label: "Appendicular skeleton 🦴",          val: "Appendicular system" },
+  { label: "Joints 🔗",              val: "Joints" },
+  { label: "Muscles 💪",          val: "Muscles" },
+  { label: "Respiratory syestem 🫁",     val: "Respiratory system" },
+  { label: "Digestive system 💊",             val: "Digestive system" },
+  { label: "Cardiovascular system 🫀",            val: "Cardiovascular system" },
+  { label: "Nervous system 🧠",            val: "Nervous system" },
+  { label: "Genitourinary system 🫘",            val: "Genitourinary system" },
+  { label: "Autonomic nervous system 🧠",            val: "Autonomic nervous system" },
+];
+
+let currentSubject = "All";
+
+const container = document.getElementById('quiz-content');
+const filterBar = document.getElementById('filter-bar');
+
+function renderFilterBar() {
+    filterBar.innerHTML = filterLectures.map(f =>
+        `<button class="filter-btn${f.val === currentSubject ? " active" : ""}" onclick="filterBySubject('${f.val}', this)">${f.label}</button>`
+    ).join('');
+}
+
+function getLectureLabel(val) {
+    if (val === "All") return "All";
+    const found = filterLectures.find(f => f.val === val);
+    return found ? found.label : val;
+}
+
+function updateSectionHeading() {
+    const existing = document.getElementById('section-heading');
+    const visibleBlocks = [...document.querySelectorAll('.q-block')].filter(b => b.style.display !== "none");
+    const count = visibleBlocks.length;
+
+    let noResultsMsg = document.getElementById('no-results-msg');
+    if (count === 0) {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.id = 'no-results-msg';
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.textContent = "No questions found.";
+            container.appendChild(noResultsMsg);
+        }
+    } else if (noResultsMsg) {
+        noResultsMsg.remove();
+    }
+
+    const label = getLectureLabel(currentSubject);
+    const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+
+    if (existing) {
+        existing.style.display = (count === 0) ? "none" : "flex";
+        existing.querySelector('.section-heading-title').textContent = label;
+        existing.querySelector('.mcq-count-badge').textContent = badgeText;
+    } else if (count > 0) {
+        const heading = document.createElement('div');
+        heading.id = 'section-heading';
+        heading.className = 'section-heading';
+        heading.innerHTML = `<span class="section-heading-title">${label}</span><span class="mcq-count-badge">${badgeText}</span>`;
+        container.insertBefore(heading, container.firstChild);
+    }
+}
+
+function renderQuiz() {
+    container.innerHTML = '';
+    allQuestions.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.lecture = item.s;
+        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+
+        const matchesSubject = currentSubject === "All" || item.s === currentSubject;
+        div.style.display = matchesSubject ? "block" : "none";
+
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <button class="ans-btn" data-answer="Answer: ${item.a}" onclick="toggleAnswer(this)">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+    updateSectionHeading();
+}
+
+function filterBySubject(val, btn) {
+    currentSubject = val;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    handleSearch();
+}
+
+function handleSearch() {
+    const term = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        resetBlock(block);
+        const matchesCategory = currentSubject === "All" || block.dataset.lecture === currentSubject;
+        const matchesSearch = term === "" || block.dataset.searchText.includes(term);
+        if (matchesCategory && matchesSearch) {
+            block.style.display = "block";
+            if (term !== "") highlight(block, term);
+        } else {
+            block.style.display = "none";
+        }
+    });
+    updateSectionHeading();
+}
+
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+    block.classList.remove('revealed');
+    const btn = block.querySelector('.ans-btn');
+    if (btn && btn.dataset.answer) btn.textContent = 'Answer';
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').innerHTML.replace(regex, '<mark>$1</mark>');
+    block.querySelectorAll('li').forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+}
+
+function toggleAnswer(btn) {
+    const block = btn.closest('.q-block');
+    const isRevealed = block.classList.toggle('revealed');
+    btn.textContent = isRevealed ? btn.dataset.answer : 'Answer';
+}
+
+function toggleTheme() {
+    const isLight = document.body.getAttribute('data-theme') === 'light';
+    const newTheme = isLight ? '' : 'light';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.getElementById('theme-icon').innerHTML = isLight 
+        ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
+        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
+
+(function () {
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}());
+
+renderFilterBar();
+renderQuiz();
+</script>
+</body>
+</html>

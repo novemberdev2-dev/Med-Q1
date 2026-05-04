@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0c0d0e">
+  <title>Block 2 | Med-Q</title>
+  <style>
+
+    :root {
+      --bg-color: #161616; 
+      --card-bg: rgba(26, 28, 30, 0.7); 
+      --header-bg: rgba(22, 24, 26, 0.85);
+      --accent-hdsf: #f1f5f9;
+      --accent-bbb: #f1f5f9;
+      --text-main: #f1f5f9;
+      --text-dim: #94a3b8;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --transition: all 0.2s ease;
+    }
+
+  
+    body.light-mode {
+      --bg-color: #f0f2f5;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --header-bg: rgba(240, 242, 245, 0.95);
+      --text-main: #1a1c1e;
+      --text-dim: #555e6b;
+      --border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      margin: 0;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px, 40px 40px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .main-header, 
+    .year-selection-container, 
+    .year-content, 
+    .site-footer, 
+    #activation-overlay {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== ACTIVATION SYSTEM ===== */
+    body.locked { overflow: hidden; }
+    body.locked .mcq-link { pointer-events: none; opacity: 0.5; }
+    #activation-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(12, 13, 14, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .activation-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 40px 30px;
+      border-radius: 28px;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+    .activation-card input {
+      width: 100%; padding: 16px; background: #000; border: 1px solid var(--border-color);
+      border-radius: 14px; color: #fff; text-align: center; margin-bottom: 20px;
+    }
+    .activation-card button {
+      width: 100%; padding: 16px; background: var(--accent-bbb); color: #000;
+      border: none; border-radius: 14px; font-weight: 700; cursor: pointer;
+    }
+
+    
+    .top-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 4px;
+      margin-bottom: 10px;
+    }
+
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-bar-icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .top-bar-icon-btn:hover {
+      border-color: rgba(255,255,255,0.25);
+      background: rgba(40, 42, 45, 0.9);
+      transform: scale(1.05);
+    }
+
+    
+    .top-bar-icon-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--text-dim);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.2s ease;
+    }
+
+    
+    .top-bar-icon-btn svg.chat-icon {
+      stroke: none;
+      fill: var(--text-dim);
+      transition: fill 0.2s ease;
+    }
+
+    .top-bar-icon-btn:hover svg.chat-icon {
+      fill: var(--text-main);
+    }
+
+    .top-bar-icon-btn:hover svg {
+      stroke: var(--text-main);
+    }
+
+    
+    #theme-toggle.dark-active svg {
+      stroke: var(--text-dim);
+    }
+  
+    #theme-toggle.light-active svg {
+      stroke: var(--text-dim);
+    }
+
+    
+    body.light-mode .top-bar-icon-btn svg {
+      stroke: var(--text-dim);
+    }
+    body.light-mode .top-bar-icon-btn svg.chat-icon {
+      fill: var(--text-dim);
+    }
+    body.light-mode .top-bar-icon-btn:hover svg {
+      stroke: var(--text-main);
+    }
+    body.light-mode .top-bar-icon-btn:hover svg.chat-icon {
+      fill: var(--text-main);
+    }
+
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .app-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: 0.02em;
+    }
+
+    .app-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--accent-bbb);
+      letter-spacing: -0.03em;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    
+    .main-header {
+      width: 100%; background: var(--header-bg); backdrop-filter: blur(12px);
+      padding: 14px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 20px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .header-info h3 { margin: 0; font-size: 1.5rem; color: var(--text-main); }
+    .header-info p { margin: 6px 0 0; color: var(--text-dim); font-size: 0.9rem; }
+
+    
+    .year-selection-container {
+      width: 100%;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .year-nav {
+      display: flex;
+      align-items: center;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 5px;
+      gap: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      -webkit-overflow-scrolling: touch;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .year-nav::-webkit-scrollbar {
+      display: none; 
+    }
+
+    .year-chip {
+      padding: 10px 22px;
+      border-radius: 6px;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: var(--transition);
+      background: transparent;
+      border: none;
+      position: relative;
+    }
+
+    /* ئەوەیە لێرەوە خەتی نێوان ساڵەکان */
+    .year-chip + .year-chip::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 20%;
+      height: 60%;
+      width: 1px;
+      background: var(--border-color);
+    }
+
+    
+    .year-chip.active + .year-chip::before,
+    .year-chip.active::before {
+      display: none;
+    }
+
+    .year-chip.active {
+      background: rgba(38, 41, 43, 0.8);
+      color: #fff;
+      
+    
+    }
+
+    .year-chip:not(.active):hover {
+      color: var(--text-main);
+      background: rgba(255,255,255,0.05);
+    }
+
+    body.light-mode .year-chip:not(.active):hover {
+      background: rgba(0,0,0,0.04);
+    }
+
+    
+    .year-content { display: none; width: 100%; }
+    .year-content.active { display: block; }
+
+    .section-container { width: 100%; margin-bottom: 60px; }
+
+    .category-title {
+      font-size: 1.2rem;
+      margin: 25px 0 20px 0;
+      padding: 5px 18px; 
+      border-radius: 5px; 
+      align-items: center;
+      background: rgba(245, 247, 249, 0.94);
+    }
+
+     .hdsf-theme { 
+      border-color: var(--accent-hdsf); 
+      color: #121212; 
+    }
+
+    .bbb-theme { 
+      border-color: var(--accent-bbb); 
+      color: #121212; 
+    }
+
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      width: 100%;
+    }
+
+    .subject-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px; 
+      transition: var(--transition);
+    }
+
+    .subject-card:hover {
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(40, 42, 45, 0.8);
+      transform: translateY(-2px);
+    }
+
+    .card-header h1 { font-size: 1.1rem; margin: 0 0 15px 0; color: var(--text-main); }
+
+    .links-container { display: flex; flex-direction: column; gap: 4px; }
+
+    .mcq-link {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .mcq-link:last-child { border-bottom: none; }
+    .mcq-link:hover { color: var(--accent-bbb); }
+
+    .badge {
+      font-size: 0.75rem; padding: 3px 10px; border-radius: 6px;
+      background: rgba(38, 41, 43, 0.8); color: var(--accent-hdsf); font-weight: 500;
+    }
+
+    .site-footer {
+      width: 300px; margin-top: auto; padding: 20px; text-align: center;
+      font-size: 0.75rem; opacity: 0.6; border-top: 1px solid var(--border-color);
+    }
+
+    
+    body.light-mode {
+      background-color: #eef2f7;
+    }
+
+    body.light-mode::before {
+      background-image:
+        linear-gradient(rgba(0,0,0,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.025) 1px, transparent 1px);
+      background-size: 40px 40px, 40px 40px;
+    }
+
+    body.light-mode .main-header {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(0,0,0,0.08);
+    }
+
+    body.light-mode .subject-card {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(0, 0, 0, 0.07);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    body.light-mode .subject-card:hover {
+      background: rgba(255, 255, 255, 0.98);
+      border-color: #121212;
+    }
+
+    body.light-mode .top-bar-icon-btn {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(0,0,0,0.08);
+    }
+    body.light-mode .category-title {
+      font-size: 1.2rem;
+      margin: 25px 0 20px 0;
+      padding: 5px 18px; 
+      border-radius: 5px; 
+      align-items: center;
+      background: rgba(26, 28, 30, 0.7);
+    }
+    
+    body.light-mode .hdsf-theme { 
+      border-color: var(--accent-hdsf); 
+      color: var(--accent-bbb); 
+    }
+
+    body.light-mode .bbb-theme { 
+      border-color: var(--accent-bbb); 
+      color: var(--accent-bbb); 
+    }
+
+    body.light-mode .top-bar-icon-btn:hover {
+      background: rgba(255, 255, 255, 1);
+      border-color: #121212;
+    }
+
+    body.light-mode .badge {
+      background: rgba(245, 247, 249, 0.94);
+      color: #121212;
+    }
+
+    body.light-mode .mcq-link:hover { color: black; }
+
+    body.light-mode .year-nav {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(0,0,0,0.08);
+    }
+
+    body.light-mode .year-chip {
+      color: #555e6b;
+    }
+
+    body.light-mode .year-chip.active {
+      background: rgba(235, 238, 240, 0.94);
+      color: #121212;
+    }
+
+  </style>
+</head>
+<body class="locked">
+
+  <div id="activation-overlay">
+    <div class="activation-card">
+      <h2>Unlock Med-Q</h2>
+      <p>Please enter your unique activation code to access the questions.</p>
+      <input type="text" id="activation-code" placeholder="Enter Code Here">
+      <button id="activate-btn">Activate App</button>
+      <p id="status-msg" style="margin-top:15px; min-height:1.2em; font-weight:600;"></p>
+      
+      <div class="contact-support">
+        <span>Don't have a code?</span>
+        <a href="https://t.me/Med_Q2" target="_blank" class="tg-link">Contact me to activate</a>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="top-bar">
+  
+    <div class="top-bar-left">
+      <div class="app-icon">
+        <img src="https://i.imgur.com/AXJmZwo.png" alt="Med-Q" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+      </div>
+      <span class="app-name">Med-Q</span>
+    </div>
+
+    
+    <div class="top-bar-right">
+      
+      <a href="https://t.me/Shabaz_Rasheed" target="_blank" class="top-bar-icon-btn" title="Contact Support">
+        <svg class="chat-icon" width="23px" height="23px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <path d="M38.0728,40.9023c-0.5522,0-1.0259-0.4478-1.0259-1s0.4219-1,0.9741-1h0.0518c0.5522,0,1,0.4478,1,1 S38.625,40.9023,38.0728,40.9023z"/>
+          <path d="M45.3604,40.9023c-0.5522,0-1.0273-0.4478-1.0273-1s0.4199-1,0.9722-1h0.0552c0.5522,0,1,0.4478,1,1 S45.9126,40.9023,45.3604,40.9023z"/>
+          <path d="M52.6445,40.9023c-0.5522,0-1.0273-0.4478-1.0273-1s0.4199-1,0.9722-1h0.0552c0.5522,0,1,0.4478,1,1 S53.1968,40.9023,52.6445,40.9023z"/>
+          <path d="M12.584,25.186c-0.5522,0-1.0293-0.4478-1.0293-1s0.418-1,0.9702-1h0.0591c0.5522,0,1,0.4478,1,1 S13.1362,25.186,12.584,25.186z"/>
+          <path d="M20.7529,25.186c-0.5522,0-1.0293-0.4478-1.0293-1s0.4185-1,0.9707-1h0.0586c0.5522,0,1,0.4478,1,1 S21.3052,25.186,20.7529,25.186z"/>
+          <path d="M28.9219,25.186c-0.5522,0-1.0293-0.4478-1.0293-1s0.4185-1,0.9707-1h0.0586c0.5522,0,1,0.4478,1,1 S29.4741,25.186,28.9219,25.186z"/>
+          <path d="M56.5327,26.0718h-0.0005c-3.6577-3.0059-8.2656-4.4053-12.9771-3.9463c-1.0573,0.1035-2.0867,0.3111-3.0887,0.5919 c-0.2051-3.1539-1.169-6.2225-2.8205-8.9474c-2.7339-4.5127-7.0605-7.6904-12.1841-8.9478 c-5.1226-1.2573-10.4302-0.4434-14.9414,2.2905c-9.3149,5.6431-12.3022,17.812-6.6592,27.1274 c0.4487,0.7378,0.9443,1.4468,1.4785,2.1147l-2.1206,6.457c-0.1152,0.3521-0.0269,0.7388,0.23,1.0059 c0.1914,0.1982,0.4526,0.3062,0.7202,0.3062c0.0923,0,0.1851-0.0127,0.2764-0.0391l7.8203-2.2476 c4.9188,2.3405,10.487,2.549,15.5263,0.6185c0.6382,4.1645,2.7308,8.1203,6.233,10.9997 c4.626,3.8027,10.7549,5.0024,16.4702,3.2461l6.5781,2.9609c0.1313,0.0591,0.2715,0.0879,0.4106,0.0879 c0.2183,0,0.4351-0.0718,0.6138-0.2104c0.2925-0.2275,0.4351-0.5977,0.3711-0.9624l-1.0391-5.9121 c0.5459-0.5166,1.062-1.0698,1.5391-1.6499C65.1724,43.4663,64.0791,32.2764,56.5327,26.0718z M12.8066,39.8755 c-0.2241-0.1113-0.4814-0.1353-0.7236-0.0664l-6.374,1.832l1.7026-5.1851c0.1084-0.3306,0.0376-0.6938-0.1875-0.959 c-0.604-0.7119-1.1606-1.4844-1.6528-2.2944C0.5,24.8315,3.1851,13.895,11.5571,8.8232c4.0537-2.458,8.8218-3.1885,13.4282-2.0591 c4.6045,1.1304,8.4932,3.9863,10.9502,8.0425c1.5782,2.6036,2.4474,5.5574,2.5516,8.5797 c-2.6577,1.0986-5.0207,2.841-6.8978,5.1259c-2.8444,3.4614-4.1367,7.6871-3.9944,11.8476 C22.8245,42.3625,17.4745,42.2095,12.8066,39.8755z M57.4243,49.7456c-0.5303,0.645-1.1147,1.2524-1.7378,1.8062 c-0.2598,0.2305-0.3809,0.5791-0.3208,0.9209l0.8066,4.5908l-5.2051-2.3433c-0.1304-0.0586-0.2705-0.0879-0.4106-0.0879 c-0.106,0-0.2124,0.0166-0.3145,0.0508c-5.1646,1.7104-10.7529,0.6758-14.9463-2.7725 c-6.6953-5.5044-7.6646-15.4312-2.1616-22.1289c2.666-3.2446,6.436-5.2568,10.6157-5.6655 c4.1816-0.4072,8.2681,0.8345,11.5127,3.5005h-0.0005C61.957,33.1211,62.9268,43.0483,57.4243,49.7456z"/>
+        </svg>
+      </a>
+
+      
+      <div class="top-bar-icon-btn dark-active" id="theme-toggle" title="Toggle theme" onclick="toggleTheme()">
+        <svg id="icon-moon" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg id="icon-sun" viewBox="0 0 24 24" style="display:none;">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <header class="main-header">
+    <div class="header-info">
+      <h3>Final & End-Rotation</h3>
+      <p>Stage 1 • Block 2</p>
+    </div>
+  </header>
+
+  <div class="year-selection-container">
+    <div class="year-nav">
+      <div class="year-chip active" id="chip-2022" onclick="showYear('2022', this)">2021 - 2025</div>
+      <div class="year-chip" id="chip-2026" onclick="showYear('2026', this)">2025 - 2026</div>
+    </div>
+  </div>
+
+  <div id="content-2022" class="year-content active">
+    <main class="section-container">
+      <h2 class="category-title hdsf-theme">HDSF</h2>
+      <div class="subject-grid"> 
+        <div class="subject-card">
+          <div class="card-header"><h1>Anatomy 🦴</h1></div>
+          <div class="links-container">
+             <span class="mcq-link" onclick="location.href='Anatomy.html'">Theory <span class="badge">165 MCQs</span></span>
+            <span class="mcq-link" onclick="location.href='Anatomylabs.html'">Practical <span class="badge">66 Questions</span></span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Microbiology 🦠</h1></div>
+          <div class="links-container">
+             <span class="mcq-link" onclick="location.href='Microbiology.html'">Theory <span class="badge">109 MCQs</span></span>
+             <span class="mcq-link" onclick="location.href='Microbiology labs.html'">Practical <span class="badge">28 Questions</span></span>
+          </div>
+        </div>
+        
+          <div class="subject-card">
+          <div class="card-header"><h1>Molecular biology 🧬</h1></div>
+          <div class="links-container">
+              <span class="mcq-link" onclick="location.href='Molecular biology.html'">Theory <span class="badge">71 MCQs</span></span>
+                <span class="mcq-link" onclick="location.href='M.biology-practical.html'">Practical <span class="badge">3 Questions</span></span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Physiology 🫀</h1></div>
+          <div class="links-container">
+             <span class="mcq-link" onclick="location.href='Physiology.html'">Theory <span class="badge">164 MCQs</span></span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Genetics 🧬</h1></div>
+          <div class="links-container">
+             <span class="mcq-link" onclick="location.href='Genetics.html'">Theory <span class="badge">61 MCQs</span></span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Cell biology 🔬</h1></div>
+          <div class="links-container">
+              <span class="mcq-link" onclick="location.href='Cell biology.html'">Theory <span class="badge">68 MCQs</span></span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Histology 🫁</h1></div>
+          <div class="links-container">
+              <span class="mcq-link" onclick="location.href='Histology.html'">Theory <span class="badge">50 MCQs</span></span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Embryology 👶</h1></div>
+          <div class="links-container">
+           <span class="mcq-link" onclick="location.href='Embryology.html'">Theory <span class="badge">29 MCQs</span></span>
+          </div>
+        </div>
+      </div> 
+    </main>
+
+    <main class="section-container">
+      <h2 class="category-title bbb-theme">BBB</h2>
+      <div class="subject-grid">
+        <div class="subject-card">
+          <div class="card-header"><h1>Biochemistry 🧪</h1></div>
+          <div class="links-container">
+              <span class="mcq-link" onclick="location.href='Biochemistry2.html'">Theory <span class="badge">434 MCQs</span></span>
+            <span class="mcq-link" onclick="location.href='Biochemistrylab.html'">Practical <span class="badge">44 Questions</span></span>
+            <span class="mcq-link" onclick="location.href='QuizBiochemstry.html'">Quizzes - Theory <span class="badge">167 MCQs</span></span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Biophysics ⚛️</h1></div>
+          <div class="links-container">
+            <span class="mcq-link" onclick="location.href='Biophysics.html'">Theory <span class="badge">180 MCQs</span></span>
+            <span class="mcq-link" onclick="location.href='Biophysicslab.html'">Practical <span class="badge">35 Questions</span></span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Basic emergency care ⚕️</h1></div>
+          <div class="links-container">
+            <span class="mcq-link" onclick="location.href='BEC.html'">Theory <span class="badge">90 MCQs</span></span>
+            <span class="mcq-link" onclick="location.href='BECpractical.html'">Practical <span class="badge">22 Questions</span></span>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+  </div>
+
+  <div id="content-2026" class="year-content">
+    <div class="section-container">
+      <h2 class="category-title hdsf-theme">HDSF</h2>
+      <div class="subject-grid">
+        <div class="subject-card">
+          <div class="card-header"><h1>End-Rotation 1 🔥</h1></div>
+          <div class="links-container">
+            <span class="mcq-link" onclick="location.href='End-Rotation_HDSF_2025-2026.html'">Theory <span class="badge">20 MCQs</span></span>
+            <span class="mcq-link" onclick="location.href='End-Rotation_HDSF-Practical_2025-2026.html'">Practical <span class="badge">10 Questions</span></span>
+          </div>
+        </div>
+        <div class="subject-card">
+          <div class="card-header"><h1>Final Exam</h1></div>
+          <div class="links-container">
+            <a class="mcq-link" onclick="location.href='#'">Theory <span class="badge">0 MCQs</span></a>
+            <a class="mcq-link" href="#">Practical <span class="badge">0 MCQs</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-container">
+      <h2 class="category-title bbb-theme">BBB</h2>
+      <div class="subject-grid">
+        <div class="subject-card">
+          <div class="card-header"><h1>End-Rotation 1 🔥</h1></div>
+          <div class="links-container">
+              <span class="mcq-link" onclick="location.href='End-Rotation_BBB_2025-2026.html'">Theory <span class="badge">20 MCQs</span></span>
+            <span class="mcq-link" onclick="location.href='End-rotation_Practical_BBB.html'">Practical <span class="badge">10 Questions</span></span>
+          </div>
+        </div>
+        <div class="subject-card">
+          <div class="card-header"><h1>Final Exam</h1></div>
+          <div class="links-container">
+            <a class="mcq-link" href="#">Theory <span class="badge">0 MCQs</span></a>
+            <a class="mcq-link" href="#">Practical <span class="badge">0 MCQs</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <footer class="site-footer">Developed by<strong> Shabaz Rasheed</strong></footer>
+
+  <script>
+    function showYear(yearId, element) {
+      document.querySelectorAll('.year-content').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.year-chip').forEach(c => c.classList.remove('active'));
+      document.getElementById('content-' + yearId).classList.add('active');
+      element.classList.add('active');
+      localStorage.setItem('userSelectedYear', yearId);
+    }
+
+  
+    function toggleTheme() {
+      const body = document.body;
+      const btn = document.getElementById('theme-toggle');
+      const moon = document.getElementById('icon-moon');
+      const sun = document.getElementById('icon-sun');
+
+      if (body.classList.contains('light-mode')) {
+        body.classList.remove('light-mode');
+        moon.style.display = '';
+        sun.style.display = 'none';
+        btn.classList.remove('light-active');
+        btn.classList.add('dark-active');
+        localStorage.setItem('medq_theme', 'dark');
+      } else {
+        body.classList.add('light-mode');
+        moon.style.display = 'none';
+        sun.style.display = '';
+        btn.classList.remove('dark-active');
+        btn.classList.add('light-active');
+        localStorage.setItem('medq_theme', 'light');
+      }
+    }
+
+    window.onload = function() {
+      const savedYear = localStorage.getItem('userSelectedYear');
+      if (savedYear) {
+        const btn = document.getElementById('chip-' + savedYear);
+        if (btn) showYear(savedYear, btn);
+      }
+
+      const savedTheme = localStorage.getItem('medq_theme');
+      if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+        document.getElementById('icon-moon').style.display = 'none';
+        document.getElementById('icon-sun').style.display = '';
+        document.getElementById('theme-toggle').classList.remove('dark-active');
+        document.getElementById('theme-toggle').classList.add('light-active');
+      }
+    };
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDK8QW-UOElfgmNbFYslD3krgkpizTuaWg",
+      authDomain: "med-test-8a03f.firebaseapp.com",
+      projectId: "med-test-8a03f",
+      storageBucket: "med-test-8a03f.firebasestorage.app",
+      messagingSenderId: "667021400985",
+      appId: "1:667021400985:web:53b688f554e78adddd5108",
+      measurementId: "G-QMFYTZX5TP"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const overlay = document.getElementById('activation-overlay');
+    const btn = document.getElementById('activate-btn');
+    const status = document.getElementById('status-msg');
+
+    if (localStorage.getItem('medq_active') === 'true') {
+      overlay.style.display = 'none';
+      document.body.classList.remove('locked');
+    }
+
+    btn.onclick = async () => {
+      const code = document.getElementById('activation-code').value.trim();
+      if (!code) return;
+
+      status.innerText = "Verifying code...";
+      status.style.color = "#38bdf8";
+
+      try {
+        const docRef = doc(db, "activationCodes", code);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists() && docSnap.data().isUsed === false) {
+          await updateDoc(docRef, { isUsed: true });
+          localStorage.setItem('medq_active', 'true');
+          
+          status.innerText = "Success! Unlocking...";
+          status.style.color = "#4ade80";
+          
+          setTimeout(() => {
+            overlay.style.display = 'none';
+            document.body.classList.remove('locked');
+          }, 1000);
+        } else {
+          status.innerText = docSnap.exists() ? "Code already used." : "Invalid code.";
+          status.style.color = "#ff4444";
+        }
+      } catch (e) {
+        status.innerText = "Error. Check internet or rules.";
+        console.error(e);
+      }
+    };
+  </script>
+
+</body>
+</html>

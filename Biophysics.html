@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All questions_Biophysics_2022-2025</title>
+
+    <style>
+         :root {
+    
+    --bg-body: #0c0d0e;
+    --text-main: #f1f5f9;
+    --text-opts: #f1f5f9;
+    --header-bg: #1e293b;
+    --header-text: #38bdf8;
+    --border-color: #26292b;
+    --input-bg: #1a1c1e;
+    --input-border: #2a2f36;
+    --ans-bg: #1e293b;
+    --ans-text: #f0cf6a;
+}
+
+[data-theme="light"] {
+
+    --bg-body: #ffffff;
+    --text-main: #000000;
+    --text-opts: #333333;
+    --header-bg: #2D2D2D;
+    --header-text: #ffffff;
+    --border-color: #e0e0e0;
+    --input-bg: #ffffff;
+    --input-border: #cccccc;
+    --ans-bg: #f1f8e9;
+    --ans-text: #2e7d32;
+}
+
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+      
+
+        .container {
+    width: 100%;
+    max-width: 1150px;
+    padding: 20px;
+    box-sizing: border-box;   
+}
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter-container {
+    background-color: var(--filter-bg);
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+    white-space: nowrap;
+        }
+
+      
+        .filter-btn.active {
+            background-color: #729fcf;
+            color: white;
+            border-color: #729fcf;
+        }
+
+        .divider { border: none; border-top: 1px solid var(--border-color); margin-bottom: 25px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+        .ans-row { display: flex; justify-content: space-between; align-items: center; }
+        .ans-text { font-weight: 700; color: var(--ans-text); visibility: hidden; background-color: var(--ans-bg); padding: 6px 12px; border-radius: 4px; }
+        .q-block.revealed .ans-text { visibility: visible; }
+        .ans-btn { background-color: #729fcf; color: white; border: none; padding: 9px 19px; border-radius: 6px; font-weight: 700; }
+
+        mark { background-color: #f0cf6a; color: #000; }
+        a { color: inherit; text-decoration: none; }
+
+        @media (max-width: 600px) { .header { flex-direction: column; gap: 12px; } }
+    </style>
+</head>
+
+<body oncontextmenu="return false;"> 
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">Final & End-Rotation</h3>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Biophysics ⚛️ • 2022-2025</p>
+        </div>
+        
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+          <button class="theme-toggle" onclick="toggleTheme()">
+    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+</button>
+    </div>
+   
+
+    <div class="filter-container" id="filter-bar">
+        <button class="filter-btn active" onclick="filterBySubject('All', this)">All</button>
+        <button class="filter-btn" onclick="filterBySubject('22', this)">2021 - 2022</button>
+        <button class="filter-btn" onclick="filterBySubject('23', this)">2022 - 2023</button>
+        <button class="filter-btn" onclick="filterBySubject('24', this)">2023 - 2024</button>
+        <button class="filter-btn" onclick="filterBySubject('25', this)">2024 - 2025</button>
+        <button class="filter-btn" onclick="filterBySubject('U', this)">Unkown year</button>
+    </div>
+      
+        
+    
+   
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+
+
+
+<script>
+function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    const isLight = body.getAttribute('data-theme') === 'light';
+
+    if (isLight) {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+        body.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}
+
+const data = [
+
+  { n: 1, s: "22", q: "Medical physics refers to two major areas; the first area is the applications of physics to the function of the human body in:", o: ["A. Clinical and surgical practice", "B. Anatomical and physiological study", "C. Health and disease", "D. Growth and development", "E. Diagnosis and treatment"], a: "C" },
+  { n: 2, s: "22", q: "The ability of the eye to focus on objects over a wide range is called:", o: ["A. Accommodation", "B. Adaptation", "C. Refraction", "D. Convergence", "E. Visual acuity"], a: "A" },
+  { n: 3, s: "22", q: "The chest piece of a stethoscope usually consists of two sides that can be placed against the patient for sensing sound:", o: ["A. A sensor or bell", "B. A diaphragm or cone", "C. A speaker or bell", "D. A membrane or resonator", "E. A diaphragm or bell"], a: "E" },
+  { n: 4, s: "22", q: "Which of the following is the application of scientific principles to the protection of workers and the public from the hazards of radiation?", o: ["A. Radiobiology", "B. Health physics", "C. Nuclear medicine", "D. Radiation protectionism", "E. Biophysical safety"], a: "B" },
+  { n: 5, s: "22", q: "Which medical specialty involves treating cancer with radiation?", o: ["A. Nuclear oncology", "B. Radiological therapy", "C. Medical imaging", "D. Radiation oncology", "E. Therapeutic radiology"], a: "D" },
+  { n: 6, s: "22", q: "Which specialty includes X-ray, computed tomography (CT scan), ultrasound (US), and magnetic resonance imaging (MRI)?", o: ["A. Clinical imaging", "B. Interventional radiology", "C. Diagnostic radiology", "D. Medical physics", "E. Bio-imaging"], a: "C" },
+  { n: 7, s: "22", q: "Ultrasound is best described as:", o: ["A. Electromagnetic wave", "B. Mechanical vibration", "C. Ionizing radiation", "D. Thermal energy", "E. Acoustic resonance"], a: "B" },
+  { n: 8, s: "22", q: "Jaundice in infants is treated by:", o: ["A. Infrared radiation", "B. Ultraviolet light", "C. Thermal therapy", "D. Gamma rays", "E. Visible light"], a: "E" },
+  { n: 9, s: "22", q: "Cancer therapy by radiation utilizes:", o: ["A. Radio waves and photons", "B. Electron beams and neutrons", "C. Protons and electrons", "D. Particle beam and photon", "E. Microwave and alpha particles"], a: "D" },
+  { n: 10, s: "22", q: "What is the percentage of energy used by the heart and skeletal muscle?", o: ["A. 15%", "B. 20%", "C. 25%", "D. 30%", "E. 35%"], a: "C" },
+  { n: 11, s: "22", q: "Up to 35-40 years of age, which of the following is correct?", o: ["A. Osteoblast is more than osteoclast", "B. Osteoclast is more than osteoblast", "C. Osteocyte is more than osteoclast", "D. Osteoblast is equal to osteoclast", "E. Chondrocyte is more than osteoblast"], a: "A" },
+  { n: 12, s: "22", q: "In which part of the circulatory system does the exchange of gas happen?", o: ["A. Artery", "B. Capillary", "C. Vein", "D. Venule", "E. Arteriole"], a: "B" },
+  { n: 13, s: "22", q: "Long bones are composed of:", o: ["A. Shaft: spongy bone, ends: compact bone", "B. Shaft: dense bone, ends: cortical bone", "C. Shaft: marrow bone, ends: hard bone", "D. Shaft: fibrous bone, ends: spongy bone", "E. Shaft: compact bone, ends: spongy bone"], a: "E" },
+  { n: 14, s: "22", q: "Which setting is required for imaging a thicker breast?", o: ["A. Lower mAs", "B. Lower kvp", "C. Higher mAs", "D. Higher kvp", "E. Constant kvp"], a: "D" },
+  { n: 15, s: "22", q: "Moment to moment peripheral resistance varies because of:", o: ["A. Vessel length", "B. Blood pressure", "C. Viscosity", "D. Heart rate", "E. Vessel diameter"], a: "C" },
+  { n: 16, s: "22", q: "A 1°C rise in body temperature leads to:", o: ["A. Change in 5% of metabolism", "B. Change in 10% of metabolism", "C. Change in 15% of metabolism", "D. Change in 20% of metabolism", "E. Change in 25% of metabolism"], a: "B" },
+  { n: 17, s: "22", q: "What are two therapeutic effects of heating?", o: ["A. Decreasing metabolism and blood flow", "B. Increasing heart rate and pressure", "C. Decreasing pain and inflammation", "D. Increasing oxygen and carbon dioxide", "E. Increasing metabolism and blood flow"], a: "A" },
+  { n: 18, s: "22", q: "The Doppler effect is most commonly used in the diagnosis of:", o: ["A. Congestive heart failure", "B. Pulmonary embolism", "C. Arterial stenosis", "D. Deep vein thrombosis", "E. Myocardial infarction"], a: "C" },
+  { n: 19, s: "22", q: "Radiant heating involves the use of:", o: ["A. Ultraviolet light", "B. Visible light", "C. Infrared light", "D. Microwave energy", "E. X-ray radiation"], a: "C" },
+  { 
+  n: 20, 
+  s: "22", 
+  q: "Which of the following is correct regarding heart physics?", 
+  o: [
+    "A. When the radius doubles, tension also halves, and efficiency increases",
+    "B. When the radius halves, tension also doubles, and efficiency increases",
+    "C. When the radius doubles, tension also increases, and efficiency increases",
+    "D. When the radius doubles, tension also doubles, and efficiency decreases",
+    "E. When the radius halves, tension also halves, and efficiency decreases"
+  ], 
+  a: "D" 
+},
+  
+  { n: 21, s: "22", q: "The action potential starts at which part of the neuron?", o: ["A. Dendritic spine", "B. Cell body", "C. Axon hillock", "D. Myelin sheath", "E. Synaptic terminal"], a: "C" },
+  { n: 22, s: "22", q: "K+ voltage-gated channels open during which phase?", o: ["A. Repolarization", "B. Depolarization", "C. Hyperpolarization", "D. Resting potential", "E. Threshold potential"], a: "A" },
+  { n: 23, s: "22", q: "What is the typical flow of blood in the arteries?", o: ["A. 1-5 cm/s", "B. 50-100 cm/s", "C. 5-10 cm/s", "D. 40-60 cm/s", "E. 10-30 cm/s"], a: "E" },
+  { n: 24, s: "22", q: "What is the primary focus regarding the safety and risks of MRI?", o: ["A. Ionizing radiation", "B. Biological effects", "C. Genetic mutation", "D. Acoustic trauma", "E. Chemical toxicity"], a: "B" },
+  { n: 25, s: "22", q: "Which tissue is the best absorber of ultrasound diathermy?", o: ["A. Muscle", "B. Fat", "C. Skin", "D. Bone", "E. Nerve"], a: "D" },
+  { n: 26, s: "22", q: "Ventilation (breathing) is defined as the process where:", o: ["A. Oxygen enters the bloodstream", "B. Carbon dioxide is produced by cells", "C. Air gets into the lungs and also out", "D. Diaphragm stays stationary", "E. Hemoglobin binds to oxygen"], a: "C" },
+  { n: 27, s: "22", q: "The transverse leads in an ECG are designated as:", o: ["A. Lead I to III", "B. V1 to V6", "C. aVR, aVL, and aVF", "D. V7 to V9", "E. Lead II and V5"], a: "B" },
+  { 
+  n: 28, 
+  s: "22", 
+  q: "What does a personal monitoring device indicate?", 
+  o: [
+    "A. The radiation dose the radiologist receives",
+    "B. The radiation level present in the working area",
+    "C. The radiation exposure accumulated during work",
+    "D. The amount of radiation detected in the room",
+    "E. The amount of exposure the radiologist has received"
+  ], 
+  a: "E" 
+},
+  { n: 29, s: "22", q: "What is the occupational exposure limit for a radiation worker?", o: ["A. 1 rem", "B. 2 rem", "C. 3 rem", "D. 5 rem", "E. 10 rem"], a: "D" },
+  { n: 30, s: "22", q: "Which material is standard for radiation shielding?", o: ["A. Aluminum", "B. Concrete", "C. Lead", "D. Copper", "E. Steel"], a: "C" },
+  { n: 31, s: "22", q: "What is used to find out if a person in a coma is brain-dead and to watch brain activity during anesthesia?", o: ["A. EEG, EEG", "B. ECG, EEG", "C. EMG, EEG", "D. CT, MRI", "E. EEG, EMG"], a: "A" },
+  { 
+  n: 32, 
+  s: "22", 
+  q: "A woman has a slow heartbeat, dizziness, and loss of energy due to an electrical disturbance. What is the clinical intervention?", 
+  o: [
+    "A. Administering stimulant medication to increase the heart rate",
+    "B. Implanting a defibrillator to restore the normal electrical rhythm",
+    "C. Performing cardiac surgery to replace the damaged tissue",
+    "D. Applying external cooling to reduce cardiac electrical activity",
+    "E. Increasing sodium intake to improve blood circulation"
+  ], 
+  a: "B" 
+},
+{ 
+  n: 33, 
+  s: "22", 
+  q: "Which of the following is correct regarding X-rays?", 
+  o: [
+    "A. X-rays are generated basically by splitting atomic nuclei in the target tube",
+    "B. X-rays are generated basically by heating the metal target in the tube",
+    "C. X-rays are generated basically by high-frequency sound waves in the tube",
+    "D. X-rays are generated basically by the collision of electrons in the tungsten tube",
+    "E. X-rays are generated basically by chemical reactions inside the tube"
+  ], 
+  a: "D" 
+},
+
+{ 
+  n: 34, 
+  s: "22", 
+  q: "Regarding Bremsstrahlung radiation, what is the source of the X-ray?", 
+  o: [
+    "A. Radiation produced by the explosion of a high-energy atomic nucleus",
+    "B. Radiation produced by the collision of two heavy protons",
+    "C. Radiation produced by the heating of a cathode filament",
+    "D. Radiation produced by the deceleration of a charged particle when deflected by another",
+    "E. Radiation produced by the transition of electrons between outer shells"
+  ], 
+  a: "D" 
+},
+
+  { n: 35, s: "22", q: "Which of the following is used as a guidance for brachytherapy?", o: ["A. MRI", "B. CT scan", "C. Ultrasound", "D. PET scan", "E. Fluoroscopy"], a: "C" },
+  { n: 36, s: "22", q: "Therapeutic heat increases which of the following, causing capillary walls to relax?", o: ["A. Blood viscosity", "B. Metabolism", "C. Carbon dioxide levels", "D. Muscle tension", "E. Nerve conduction speed"], a: "B" },
+  { n: 37, s: "22", q: "What is the maximum magnetic field that can be used on a patient without risks of biological effects?", o: ["A. 0.5 Tesla", "B. 1 Tesla", "C. 1.5 Tesla", "D. 2 Tesla", "E. 3 Tesla"], a: "E" },
+  
+  { n: 38, s: "23", q: "Which of the following is incorrect for respiratory acidosis?", o: ["A. Retention of carbon dioxide in the blood", "B. Decrease in blood pH levels", "C. Increasing the ratio of HCO₃/H₂CO₃", "D. Hypoventilation as a primary cause", "E. Increased formation of carbonic acid"], a: "C" },
+  { n: 39, s: "23", q: "Premature infants often recover from jaundice (excess bilirubin) if their bodies are exposed to which type of radiation?", o: ["A. Ultraviolet radiation", "B. Infrared radiation", "C. Gamma radiation", "D. Microwave radiation", "E. Visible blue light"], a: "A" },
+  { 
+  n: 40, 
+  s: "23", 
+  q: "In cryosurgery, which specific part is placed in contact with the tumor to destroy abnormal tissue?", 
+  o: [
+    "A. Reservoir",
+    "B. Cryoprobe",
+    "C. Applicator",
+    "D. Nitrogen",
+    "E. Cannula tube"
+  ], 
+  a: "B" 
+},
+
+{ 
+  n: 41, 
+  s: "23", 
+  q: "Which of the following is a major component used within the MRI scanner system?", 
+  o: [
+    "A. Iron",
+    "B. Aluminum",
+    "C. Lead",
+    "D. Copper",
+    "E. Tungsten wire"
+  ], 
+  a: "D" 
+},
+  { n: 42, s: "23", q: "Which of the following is a primary cause for ventricular fibrillation?", o: ["A. Mechanical impact", "B. Hyperventilation", "C. Hypotension", "D. Thermal stress", "E. Electrolytic disturbances"], a: "E" },
+  { n: 43, s: "23", q: "X-ray is used in medicine despite its hazardous effects; how are these risks managed?", o: ["A. Increasing exposure time", "B. Minimizing them by control and procedure", "C. Eliminating all scatter radiation", "D. Using high-energy alpha particles", "E. Reducing the distance from the source"], a: "B" },
+  { 
+  n: 44, 
+  s: "23", 
+  q: "Why are bed rest and oxygen therapy prescribed to treat a myocardial infarction?", 
+  o: [
+    "A. To increase peripheral vascular resistance and reduce cardiac afterload",
+    "B. To decrease hemoglobin concentration and limit oxygen demand",
+    "C. To reduce myocardial workload and increase oxygen delivery to tissues",
+    "D. To stimulate the sinoatrial node and enhance cardiac pacing",
+    "E. To elevate tissue metabolic rate and augment oxygen consumption"
+  ], 
+  a: "C" 
+},
+  
+  { n: 45, s: "23", q: "___________are used after cataract surgery if the supportive membrane surrounding the implanted lens becomes milky:", o: ["A. Lower power laser", "B. YAG laser", "C. Argon gas laser", "D. Excimer laser", "E. Higher power laser"], a: "B" },
+  { n: 46, s: "23", q: "Acoustic stethoscopes operate on the transmission of sound from the chest piece, via air-filled hollow tubes, to the listener's ears, The chest piece usually consists of two sides that can be placed against the patient for sensing sound:", o: ["A. Metal diaphragm, solid cup", "B. Plastic disc, solid cup", "C. Diaphragm, bell", "D. Rubber disc, hollow cup", "E. Plastic disc, hollow cup"], a: "C" },
+  { n: 47, s: "23", q: "Diaphragm transmit ______________.", o: ["A. High frequency", "B. Low frequency", "C. Medium frequency", "D. Resonance frequency", "E. Ultrasonic frequency"], a: "A" },
+  { n: 48, s: "23", q: "Percussion is an assessment technique which produces sounds by the examiner tapping on the patient's ___________.", o: ["A. Abdominal cavity", "B. Spinal column", "C. Joint space", "D. Chest wall", "E. Cranial vault"], a: "D" },
+  { n: 49, s: "23", q: "In medical physics the First area is The applications of physics to the function of the human body in ___________.", o: ["A. Anatomy and physiology", "B. Growth and development", "C. Motion and rest", "D. Trauma and recovery", "E. Health and disease"], a: "E" },
+  { n: 50, s: "23", q: "LASER is:", o: ["A. Acoustic wave, type of EMR", "B. Ionizing radiation, type of wave", "C. Visible light, type of EMR", "D. Microwave, type of EMR", "E. Invisible light, type of particle"], a: "C" },
+  { n: 51, s: "23", q: "Ultrasound is a __________.", o: ["A. Transverse wave", "B. Electromagnetic wave", "C. Radio wave", "D. Standing wave", "E. Mechanical wave"], a: "E" },
+  { 
+  "n": 52, 
+  "s": "23", 
+  "q": "A patient presents with an ankle sprain; which of the following interventions is NOT considered appropriate:", 
+  "o": [
+    "A. Apply cold packs to the localized area for twenty minutes every few hours", 
+    "B. Apply elastic bandage compression from proximal to distal of the injury", 
+    "C. Elevate the affected limb to a position significantly above heart level", 
+    "D. Apply elastic bandage compression from distal to proximal of the injury", 
+    "E. Rest the injured joint to prevent further mechanical stress on the ligaments"
+  ], 
+  "a": "B" 
+},
+
+  { n: 53, s: "23", q: "Increase in magnetic field will:", o: ["A. Increase image noise", "B. Reduce scan time", "C. Decrease resolution", "D. Increase better signal", "E. Weaken proton alignment"], a: "D" },
+  { n: 54, s: "23", q: "What are the components of x ray tube:", o: ["A. Filament, target, vacuum", "B. Rotor, stator, filter", "C. Anode, cathode, envelope glass", "D. Lead housing, oil, window", "E. All of the above"], a: "C" },
+  { 
+  "n": 55, 
+  "s": "23", 
+  "q": "LASER used for:", 
+  "o": [
+    "A. Photocoagulation of retina and vessel occlusion", 
+    "B. Deep tissue massage and heating of muscles", 
+    "C. Bone fracture realignment and joint fixation", 
+    "D. Internal organ imaging and soft tissue scan", 
+    "E. Monitoring heart rate and arterial pressure"
+  ], 
+  "a": "A" 
+},
+  { n: 56, s: "23", q: "Ventricular fibrillation cause by:", o: ["A. Muscular strain", "B. Oxygen saturation", "C. Hormonal imbalance", "D. Physical trauma", "E. Electrical disturbance"], a: "E" },
+  { n: 57, s: "23", q: "Cystoscope used for seeing:", o: ["A. Kidney", "B. Stomach", "C. Liver", "D. Bladder", "E. Intestine"], a: "D" },
+  { n: 58, s: "23", q: "For endoscope heats can be reduced by:", o: ["A. Water cooling system", "B. Air ventilation fans", "C. Special IR absorbing glass filter", "D. Reducing bulb voltage", "E. Using fiber optic cables"], a: "C" },
+  { n: 59, s: "23", q: "Transillumination is:", o: ["A. Blue light", "B. X-ray vision", "C. Green reflection", "D. Ultra violet", "E. Red glow"], a: "E" },
+  { n: 60, s: "23", q: "Which of the followings you think is the most suspicion of the gematric law:", o: ["A. CT scan", "B. MRI", "C. X-ray", "D. PET scan", "E. Ultrasound"], a: "B" },
+  { n: 61, s: "23", q: "Someone in ventricular fibrillation each minute delay to do shock defibrillation how many percentage decrease:", o: ["A. 2%", "B. 5%", "C. 10%", "D. 15%", "E. 20%"], a: "C" },
+  { n: 62, s: "23", q: "Tachycardia happens because of:", o: ["A. Increase blood pressure", "B. Decrease blood sugar", "C. Increase oxygen level", "D. Decrease heart efficiency", "E. Decrease cardiac output"], a: "D" },
+  { n: 63, s: "23", q: "In neuropathy:", o: ["A. High amplitude, long duration, polychasia", "B. Low amplitude, short duration, polychasia", "C. High frequency, short duration, polychasia", "D. Low frequency, long duration, polychasia", "E. Normal amplitude, normal duration, polychasia"], a: "A" },
+  { n: 64, s: "23", q: "First action potential happen in:", o: ["A. Dendrite", "B. Axon hillock", "C. Synaptic cleft", "D. Myelin sheath", "E. Cell body"], a: "B" },
+  { 
+  "n": 65, 
+  "s": "23", 
+  "q": "Current flow travel in only one direction because:", 
+  "o": [
+    "A. The cell membrane is thick and impermeable", 
+    "B. The neurotransmitters move fast across gaps", 
+    "C. The synapses ensure unidirectional signal flow", 
+    "D. The electrical gradient is constant and stable", 
+    "E. The sodium pumps are active during the rest"
+  ], 
+  "a": "C" 
+},
+  
+  { n: 66, s: "23", q: "If someone has an arrhythmia, which term will be used:", o: ["A. Myocardial infarction", "B. Arterial stenosis", "C. Ventricular fibrillation", "D. Pulmonary embolism", "E. Hypertrophic cardiomyopathy"], a: "C" },
+  { n: 67, s: "23", q: "Ventricular fibrillation can be corrected by:", o: ["A. Applying low voltage 10-20 Ac", "B. Putting high voltage 450-800 Dc", "C. Constant current of 5 Amps", "D. Intermittent pulse of 110 Ac", "E. Rapid chest compressions only"], a: "B" },
+  { n: 68, s: "23", q: "Which of the following is incorrect:", o: ["A. Arterial po2 is 80-100", "B. Alveolar po2 is 100-105", "C. Muscle po2 is 20-40", "D. Venom po2 is 80-100", "E. Tissue pco2 is 45-50"], a: "D" },
+  { n: 69, s: "23", q: "A patient diagnosed with a particular disease who does not actually have it, it is a:", o: ["A. False positive", "B. False negative", "C. True positive", "D. True negative", "E. Diagnostic bias"], a: "A" },
+  { 
+  "n": 70, 
+  "s": "23", 
+  "q": "High voltage laser is used to:", 
+  "o": [
+    "A. Provide soft tissue massage and muscle relief", 
+    "B. Induce superficial skin cooling and anesthesia", 
+    "C. Deliver low level light therapy for healing", 
+    "D. Conduct diagnostic imaging and internal scans", 
+    "E. Perform surgical cutting and tissue ablation"
+  ], 
+  "a": "E" 
+},
+  { n: 71, s: "23", q: "Liquid nitrogen takes heat from:", o: ["A. Internal reservoir", "B. Vacuum pump", "C. Environment", "D. Copper electrodes", "E. Laser power supply"], a: "C" },
+  { n: 72, s: "23", q: "What is an advantage of ultrasound:", o: ["A. High ionizing radiation", "B. Non-ionizing radiation", "C. Ability to see through bone", "D. Lower cost than X-ray", "E. Better resolution than MRI"], a: "B" },
+  { n: 73, s: "23", q: "Both MRI and CT scans can:", o: ["A. Perform blood chemistry", "B. Measure bone density only", "C. Track genetic mutations", "D. Produce cross-sectional images", "E. Treat bacterial infections"], a: "D" },
+  { n: 74, s: "23", q: "A stronger magnetic field results in:", o: ["A. Lower resonance", "B. Increased scan time", "C. Better signal", "D. Higher radiation dose", "E. Reduced image contrast"], a: "C" },
+  { n: 75, s: "23", q: "A disadvantage of ultrasound over CT is that ultrasound cannot effectively show:", o: ["A. Bones", "B. Soft tissue", "C. Blood flow", "D. Fluid collections", "E. Cystic structures"], a: "A" },
+  { 
+  "n": 76, 
+  "s": "23", 
+  "q": "As a doctor in a hospital, you receive a patient whose ECG shows uncoordinated heartbeats. What is the best next step?", 
+  "o": [
+    "A. Administer oral aspirin with 300-500 milligrams in 1.0 minute (a full)", 
+    "B. Administer electrical defibrillation with 700-900 volts in 0.1 second (a tenth)", 
+    "C. Provide IV fluid infusion with 500-700 milliliters in 1.0 hour (a whole)", 
+    "D. Deliver targeted cooling therapy with 32-34 Celsius in 2.0 hours (a double)", 
+    "E. Perform manual percussion with 100-120 compressions in 1.0 minute (a full)"
+  ], 
+  "a": "B" 
+},
+
+  { n: 77, s: "23", q: "Ultrasound involves which of the following physics principles:", o: ["A. Fraction", "B. Transmit", "C. Reflection", "D. Absorption", "E. All of them"], a: "E" },
+  { 
+  "n": 78, 
+  "s": "23", 
+  "q": "X-rays are produced by:", 
+  "o": [
+    "A. Splitting of heavy atoms in a vacuum", 
+    "B. Resonance of protons in magnetic field", 
+    "C. Nuclear fusion of atoms at high heat", 
+    "D. Interaction of electrons with matter", 
+    "E. Vibration of waves in a liquid medium"
+  ], 
+  "a": "D" 
+},
+  
+
+    { n: 79, s: "24", q: "Which of the following is used for treating jaundice in infants:", o: ["A. UV", "B. IR", "C. X-ray", "D. Gamma", "E. Microwave"], a: "A" },
+  { n: 80, s: "24", q: "The ability of the eye to focus on objects over a wide range is called:", o: ["A. Accommodation", "B. Refraction", "C. Convergence", "D. Adaptation", "E. Visual acuity"], a: "A" },
+  { n: 81, s: "24", q: "Which of the following is used when many radioactive elements are involved:", o: ["A. Stable isotope", "B. Ionizing photon", "C. Radionuclide", "D. Neutron activator", "E. Beta emitter"], a: "C" },
+  { n: 82, s: "24", q: "Korotkoff sounds are heard through either a stethoscope or a Doppler that is placed distal to the blood pressure cuff:", o: ["A. When the cuff pressure is above systolic", "B. When the cuff pressure equals atmospheric pressure", "C. When the artery is completely occluded", "D. When the cuff is fully deflated", "E. When the cuff pressure is below the systolic pressure"], a: "E" },
+  { 
+  "n": 83, 
+  "s": "24", 
+  "q": "A 52-year-old man has cardiac arrest (no pulse) after an acute myocardial infarction; what is the required treatment?", 
+  "o": [
+    "A. Low voltage DC current of 12-24 volts applied within five full seconds", 
+    "B. High voltage shock of 750-800 volts applied within a tenth of a second", 
+    "C. Continuous AC current of 110-120 volts applied for two whole seconds", 
+    "D. Immediate infusion of saline fluid 500 milliliters within one minute", 
+    "E. External power pacing of 60-80 pulses applied within every one minute"
+  ], 
+  "a": "B" 
+},
+  
+  { n: 84, s: "24", q: "The skeletal muscle and heart use what percentage of energy?", o: ["A. 5%", "B. 15%", "C. 25%", "D. 50%", "E. 75%"], a: "C" },
+  { n: 85, s: "24", q: "Which of the following are considered transverse leads:", o: ["A. Lead I, II, III", "B. aVR, aVL, aVF", "C. V1, V2, V3 only", "D. V1-V6 ", "E. All limb leads"], a: "D" },
+  { n: 86, s: "24", q: "We measure annual radiation exposure by using a:", o: ["A. Geiger counter", "B. Film badge", "C. Scintillation counter", "D. Dosimeter probe", "E. Ionization chamber"], a: "B" },
+  { n: 87, s: "24", q: "What are the primary sources of ionizing radiation?", o: ["A. Infrared and UV", "B. Microwave and Radio", "C. Ultrasound and MRI", "D. Gamma and X-Ray", "E. Visible light and Laser"], a: "D" },
+  { n: 88, s: "24", q: "The occupational exposure limit for a trained radiation worker is:", o: ["A. 5 rem", "B. 10 rem", "C. 50 rem", "D. 1 rem", "E. 0.5 rem"], a: "A" },
+  { n: 89, s: "24", q: "Hot baths, hot packs, and electric heating pads are examples of:", o: ["A. The convective method", "B. The radiative method", "C. The conductive method", "D. The evaporative method", "E. The ultrasonic method"], a: "C" },
+  { 
+  "n": 90, 
+  "s": "24", 
+  "q": "Heart surgery in a cold operating room is performed because:", 
+  "o": [
+    "A. Both bacterial growth and wound infection decrease", 
+    "B. Both BMR and O₂ consumption decrease", 
+    "C. Both heart rate and cardiac output increase", 
+    "D. Both blood viscosity and coagulation levels increase", 
+    "E. Both surgeon focus and hand stability improve"
+  ], 
+  "a": "B" 
+},
+  
+  { n: 91, s: "24", q: "Which group of patients would be at significant risk if they undergo MRI?", o: ["A. Patients with fractures", "B. Patients with fever", "C. Patients with diabetes", "D. Patients with hypertension", "E. Patients with artificial valves"], a: "E" },
+  { n: 92, s: "24", q: "Which branch includes X-ray computed tomography (CT), Ultrasound (US), and Magnetic Resonance Imaging (MRI)?", o: ["A. Therapeutic radiology", "B. Nuclear medicine", "C. Interventional surgery", "D. Diagnostic radiology", "E. Health physics"], a: "D" },
+  { n: 93, s: "24", q: "Which medical specialty involves treating cancer with radiation?", o: ["A. Diagnostic oncology", "B. Medical physics", "C. Radiation oncology", "D. Nuclear pathology", "E. Chemotherapy"], a: "C" },
+  { n: 94, s: "24", q: "The application of scientific principles to the protection of workers and the public from radiation hazards is known as:", o: ["A. Health physics", "B. Environmental safety", "C. Nuclear engineering", "D. Radiation biology", "E. Occupational therapy"], a: "A" },
+  { 
+  "n": 95, 
+  "s": "24", 
+  "q": "Which statement is correct regarding X-rays:", 
+  "o": [
+    "A. X-rays are longitudinal waves that travel in the medium of air", 
+    "B. X-rays are generated by collision of electrons in the tungsten tube", 
+    "C. X-rays have lower energy than visible light in the spectrum range", 
+    "D. X-rays are produced by the vibration of atoms in the crystal lattice", 
+    "E. X-rays cannot penetrate soft tissue because of high density mass"
+  ], 
+  "a": "B" 
+},
+ { 
+  "n": 96, 
+  "s": "24", 
+  "q": "Long bones are composed of:", 
+  "o": [
+    "A. Marrow (yellow tissue) and Ends (cartilage tissue)", 
+    "B. Cortex (fibrous layer) and Core (steel-like fibers)", 
+    "C. Matrix (uniform tissue) and Cells (spongy tissue)", 
+    "D. Surface (cortical bone) and Inner (medullary bone)", 
+    "E. Shaft (compact bone) and Ends (spongy bone)"
+  ], 
+  "a": "E" 
+},
+  
+  { n: 97, s: "24", q: "For a thicker breast during mammography, the requirement is:", o: ["A. Lower mAs", "B. Higher exposure time", "C. Lower filtration", "D. Higher kVp", "E. Smaller focal spot"], a: "D" },
+  { n: 98, s: "24", q: "Medical physics refers to two major areas; the first is the application of physics to the function of the human body in:", o: ["A. Rest and motion", "B. Childhood and adulthood", "C. Health and disease", "D. Trauma and recovery", "E. Normal and extreme conditions"], a: "C" },
+  { n: 99, s: "24", q: "The chest piece of a stethoscope usually consists of two sides that can be placed against the patient for sensing sound:", o: ["A. A sensor or transducer", "B. A diaphragm or bell", "C. A speaker or microphone", "D. A hollow tube or solid rod", "E. A plastic disc or rubber cup"], a: "B" },
+  { n: 100, s: "24", q: "Up to the age of 35-40 years, the activity of _____ is greater than _____.", o: ["A. Osteoblast, osteoclast", "B. Osteoclast, osteoblast", "C. Chondrocyte, osteocyte", "D. Collagen, calcium", "E. Marrow, bone mineral"], a: "A" },
+  { n: 101, s: "24", q: "The ability of the eye to focus on objects over a wide range is called:", o: ["A. Myopia", "B. Presbyopia", "C. Astigmatism", "D. Convergence", "E. Accommodation"], a: "E" },
+  { n: 102, s: "24", q: "Which of the following causes mechanical vibration in the tissue?", o: ["A. X-ray", "B. Gamma ray", "C. MRI", "D. Ultrasound", "E. Laser"], a: "D" },
+  { n: 103, s: "24", q: "Radiologists protect themselves by shielding with:", o: ["A. Aluminum sheets", "B. Copper mesh", "C. Roentgen lead", "D. Iron plating", "E. Concrete blocks"], a: "C" },
+
+  { n: 104, s: "24", q: "The BMR depends to a large extent on the body temperature; for an increase of 1°C, it will change by:", o: ["A. 2%", "B. 5%", "C. 10%", "D. 15%", "E. 25%"], a: "C" },
+  { n: 105, s: "24", q: "A woman is a 32-year-old lifelong non-smoker with no significant medical history. She presented to the emergency department with a short history of unilateral chest pain without difficulty in breathing; which imaging is first indicated:", o: ["A. MRI", "B. X-ray", "C. CT scan", "D. Ultrasound", "E. PET scan"], a: "B" },
+  { n: 106, s: "24", q: "A 74-year-old man admitted with a history of poor mobility and an increasing number of falls. He has low back pain for the last six weeks and complains of bilateral leg weakness; what is the best imaging modality:", o: ["A. Ultrasound", "B. Bone scan", "C. X-ray", "D. CT scan", "E. MRI"], a: "E" },
+  { n: 107, s: "24", q: "A 33-year-old woman presented to the emergency department with a headache. During a full history and abdominal examination, you find two masses; which scan should be ordered:", o: ["A. ECG", "B. Endoscopy", "C. Ultrasound", "D. CT scan", "E. Mammography"], a: "D" },
+  { n: 108, s: "24", q: "When the body is completely at rest and has the lowest rate of energy consumption, this is called:", o: ["A. Basal metabolic rate", "B. Thermal equilibrium", "C. Anaerobic threshold", "D. Resting potential", "E. Metabolic steady state"], a: "A" },
+  { n: 109, s: "24", q: "The short period of time in which the body can perform at a very high power level, such as sprinting, is a:", o: ["A. Aerobic phase", "B. Recovery phase", "C. Anaerobic phase", "D. Resting phase", "E. Glycolytic steady state"], a: "C" },
+  { n: 110, s: "24", q: "What is the velocity of blood flow in the aorta:", o: ["A. 1-5 cm/s", "B. 10-30 cm/s", "C. 50-100 cm/s", "D. 120-150 cm/s", "E. 200-300 cm/s"], a: "B" },
+  { n: 111, s: "24", q: "What factor influences the resistance in blood vessels and affects their velocity:", o: ["A. Temperature", "B. Oxygen saturation", "C. Glucose level", "D. Heart rate", "E. Viscosity"], a: "E" },
+  { 
+  "n": 112, 
+  "s": "24", 
+  "q": "In Congestive Heart Failure (CHF), which of the following occurs:", 
+  "o": [
+    "A. Heart size and volume decrease, leading to pressure improvement", 
+    "B. Tension and wall thickness are halved, leading to cardiac relief", 
+    "C. Efficiency and output levels increase, leading to rapid hypertrophy", 
+    "D. Work done and heart tension increase, leading to cardiac enlargement", 
+    "E. Heart rate and pulse speed drop, leading to ten beats per minute"
+  ], 
+  "a": "D" 
+},
+
+  { n: 113, s: "24", q: "Korotkoff or K sounds are heard through the stethoscope when:", o: ["A. Cuff pressure is above systolic pressure", "B. Cuff pressure is equal to diastolic pressure", "C. Cuff pressure is below the systolic pressure", "D. The artery is completely collapsed", "E. The pulse is absent"], a: "C" },
+  { n: 114, s: "24", q: "A 65-year-old male presents with dizziness and sinus bradycardia (30-40 bpm) with exercise intolerance; what is the recommended intervention?", o: ["A. Implantation of a pacemaker", "B. Administration of high voltage shock", "C. Application of cold packs", "D. Physical therapy only", "E. Blood transfusion"], a: "A" },
+  { n: 115, s: "24", q: "Tissue respiration occurs in the:", o: ["A. Aorta", "B. Arteries", "C. Ventricles", "D. Veins", "E. Capillaries"], a: "E" },
+  { n: 116, s: "24", q: "The opening of K+ voltage-gated channels results in:", o: ["A. Depolarization", "B. Repolarization", "C. Hyper-excitation", "D. Threshold reaching", "E. Muscle contraction"], a: "B" },
+  { n: 117, s: "24", q: "The initiation of an action potential happens in the:", o: ["A. Dendrite", "B. Myelin sheath", "C. Synaptic knob", "D. Axon hillock", "E. Cell nucleus"], a: "D" },
+  { n: 118, s: "24", q: "Utilizing electromagnetic waves to penetrate deep into tissue for heat transfer is known as:", o: ["A. Conductive heating", "B. Convective therapy", "C. Short wave diathermy", "D. Infrared radiation", "E. Ultrasonic vibration"], a: "C" },
+  { 
+  "n": 119, 
+  "s": "24", 
+  "q": "How do radiologists measure the radiation exposure they receive:", 
+  "o": [
+    "A. By checking the patient skin color changes", 
+    "B. Using a digital infrared body thermometer", 
+    "C. Monitoring the electrical heart rate rhythm", 
+    "D. Periodic checking of the blood test levels", 
+    "E. Using a personnel monitoring device"
+  ], 
+  "a": "E" 
+},
+  { n: 120, s: "24", q: "Two methods are used to obtain information about motion in the body with ultrasound, the M (motion) scan, which is used to see movement of internal structures such as:", o: ["A. Blood flow in the aorta", "B. Expansion of the lungs", "C. Peristalsis of the gut", "D. Specific sections of the heart", "E. Movement of the diaphragm"], a: "D" },
+
+  { n: 121, s: "24", q: "Radiant heat therapy typically utilizes:", o: ["A. UV", "B. Visible light", "C. Ultrasound", "D. IR", "E. Radio waves"], a: "D" },
+  { n: 122, s: "25", q: "What is the most advanced modern defibrillator that uses lower energy levels and provides higher efficiency:", o: ["A. Monophasic", "B. Capacitive", "C. Biphasic", "D. Inductive", "E. Resonant"], a: "C" },
+  
+  
+  { n: 123, s: "25", q: "Which one has the best geometric resolution?", o: ["A. Ultrasound", "B. PET scan", "C. Scintigraphy", "D. CT-Scan", "E. Thermography"], a: "D" },
+  { 
+  "n": 124, 
+  "s": "25", 
+  "q": "An action potential goes in one direction (from the axon hillock to the axon terminal) mainly because:", 
+  "o": [
+    "A. The refractory period prevents it from flowing backwards", 
+    "B. The myelin sheath prevents it from escaping the membrane", 
+    "C. Sodium channels enable it to bypass the axonal terminal", 
+    "D. Neurotransmitters permit it to maintain the forward charge", 
+    "E. Gravity pressure ensures it follows the specific ionic flow"
+  ], 
+  "a": "A" 
+},
+  { 
+  "n": 125, 
+  "s": "25", 
+  "q": "What is the aim of the personal radiation protection:", 
+  "o": [
+    "A. Increasing the effective biological half-life of all isotopes", 
+    "B. Maximizing the patient therapeutic and total diagnostic dose", 
+    "C. Keeping the radiation exposure as low as reasonably achievable", 
+    "D. Eliminating all natural and artificial background radiation", 
+    "E. Enhancing the detection and sensitivity of the film badge"
+  ], 
+  "a": "C" 
+},
+
+  { n: 126, s: "25", q: "In MRI, what is radio frequency used for:", o: ["A. Measuring bone density", "B. Ionizing hydrogen atoms", "C. Producing X-ray photons", "D. Heating the superconducting magnets", "E. Excitation of atoms of the body"], a: "E" },
+  { 
+  "n": 127, 
+  "s": "25", 
+  "q": "On which part of the body is the film badge for radiation monitoring put:", 
+  "o": [
+    "A. On the distal wrist or the lower ankle", 
+    "B. Between the neck and the waist", 
+    "C. Inside the fingers of the lead gloves", 
+    "D. Attached to the frontal area headgear", 
+    "E. Behind the protective lead glass shield"
+  ], 
+  "a": "B" 
+},
+  
+  { n: 128, s: "25", q: "YAG laser photo disruptive effect used for:", o: ["A. Corneal reshaping", "B. Retinal photocoagulation", "C. Cataract removal", "D. Lens capsulotomies", "E. Glaucoma pressure measurement"], a: "D" },
+  { n: 129, s: "25", q: "Which one is used for retinal tear and hemorrhage:", o: ["A. Ultrasound", "B. X-ray therapy", "C. Laser", "D. Cryotherapy", "E. Microwave diathermy"], a: "C" },
+  { n: 130, s: "25", q: "What is the half life of Tc 99m:", o: ["A. 6 hours", "B. 6 days", "C. 12 hours", "D. 24 hours", "E. 6 minutes"], a: "A" },
+  { n: 131, s: "25", q: "Which ion primarily keeps the action potential of the membrane in resting state:", o: ["A. Sodium ion (Na+)", "B. Calcium ion (Ca2+)", "C. Chloride ion (Cl-)", "D. Magnesium ion (Mg2+)", "E. Potassium ion (K+)"], a: "E" },
+  
+  { n: 132, s: "25", q: "In a biphasic defibrillator, how much energy is typically used:", o: ["A. 10-50 joules", "B. 360-400 joules", "C. 500-1000 joules", "D. 120-200 joules", "E. 5-15 joules"], a: "D" },
+  { n: 133, s: "25", q: "In a stethoscope, which one is used for detecting the higher-frequency sounds:", o: ["A. Bell", "B. Diaphragm", "C. Earpiece", "D. Tubing", "E. Stem"], a: "B" },
+  
+    { n: 134, s: "25", q: " A woman is scheduled for imaging, and her doctor decides to use a CT scan, Why is CT preferred over normal Radiography?", o: ["A. Lower cost and accessibility", "B. Complete absence of radiation", "C. Use of acoustic sound waves", "D. Shorter time for preparation", "E. Better spatial resolution"], a: "E" },
+    
+      { "n": 135, "s": "25", "q": "Which of the following materials has the greatest attenuation on a CT scan?", "o": ["A. Fluid", "B. Tissue", "C. Bone", "D. Fat", "E. Lung"], "a": "C" },
+ 
+  { n: 136, s: "25", q: "In which clinical situation is electrical cardioversion preferred instead of defibrillation:", o: ["A. Ventricular tachycardia (VT)", "B. Asystole", "C.  Pulseless Electrical Activity (PEA)", "D. Complete heart block", "E. Sinus rhythm"], a: "A" },
+  { n: 137, s: "25", q: "How deep does radiant heat therapy typically penetrate into the skin:", o: ["A. 0.1 mm", "B. 10 mm", "C. 3 mm", "D. 25 mm", "E. 50 mm"], a: "C" },
+  { 
+  "n": 138, 
+  "s": "25", 
+  "q": "In cryosurgery, we use low temperatures to achieve which of the following:", 
+  "o": [
+    "A. Increase blood flow and cellular metabolism", 
+    "B. Stimulate nerve growth and tissue regeneration", 
+    "C. Increase local heat and total CO2 production", 
+    "D. Reduce metabolic rate and oxygen consumption", 
+    "E. Promote cellular expansion and fluid movement"
+  ], 
+  "a": "D" 
+},
+  { n: 139, s: "25", q: "Medical physics refers to two major areas; the first area is the application of physics to the function of the human body in:", o: ["A. Space and gravity", "B. Health and disease", "C. Sport and exercise", "D. Aging and nutrition", "E. Birth and development"], a: "B" },
+  { n: 140, s: "25", q: "The eye's ability to focus on objects over a wide range is called:", o: ["A. Convergence", "B. Refraction", "C. Adaptation", "D. Divergence", "E. Accommodation"], a: "E" },
+  { 
+  "n": 141, 
+  "s": "25", 
+  "q": "The most important laser used today in gastroenterology is the Nd: YAG laser. What is the main benefit of this laser in this field?", 
+  "o": [
+    "A. Enhancing nutrient absorption through the local stimulation of villi", 
+    "B. Identifying bacterial flora by using the fluorescent imaging of cells", 
+    "C. Stopping of hemorrhage due to thermal contraction of soft tissue", 
+    "D. Dissolving gallstones without heat by utilizing the acoustic shockwave", 
+    "E. Cooling the internal mucosa through the rapid evaporation of fluids"
+  ], 
+  "a": "C" 
+},
+ { 
+  "n": 142, 
+  "s": "25", 
+  "q": "Laser is light amplification by stimulated emission of radiation which is monochromatic and concentrated in a narrow range of wavelength what is best used for?", 
+  "o": [
+    "A. Photocoagulation to seal leaking blood vessels", 
+    "B. General illumination to view the posterior retina", 
+    "C. Tonometry measurement to check intraocular pressure", 
+    "D. Nerve stimulation to promote the optic fiber growth", 
+    "E. Surface debridement to clean the external cornea"
+  ], 
+  "a": "A" 
+},
+  
+  { n: 143, s: "25", q: "Which of the following is NOT a component of a linear accelerator (LINAC):", o: ["A. Electron gun", "B. Waveguide", "C. Treatment head", "D. Support system", "E. PET scan"], a: "E" },
+  { 
+  "n": 144, 
+  "s": "25", 
+  "q": "What is the primary purpose of radiotherapy:", 
+  "o": [
+    "A. Detect, identify, and localize malignant tumors", 
+    "B. Cure, control, and alleviate cancer symptoms", 
+    "C. Sample, test, and perform detailed blood analysis", 
+    "D. Clean, scrub, and sterilize medical surgical equipment", 
+    "E. Sequence, code, and mapping human genetic sequences"
+  ], 
+  "a": "B" 
+},
+
+  { 
+  "n": 145, 
+  "s": "25", 
+  "q": "Nuclear medicine is a specialty that:", 
+  "o": [
+    "A. Relies on the use of ionizing X-rays for imaging", 
+    "B. Focuses on the physical surgical removal of isotopes", 
+    "C. Deals with the use of radioactive substances in diagnosis and treatment", 
+    "D. Studies the complex effects of gravity on atomic nuclei", 
+    "E. Uses the high frequency sound waves to treat cancer"
+  ], 
+  "a": "C" 
+},
+
+  { n: 146, s: "25", q: "Which form of radiation is most typically used for imaging in nuclear medicine:", o: ["A. Alpha radiation", "B. Beta radiation", "C. Ultraviolet radiation", "D. Infrared radiation", "E. Gamma radiation"], a: "E" },
+  { n: 147, s: "25", q: "What kind of radiation source does a CT machine use:", o: ["A. Radio waves", "B. Magnetic pulses", "C. Gamma rays", "D. X-ray", "E. Ultrasound waves"], a: "D" },
+  { n: 148, s: "25", q: "The chest piece of a stethoscope usually consists of which two sides for sensing sound:", o: ["A. Diaphragm and bell", "B. Speaker and microphone", "C. Disc and sensor", "D. Cup and tube", "E. Plate and needle"], a: "A" },
+  { n: 149, s: "25", q: "Which ion primarily maintains the resting membrane potential of a neuron:", o: ["A. Sodium (Na+)", "B. Calcium (Ca2+)", "C. Potassium (K+)", "D. Chloride (Cl-)", "E. Magnesium (Mg2+)"], a: "C" },
+  { 
+  "n": 150, 
+  "s": "25", 
+  "q": "What is the reason why electrical conduction in an axon is unidirectional:", 
+  "o": [
+    "A. The myelin sheath acts as a valve for ionic current", 
+    "B. The refractory period prevents it from flowing backwards", 
+    "C. Electrical resistance is higher at the dendritic region", 
+    "D. Neurotransmitters are only found at the axonal hillock", 
+    "E. The speed of the signal exceeds the reverse pulse speed"
+  ], 
+  "a": "B" 
+},
+
+  { 
+  "n": 151, 
+  "s": "25", 
+  "q": "What is the best way for a worker to protect themselves from radiation:", 
+  "o": [
+    "A. Increasing the total dose rate of the beam source", 
+    "B. Using colored goggles during the clinical procedure", 
+    "C. Standing closer to the primary source of emission", 
+    "D. Reducing the shielding thickness of the lead barrier", 
+    "E. Reducing the unnecessary exposure to the radiation"
+  ], 
+  "a": "E" 
+},
+
+  
+  { n: 152, s: "25", q: "For pregnant women getting an ultrasound, what is the main reason this modality is considered safe regarding radiation:", o: ["A. Low dose ionizing radiation", "B. Electromagnetic radio waves", "C. Use of non-ionizing acoustic waves", "D. High frequency ultraviolet pulses", "E. Magnetic resonance field shielding"], a: "C" },
+ { n: 153, s: "25", q: "Which specific modality in MRI is utilized for mapping functional brain activity:", o: ["A. Functional Magnetic Resonance Imaging (fMRI)", "B. Diffusion Tensor Imaging (DTI)", "C. Magnetic Resonance Spectroscopy (MRS)", "D. Susceptibility Weighted Imaging (SWI)", "E. T1-Weighted Structural Imaging (T1W)"], a: "A" },
+ { 
+  "n": 154, 
+  "s": "25", 
+  "q": "During a fluoroscopy procedure, which of the following safety statements is correct:", 
+  "o": [
+    "A. Staff should stand directly next to the tube to minimize scatter", 
+    "B. The patient requires no shielding at any time during the imaging", 
+    "C. Radiation is completely contained within the table during the flow", 
+    "D. Lead aprons are only for pediatric patients to reduce the weight", 
+    "E. Staff wear lead aprons to protect themselves from radiation"
+  ], 
+  "a": "E" 
+},
+ { 
+  "n": 155, 
+  "s": "25", 
+  "q": "What is the relationship between the defibrillator and the patient impedance:", 
+  "o": [
+    "A. Minimal impedance has no effect on the current", 
+    "B. Higher impedance increases the clinical success rate", 
+    "C. Lower impedance blocks the internal energy flow", 
+    "D. Standard impedance is only relevant in the MRI", 
+    "E. Optimal impedance leads to the best energy transfer"
+  ], 
+  "a": "E" 
+},
+
+  
+  { 
+  "n": 156, 
+  "s": "25", 
+  "q": "What is the primary purpose of using contrast dye during an angioplasty procedure:", 
+  "o": [
+    "A. To reduce and stabilize arterial blood pressure", 
+    "B. To increase and monitor surgical catheter speed", 
+    "C. To provide and maintain patient sedation levels", 
+    "D. To enhance and visualize vascular structures", 
+    "E. To dissolve and remove internal blood clotting"
+  ], 
+  "a": "D" 
+},
+  { n: 157, s: "25", q: "What is the primary advantage of using helical CT over axial or standard CT scans:", o: ["A. Higher patient radiation dose", "B. Reduced cost of the contrast dye", "C. Significantly faster image acquisition", "D. Ability to use smaller X-ray tubes", "E. Lower resolution of internal organs"], a: "C" },
+  { n: 158, s: "25", q: "A modern CT slicer is considered superior to the normal one because of its ability in:", o: ["A. Generating lower energy X-ray photons", "B. Consistent acquisition of very thin slices", "C. Reducing the need for a rotating gantry", "D. Eliminating the use of digital detectors", "E. Imaging only one organ at a time"], a: "B" },
+  { n: 159, s: "25", q: "What is true regarding the mechanism of the sodium-potassium pump:", o: ["A. It moves 3 sodium ions out and 2 potassium ions in", "B. It moves 2 sodium ions in and 3 potassium ions out", "C. It allows passive diffusion of both ions equally", "D. It moves 3 potassium ions out and 2 sodium ions in", "E. It consumes no ATP during the transport process"], a: "A" },
+  { n: 160, s: "25", q: "What is the fundamental physical principle behind the operation of an MRI:", o: ["A. Piezoelectric Effect of crystals", "B. Thermionic Emission of electrons", "C. Photoelectric Effect of photons", "D. Compton Scattering of X-rays", "E. Nuclear Magnetic Resonance"], a: "E" },
+  { n: 161, s: "25", q: "A woman had a chest X-ray that showed increased opacity. Which structure appears most radiopaque on an X-ray?", o: ["A. Tissue", "B. Lung", "C. Cell", "D. Bone", "E. Fluid"], a: "D" },
+  { n: 162, s: "25", q: "When a child is getting a CT scan, what is the primary method to protect them from radiation:", o: ["A. Use the standard adult voltage settings", "B. Strictly follow specialized pediatric protocols", "C. Increase the slice thickness to the maximum", "D. Perform the scan without any lead shielding", "E. Use a lower magnetic field strength"], a: "B" },
+ 
+  { n: 163, s: "25", q: "In clinical practice, what is the primary indication for using a defibrillator:", o: ["A. Atrial fibrillation with pulse", "B. Ventricular fibrillation", "C. Normal sinus rhythm", "D. First-degree heart block", "E. Sinus bradycardia"], a: "B" },
+  { n: 164, s: "25", q: "Which technical factor affects the quality of X-ray image contrast the most:", o: ["A. Peak kilovoltage (KvP)", "B. Milliampere-seconds (mAs)", "C. Focal spot size", "D. Patient-to-film distance", "E. Exposure time in seconds"], a: "A" },
+  { n: 165, s: "25", q: "What physiological factors increase the conduction velocity for action potentials in a neuron:", o: ["A. Decreased diameter and lack of myelin", "B. Increased temperature and shorter axon", "C. Higher resistance and lower capacitance", "D. Myelination and increased fiber diameter", "E. Increased number of synaptic vesicles"], a: "D" },
+  { n: 166, s: "25", q: "What kind of defibrillator is designed for use by an untrained individual in a public area:", o: ["A. Manual defibrillator", "B. Automated external defibrillator", "C. Internal defibrillator", "D. Wearable cardioverter", "E. Hospital-grade monitor"], a: "B" },
+
+  { n: 167, s: "U", q: "In MRI, what effect do radiofrequency (RF) pulses have on protons?", o: ["A. Align protons with magnetic field", "B. Increase energy level of protons", "C. Excite protons inside tissue", "D. Convert proton motion to signal", "E. Decrease magnetic strength"], a: "C" },
+ 
+
+{ n: 168, s: "U", q: "In radiation protection, what does ALARA stand for?", o: ["A. As low as reasonably achievable", "B. As limited as radiation allows", "C. As long as radiation applies", "D. Absolute level against radiation accumulation", "E. Applied limit for acceptable radiation amount"], a: "A" },
+
+{ n: 169, s: "U", q: "What device is abbreviated as AED and used in cardiac emergencies?", o: ["A. Automatic electrocardiogram detector", "B. Automated external defibrillator", "C. Advanced emergency defibrillation device", "D. Assisted electrical defibrillation apparatus", "E. Automatic energy delivery system"], a: "B" },
+{ 
+  "n": 170, 
+  "s": "U", 
+  "q": "During fluoroscopy, what must technologists wear to prevent lead exposure?", 
+  "o": [
+    "A. Wear safety aprons", 
+    "B. Wear shielding aprons", 
+    "C. Wear diagnostic aprons", 
+    "D. Wear lead aprons", 
+    "E. Wear protective aprons"
+  ], 
+  "a": "D" 
+},
+
+
+{ n: 171, s: "U", q: "What technology is based on the principle of photocoagulation?", o: ["A. Light", "B. Heat", "C. Plasma", "D. Photon", "E. Laser"], a: "E" },
+
+{ n: 172, s: "U", q: "Which muscle vibrates at high frequency to produce voice sounds?", o: ["A. Masseter", "B. Diaphragm", "C. Trapezius", "D. Deltoid", "E. Serratus"], a: "B" },
+
+{ n: 173, s: "U", q: "How does a Nd:YAG laser stop hemorrhaging?", o: ["A. By producing ionizing radiation that destroys blood cells", "B. By generating ultrasonic vibrations that seal blood vessels", "C. By heating and contraction of soft tissues", "D. Freezing tissue and causing immediate vasoconstriction", "E. Inducing chemical coagulation in blood proteins"], a: "C" },
+
+{ n: 174, s: "U", q: "What radioactive isotope is associated with the thyroid gland?", o: ["A. 99m-technetium", "B. 60-cobalt", "C. 137-cesium", "D. 32-phosphorus", "E. 131-iodine"], a: "E" },
+
+{ n: 175, s: "U", q: "What particles do MRI and CT imaging techniques use?", o: ["A. MRI uses neutrons, CT uses gamma rays", "B. MRI uses electrons, CT uses positrons", "C. MRI uses protons, CT uses high atomic number atoms", "D. MRI uses alpha particles, CT uses beta particles", "E. MRI uses magnetic photons, CT uses thermal electrons"], a: "C" },
+{ 
+  "n": 176, 
+  "s": "U", 
+  "q": "Where should electrodes be placed when using a defibrillator?", 
+  "o": [
+    "A. Posterior-thoracic region", 
+    "B. Lateral-abdominal sides", 
+    "C. Superior-posterior back", 
+    "D. Anterior-lateral chest", 
+    "E. Central-sternal area"
+  ], 
+  "a": "D" 
+},
+
+{ n: 177, s: "U", q: "What does the doppler effect show when a signal moves away from the ultrasound transducer?", o: ["A. Red color as signal moves away from transducer", "B. Blue color as signal moves away from transducer", "C. Green color indicating stationary blood flow", "D. Yellow color showing increased velocity toward transducer", "E. No color change because frequency remains constant"], a: "A" },
+{ n: 178, s: "U", q: "What part of the heart acts as the natural pacemaker?", o: ["A. AV node", "B. LV wall", "C. RV node", "D. RA wall", "E. SA node"], a: "E" },
+
+{ n: 179, s: "U", q: "Which imaging technique is commonly used to detect vessel failure or blockage?", o: ["A. Computed tomography scan", "B. Doppler ultrasound", "C. Magnetic resonance imaging", "D. Standard X-ray imaging", "E. Nuclear medicine scan"], a: "B" },
+
+{ n: 180, s: "U", q: "Which complex appears on an ECG when the ventricles are depolarized?", o: ["A. P wave complex", "B. ST segment complex", "C. PR interval complex", "D. T wave complex", "E. QRS complex"], a: "E" },
+
+];
+
+
+const container = document.getElementById('quiz-content');
+
+function renderQuiz() {
+    container.innerHTML = '';
+    data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.subject = item.s;
+        div.dataset.searchText = (item.s + " " + item.q + " " + item.o.join(" ")).toLowerCase();
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <span class="ans-text">Answer: ${item.a}</span>
+                <button class="ans-btn" onclick="this.closest('.q-block').classList.toggle('revealed')">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function filterBySubject(subject, btn) {
+    currentSubject = subject;   
+    document.getElementById('search-input').value = '';
+
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        resetBlock(block);
+
+        if (subject === 'All' || block.dataset.subject === subject) {
+            block.style.display = "block";
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+
+function handleSearch() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+
+    blocks.forEach(block => {
+        resetBlock(block);
+
+        const matchesSubject =
+            currentSubject === "All" ||
+            block.dataset.subject === currentSubject;
+
+        const matchesSearch =
+            searchTerm === "" ||
+            block.dataset.searchText.includes(searchTerm);
+
+        if (matchesSubject && matchesSearch) {
+            block.style.display = "block";
+
+            if (searchTerm !== "") {
+                highlight(block, searchTerm);
+            }
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+
+    qText.innerHTML = qText.innerHTML.replace(regex, '<mark>$1</mark>');
+    opts.forEach(li => {
+        li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>');
+    });
+}
+(function() {
+    const saved = localStorage.getItem('theme');
+    const icon = document.getElementById('theme-icon');
+    if (saved === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+})();
+
+renderQuiz();
+
+const firstFilterBtn = document.querySelector('.filter-btn');
+filterBySubject("All", firstFilterBtn);
+</script>
+</body>
+</html>

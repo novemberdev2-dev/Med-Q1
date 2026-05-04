@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All questions_BBB_2025-2026</title>
+
+    <style>
+       :root {
+            --bg-body: #121212;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #2a2f36;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --filter-bg: transparent;
+            --filter-txt-active: #1A1A1A;
+            --filter-bg-active:  #ffffff;
+            --filter-border-active:  #ffffff;
+            --ans-btn-bg: #E8E8E8;
+            --ans-btn-txt: #1A1A1A;
+        }
+
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #eef6e4;
+            --ans-text: #2e7d32;
+            --filter-bg: transparent;
+            --filter-txt-active:  #ffffff;
+            --filter-bg-active: #4D4D4D;
+            --filter-border-active: #4D4D4D;
+            --ans-btn-bg:  #555555;
+            --ans-btn-txt: #ffffff;
+        }
+
+        .filter-btn.active {
+            background-color: var(--filter-bg-active);
+            color: var(--filter-txt-active);
+            border-color: var(--filter-border-active);
+        }
+
+        body {
+            -webkit-user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1150px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 7px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .filter-container {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        .divider { border: none; margin-bottom: 12px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+
+        .ans-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ans-btn {
+            background-color: var(--ans-btn-bg);
+            color: var(--ans-btn-txt);
+            border: none;
+            padding: 7px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-weight: 650;
+            font-size: 16px;
+        }
+
+        .q-block.revealed .ans-btn {
+            background-color: var(--ans-bg);
+            color: var(--ans-text);
+            font-weight: 700;
+            padding: 7px 12px;
+            font-size: 16px;
+        }
+
+        mark { background-color: #f0cf6a; color: #000; }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-opts);
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.6;
+            box-sizing: border-box;
+            width: 100%;
+            display: block; 
+        }
+
+        .section-heading-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mcq-count-badge {
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 2px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body oncontextmenu="return false;">
+
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">End-Rotation</h3>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">BBB • 2025-2026</p>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+        
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="filter-container" id="filter-bar"></div>
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+<script>
+
+const allQuestions = [
+   { n:1,  s:"Biochemistry", q:"What is another name for resorcinol?",                                                                                o:["A. 1,3-dihydroxybenzene (meta-dihydroxybenzene)","B. Para-hydroxyphenol","C. Ortho-hydroxyphenol","D. Para-methylphenol","E. Benzyl alcohol"], a:"A" },
+    { n:2,  s:"Biochemistry",         q:"Uric acid is a product of the metabolism of:",                                                                        o:["A. Adenine","B. Pyrimidines","C. Lipids","D. Proteins","E. Carbohydrates"], a:"A" },
+    { n:3,  s:"Biochemistry",         q:"Which of the following are essential fatty acids?",                                                                   o:["A. Linolenic acid","B. Arachidonic acid","C. Linolenic acid structure (18:3 19,12,15)","D. Arachidonic acid structure (20:4 15,8,11,14)","E. All of the above"], a:"E" },
+    { n:4,  s:"Biochemistry",         q:"Which of the following sentences are correct about carbohydrate digestion?",                                          o:["A. Cellulose can partially be digested by colonic bacteria","B. Isomaltose is formed during the digestion of starch and starch dextrins","C. Starch digestion is completely carried out by human enzymes","D. Carbohydrate digestion occurs only in the stomach","E. Humans cannot digest any disaccharides"], a:"B" },
+    { n:5,  s:"Biochemistry",         q:"Which of the following is a polar, uncharged essential amino acid that contains a hydroxyl group?",                  o:["A. Tyrosine","B. Serine","C. Threonine","D. Methionine","E. Cysteine"], a:"C" },
+    { n:6,  s:"Biochemistry",         q:"Which of the following statements about free radicals are correct?",                                                 o:["A. H\u2082O\u2082 is converted into harmless substances via glutathione peroxidase and catalase","B. Free radicals are formed by heterolytic fission of a covalent bond","C. Endogenous sources of free radicals include ultraviolet radiation and chemicals","D. Reactive oxygen species are only oxygen free radicals","E. NO free radical increases blood pressure"], a:"A" },
+    { n:7,  s:"Biochemistry",         q:"Which of the following toxic substances can be detoxified by methylation?",                                          o:["A. Quinoline","B. Cyanide","C. Ethanol","D. Acetaminophen","E. Methanol"], a:"A" },
+    { n:8,  s:"Biochemistry",         q:"Which of the following statements about metabolic acidosis is incorrect?",                                           o:["A. It is associated with hypokalemia","B. It can result from diabetic ketoacidosis","C. It can result from renal failure","D. It can result from diarrhea (loss of bicarbonate)","E. It leads to low blood pH"], a:"A" },
+    { n:9,  s:"Biochemistry",         q:"Which of the following is the function of Vitamin D3 (cholecalciferol)?",                                           o:["A. Regulates calcium and phosphate levels","B. Acts as an antioxidant","C. Increases iron absorption","D. Promotes blood clotting","E. Synthesizes vitamin C"], a:"A" },
+    { n:10, s:"Biochemistry",         q:"Which of the following is a correct difference between starch and cellulose?",                                       o:["A. Starch is linear and branched, while cellulose is only linear","B. Starch is made of \u03B2-glucose, cellulose of \u03B1-glucose","C. Both starch and cellulose are highly branched","D. Cellulose is soluble in water, starch is not","E. Starch contains amino acids, cellulose does not"], a:"A" },
+    { n:11, s:"Biochemistry",         q:"Which of the following substances is oxidized into formaldehyde?",                                                   o:["A. Methanol","B. Ethanol","C. Glucose","D. Acetone","E. Benzene"], a:"A" },
+    { n:12, s:"Biochemistry",         q:"Hyperactivity of the adrenal cortex causes increased sodium levels in which disease?",                               o:["A. Cushing syndrome","B. Addison disease","C. Hypothyroidism","D. Diabetes mellitus","E. Anemia"], a:"A" },
+    { n:13, s:"Biophysics",           q:"What is the main physical principle difference between CT and MRI?",                                                 o:["A. CT depends on protons, while MRI depends on electrons","B. CT depends on sound waves, while MRI depends on X-rays","C. CT depends on electron density and X-ray attenuation, while MRI depends on hydrogen protons","D. CT and MRI both depend on electron movement only","E. CT depends on magnetic waves, while MRI depends on gamma radiation"], a:"C" },
+    { n:14, s:"Biophysics",           q:"Which of the following affects cellular radiosensitivity?",                                                          o:["A. Oxygen level, cell cycle phase, degree of differentiation, and cell type","B. Radiation machine voltage, room temperature, and patient weight","C. X-ray tube color and exposure room size","D. Patient blood group and heart rate","E. Contrast media concentration"], a:"A" },
+    { n:15, s:"Biophysics",           q:"The time constant of the lung depends on resistance and:",                                                           o:["A. Compliance","B. Charging","C. Inverse","D. Constriction","E. Elastic recoil"], a:"A" },
+    { n:16, s:"Biophysics",           q:"A patient with a persistent cough undergoes a chest X-ray (CXR). Which tissue is the most radiopaque?",             o:["A. Bone","B. Muscle","C. Fat","D. Lung","E. Air"], a:"A" },
+    { n:17, s:"Biophysics",           q:"A pregnant woman undergoes an ultrasound (U/S). Which property shows that it is safe for her and the fetus?",       o:["A. It uses acoustic (sound) waves, not ionizing radiation","B. It uses X-rays at very low doses","C. It emits gamma rays","D. It generates radioactive isotopes","E. It uses magnetic resonance"], a:"A" },
+    { n:18, s:"Biophysics",           q:"Why is the total radiation dose given in fractions in radiotherapy?",                                                o:["A. To kill cancer cells completely","B. To reduce damage to healthy tissue","C. To shrink all cells","D. To damage both cancer cells and surrounding tissue","E. All of the above"], a:"B" },
+    { n:19, s:"Basic emergency care", q:"A conscious diabetic patient presents with confusion, sweating, and shaking. What is the first management step?",   o:["A. Give a sugary drink orally","B. Start IV insulin","C. Give IV sodium bicarbonate","D. Restrict fluids","E. Immediate CT scan"], a:"A" },
+    { n:20, s:"Basic emergency care", q:"An unresponsive adult is breathing normally. What is the appropriate management?",                                  o:["A. Start chest compressions immediately","B. Give 2 rescue breaths","C. Place the patient in the recovery position and monitor","D. Start defibrillation","E. Give IV epinephrine"], a:"C" }
+];
+
+const filterLectures = [
+  { label: "All",                      val: "All" },
+  { label: "Biochemistry 🧪",               val: "Biochemistry" },
+  { label: "Biophysics ⚛️",            val: "Biophysics" },
+  { label: "Basic emergency care ⚕️",          val: "Basic emergency care" },
+];
+
+let currentSubject = "All";
+
+const container = document.getElementById('quiz-content');
+const filterBar = document.getElementById('filter-bar');
+
+function renderFilterBar() {
+    filterBar.innerHTML = filterLectures.map(f =>
+        `<button class="filter-btn${f.val === currentSubject ? " active" : ""}" onclick="filterBySubject('${f.val}', this)">${f.label}</button>`
+    ).join('');
+}
+
+function getLectureLabel(val) {
+    if (val === "All") return "All";
+    const found = filterLectures.find(f => f.val === val);
+    return found ? found.label : val;
+}
+
+function updateSectionHeading() {
+    const existing = document.getElementById('section-heading');
+    const visibleBlocks = [...document.querySelectorAll('.q-block')].filter(b => b.style.display !== "none");
+    const count = visibleBlocks.length;
+
+    let noResultsMsg = document.getElementById('no-results-msg');
+    if (count === 0) {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.id = 'no-results-msg';
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.textContent = "No questions found.";
+            container.appendChild(noResultsMsg);
+        }
+    } else if (noResultsMsg) {
+        noResultsMsg.remove();
+    }
+
+    const label = getLectureLabel(currentSubject);
+    const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+
+    if (existing) {
+        existing.style.display = (count === 0) ? "none" : "flex";
+        existing.querySelector('.section-heading-title').textContent = label;
+        existing.querySelector('.mcq-count-badge').textContent = badgeText;
+    } else if (count > 0) {
+        const heading = document.createElement('div');
+        heading.id = 'section-heading';
+        heading.className = 'section-heading';
+        heading.innerHTML = `<span class="section-heading-title">${label}</span><span class="mcq-count-badge">${badgeText}</span>`;
+        container.insertBefore(heading, container.firstChild);
+    }
+}
+
+function renderQuiz() {
+    container.innerHTML = '';
+    allQuestions.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.lecture = item.s;
+        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+
+        const matchesSubject = currentSubject === "All" || item.s === currentSubject;
+        div.style.display = matchesSubject ? "block" : "none";
+
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <button class="ans-btn" data-answer="Answer: ${item.a}" onclick="toggleAnswer(this)">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+    updateSectionHeading();
+}
+
+function filterBySubject(val, btn) {
+    currentSubject = val;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    handleSearch();
+}
+
+function handleSearch() {
+    const term = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        resetBlock(block);
+        const matchesCategory = currentSubject === "All" || block.dataset.lecture === currentSubject;
+        const matchesSearch = term === "" || block.dataset.searchText.includes(term);
+        if (matchesCategory && matchesSearch) {
+            block.style.display = "block";
+            if (term !== "") highlight(block, term);
+        } else {
+            block.style.display = "none";
+        }
+    });
+    updateSectionHeading();
+}
+
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+    block.classList.remove('revealed');
+    const btn = block.querySelector('.ans-btn');
+    if (btn && btn.dataset.answer) btn.textContent = 'Answer';
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').innerHTML.replace(regex, '<mark>$1</mark>');
+    block.querySelectorAll('li').forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+}
+
+function toggleAnswer(btn) {
+    const block = btn.closest('.q-block');
+    const isRevealed = block.classList.toggle('revealed');
+    btn.textContent = isRevealed ? btn.dataset.answer : 'Answer';
+}
+
+function toggleTheme() {
+    const isLight = document.body.getAttribute('data-theme') === 'light';
+    const newTheme = isLight ? '' : 'light';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.getElementById('theme-icon').innerHTML = isLight 
+        ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
+        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
+
+(function () {
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}());
+
+renderFilterBar();
+renderQuiz();
+</script>
+</body>
+</html>

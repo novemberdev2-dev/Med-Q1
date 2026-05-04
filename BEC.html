@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All questions_BEC_2021-2025</title>
+
+    <style>
+       :root {
+            --bg-body: #121212;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #2a2f36;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --year-color: #ffffff;
+            --year-border: #ffffff;
+            --filter-bg: transparent;
+            --filter-txt-active: #1A1A1A;
+            --filter-bg-active:  #E8E8E8;
+            --filter-border-active:  #E8E8E8;
+            --ans-btn-bg: #E8E8E8;
+            --ans-btn-txt: #1A1A1A;
+        }
+
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #eef6e4;
+            --ans-text: #2e7d32;
+            --year-color: #000000;
+            --year-border: #000000;
+            --filter-bg: transparent;
+            --filter-txt-active:  #ffffff;
+            --filter-bg-active: #4D4D4D;
+            --filter-border-active: #4D4D4D;
+             --ans-btn-bg:  #555555;
+            --ans-btn-txt: #ffffff;
+        }
+
+        .filter-btn.active {
+            background-color: var(--filter-bg-active);
+            color: var(--filter-txt-active);
+            border-color: var(--filter-border-active);
+        }
+
+        body {
+            -webkit-user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1150px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 7px;
+            outline: none;
+        }
+
+        .theme-toggle, .icon-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+      
+        .filter-container {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 720;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        .divider { border: none; margin-bottom: 12px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+
+        .ans-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+         .ans-btn {
+            background-color: var(--ans-btn-bg);
+            color: var(--ans-btn-txt);
+            border: none;
+            padding: 7px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-weight: 650;
+            font-size: 16px;
+            
+        }
+
+        body.mode-lectures .q-block.revealed .ans-btn {
+            background-color: var(--ans-bg);
+            color: var(--ans-text);
+            font-weight: 700;
+            padding: 7px 12px;
+            font-size: 16px;
+        }
+
+        .ans-text { font-weight: 700; color: var(--ans-text); visibility: hidden; background-color: var(--ans-bg); padding: 6px 12px; border-radius: 4px; }
+        .q-block.revealed .ans-text { visibility: visible; }
+
+        .year-label {
+            font-size: 0.71rem;
+            font-weight: 700;
+            align-self: center;
+            letter-spacing: 0.04em;
+            margin-right: 4px;
+            margin-top: 28px;
+            white-space: nowrap;
+            color: var(--year-color);
+            border: 1px solid var(--border-color);
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        mark { background-color: #f0cf6a; color: #000; }
+
+        .icon-btn-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        #btn-tooltip {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #3a3f47;
+            color: #f1f5f9;
+            border-radius: 8px;
+            padding: 7px 14px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 9999;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        }
+
+        
+        #btn-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 7px solid transparent;
+            border-top-color: #3a3f47;
+        }
+
+        #btn-tooltip.visible { opacity: 1; }
+
+        
+        .icon-btn-wrap:hover #btn-tooltip {
+            opacity: 1;
+        }
+
+        #filter-mode-btn.glowing {
+            box-shadow: 0 0 0 1px #38bdf8, 0 0 12px rgba(56,189,248,0.45);
+            border-color: #38bdf8;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-opts);
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.6;
+            box-sizing: border-box;
+            width: 100%;
+            display: block; 
+        }
+
+        .section-heading-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mcq-count-badge {
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 2px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body oncontextmenu="return false;" class="mode-lectures">
+
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">Final &amp; End-Rotation</h3>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Basic Emergency Care ⚕️ • 2021-2025</p>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+        <div class="icon-btn-wrap">
+            <div id="btn-tooltip">By lectures</div>
+            <button class="icon-btn" id="filter-mode-btn" onclick="toggleFilterMode()">
+                <svg id="filter-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+            </button>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="filter-container" id="filter-bar"></div>
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+<script>
+
+const allQuestions = [
+  { n: 1, s: "5", y: "21", yt: "2020-2021", q: "How should you manage a small object in the eye?", o: ["A. Ask the patient to rub the eye to try to remove the object", "B. Immediately wash the eye with alcohol to remove the object", "C. Ask the patient to look up and down then carefully remove the object", "D. Press firmly on the eyelid to try to expel the object", "E. Cover the eye tightly and leave the object inside until help arrives"], a: "C" },
+  { n: 2, s: "U", y: "21", yt: "2021", q: "Which of the following is not included in the coma cocktail?", o: ["A. Insulin", "B. Glucose", "C. Thiamine", "D. Naloxone", "E. Oxygen"], a: "A" },
+  { n: 3, s: "4", y: "21", yt: "2020-2021", q: "About clean-contaminated wound, which one is correct?", o: ["A. Appendectomy", "B. Cholecystectomy", "C. Hernia repair without bowel entry", "D. Thyroidectomy", "E. Skin biopsy"], a: "B" },
+  { n: 4, s: "3", y: "21", yt: "2020-2021", q: "What is the correct way to care for someone with severe open bleeding?", o: ["A. Wash the wound thoroughly with cold water only and wait for help", "B. Apply ice directly on the wound to slow bleeding before intervention", "C. Cover the wound with a dressing and wait for professional assistance", "D. Apply firm pressure on the bleeding site and elevate the limb if no fracture is present", "E. Massage around the wound to try to reduce the bleeding before care"], a: "D" },
+  { n: 5, s: "11", y: "21", yt: "2020-2021", q: "A child is choking with a cough. What is the correct action?", o: ["A. Give the child water immediately to help wash the airway", "B. Ask the child to lie down and rest while waiting for help", "C. Perform chest compressions immediately to dislodge the object", "D. Encourage the child to keep coughing only without intervention", "E. Hit the child on the back and call 122 for emergency help"], a: "E" },
+  { n: 6, s: "12", y: "21", yt: "2020-2021", q: "This is not what you should do with someone having an ankle sprain?", o: ["A. Apply ice to the affected area", "B. Surgical treatment immediately", "C. Elevate the injured ankle", "D. Apply compression bandage", "E. Allow the ankle to rest"], a: "B" },
+  { n: 7, s: "10", y: "21", yt: "2020-2021", q: "Which type of burn requires fluid resuscitation?", o: ["A. First degree burn", "B. Superficial burn", "C. Third degree burn", "D. Minor thermal burn", "E. Superficial epidermal burn"], a: "C" },
+  { n: 8, s: "7", y: "21", yt: "2020-2021", q: "What is the first action to take in an electric shock emergency?", o: ["A. Immediately pull the victim away from the source of electricity", "B. Pour water on the victim to try to cool the affected area", "C. Start chest compressions immediately before turning off current", "D. Touch the victim to check for consciousness before any intervention", "E. Turn off the electrical current and avoid direct contact with the victim"], a: "E" },
+  { n: 9, s: "6", y: "21", yt: "2020-2021", q: "In poisoning by bites or stings, which factor does not affect the reaction?", o: ["A. Type of venom or toxin involved in the bite or sting incident", "B. Amount of venom injected during the bite or sting episode", "C. Time of the day when the poisoning actually occurs", "D. Age and health status of the victim exposed to the venom", "E. Location on the body where the bite or sting has occurred"], a: "C" },
+  { n: 10, s: "5", y: "22", yt: "2021-2022", q: "If a piece of stone is embedded in the eyes, what is your management?", o: ["A. Remove the stone with tweezers", "B. Flush the eye with tap water", "C. Cover the eyes and take the victim to hospital", "D. Apply antibiotic ointment immediately", "E. Use a magnet to extract the object"], a: "C" },
+  { n: 11, s: "8", y: "22", yt: "2021-2022", q: "Which of the following is not caused by pulmonary embolism?", o: ["A. Pulmonary vein obstruction", "B. Right ventricular strain", "C. Pulmonary artery obstruction", "D. Alveolar dead space increase", "E. Acute dyspnea"], a: "A" },
+  { n: 12, s: "10", y: "22", yt: "2021-2022", q: "A blister is formed in which degree of burn?", o: ["A. First degree", "B. Second degree", "C. Third degree", "D. Fourth degree", "E. Superficial thickness only"], a: "B" },
+  { n: 13, s: "6", y: "22", yt: "2021-2022", q: "Snake venom causes:", o: ["A. Neurotoxin", "B. Nephrotoxin", "C. Necrotoxin", "D. Allergic toxin", "E. All of them"], a: "E" },
+  { n: 14, s: "11", y: "22", yt: "2021-2022", q: "When you are on the way to school, if a child lies on the ground, what is your first management?", o: ["A. Call for an ambulance", "B. Start chest compressions", "C. Give rescue breaths", "D. Move the child to a chair", "E. Checking for response"], a: "E" },
+  { n: 15, s: "11", y: "22", yt: "2021-2022", q: "If a 10-month-old victim has a foreign body airway obstruction, you should?", o: ["A. Perform the Heimlich maneuver", "B. Perform chest thrust and back slap", "C. Use a blind finger sweep", "D. Apply abdominal thrusts", "E. Place the infant in a recovery position"], a: "B" },
+  { n: 16, s: "11", y: "22", yt: "2021-2022", q: "If a 3-year-old child is affected by a foreign body, what is your first response?", o: ["A. Immediate tracheostomy", "B. Invert the child by the legs", "C. Abdominal thrusts or encouraging cough", "D. Back slaps only", "E. Administering oral fluids"], a: "C" },
+  { n: 17, s: "12", y: "22", yt: "2021-2022", q: "Which of the following is a sign of fracture?", o: ["A. Increased pulse rate", "B. Warmth over the joint", "C. Redness and itching", "D. Localized bruising only", "E. Deformity or abnormal mobility"], a: "E" },
+  { n: 18, s: "3", y: "22", yt: "2021-2022", q: "When applying a bandage:", o: ["A. Wrap it loosely to allow drainage", "B. Apply it distal to proximal only", "C. Apply pressure directly on the site of injury", "D. Use only elastic materials", "E. Avoid covering the wound entirely"], a: "C" },
+  { n: 19, s: "4", y: "22", yt: "2021-2022", q: "What is the management of a severe opening wound?", o: ["A. Direct pressure on the wound", "B. Using a tourniquet", "C. Elevating the limb only", "D. Both A and B", "E. Cleaning with alcohol immediately"], a: "D" },
+  { n: 20, s: "4", y: "22", yt: "2021-2022", q: "Which of the following is considered a clean-contaminated wound?", o: ["A. Cholecystectomy", "B. Open fracture repair", "C. Incision and drainage of an abscess", "D. Thyroidectomy", "E. Gunshot wound to the abdomen"], a: "A" },
+  { n: 21, s: "4", y: "22", yt: "2021-2022", q: "Impaired wound healing is frequently due to:", o: ["A. High protein diet", "B. Vitamin C supplementation", "C. Young age", "D. Adequate tissue perfusion", "E. Diabetes mellitus"], a: "E" },
+  { n: 22, s: "3", y: "22", yt: "2021-2022", q: "If a person has bleeding, what is the first action?", o: ["A. Elevate the legs", "B. Provide oral fluids", "C. Apply a cold compress", "D. Put pressure with a clean and sterile cloth", "E. Check the blood pressure"], a: "D" },
+
+  { n: 23, s: "6", y: "22", yt: "2021-2022", q: "Which of the following is incorrect about snake bite first aid?", o: ["A. Keeping the patient still", "B. Using a pressure bandage or tourniquet", "C. Immobilizing the bitten limb with a splint", "D. Supporting vital system especially airway", "E. Avoiding cut & suction of the bitten site"], a: "B" },
+  { n: 24, s: "U", y: "22", yt: "2022", q: "Regarding edema, which of the following is incorrect?", o: ["A. Increased capillary permeability", "B. Lymphatic obstruction", "C. Heart failure", "D. Decreased hydrostatic pressure", "E. Increasing albumin level"], a: "E" },
+  { n: 25, s: "8", y: "22", yt: "2021-2022", q: "Which of the following is incorrect regarding acute coronary syndrome?", o: ["A. Chest pain or pressure", "B. Shortness of breath", "C. Diaphoresis", "D. Peripheral pain", "E. ST-segment changes on ECG"], a: "D" },
+  { n: 26, s: "5", y: "22S", yt: "2021-2022 2nd Trial", q: "Regarding an eye wound, which of the following is correct?", o: ["A. Ask the patient to lie down", "B. Rub the eye to remove debris", "C. Apply a tight pressure bandage", "D. Use a cotton swab to clean the globe", "E. Apply ice directly to the cornea"], a: "A" },
+  { n: 27, s: "5", y: "22S", yt: "2021-2022 2nd Trial", q: "If a piece of stone is embedded in the eyes, what is your management?", o: ["A. Pull the stone out with clean fingers", "B. Cover the eyes and take the victim to the hospital", "C. Wash the eye with antiseptic solution", "D. Use a magnet to draw out the object", "E. Blink rapidly until the object falls out"], a: "B" },
+  { n: 28, s: "10", y: "22S", yt: "2021-2022 2nd Trial", q: "A blister is formed in which degree of burn?", o: ["A. First degree", "B. Second degree", "C. Third degree", "D. Fourth degree", "E. Superficial epidermal only"], a: "B" },
+  { n: 29, s: "11", y: "22S", yt: "2021-2022 2nd Trial", q: "When you are on the way to a park, if a child lies on the ground (collapses), what is your first management?", o: ["A. Check for a pulse for 2 minutes", "B. Start rescue breathing immediately", "C. Move the child to a shaded area", "D. Checking for a response", "E. Administer oral glucose"], a: "D" },
+  { n: 30, s: "12", y: "22S", yt: "2021-2022 2nd Trial", q: "Which of the following is a sign of a fracture?", o: ["A. Localized itching", "B. Increased hair growth over the site", "C. Skin redness and warmth", "D. Systemic fever", "E. Deformity or abnormal mobility"], a: "E" },
+  { n: 31, s: "9", y: "22S", yt: "2021-2022 2nd Trial", q: "During a seizure condition, what should you not do?", o: ["A. Protect the head from injury", "B. Place in recovery position after seizure", "C. Give the person any food or drink", "D. Time the duration of the seizure", "E. Call emergency if it took more than 5 minutes"], a: "C" },
+  { n: 32, s: "10", y: "23", yt: "2022-2023", q: "Fluid replacement is primarily given to manage:", o: ["A. Minor first-degree burns", "B. Major third-degree burns", "C. Mild heat exhaustion", "D. Small lacerations", "E. Superficial bruising"], a: "B" },
+  { n: 33, s: "11", y: "23", yt: "2022-2023", q: "In a child, which artery will you check for a pulse check?", o: ["A. Radial artery", "B. Dorsalis pedis", "C. Brachial artery", "D. Carotid artery", "E. Popliteal artery"], a: "D" },
+  { n: 34, s: "11", y: "23", yt: "2022-2023", q: "What is the first step for a patient with a suspicion of foreign body aspiration?", o: ["A. Perform a blind finger sweep", "B. Induce vomiting immediately", "C. Taking the food out immediately", "D. Administer oral fluids", "E. Place the patient in a prone position"], a: "C" },
+  { n: 35, s: "11", y: "23", yt: "2022-2023", q: "Which age group is the most susceptible to foreign body aspiration?", o: ["A. Infants", "B. Adolescents", "C. Young adults", "D. Middle-aged adults", "E. Athletes"], a: "A" },
+  { n: 36, s: "6", y: "23", yt: "2022-2023", q: "All of the following are key venom reactions except?", o: ["A. Localized swelling", "B. Systemic neurotoxicity", "C. Coagulopathy", "D. Anaphylaxis", "E. None of them"], a: "E" },
+  { n: 37, s: "6", y: "23", yt: "2022-2023", q: "Which of the following is incorrect regarding snake bites?", o: ["A. Immobilize the limb", "B. Leave the injury area alone", "C. Apply a tight arterial tourniquet", "D. Keep the victim calm", "E. Remove restrictive jewelry"], a: "C" },
+  { n: 38, s: "11", y: "23", yt: "2022-2023", q: "The rate of chest compressions for a child should be:", o: ["A. 60–80 per minute", "B. 80–100 per minute", "C. 100–120 per minute", "D. 120–140 per minute", "E. Over 150 per minute"], a: "C" },
+  { n: 39, s: "U", y: "23", yt: "2023", q: "Which of the following does not cause a coma?", o: ["A. Hypoglycemia", "B. Severe head trauma", "C. Drug overdose", "D. Anger", "E. Ischemic stroke"], a: "D" },
+  { n: 40, s: "12", y: "23", yt: "2022-2023", q: "Which of the following statements is true?", o: ["A. Do not do relocation and reduction to bring a fracture back to its place", "B. Always move the patient before splinting", "C. Massage the area of a suspected fracture", "D. Apply heat immediately to a broken bone", "E. Only doctors should apply bandages"], a: "A" },
+  { n: 41, s: "5", y: "23", yt: "2022-2023", q: "A man was fixing his car when he got hit in his right eye; he feels pain. What is the management?", o: ["A. Apply direct pressure to the globe", "B. Wash the eye with soapy water", "C. Use a needle to check the depth", "D. Apply a warm compress", "E. Protect the eye with a shield and seek help"], a: "E" },
+  { n: 42, s: "8", y: "23", yt: "2022-2023", q: "Which of these is not found in the SOCRATES pain assessment acronym?", o: ["A. Severity", "B. Onset", "C. Size", "D. Character", "E. Radiation"], a: "C" },
+  { n: 43, s: "7", y: "23", yt: "2022-2023", q: "What is the most common complication of an electrical injury?", o: ["A. Vitamin deficiency", "B. Cardiac arrhythmias", "C. Increased hearing acuity", "D. Hair loss", "E. Improved bone density"], a: "B" },
+  { n: 44, s: "4", y: "23", yt: "2022-2023", q: "Which of these is a cause for a wound not repairing properly?", o: ["A. High protein intake", "B. Young age", "C. Adequate oxygenation", "D. Diabetes mellitus", "E. Low stress levels"], a: "D" },
+  { n: 45, s: "3", y: "23", yt: "2022-2023", q: "What is the first step for managing bleeding?", o: ["A. Apply direct pressure", "B. Apply a tourniquet immediately", "C. Elevate the heart above the wound", "D. Wash with hot water", "E. Apply topical antibiotics"], a: "A" },
+   { n: 46, s: "9", y: "24", yt: "2023-2024", q: "All of the following should be done to manage seizures except:", o: ["A. Protect the patient from nearby hazards", "B. Place something soft under the head", "C. Loosen restrictive clothing", "D. Roll the patient into the recovery position after the seizure", "E. Give the patient food and water"], a: "E" },
+  { n: 47, s: "U", y: "24", yt: "2024", q: "A patient presents with sunken eyes, little dark urine, and an abnormal skin pinch test. What could be the underlying cause?", o: ["A. Hyperglycemia", "B. Acute renal failure", "C. Dehydration", "D. Vitamin deficiency", "E. Excessive fluid intake"], a: "C" },
+  { n: 48, s: "8", y: "24", yt: "2023-2024", q: "A patient has low blood pressure and a rapid heartbeat with a breathing rate of 18 breaths per minute; what is the best management?", o: ["A. Administering IV fluids", "B. Giving oral glucose", "C. Applying a cold compress", "D. Administering a sedative", "E. Placing the patient in a sitting position"], a: "A" },
+  { n: 49, s: "U", y: "24", yt: "2024", q: "A patient has a bluish mouth and fingertips; what is this condition called?", o: ["A. Jaundice", "B. Erythema", "C. Pallor", "D. Cyanosis", "E. Ecchymosis"], a: "D" },
+  { n: 50, s: "8", y: "24", yt: "2023-2024", q: "In the SOCRATES acronym, what does the 'R' stand for?", o: ["A. Relief", "B. Radiation", "C. Region", "D. Recurrence", "E. Reaction"], a: "B" },
+  { n: 51, s: "8", y: "24", yt: "2023-2024", q: "A patient presents with chest pain; what clinical assessment tool would you use?", o: ["A. RICE protocol", "B. ABCDE", "C. RULE of nines", "D. AVPU scale", "E. SOCRATES"], a: "E" },
+  { n: 52, s: "12", y: "24", yt: "2023-2024", q: "A patient fell into water headfirst; after being rescued, he has normal breathing but cannot move his limbs. What is your first priority?", o: ["A. Performing chest compressions", "B. Checking for a pulse", "C. Immobilization of the cervical spine", "D. Drying the patient's skin", "E. Administering rescue breaths"], a: "C" },
+  { n: 53, s: "11", y: "24", yt: "2023-2024", q: "Where do you check for a pulse or blood pressure in an infant?", o: ["A. Carotid artery", "B. Brachial artery", "C. Radial artery", "D. Femoral artery", "E. Dorsalis pedis"], a: "B" },
+  { n: 54, s: "9", y: "24", yt: "2023-2024", q: "A patient does not answer when called but moans when his arm is pinched; where does he fall on the AVPU scale?", o: ["A. Alert", "B. Verbal", "C. Unresponsive", "D. Pain", "E. Confused"], a: "D" },
+  { n: 55, s: "U", y: "24", yt: "2024", q: "What is the immediate step after successfully inserting an oropharyngeal airway?", o: ["A. Check breathing", "B. Check for a gag reflex", "C. Check the pulse", "D. Suction the airway", "E. Begin chest compressions"], a: "A" },
+  { n: 56, s: "U", y: "24", yt: "2024", q: "Which of the following does not cause edema?", o: ["A. Right-sided heart failure", "B. Lymphatic obstruction", "C. Venous insufficiency", "D. Hypoproteinemia", "E. Increase of albumin"], a: "E" },
+  { n: 57, s: "U", y: "24", yt: "2024", q: "Which of the following does not typically cause a coma?", o: ["A. Severe hypoglycemia", "B. Intraventricular hemorrhage", "C. Pericarditis", "D. Opioid overdose", "E. Status epilepticus"], a: "C" },
+  { n: 58, s: "10", y: "24", yt: "2023-2024", q: "A patient presents with facial burns and singed nasal hair; what is the priority assessment step?", o: ["A. Apply burn cream", "B. Give O2 and assess the airway", "C. Wrap the face in gauze", "D. Debride the singed hair", "E. Check for a femoral pulse"], a: "B" },
+   { n: 59, s: "6", y: "25", yt: "2024-2025", q: "A patient presents with ptosis, shortness of breath, and limb weakness after being bitten by a snake. What kind of venom was he most likely exposed to?", o: ["A. Hemotoxin", "B. Neurotoxin", "C. Nephrotoxin", "D. Cardiotoxin", "E. Proteolytic toxin"], a: "B" },
+ 
+  { n: 60, s: "1", y: "25", yt: "2024-2025", q: "In trauma assessment (ABCDE), what does the letter 'D' stand for?", o: ["A. Disability", "B. Deformity", "C. Dehydration", "D. Distension", "E. Drug administration"], a: "A" },
+  { n: 61, s: "3", y: "25", yt: "2024-2025", q: "If there is a bleeding wound, what is your first action to stop the bleeding?", o: ["A. Clean the wound with alcohol", "B. Elevate the limb only", "C. Apply direct pressure", "D. Apply a loose bandage", "E. Check the patient's temperature"], a: "C" },
+  { n: 62, s: "11", y: "25", yt: "2024-2025", q: "What is the ratio between chest compressions and rescue breaths for a single rescuer performing CPR?", o: ["A. 15:2", "B. 30:1", "C. 5:1", " D. 10:2", "E. 30:2"], a: "E" },
+  { n: 63, s: "U", y: "25", yt: "2025", q: "What is the most reliable sign of severe dehydration in an adult?", o: ["A. Increased thirst", "B. Hypotension", "C. Dry mouth", "D. Sunken eyes", "E. Decreased skin turgidity"], a: "B" },
+  { n: 64, s: "12", y: "25", yt: "2024-2025", q: "A 22-year-old male had a motorcycle crash. He is breathing but doesn't respond to verbal stimuli. What is the most appropriate next step?", o: ["A. Perform a blind finger sweep", "B. Start chest compressions", "C. Place the patient in the recovery position", "D. Check for cervical spinal injury and use jaw thrust", "E. Administer high-flow oral fluids"], a: "D" },
+  { n: 65, s: "U", y: "25", yt: "2025", q: "A patient presents with sunken eyes, little dark urine, and an abnormal skin pinch test. What is the underlying cause?", o: ["A. Acute hypertension", "B. Dehydration", "C. Hypervitaminosis", "D. Polycythemia", "E. Congestive heart failure"], a: "B" },
+  { n: 66, s: "8", y: "25", yt: "2024-2025", q: "A patient has low blood pressure (80/40 mmHg), rapid heartbeat, and a breathing rate of 18 breaths per minute. They vomit whenever fed. What is the first thing you should do?", o: ["A. Provide oral rehydration salts", "B. Administer intramuscular antibiotics", "C. Perform a gastric lavage", "D. Administer IV and give fluids", "E. Induce further vomiting to clear toxins"], a: "D" },
+  { n: 67, s: "U", y: "25", yt: "2025", q: "A patient who has a bluish mouth and fingertips; what is this condition called?", o: ["A. Cyanosis", "B. Jaundice", "C. Erythema", "D. Ischemia", "E. Pallor"], a: "A" },
+  { n: 68, s: "8", y: "25", yt: "2024-2025", q: "In the SOCRATES pain assessment, what does the 'R' stand for?", o: ["A. Relieving factors", "B. Reoccurrence", "C. Radiation", "D. Region", "E. Reaction"], a: "C" },
+  { n: 69, s: "8", y: "25", yt: "2024-2025", q: "A patient presents with chest pain; what clinical history tool will you take from him?", o: ["A. APGAR score", "B. GCS scale", "C. AVPU assessment", "D. Rule of Nines", "E. SOCRATES"], a: "E" },
+  { n: 70, s: "11", y: "25", yt: "2024-2025", q: "Which artery is palpated in an infant when checking blood pressure or pulse?", o: ["A. Radial artery", "B. Brachial artery", "C. Carotid artery", "D. Popliteal artery", "E. Dorsalis pedis"], a: "B" },
+  { n: 71, s: "U", y: "25", yt: "2025", q: "Which of the following does not cause a coma?", o: ["A. Hypoglycemia", "B. Alcohol poisoning", "C. Pericarditis", "D. Traumatic brain injury", "E. Status epilepticus"], a: "C" },
+  { n: 72, s: "8", y: "25", yt: "2024-2025", q: "Which of the following does not typically cause chest pain?", o: ["A. Appendicitis", "B. Arrhythmias", "C. Aortic Dissection", "D. Pneumothorax", "E. GERD"], a: "A" },
+  { n: 73, s: "12", y: "25", yt: "2024-2025", q: "A 23-year-old man dives head-first into a river. He can communicate but cannot move his arms or legs. What is the first thing you do?", o: ["A. Give broad-spectrum antibiotics", "B. Give a tetanus vaccination", "C. Perform immediate chest compressions", "D. Immobilize the cervical spine", "E. Administer high-flow oral fluids"], a: "D" },
+  { n: 74, s: "9", y: "25", yt: "2024-2025", q: "A patient doesn't answer when you call to him, but when you pinch the sole of his foot, he moans. In the AVPU scale, which stage is this patient in?", o: ["A. Alert", "B. Verbal", "C. Unresponsive", "D. Confused", "E. Pain"], a: "E" },
+  { n: 75, s: "U", y: "25", yt: "2025", q: "What is the priority action immediately after inserting an oropharyngeal airway?", o: ["A. Check the pulse", "B. Check for breathing", "C. Check for a pupillary response", "D. Measure blood pressure", "E. Auscultate heart sounds"], a: "B" },
+  { n: 76, s: "8", y: "25", yt: "2024-2025", q: "A patient presents with burned nasal hair and shortness of breath after escaping a fire. What is the first thing you do?", o: ["A. Administer IV fluids", "B. Check for distal fractures", "C. Apply burn ointment to the face", "D. Give oxygen", "E. Give antibiotics"], a: "D" },
+  { n: 77, s: "10", y: "25", yt: "2024-2025", q: "Which of the following is true about the initial management of a fracture?", o: ["A. Always apply heat to the site", "B. Massage the area to improve blood flow", "C. Do not relocate or force the fracture back into place", "D. Encourage the patient to walk on the limb", "E. Apply a very tight tourniquet above the site"], a: "C" },
+  { n: 78, s: "2", y: "25", yt: "2024-2025", q: "A man is involved in a car crash. His assessment is normal, but he appears confused. How should the SAMPLE history be obtained?", o: ["A. Ask the bystanders and patient family members for information", "B. Wait until the patient is fully oriented", "C. Rely solely on the police report", "D. Perform a head CT before taking a history", "E. Skip the history and proceed to surgery"], a: "A" },
+  { n: 79, s: "U", y: "25", yt: "2025", q: "A woman presents with difficulty breathing and a fever for 3 days; what will you do next?", o: ["A. Administer a sedative", "B. Check for a fracture", "C. Apply a cold compress to the chest", "D. Perform a skin pinch test", "E. Check lung sounds"], a: "E" },
+  { n: 80, s: "4", y: "25", yt: "2024-2025", q: "What is the medical term for a procedure involving the insertion of a needle into a body part?", o: ["A. Incision", "B. Puncture", "C. Laceration", "D. Abrasion", "E. Contusion"], a: "B" },
+  { n: 81, s: "8", y: "25", yt: "2024-2025", q: "What are the classic symptoms of a myocardial infarction (heart attack)?", o: ["A. Sharp abdominal pain and vomiting", "B. Brief dizziness and blurred vision", "C. Crushing chest pain radiating to the jaw and arm", "D. Lower back pain and frequent urination", "E. Sudden onset of high fever and chills"], a: "C" },
+  { n: 82, s: "12", y: "25", yt: "2024-2025", q: "A patient has an ankle sprain; which of the following management steps is NOT true?", o: ["A. Apply ice to the affected area", "B. Elevate the limb above the heart", "C. Apply an elastic bandage compression from proximal to distal of the injury", "D. Rest the joint to prevent further injury", "E. Use a splint if stability is compromised"], a: "C" },
+  { n: 83, s: "6", y: "25", yt: "2024-2025", q: "Which of the following is incorrect regarding medical values or venom reactions?", o: ["A. Venom PO2 is 80–100", "B. Venom can cause local tissue necrosis", "C. Venom may lead to systemic coagulopathy", "D. Neurotoxicity is a common feature of certain venoms", "E. Anaphylaxis is a potential complication"], a: "A" },
+  { n: 84, s: "12", y: "25", yt: "2024-2025", q: "A boy had an accident while playing football; examination shows no bone deformity. During management, what should you do?", o: ["A. Immediate surgical intervention", "B. Encourage immediate return to play", "C. Apply the RICE protocol", "D. Administer high-dose oral anticoagulants", "E. Apply a hot compress for 24 hours"], a: "C" },
+  { n: 85, s: "4", y: "25", yt: "2024-2025", q: "A patient has a wound made by a piece of glass with regular margins, similar to one formed during a surgical procedure. What kind of wound is this?", o: ["A. Puncture", "B. Incision", "C. Avulsion", "D. Laceration", "E. Abrasion"], a: "B" },
+  { n: 86, s: "5", y: "25", yt: "2024-2025", q: "A man has an embedded object in his eye. What is the most appropriate management?", o: ["A. Remove the object with sterile forceps", "B. Flush the eye with high-pressure water", "C. Cover only the injured eye with a tight bandage", "D. Apply a chemical neutralizing agent", "E. Cover both eyes and seek medical aid"], a: "E" },
+  { n: 87, s: "U", y: "25", yt: "2025", q: "Which of the following conditions is directly associated with cerebral hypoperfusion?", o: ["A. Sinusitis", "B. Synovitis", "C. Scoliosis", "D. Syncope", "E. Steatosis"], a: "D" },
+  { n: 88, s: "U", y: "25", yt: "2025", q: "An ECG reading that shows no electrical activity or signal is known as?", o: ["A. Bradycardia", "B. Tachycardia", "C. Asystole", "D. Fibrillation", "E. Ischemia"], a: "C" },
+  { n: 89, s: "8", y: "25", yt: "2024-2025", q: "Which of the following is typically not associated with acute chest pain?", o: ["A. Pancreatitis", "B. Myocardial infarction", "C. Pulmonary embolism", "D. Pneumothorax", "E. Asthma"], a: "A" },
+ 
+  
+];
+
+const filterLectures = [
+  { label: "All",             val: "All" },
+  { label: "Introduction & Action Plan in Danger 🚨",    val: "1"   },
+  { label: "Ethics of the Rescuer 🚑",  val: "2"   },
+  { label: "Bleeding Control 🩸",      val: "3"   },
+  { label: "Wounds 🤕",                 val: "4"   },
+  { label: "Eye injuries 👁️",           val: "5"   },
+  { label: "Envenomation 🦂",           val: "6"   },
+  { label: "Electrical Shock ⚡",        val: "7"   },
+  { label: "Chest Pain 🫁",              val: "8"   },
+  { label: "Loss of consciousness 🧠", val: "9"   },
+  { label: "Burns 🔥",                  val: "10"   },
+  { label: "Pediatric emergencies 👱",  val: "11"  },
+  { label: "Fractures, sprains, and strains 🦴",  val: "12"  },
+  { label: "Uknown",  val: "U"  },
+];
+const filterYears = [
+  { label: "All",                   val: "All" },
+  { label: "2020 - 2021",           val: "21"  },
+  { label: "2021 - 2022",           val: "22"  },
+  { label: "2021 - 2022 Second Trial", val: "22S" },
+  { label: "2022 - 2023",           val: "23"  },
+  { label: "2023 - 2024",           val: "24"  },
+  { label: "2024 - 2025",           val: "25"  },
+];
+
+let currentMode = "lectures"; 
+let currentSubject = "All";
+
+const container = document.getElementById('quiz-content');
+const filterBar = document.getElementById('filter-bar');
+
+function renderFilterBar() {
+    const filters = currentMode === "lectures" ? filterLectures : filterYears;
+    filterBar.innerHTML = filters.map(f =>
+        `<button class="filter-btn${f.val === currentSubject ? " active" : ""}" onclick="filterBySubject('${f.val}', this)">${f.label}</button>`
+    ).join('');
+}
+
+function getLectureLabel(val) {
+    if (val === "All") return "All";
+    const found = filterLectures.find(f => f.val === val);
+    return found ? found.label : val;
+}
+
+function updateSectionHeading() {
+    const existing = document.getElementById('section-heading');
+    const visibleBlocks = [...document.querySelectorAll('.q-block')].filter(b => b.style.display !== "none");
+    const count = visibleBlocks.length;
+
+    let noResultsMsg = document.getElementById('no-results-msg');
+    
+    if (count === 0) {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.id = 'no-results-msg';
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.textContent = "No questions found.";
+            container.appendChild(noResultsMsg);
+        }
+    } else if (noResultsMsg) {
+        noResultsMsg.remove();
+    }
+
+    if (currentMode !== "lectures") {
+        if (existing) existing.remove();
+        return;
+    }
+
+    const label = getLectureLabel(currentSubject);
+    const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+
+    if (existing) {
+        existing.style.display = (count === 0) ? "none" : "flex";
+        existing.querySelector('.section-heading-title').textContent = label;
+        existing.querySelector('.mcq-count-badge').textContent = badgeText;
+    } else if (count > 0) {
+        const heading = document.createElement('div');
+        heading.id = 'section-heading';
+        heading.className = 'section-heading';
+        heading.innerHTML = `<span class="section-heading-title">${label}</span><span class="mcq-count-badge">${badgeText}</span>`;
+        container.insertBefore(heading, container.firstChild);
+    }
+}
+
+function renderQuiz() {
+    container.innerHTML = '';
+    allQuestions.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.lecture = item.s;
+        div.dataset.year = item.y;
+        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+
+        const activeFilterVal = currentSubject;
+        const matchesSubject = activeFilterVal === "All" || (currentMode === "lectures" ? item.s === activeFilterVal : item.y === activeFilterVal);
+        div.style.display = matchesSubject ? "block" : "none";
+
+        if (currentMode === "lectures") {
+            div.innerHTML = `
+                <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+                <ul class="opts">
+                    ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+                </ul>
+                <div class="ans-row">
+                    <button class="ans-btn" data-answer="Answer: ${item.a}" onclick="toggleAnswer(this)">Answer</button>
+                    <span class="year-label">${item.yt}</span>
+                </div>
+            `;
+        } else {
+            div.innerHTML = `
+                <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+                <ul class="opts">
+                    ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+                </ul>
+                <div class="ans-row">
+                    <span class="ans-text">Answer: ${item.a}</span>
+                    <button class="ans-btn" onclick="this.closest('.q-block').classList.toggle('revealed')">Answer</button>
+                </div>
+            `;
+        }
+        container.appendChild(div);
+    });
+    updateSectionHeading();
+}
+
+function filterBySubject(val, btn) {
+    currentSubject = val;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    handleSearch(); 
+}
+
+function toggleFilterMode() {
+    currentMode = (currentMode === "lectures") ? "years" : "lectures";
+    currentSubject = "All";
+    document.body.className = `mode-${currentMode}`;
+    
+    const icon = document.getElementById('filter-icon');
+    if (currentMode === "years") {
+        icon.innerHTML = `<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>`;
+    } else {
+        icon.innerHTML = `<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>`;
+    }
+
+    renderFilterBar();
+    renderQuiz();
+    showTooltip();
+}
+
+function handleSearch() {
+    const term = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        resetBlock(block);
+        const matchesCategory = currentSubject === "All" || (currentMode === "lectures" ? block.dataset.lecture === currentSubject : block.dataset.year === currentSubject);
+        const matchesSearch = term === "" || block.dataset.searchText.includes(term);
+        
+        if (matchesCategory && matchesSearch) {
+            block.style.display = "block";
+            if (term !== "") highlight(block, term);
+        } else {
+            block.style.display = "none";
+        }
+    });
+    updateSectionHeading();
+}
+
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+    block.classList.remove('revealed');
+    const btn = block.querySelector('.ans-btn');
+    if (btn && btn.dataset.answer) btn.textContent = 'Answer';
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').innerHTML.replace(regex, '<mark>$1</mark>');
+    block.querySelectorAll('li').forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+}
+
+function toggleAnswer(btn) {
+    const block = btn.closest('.q-block');
+    const isRevealed = block.classList.toggle('revealed');
+    btn.textContent = isRevealed ? btn.dataset.answer : 'Answer';
+}
+
+function showTooltip() {
+    const tooltip = document.getElementById('btn-tooltip');
+    tooltip.textContent = currentMode === "lectures" ? "By lectures" : "By years";
+    tooltip.classList.add('visible');
+    document.getElementById('filter-mode-btn').classList.add('glowing');
+    setTimeout(() => { tooltip.classList.remove('visible'); document.getElementById('filter-mode-btn').classList.remove('glowing'); }, 2000);
+}
+
+function toggleTheme() {
+    const isLight = document.body.getAttribute('data-theme') === 'light';
+    const newTheme = isLight ? '' : 'light';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);  
+    document.getElementById('theme-icon').innerHTML = isLight 
+        ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
+        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
+
+
+(function () {
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}());
+
+renderFilterBar();
+renderQuiz();
+</script>
+</body>
+</html>
