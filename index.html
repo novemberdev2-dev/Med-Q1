@@ -11,23 +11,28 @@
     :root {
       --bg-color: #161616; 
       --card-bg: rgba(26, 28, 30, 0.7); 
-      --header-bg: rgba(22, 24, 26, 0.85);
+      --header-bg: #1e293b;
+      --header-text: #38bdf8;
       --accent-hdsf: #f1f5f9;
       --accent-bbb: #f1f5f9;
       --text-main: #f1f5f9;
       --text-dim: #94a3b8;
       --border-color: rgba(255, 255, 255, 0.08);
-      --transition: all 0.2s ease;
+       --transition: all 0.2s ease;
+    
     }
 
   
     body.light-mode {
       --bg-color: #f0f2f5;
       --card-bg: rgba(255, 255, 255, 0.85);
-      --header-bg: rgba(240, 242, 245, 0.95);
+      --header-bg: #2D2D2D;
+      --header-text: #ffffff;
       --text-main: #1a1c1e;
       --text-dim: #555e6b;
+       
       --border-color: rgba(0, 0, 0, 0.1);
+     
     }
 
     * { box-sizing: border-box; }
@@ -47,20 +52,7 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 40px 40px, 40px 40px;
-      pointer-events: none;
-      z-index: -1;
-    }
+    
 
     .main-header, 
     .year-selection-container, 
@@ -120,9 +112,9 @@
     }
 
     .top-bar-icon-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
+      width: 46px;
+      height: 46px;
+      border-radius: 9px;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       display: flex;
@@ -133,11 +125,12 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
+      
 
     .top-bar-icon-btn:hover {
       border-color: rgba(255,255,255,0.25);
       background: rgba(40, 42, 45, 0.9);
-      transform: scale(1.05);
+      
     }
 
     
@@ -175,14 +168,16 @@
     #theme-toggle.light-active svg {
       stroke: var(--text-dim);
     }
-
+body.light-mode .top-bar-icon-btn {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: var(--border-color); 
+}
     
     body.light-mode .top-bar-icon-btn svg {
       stroke: var(--text-dim);
     }
-    body.light-mode .top-bar-icon-btn svg.chat-icon {
-      fill: var(--text-dim);
-    }
+    
+    
     body.light-mode .top-bar-icon-btn:hover svg {
       stroke: var(--text-main);
     }
@@ -221,85 +216,69 @@
     
     .main-header {
       width: 100%; background: var(--header-bg); backdrop-filter: blur(12px);
-      padding: 14px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 20px;
+      padding: 12px; border-radius: 10px; border: 1px solid var(--header-bg); margin-bottom: 20px;
       transition: background 0.3s ease, border-color 0.3s ease;
     }
-    .header-info h3 { margin: 0; font-size: 1.5rem; color: var(--text-main); }
-    .header-info p { margin: 6px 0 0; color: var(--text-dim); font-size: 0.9rem; }
+    .header-info h3 { margin: 0; font-size: 1.45rem; color: var( --header-text); font-weight: 800; }
+    .header-info p { margin: 6px 0 0; color: var(--header-text); font-size: 0.9rem; }
 
     
+  
     .year-selection-container {
       width: 100%;
       margin-bottom: 30px;
-      overflow: hidden;
     }
 
     .year-nav {
       display: flex;
       align-items: center;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      padding: 5px;
-      gap: 0;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      -webkit-overflow-scrolling: touch;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    .year-nav::-webkit-scrollbar {
-      display: none; 
-    }
-
-    .year-chip {
-      padding: 10px 22px;
-      border-radius: 6px;
-      color: var(--text-dim);
-      font-size: 0.85rem;
-      font-weight: 600;
-      white-space: nowrap;
-      flex-shrink: 0;
-      transition: var(--transition);
-      background: transparent;
+      gap: 10px;
+      flex-wrap: wrap;
+      background: none;
       border: none;
-      position: relative;
-    }
-
-    /* ئەوەیە لێرەوە خەتی نێوان ساڵەکان */
-    .year-chip + .year-chip::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 20%;
-      height: 60%;
-      width: 1px;
-      background: var(--border-color);
+      padding: 0;
     }
 
     
-    .year-chip.active + .year-chip::before,
-    .year-chip.active::before {
-      display: none;
+    .year-chip {
+      padding: 10px 16px;
+      border-radius: 6px;
+      color: #E8E8E8;
+      border: 1.5px solid #26292b;
+      background: transparent;
+      font-size: 0.92rem;
+      font-weight: 680;
+      white-space: nowrap;
     }
 
+  
     .year-chip.active {
-      background: rgba(38, 41, 43, 0.8);
-      color: #fff;
-      
+      background: #E8E8E8;
+      border-color: #E8E8E8;
+      color: #121212;
+    }
+
+    .year-chip:not(.active) {
+      border: 1px solid var(--border-color);
+    }
+
     
+    body.light-mode .year-chip {
+      color: #121212;
+      border-color: #121212;
+      background: transparent;
     }
 
-    .year-chip:not(.active):hover {
-      color: var(--text-main);
-      background: rgba(255,255,255,0.05);
+    
+    body.light-mode .year-chip.active {
+      background: #4D4D4D;
+      border-color: #4D4D4D;
+      color: #ffffff;
     }
 
-    body.light-mode .year-chip:not(.active):hover {
-      background: rgba(0,0,0,0.04);
+    body.light-mode .year-chip:not(.active) {
+      border: 1px solid  var(--border-color);
+      
     }
 
     
@@ -362,7 +341,7 @@
       align-items: center;
       padding: 12px 0;
       border-bottom: 1px solid rgba(255,255,255,0.03);
-      cursor: pointer;
+      
       text-decoration: none;
     }
     .mcq-link:last-child { border-bottom: none; }
@@ -391,8 +370,9 @@
     }
 
     body.light-mode .main-header {
-      background: rgba(255, 255, 255, 0.9);
-      border-color: rgba(0,0,0,0.08);
+  background: #2D2D2D;
+  border-color: #2D2D2D;
+}
     }
 
     body.light-mode .subject-card {
@@ -440,20 +420,6 @@
     }
 
     body.light-mode .mcq-link:hover { color: black; }
-
-    body.light-mode .year-nav {
-      background: rgba(255, 255, 255, 0.85);
-      border-color: rgba(0,0,0,0.08);
-    }
-
-    body.light-mode .year-chip {
-      color: #555e6b;
-    }
-
-    body.light-mode .year-chip.active {
-      background: rgba(235, 238, 240, 0.94);
-      color: #121212;
-    }
 
   </style>
 </head>
@@ -522,7 +488,7 @@
   <header class="main-header">
     <div class="header-info">
       <h3>Final & End-Rotation</h3>
-      <p>Stage 1 • Block 2</p>
+      <p>Stage 1 • Block 2 </p>
     </div>
   </header>
 
@@ -787,3 +753,4 @@
 
 </body>
 </html>
+
