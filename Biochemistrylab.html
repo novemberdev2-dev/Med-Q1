@@ -17,6 +17,9 @@
             --ans-text: #f0cf6a;
             --ans-border: #2e7d32;
             --input-border: #2a2f36;
+            --filter-txt-active: #1A1A1A;
+            --filter-bg-active: #E8E8E8;
+            --filter-border-active: #E8E8E8;
         }
 
         [data-theme="light"] {
@@ -30,7 +33,11 @@
             --ans-text: #2e7d32;
             --ans-border: #2e7d32;
             --input-border: #cccccc;
+              --filter-txt-active: #ffffff;
+            --filter-bg-active: #4D4D4D;
+            --filter-border-active: #4D4D4D;
         }
+       
 
         [data-theme="light"] .badge-box {
             border-color: var(--text-main);
@@ -69,7 +76,7 @@
         .search-row {
             display: flex;
             gap: 12px;
-            margin-bottom: 12px;
+            margin-bottom: 18px;
             align-items: center;
         }
 
@@ -102,12 +109,7 @@
         mark { background-color: #f0cf6a; color: #000; }
 
       
-        .filter-row {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            margin-bottom: 25px;
-        }
+        
 
       
         .filter-container {
@@ -129,45 +131,54 @@
         }
 
       
-        .filter-btn {
-            background-color: transparent;
-            border: none;
-            color: var(--text-main);
-            padding: 6px 14px;
-            border-radius: 5px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
+    .filter-row {
+    display: flex;
+    gap: 9px;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
 
-        .filter-btn:hover {
-            background-color: rgba(114,159,207,0.15);
-        }
+.filter-row::-webkit-scrollbar {
+    display: none;
+}
 
-        .filter-btn.active {
-            background-color: #729fcf;
-            color: white;
-        }
+.filter-btn {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-main);
+    padding: 10px 18px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+ .filter-btn.active {
+    background-color: var(--filter-bg-active);
+    color: var(--filter-txt-active);
+    border-color: var(--filter-border-active);
+}
 
-    
         .icon-btn {
             flex-shrink: 0;
             background-color: var(--card-bg);
             border: 1px solid var(--input-border);
             color: var(--text-main);
-            width: 46px;
-            height: 46px;
-            border-radius: 10px;
-            cursor: pointer;
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
             position: relative;
         }
+            
 
         #filter-mode-btn.mode-year {
             border-color: #729fcf;
@@ -337,12 +348,11 @@
         </button>
     </div>
 
+<div class="filter-row" id="filter-bar">
+    
+</div>
   
-    <div class="filter-row">
-        <div class="filter-container" id="filter-bar">
-        
-        </div>
-    </div>
+    
 
     <div id="content-by-lecture">
 
@@ -1351,17 +1361,19 @@
     }
 
     function toggleTheme() {
-        const body = document.body;
-        const icon = document.getElementById('theme-icon');
-        const isLight = body.getAttribute('data-theme') === 'light';
-        if (isLight) {
-            body.removeAttribute('data-theme');
-            icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-        } else {
-            body.setAttribute('data-theme', 'light');
-            icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-        }
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    const isLight = body.getAttribute('data-theme') === 'light';
+    if (isLight) {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+        body.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     }
+}
 
     function toggleAnswer(id, btn) {
         const answerDiv = document.getElementById(id);
@@ -1418,6 +1430,12 @@
             wrap.style.display = hasVisible ? 'block' : 'none';
         });
     }
+  
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') {
+    document.body.setAttribute('data-theme', 'light');
+    document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
 
     buildFilterBar('lecture');
     document.getElementById('filter-mode-btn').setAttribute('data-tooltip', 'By Lectures (default)');
@@ -1425,4 +1443,5 @@
 
 </body>
 </html>
+
 
