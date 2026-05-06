@@ -21,10 +21,13 @@
             --year-border: #ffffff;
             --filter-bg: transparent;
             --filter-txt-active: #1A1A1A;
-            --filter-bg-active:  #E8E8E8;
-            --filter-border-active:  #E8E8E8;
-            --ans-btn-bg: #E8E8E8;
+            --filter-bg-active: #E8E8E8;
+            --filter-border-active: #E8E8E8;
+            --ans-btn-bg: #D3D3D3;
             --ans-btn-txt: #1A1A1A;
+            --menu-bg: #1e293b;
+            --menu-border: #2a2f36;
+            --menu-hover: #263347;
         }
 
         [data-theme="light"] {
@@ -41,11 +44,14 @@
             --year-color: #000000;
             --year-border: #000000;
             --filter-bg: transparent;
-            --filter-txt-active:  #ffffff;
+            --filter-txt-active: #ffffff;
             --filter-bg-active: #4D4D4D;
             --filter-border-active: #4D4D4D;
-             --ans-btn-bg:  #555555;
+            --ans-btn-bg: #555555;
             --ans-btn-txt: #ffffff;
+            --menu-bg: #ffffff;
+            --menu-border: #e0e0e0;
+            --menu-hover: #f5f5f5;
         }
 
         .filter-btn.active {
@@ -73,8 +79,8 @@
             box-sizing: border-box;
         }
 
-        .header { 
-            text-align: center; 
+        .header {
+            text-align: center;
             margin-bottom: 20px;
             background-color: var(--header-bg);
             color: var(--header-text);
@@ -85,6 +91,157 @@
             align-items: center;
         }
 
+        
+        .top-action-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 8px;
+        }
+
+        .top-action-left {
+            display: flex;
+            gap: 8px;
+        }
+
+        .top-action-right {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            height: 40px;
+            padding: 0 10px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .icon-btn:hover { opacity: 0.85; }
+        .icon-btn svg { flex-shrink: 0; }
+
+      
+        .sq-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 45px;
+            height: 45px;
+            padding: 0;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            
+            flex-shrink: 0;
+        }
+
+        .sq-btn:hover { opacity: 0.85; }
+
+      
+        .icon-btn-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        #btn-tooltip {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #3a3f47;
+            color: #f1f5f9;
+            border-radius: 8px;
+            padding: 7px 14px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 9999;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        }
+
+        #btn-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 7px solid transparent;
+            border-top-color: #3a3f47;
+        }
+
+        #btn-tooltip.visible { opacity: 1; }
+
+        #filter-mode-btn.glowing {
+            box-shadow: 0 0 0 1px #38bdf8, 0 0 12px rgba(56,189,248,0.45);
+            border-color: #38bdf8;
+        }
+
+    
+        .saved-icon-btn {
+            position: relative;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 45px;
+            height: 45px;
+            padding: 0;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .saved-icon-btn:hover { opacity: 0.85; }
+
+        .saved-icon-btn.saved-active {
+            background-color: var(--input-bg);
+            border-color: #eab308;
+            color: #eab308;
+        }
+
+        .notif-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background-color: #eab308;
+            color: #000;
+            font-size: 0.65rem;
+            font-weight: 800;
+            border-radius: 2000px;
+            min-width: 17px;
+            height: 17px;
+            padding: 0 4px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .notif-badge.visible { display: flex; }
+
+      
         .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
 
         .search-wrapper {
@@ -112,21 +269,7 @@
             outline: none;
         }
 
-        .theme-toggle, .icon-btn {
-            background-color: var(--input-bg);
-            border: 1px solid var(--input-border);
-            color: var(--text-main);
-            width: 48px;
-            height: 48px;
-            border-radius: 7px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            flex-shrink: 0;
-        }
-
-      
+    
         .filter-container {
             background: transparent;
             border: none;
@@ -157,18 +300,29 @@
             white-space: nowrap;
             margin-bottom: 10px;
             margin-top: 10px;
+            
         }
 
         .divider { border: none; margin-bottom: 12px; }
 
+        
         .q-block {
             margin-bottom: 40px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 30px;
+            position: relative;
         }
 
         .q-block:last-child { border-bottom: none; }
-        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; flex: 1; }
         .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
 
         .ans-row {
@@ -177,7 +331,7 @@
             align-items: center;
         }
 
-         .ans-btn {
+        .ans-btn {
             background-color: var(--ans-btn-bg);
             color: var(--ans-btn-txt);
             border: none;
@@ -189,7 +343,7 @@
             
         }
 
-        body.mode-lectures .q-block.revealed .ans-btn {
+        .q-block.revealed .ans-btn {
             background-color: var(--ans-bg);
             color: var(--ans-text);
             font-weight: 700;
@@ -197,13 +351,10 @@
             font-size: 16px;
         }
 
-        .ans-text { font-weight: 700; color: var(--ans-text); visibility: hidden; background-color: var(--ans-bg); padding: 6px 12px; border-radius: 4px; }
-        .q-block.revealed .ans-text { visibility: visible; }
-
         .year-label {
             font-size: 0.71rem;
             font-weight: 700;
-            align-self: center;
+            align-self: flex-end;
             letter-spacing: 0.04em;
             margin-right: 4px;
             margin-top: 28px;
@@ -216,53 +367,7 @@
 
         mark { background-color: #f0cf6a; color: #000; }
 
-        .icon-btn-wrap {
-            position: relative;
-            flex-shrink: 0;
-        }
-
-        #btn-tooltip {
-            position: absolute;
-            bottom: calc(100% + 12px);
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #3a3f47;
-            color: #f1f5f9;
-            border-radius: 8px;
-            padding: 7px 14px;
-            font-size: 0.88rem;
-            font-weight: 600;
-            white-space: nowrap;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            z-index: 9999;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-        }
-
         
-        #btn-tooltip::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 7px solid transparent;
-            border-top-color: #3a3f47;
-        }
-
-        #btn-tooltip.visible { opacity: 1; }
-
-        
-        .icon-btn-wrap:hover #btn-tooltip {
-            opacity: 1;
-        }
-
-        #filter-mode-btn.glowing {
-            box-shadow: 0 0 0 1px #38bdf8, 0 0 12px rgba(56,189,248,0.45);
-            border-color: #38bdf8;
-        }
-
         .section-heading {
             display: flex;
             justify-content: space-between;
@@ -281,7 +386,7 @@
             opacity: 0.6;
             box-sizing: border-box;
             width: 100%;
-            display: block; 
+            display: block;
         }
 
         .section-heading-title {
@@ -300,11 +405,114 @@
             letter-spacing: 0.05em;
             white-space: nowrap;
         }
-    </style>
 
+        
+        .dots-menu-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .dots-btn {
+            background: none;
+            border: none;
+            color: var(--text-opts);
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.55;
+            transition: opacity 0.2s, background 0.2s;
+            margin-top: 2px;
+        }
+
+        .dots-btn:hover {
+            opacity: 1;
+            background-color: var(--input-bg);
+        }
+
+        .dots-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 4px);
+            background-color: var(--menu-bg);
+            border: 1px solid var(--menu-border);
+            border-radius: 9px;
+            min-width: 155px;
+            z-index: 999;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+        }
+
+        .dots-dropdown.open {
+            display: block;
+            animation: dropIn 0.15s ease;
+        }
+
+        @keyframes dropIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .dots-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 16px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-main);
+            transition: background 0.15s;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .dots-dropdown-item:hover { background-color: var(--menu-hover); }
+        .dots-dropdown-item svg { flex-shrink: 0; opacity: 0.8; }
+
+        .dots-divider {
+            height: 1px;
+            background-color: var(--menu-border);
+            margin: 0;
+        }
+
+        
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #1e293b;
+            color: #f1f5f9;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.25s, transform 0.25s;
+            z-index: 9999;
+            pointer-events: none;
+            white-space: nowrap;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .q-block.is-saved .dots-btn {
+            opacity: 1;
+            color: #eab308;
+        }
+    </style>
 </head>
 
-<body oncontextmenu="return false;" class="mode-lectures">
+<body oncontextmenu="return false;">
 
 <div class="container">
     <div class="header">
@@ -314,37 +522,65 @@
         </div>
     </div>
 
+  
+    <div class="top-action-row">
+        <div class="top-action-left">
+            <button class="icon-btn" onclick="window.location.href='index.html'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                Back
+            </button>
+        </div>
+        <div class="top-action-right">
+          
+            <button class="saved-icon-btn" id="saved-toggle-btn" onclick="toggleSavedFilter()" title="Saved">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span class="notif-badge" id="saved-count-badge">0</span>
+            </button>
+
+          
+            <div class="icon-btn-wrap">
+                <div id="btn-tooltip">By lectures</div>
+                <button class="sq-btn" id="filter-mode-btn" onclick="toggleFilterMode()" title="Toggle filter mode">
+                    <svg id="filter-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                </button>
+            </div>
+
+          
+            <button class="sq-btn" onclick="toggleTheme()">
+                <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    
     <div class="controls-row">
         <div class="search-wrapper">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
         </div>
-        <div class="icon-btn-wrap">
-            <div id="btn-tooltip">By lectures</div>
-            <button class="icon-btn" id="filter-mode-btn" onclick="toggleFilterMode()">
-                <svg id="filter-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                </svg>
-            </button>
-        </div>
-        <button class="theme-toggle" onclick="toggleTheme()">
-            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-        </button>
     </div>
 
     <div class="filter-container" id="filter-bar"></div>
-
     <hr class="divider">
     <div id="quiz-content"></div>
 </div>
 
+<div class="toast" id="toast"></div>
+
 <script>
 
 const allQuestions = [
-  { n: 1, s: "5", y: "21", yt: "2020-2021", q: "How should you manage a small object in the eye?", o: ["A. Ask the patient to rub the eye to try to remove the object", "B. Immediately wash the eye with alcohol to remove the object", "C. Ask the patient to look up and down then carefully remove the object", "D. Press firmly on the eyelid to try to expel the object", "E. Cover the eye tightly and leave the object inside until help arrives"], a: "C" },
+
+    { n: 1, s: "5", y: "21", yt: "2020-2021", q: "How should you manage a small object in the eye?", o: ["A. Ask the patient to rub the eye to try to remove the object", "B. Immediately wash the eye with alcohol to remove the object", "C. Ask the patient to look up and down then carefully remove the object", "D. Press firmly on the eyelid to try to expel the object", "E. Cover the eye tightly and leave the object inside until help arrives"], a: "C" },
   { n: 2, s: "U", y: "21", yt: "2021", q: "Which of the following is not included in the coma cocktail?", o: ["A. Insulin", "B. Glucose", "C. Thiamine", "D. Naloxone", "E. Oxygen"], a: "A" },
   { n: 3, s: "4", y: "21", yt: "2020-2021", q: "About clean-contaminated wound, which one is correct?", o: ["A. Appendectomy", "B. Cholecystectomy", "C. Hernia repair without bowel entry", "D. Thyroidectomy", "E. Skin biopsy"], a: "B" },
   { n: 4, s: "3", y: "21", yt: "2020-2021", q: "What is the correct way to care for someone with severe open bleeding?", o: ["A. Wash the wound thoroughly with cold water only and wait for help", "B. Apply ice directly on the wound to slow bleeding before intervention", "C. Cover the wound with a dressing and wait for professional assistance", "D. Apply firm pressure on the bleeding site and elevate the limb if no fracture is present", "E. Massage around the wound to try to reduce the bleeding before care"], a: "D" },
@@ -435,52 +671,156 @@ const allQuestions = [
   { n: 87, s: "U", y: "25", yt: "2025", q: "Which of the following conditions is directly associated with cerebral hypoperfusion?", o: ["A. Sinusitis", "B. Synovitis", "C. Scoliosis", "D. Syncope", "E. Steatosis"], a: "D" },
   { n: 88, s: "U", y: "25", yt: "2025", q: "An ECG reading that shows no electrical activity or signal is known as?", o: ["A. Bradycardia", "B. Tachycardia", "C. Asystole", "D. Fibrillation", "E. Ischemia"], a: "C" },
   { n: 89, s: "8", y: "25", yt: "2024-2025", q: "Which of the following is typically not associated with acute chest pain?", o: ["A. Pancreatitis", "B. Myocardial infarction", "C. Pulmonary embolism", "D. Pneumothorax", "E. Asthma"], a: "A" },
- 
-  
 ];
 
 const filterLectures = [
-  { label: "All",             val: "All" },
-  { label: "Introduction & Action Plan in Danger 🚨",    val: "1"   },
-  { label: "Ethics of the Rescuer 🚑",  val: "2"   },
-  { label: "Bleeding Control 🩸",      val: "3"   },
-  { label: "Wounds 🤕",                 val: "4"   },
-  { label: "Eye injuries 👁️",           val: "5"   },
-  { label: "Envenomation 🦂",           val: "6"   },
-  { label: "Electrical Shock ⚡",        val: "7"   },
-  { label: "Chest Pain 🫁",              val: "8"   },
-  { label: "Loss of consciousness 🧠", val: "9"   },
-  { label: "Burns 🔥",                  val: "10"   },
-  { label: "Pediatric emergencies 👱",  val: "11"  },
-  { label: "Fractures, sprains, and strains 🦴",  val: "12"  },
-  { label: "Uknown",  val: "U"  },
-];
-const filterYears = [
-  { label: "All",                   val: "All" },
-  { label: "2020 - 2021",           val: "21"  },
-  { label: "2021 - 2022",           val: "22"  },
-  { label: "2021 - 2022 Second Trial", val: "22S" },
-  { label: "2022 - 2023",           val: "23"  },
-  { label: "2023 - 2024",           val: "24"  },
-  { label: "2024 - 2025",           val: "25"  },
+  { label: "All",                                              val: "All" },
+  { label: "Introduction & Action Plan in Danger 🚨",         val: "1"   },
+  { label: "Ethics of the Rescuer 🚑",                        val: "2"   },
+  { label: "Bleeding Control 🩸",                             val: "3"   },
+  { label: "Wounds 🤕",                                       val: "4"   },
+  { label: "Eye injuries 👁️",                                 val: "5"   },
+  { label: "Envenomation 🦂",                                 val: "6"   },
+  { label: "Electrical Shock ⚡",                              val: "7"   },
+  { label: "Chest Pain 🫁",                                   val: "8"   },
+  { label: "Loss of consciousness 🧠",                        val: "9"   },
+  { label: "Burns 🔥",                                        val: "10"  },
+  { label: "Pediatric emergencies 👱",                        val: "11"  },
+  { label: "Fractures, sprains, and strains 🦴",              val: "12"  },
+  { label: "Unknown",                                          val: "U"   },
 ];
 
-let currentMode = "lectures"; 
+const filterYears = [
+  { label: "All",                       val: "All" },
+  { label: "2020 - 2021",               val: "21"  },
+  { label: "2021 - 2022",               val: "22"  },
+  { label: "2021 - 2022 Second Trial",  val: "22S" },
+  { label: "2022 - 2023",               val: "23"  },
+  { label: "2023 - 2024",               val: "24"  },
+  { label: "2024 - 2025",               val: "25"  },
+];
+
+let currentMode    = "lectures";
 let currentSubject = "All";
+let showingSaved   = false;
+let savedQuestions = JSON.parse(localStorage.getItem('savedQuestions_BEC') || '[]');
 
 const container = document.getElementById('quiz-content');
 const filterBar = document.getElementById('filter-bar');
 
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+
+function updateSavedBadge() {
+    const badge = document.getElementById('saved-count-badge');
+    const count = savedQuestions.length;
+    badge.textContent = count;
+    count > 0 ? badge.classList.add('visible') : badge.classList.remove('visible');
+}
+
+
+function toggleSavedFilter() {
+    showingSaved = !showingSaved;
+    const btn = document.getElementById('saved-toggle-btn');
+    if (showingSaved) {
+        btn.classList.add('saved-active');
+        currentSubject = "All";
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('.filter-btn')?.classList.add('active');
+    } else {
+        btn.classList.remove('saved-active');
+    }
+    handleSearch();
+}
+
+
+function saveQuestion(qn) {
+    const item = allQuestions.find(q => q.n === qn);
+    if (!item) return;
+    const alreadySaved = savedQuestions.some(q => q.n === qn);
+
+    if (alreadySaved) {
+        savedQuestions = savedQuestions.filter(q => q.n !== qn);
+        localStorage.setItem('savedQuestions_BEC', JSON.stringify(savedQuestions));
+        updateSavedBadge();
+        document.querySelectorAll('.q-block').forEach(block => {
+            if (parseInt(block.dataset.qn) === qn) block.classList.remove('is-saved');
+        });
+        showToast('Removed from saved');
+    } else {
+        savedQuestions.push({ n: item.n, q: item.q });
+        localStorage.setItem('savedQuestions_BEC', JSON.stringify(savedQuestions));
+        updateSavedBadge();
+        document.querySelectorAll('.q-block').forEach(block => {
+            if (parseInt(block.dataset.qn) === qn) block.classList.add('is-saved');
+        });
+        showToast('Question saved ✓');
+    }
+
+    if (showingSaved) handleSearch();
+
+    const openDropdown = document.querySelector('.dots-dropdown.open');
+    if (openDropdown) {
+        const blockEl = openDropdown.closest('.q-block');
+        if (blockEl && parseInt(blockEl.dataset.qn) === qn) {
+            updateDropdownSaveLabel(openDropdown, qn);
+        }
+    }
+}
+
+function updateDropdownSaveLabel(dropdown, qn) {
+    const isSaved = savedQuestions.some(q => q.n === qn);
+    const saveLabel    = dropdown.querySelector('.save-label');
+    const saveIconPath = dropdown.querySelector('.save-icon-path');
+    if (saveLabel)    saveLabel.textContent = isSaved ? 'Unsave' : 'Save';
+    if (saveIconPath) saveIconPath.setAttribute('fill', isSaved ? 'currentColor' : 'none');
+}
+
+
+function copyQuestion(qn) {
+    const item = allQuestions.find(q => q.n === qn);
+    if (!item) return;
+    const text = `Q${item.n}. ${item.q}\n${item.o.join('\n')}\nAnswer: ${item.a}`;
+    navigator.clipboard.writeText(text)
+        .then(() => showToast('Copied ✓'))
+        .catch(() => showToast('Copy failed'));
+}
+
+
+function toggleDots(btn, qn) {
+    document.querySelectorAll('.dots-dropdown.open').forEach(d => {
+        if (d !== btn.nextElementSibling) d.classList.remove('open');
+    });
+    const dropdown = btn.nextElementSibling;
+    dropdown.classList.toggle('open');
+    if (dropdown.classList.contains('open')) updateDropdownSaveLabel(dropdown, qn);
+}
+
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.dots-menu-wrapper')) {
+        document.querySelectorAll('.dots-dropdown.open').forEach(d => d.classList.remove('open'));
+    }
+});
+
+
 function renderFilterBar() {
     const filters = currentMode === "lectures" ? filterLectures : filterYears;
     filterBar.innerHTML = filters.map(f =>
-        `<button class="filter-btn${f.val === currentSubject ? " active" : ""}" onclick="filterBySubject('${f.val}', this)">${f.label}</button>`
+        `<button class="filter-btn${(f.val === currentSubject && !showingSaved) ? ' active' : ''}" onclick="filterBySubject('${f.val}', this)">${f.label}</button>`
     ).join('');
 }
 
 function getLectureLabel(val) {
+    if (showingSaved) return "Saved Questions";
     if (val === "All") return "All";
-    const found = filterLectures.find(f => f.val === val);
+    const filters = currentMode === "lectures" ? filterLectures : filterYears;
+    const found = filters.find(f => f.val === val);
     return found ? found.label : val;
 }
 
@@ -490,25 +830,21 @@ function updateSectionHeading() {
     const count = visibleBlocks.length;
 
     let noResultsMsg = document.getElementById('no-results-msg');
-    
     if (count === 0) {
         if (!noResultsMsg) {
             noResultsMsg = document.createElement('div');
             noResultsMsg.id = 'no-results-msg';
             noResultsMsg.className = 'no-results';
-            noResultsMsg.textContent = "No questions found.";
+            noResultsMsg.textContent = showingSaved ? "No saved questions yet." : "No questions found.";
             container.appendChild(noResultsMsg);
+        } else {
+            noResultsMsg.textContent = showingSaved ? "No saved questions yet." : "No questions found.";
         }
     } else if (noResultsMsg) {
         noResultsMsg.remove();
     }
 
-    if (currentMode !== "lectures") {
-        if (existing) existing.remove();
-        return;
-    }
-
-    const label = getLectureLabel(currentSubject);
+    const label     = getLectureLabel(currentSubject);
     const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
 
     if (existing) {
@@ -524,59 +860,84 @@ function updateSectionHeading() {
     }
 }
 
+
 function renderQuiz() {
     container.innerHTML = '';
     allQuestions.forEach(item => {
         const div = document.createElement('div');
         div.className = 'q-block';
-        div.dataset.lecture = item.s;
-        div.dataset.year = item.y;
+        div.dataset.lecture    = item.s;
+        div.dataset.year       = item.y;
+        div.dataset.qn         = item.n;
         div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
 
-        const activeFilterVal = currentSubject;
-        const matchesSubject = activeFilterVal === "All" || (currentMode === "lectures" ? item.s === activeFilterVal : item.y === activeFilterVal);
+        const matchesSubject = currentSubject === "All" ||
+            (currentMode === "lectures" ? item.s === currentSubject : item.y === currentSubject);
         div.style.display = matchesSubject ? "block" : "none";
 
-        if (currentMode === "lectures") {
-            div.innerHTML = `
+        if (savedQuestions.some(q => q.n === item.n)) div.classList.add('is-saved');
+
+        const isSaved = savedQuestions.some(q => q.n === item.n);
+
+        div.innerHTML = `
+            <div class="q-header">
                 <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
-                <ul class="opts">
-                    ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
-                </ul>
-                <div class="ans-row">
-                    <button class="ans-btn" data-answer="Answer: ${item.a}" onclick="toggleAnswer(this)">Answer</button>
-                    <span class="year-label">${item.yt}</span>
+                <div class="dots-menu-wrapper">
+                    <button class="dots-btn" onclick="toggleDots(this, ${item.n})" title="Options">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <circle cx="12" cy="5" r="1.5"></circle>
+                            <circle cx="12" cy="12" r="1.5"></circle>
+                            <circle cx="12" cy="19" r="1.5"></circle>
+                        </svg>
+                    </button>
+                    <div class="dots-dropdown">
+                        <button class="dots-dropdown-item" onclick="copyQuestion(${item.n}); this.closest('.dots-dropdown').classList.remove('open');">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            Copy
+                        </button>
+                        <div class="dots-divider"></div>
+                        <button class="dots-dropdown-item" onclick="saveQuestion(${item.n}); this.closest('.dots-dropdown').classList.remove('open');">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path class="save-icon-path" d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" fill="${isSaved ? 'currentColor' : 'none'}"></path>
+                            </svg>
+                            <span class="save-label">${isSaved ? 'Unsave' : 'Save'}</span>
+                        </button>
+                    </div>
                 </div>
-            `;
-        } else {
-            div.innerHTML = `
-                <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
-                <ul class="opts">
-                    ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
-                </ul>
-                <div class="ans-row">
-                    <span class="ans-text">Answer: ${item.a}</span>
-                    <button class="ans-btn" onclick="this.closest('.q-block').classList.toggle('revealed')">Answer</button>
-                </div>
-            `;
-        }
+            </div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <button class="ans-btn" data-answer="Answer: ${item.a}" onclick="toggleAnswer(this)">Answer</button>
+                ${currentMode === "lectures" ? `<span class="year-label">${item.yt}</span>` : ''}
+            </div>
+        `;
         container.appendChild(div);
     });
     updateSectionHeading();
 }
 
+
 function filterBySubject(val, btn) {
+    if (showingSaved) {
+        showingSaved = false;
+        document.getElementById('saved-toggle-btn').classList.remove('saved-active');
+    }
     currentSubject = val;
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    handleSearch(); 
+    handleSearch();
 }
 
+
 function toggleFilterMode() {
-    currentMode = (currentMode === "lectures") ? "years" : "lectures";
+    currentMode    = (currentMode === "lectures") ? "years" : "lectures";
     currentSubject = "All";
-    document.body.className = `mode-${currentMode}`;
-    
+
     const icon = document.getElementById('filter-icon');
     if (currentMode === "years") {
         icon.innerHTML = `<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>`;
@@ -589,27 +950,37 @@ function toggleFilterMode() {
     showTooltip();
 }
 
+
 function handleSearch() {
-    const term = document.getElementById('search-input').value.toLowerCase();
+    const term   = document.getElementById('search-input').value.toLowerCase();
     const blocks = document.querySelectorAll('.q-block');
+
     blocks.forEach(block => {
         resetBlock(block);
-        const matchesCategory = currentSubject === "All" || (currentMode === "lectures" ? block.dataset.lecture === currentSubject : block.dataset.year === currentSubject);
-        const matchesSearch = term === "" || block.dataset.searchText.includes(term);
-        
-        if (matchesCategory && matchesSearch) {
-            block.style.display = "block";
-            if (term !== "") highlight(block, term);
+        const qn = parseInt(block.dataset.qn);
+        let visible = false;
+
+        if (showingSaved) {
+            const isSaved      = savedQuestions.some(q => q.n === qn);
+            const matchesSearch = term === "" || block.dataset.searchText.includes(term);
+            visible = isSaved && matchesSearch;
         } else {
-            block.style.display = "none";
+            const matchesCategory = currentSubject === "All" ||
+                (currentMode === "lectures" ? block.dataset.lecture === currentSubject : block.dataset.year === currentSubject);
+            const matchesSearch = term === "" || block.dataset.searchText.includes(term);
+            visible = matchesCategory && matchesSearch;
         }
+
+        block.style.display = visible ? "block" : "none";
+        if (visible && term !== "") highlight(block, term);
     });
+
     updateSectionHeading();
 }
 
 function resetBlock(block) {
     const qText = block.querySelector('.q-text');
-    const opts = block.querySelectorAll('li');
+    const opts  = block.querySelectorAll('li');
     qText.innerHTML = qText.dataset.original;
     opts.forEach(li => li.innerHTML = li.dataset.original);
     block.classList.remove('revealed');
@@ -624,25 +995,30 @@ function highlight(block, term) {
 }
 
 function toggleAnswer(btn) {
-    const block = btn.closest('.q-block');
+    const block      = btn.closest('.q-block');
     const isRevealed = block.classList.toggle('revealed');
-    btn.textContent = isRevealed ? btn.dataset.answer : 'Answer';
+    btn.textContent  = isRevealed ? btn.dataset.answer : 'Answer';
 }
+
 
 function showTooltip() {
     const tooltip = document.getElementById('btn-tooltip');
     tooltip.textContent = currentMode === "lectures" ? "By lectures" : "By years";
     tooltip.classList.add('visible');
     document.getElementById('filter-mode-btn').classList.add('glowing');
-    setTimeout(() => { tooltip.classList.remove('visible'); document.getElementById('filter-mode-btn').classList.remove('glowing'); }, 2000);
+    setTimeout(() => {
+        tooltip.classList.remove('visible');
+        document.getElementById('filter-mode-btn').classList.remove('glowing');
+    }, 2000);
 }
+
 
 function toggleTheme() {
     const isLight = document.body.getAttribute('data-theme') === 'light';
     const newTheme = isLight ? '' : 'light';
     document.body.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);  
-    document.getElementById('theme-icon').innerHTML = isLight 
+    localStorage.setItem('theme', newTheme);
+    document.getElementById('theme-icon').innerHTML = isLight
         ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
         : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
 }
@@ -653,6 +1029,7 @@ function toggleTheme() {
         document.body.setAttribute('data-theme', 'light');
         document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     }
+    updateSavedBadge();
 }());
 
 renderFilterBar();
@@ -660,3 +1037,4 @@ renderQuiz();
 </script>
 </body>
 </html>
+
