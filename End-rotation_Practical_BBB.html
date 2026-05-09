@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practical_BBB_End-Rotation_2025-2026</title>
+    <title>Practical1_BBB_End-Rotation_2025-2026</title>
     
     <style>
       :root {
@@ -15,11 +15,10 @@
             --card-border: #26292b;
             --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
-            --ans-border: #2e7d32;
-            --input-border: #334155;
-        
+            --input-border:#26292b;
+            --q-number:#f1f5f9
         }
-
+        
         [data-theme="light"] {
           
             --bg-body: #f4f4f9;
@@ -28,12 +27,12 @@
             --header-text: #ffffff;
             --card-bg: #ffffff;
             --card-border: #cccccc;
-            --ans-bg: #e8f5e9;
+             --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
-            --ans-border: #2e7d32;
             --input-border: #cccccc;
+            --q-number:#0c0d0e
         }
-
+          
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-body);
@@ -54,18 +53,19 @@
             text-align: center; 
             background-color: var(--header-bg);
             color: var(--header-text);
-            padding: 16px;
-            border-radius: 10px;
+            padding: 14px;
+            border-radius: 9px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-weight: 700;
             margin-bottom: 20px;
         }
 
         .controls-row {
             display: flex;
             gap: 10px;
-            margin-bottom: 25px;
+            margin-bottom: 8px;
             align-items: center;
         }
 
@@ -74,8 +74,8 @@
             flex: 1;
             gap: 8px;
             background-color: var(--card-bg);
-            padding: 6px;
-            border-radius: 10px;
+            padding: 7px;
+            border-radius: 8px;
             border: 1px solid var(--card-border);
             overflow-x: auto;
         }
@@ -84,11 +84,10 @@
             background-color: transparent;
             border: 1px solid transparent;
             color: var(--text-main);
-            padding: 8px 14px;
+            padding: 8px 12px;
             border-radius: 6px;
             font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
+            font-weight: 800;
             white-space: nowrap;
             transition: all 0.2s;
         }
@@ -105,8 +104,7 @@
             color: var(--text-main);
             width: 48px;
             height: 48px;
-            border-radius: 10px;
-            cursor: pointer;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -119,7 +117,7 @@
             text-align: center;
             font-size: 0.75rem;
             opacity: 0.5;
-            border-top: 1px solid var(--card-border);
+           
         }
         
         .question-number{
@@ -155,31 +153,43 @@
         .question-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--card-border); }
         .question-item:last-child { border-bottom: none; }
         
-        .answer-box { display: none !important;
-          
-        }
+        .answer-box { display: none !important;}
 
-        button.ans-btn {
-            background-color: #729fcf;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 10px;
-            text-align: left;
-            width: auto;    
-            display: inline-block;
-            white-space: pre-line;
-    
-    
-        }
+.ans-btn{
+  background-color: var(--ans-bg);
+  color: var(--ans-text);
+}
+
+        
+button.ans-btn {
+    background-color: #729fcf;
+    color: white;
+    border: none;
+    padding: 9px 12px;
+    border-radius: 3px;
+    font-weight: 650;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-align: left;
+    width: auto;    
+    display: inline-block;
+    white-space: pre-line;
+    cursor: pointer;
+    transition: background-color 0.1s, color 0.1s;
+}
+
+button.ans-btn.revealed {
+    background-color: var(--ans-bg) !important;
+    color: var(--ans-text) !important;
+    font-size: 0.9rem;
+    font-weight: 900;
+}
+
 
         .lab-title {
             text-align: left;
-            margin: 80px 0 20px 0;
-            font-size: 1.4rem;
+            margin: 60px 0 20px 0;
+            font-size: 1.3rem;
             font-weight: bold;
             color: #729fcf;
             padding-bottom: 5px;
@@ -187,17 +197,17 @@
             align-items:center;
             justify-content: space-between;
             width: 100%;      
-            border-bottom: 1px solid var(--card-border);
+            
         }
             
         .lab-center { text-align: left; width: 100%; }
         
         .Q-number{
           font-size:12px;
-          border:1px solid green;
-          padding:3px;
+          border:1px solid var(--q-number);
+          padding:3px 5px ;
           border-radius:3px;
-          color:green;
+          color:var(--q-number);
 }
 
         @media (max-width: 700px) {
@@ -209,12 +219,22 @@
     </style>
 </head>
 <body oncontextmenu="return false;">
+  <script>
+    
+    (function() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.setAttribute('data-theme', 'light');
+        }
+    })();
+</script>
+
 
 <div class="container">
     <div class="header">
         <div style="text-align: left;">
             <h3 style="margin: 0; font-size: 1.4rem;">End-Rotation</h3>
-            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">BBB - Practical exam • 2025-2026</p>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">BBB - Practical Exam • Round 1</p>
         </div>
     </div>
 
@@ -236,56 +256,16 @@
 
     <div id="quiz-content">
         
-        <div class="lab-wrapper" data-subject="bec">
-            <div class="lab-center"><div class="lab-title">Basic emergency care ⚕️<span class="Q-number">2 questions</span></div></div>
-            
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">1.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Which vessel is cut?</span><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans1a', this)">Show Answer</button>
-                        <div id="ans1a" class="answer-box">Artery.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is its charactersics? </span><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans1b', this)">Show Answer</button>
-                        <div id="ans1b" class="answer-box">Spurting blood, pulsating flow, and bright red color.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="Bleeding.jpg" alt="Exam Image"></div>
-            </div>
+      
 
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">2.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What degree is the type of the burn?</span><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans2a', this)">Show Answer</button>
-                        <div id="ans2a" class="answer-box">Second degree.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is its charactersics?</span><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans2b', this)">Show Answer</button>
-                        <div id="ans2b" class="answer-box">It has blister and it's caused by a flame or hot liquid and it's very painful.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="Burn.jpg" alt="Exam Image"></div>
-            </div>
-            </div>
-
-          
-        
-
-
-        <div class="lab-wrapper" data-subject="bioch">
-            <div class="lab-center"><div class="lab-title">Biochemistry 🧪<span class="Q-number">4 questions</span></div></div>
+         <div class="lab-wrapper" data-subject="bioch">
+            <div class="lab-center"><div class="lab-title">Biochemistry 🧪<span class="Q-number">4 MCQs</span></div></div>
 
             <div class="quiz-card">
                 <div class="question-section">
                 
                     <div class="question-item">
-                        <span><strong>3.</strong> Starch is used as an indicator in which reaction?
+                        <span><strong>1.</strong> Starch is used as an indicator in which reaction?
                         
                          <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. Acid–base neutralization reaction</div>
@@ -296,22 +276,16 @@
 </ul>
                         </span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans3', this)">Show Answer</button>
-                        <div id="ans3" class="answer-box">C. Oxidation–reduction titration</div>
+                        <div id="ans3" class="answer-box">Answer: C</div>
                     </div>
                 </div>
             </div>
                
-                        
-                        
-                        
-                        
-                        
-
-            <div class="quiz-card">
+       <div class="quiz-card">
                 <div class="question-section">
                   
                     <div class="question-item">
-                        <span><strong>4.</strong> In case of liver disease, the color of urine becomes:
+                        <span><strong>2. </strong> In case of liver disease, the color of urine becomes:
                         
                          <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. Pale yellow</div>
@@ -322,7 +296,7 @@
 </ul>
                         </span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans4', this)">Show Answer</button>
-                        <div id="ans4" class="answer-box">C. Deep yellow to brown</div>
+                        <div id="ans4" class="answer-box">Answer: C</div>
                     </div>
                 </div>
             </div>
@@ -331,7 +305,7 @@
                 <div class="question-section">
                 
                     <div class="question-item">
-                        <span><strong>5.</strong> In Bial’s test, the furfural formed reacts (condenses) with which compound?
+                        <span><strong>3.</strong> In Bial’s test, the furfural formed reacts (condenses) with which compound?
                         
                         <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. Resorcinol</div>
@@ -342,7 +316,7 @@
 </ul>
                         </span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans5', this)">Show Answer</button>
-                        <div id="ans5" class="answer-box">B. Orcinol</div>
+                        <div id="ans5" class="answer-box">Answer: B</div>
                     </div>
                 </div>
             </div>
@@ -355,7 +329,7 @@
                 <div class="question-section">
               
                     <div class="question-item">
-                        <span><strong>6.</strong> NaOH can't be used as standard solution because?
+                        <span><strong>4.</strong> NaOH can't be used as standard solution because?
                         
                          <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. It reacts rapidly with most acids during titration</div>
@@ -366,23 +340,20 @@
 </ul>
                         </span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans4a', this)">Show Answer</button>
-                        <div id="ans4a" class="answer-box">D. It absorbs moisture and carbon dioxide from air</div>
+                        <div id="ans4a" class="answer-box">Answer: D</div>
                     </div>
                 </div>
             </div>
             </div>
-
-      
-
-
-        <div class="lab-wrapper" data-subject="bioph">
-            <div class="lab-center"><div class="lab-title">Biophysics ⚛️<span class="Q-number">4 questions</span></div></div>
+            
+             <div class="lab-wrapper" data-subject="bioph">
+            <div class="lab-center"><div class="lab-title">Biophysics ⚛️<span class="Q-number">4 MCQs</span></div></div>
 
             <div class="quiz-card">
                 <div class="question-section">
                     
                     <div class="question-item">
-                        <span><strong>7.</strong> In which heat therapy is the part of the body to be treated placed between two electrodes?
+                        <span><strong>5.</strong> In which heat therapy is the part of the body to be treated placed between two electrodes?
                         
    <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. Short-wave diathermy</div>
@@ -394,7 +365,7 @@
                         </span><br>
                         
                         <button class="ans-btn" onclick="toggleAnswer('ans7', this)">Show Answer</button>
-                        <div id="ans7" class="answer-box">A. Short-wave diathermy</div>
+                        <div id="ans7" class="answer-box">Answer: A</div>
                     </div>
                 </div>
                
@@ -404,7 +375,7 @@
                 <div class="question-section">
                   
                     <div class="question-item">
-                        <span><strong>8.</strong> During a portable chest X-ray in the ICU, what is the safest position for the radiographer?
+                        <span><strong>6.</strong> During a portable chest X-ray in the ICU, what is the safest position for the radiographer?
                          <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. Standing near the patient’s head</div>
     <div>B. Standing by the patient’s feet</div>
@@ -414,7 +385,7 @@
 </ul>
                         </span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans8', this)">Show Answer</button>
-                        <div id="ans8" class="answer-box">E. Standing at least 2 meters away from the primary beam</div>
+                        <div id="ans8" class="answer-box">Answer: E</div>
                     </div>
                 </div>
              
@@ -424,7 +395,7 @@
                 <div class="question-section">
                 
                     <div class="question-item">
-                        <span><strong>9.</strong> Low energy X-ray causes?
+                        <span><strong>7.</strong> Low energy X-ray causes?
 <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. Deep tissue necrosis</div>
     <div>B. Bone marrow suppression</div>
@@ -434,19 +405,16 @@
 </ul>
                         </span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans9', this)">Show Answer</button>
-                        <div id="ans9" class="answer-box">E. Superficial skin damage</div>
+                        <div id="ans9" class="answer-box">Answer: E</div>
                     </div>
                 </div>
             </div>
                         
-                        
-             
-
             <div class="quiz-card">
                 <div class="question-section">
               
                     <div class="question-item">
-                        <span><strong>10.</strong> Why Gel is used in ultrasound?
+                        <span><strong>8.</strong> Why Gel is used in ultrasound?
                           <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. To cool the transducer during operation</div>
     <div>B. To act as a lubricant for patient comfort</div>
@@ -458,40 +426,94 @@
                         
                         </span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans10', this)">Show Answer</button>
-                        <div id="ans10" class="answer-box">C. To eliminate air and allow better transmission of the waves</div>
+                        <div id="ans10" class="answer-box">Answer: C</div>
                     </div>
                 </div>
+                </div>
+                </div>
+              
+        <div class="lab-wrapper" data-subject="bec">
+            <div class="lab-center"><div class="lab-title">Basic emergency care ⚕️<span class="Q-number">2 Questions</span></div></div>
+            
+            <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">1.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> Which vessel is cut?</span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1a', this)">Show Answer</button>
+                        <div id="ans1a" class="answer-box">Artery.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> What is its charactersics? </span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1b', this)">Show Answer</button>
+                        <div id="ans1b" class="answer-box">Spurting blood, pulsating flow, and bright red color.</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Bleeding.jpg" alt="Exam Image"></div>
             </div>
 
-            
-         
+            <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">2.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> What degree is the type of the burn?</span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans2a', this)">Show Answer</button>
+                        <div id="ans2a" class="answer-box">Second degree.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> What is its charactersics?</span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans2b', this)">Show Answer</button>
+                        <div id="ans2b" class="answer-box">It has blister and it's caused by a flame or hot liquid and it's very painful.</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Burn.jpg" alt="Exam Image"></div>
+            </div>
+            </div>
+            </div>
+            </div>
 
 
-        
+<footer class="site-footer">© Developed by <strong>Shabaz Rasheed</strong></footer>
 
-<footer class="site-footer">Developed by <strong>Shabaz Rasheed</strong></footer>
 
-<script>
-    function toggleTheme() {
-    const body = document.body;
-    const icon = document.getElementById('theme-icon');
+    <script>
     
-    // Check if we are currently in light mode
-    const isLight = body.getAttribute('data-theme') === 'light';
-
-    if (isLight) {
-        // Switch to DARK (The Default)
-        body.removeAttribute('data-theme');
-        // Change icon to SUN (so user can switch back to Light)
-        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-    } else {
-        // Switch to LIGHT
-        body.setAttribute('data-theme', 'light');
-        // Change icon to MOON (so user can switch back to Dark)
-        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    function updateIcon(isLight) {
+        const icon = document.getElementById('theme-icon');
+        if (isLight) {
+        
+            icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        } else {
+            
+            icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+        }
     }
-}
 
+    
+    window.addEventListener('DOMContentLoaded', () => {
+    const isLight = document.body.getAttribute('data-theme') === 'light';
+    updateIcon(isLight);
+});
+
+
+    function toggleTheme() {
+        const body = document.body;
+        const isLight = body.getAttribute('data-theme') === 'light';
+
+        if (isLight) {
+        
+            body.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'dark'); 
+            updateIcon(false);
+        } else {
+        
+            body.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light'); 
+            updateIcon(true);
+        }
+    }
+
+    
     function filterLabs(subject, btn) {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
@@ -502,16 +524,22 @@
     }
 
     function toggleAnswer(id, btn) {
-        const answerDiv = document.getElementById(id);
-        const answerText = answerDiv.innerText;
-        if (btn.innerText === "Show Answer") {
-            btn.innerText = answerText;
-            btn.style.backgroundColor = "var(--ans-border)";
-        } else {
-            btn.innerText = "Show Answer";
-            btn.style.backgroundColor = "#729fcf";
-        }
+    const answerDiv = document.getElementById(id);
+    const answerText = answerDiv.innerText;
+
+  
+    if (!btn.classList.contains('revealed')) {
+      
+        btn.innerText = answerText;
+        btn.classList.add('revealed');
+    } else {
+    
+        btn.innerText = "Show Answer";
+        btn.classList.remove('revealed');
     }
+}
+
 </script>
+
 </body>
-        </html>
+</html>
