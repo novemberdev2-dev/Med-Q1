@@ -13,14 +13,12 @@
             --header-text: #38bdf8;
             --card-bg: #1a1c1e;
             --card-border: #26292b;
-          
             --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
-        
             --input-border:#26292b;
-        
+            --q-number:#f1f5f9
         }
-
+        
         [data-theme="light"] {
           
             --bg-body: #f4f4f9;
@@ -29,13 +27,12 @@
             --header-text: #ffffff;
             --card-bg: #ffffff;
             --card-border: #cccccc;
-          
              --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
-          
             --input-border: #cccccc;
+            --q-number:#0c0d0e
         }
-
+          
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-body);
@@ -207,10 +204,10 @@ button.ans-btn.revealed {
         
         .Q-number{
           font-size:12px;
-          border:1px solid green;
-          padding:3px;
+          border:1px solid var(--q-number);
+          padding:3px 5px ;
           border-radius:3px;
-          color:green;
+          color:var(--q-number);
 }
 
         @media (max-width: 700px) {
@@ -223,7 +220,7 @@ button.ans-btn.revealed {
 </head>
 <body oncontextmenu="return false;">
   <script>
-    // Immediate execution to prevent flash
+    
     (function() {
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'light') {
@@ -262,7 +259,7 @@ button.ans-btn.revealed {
       
 
         <div class="lab-wrapper" data-subject="bioch">
-            <div class="lab-center"><div class="lab-title">Biochemistry 🧪<span class="Q-number">4 questions</span></div></div>
+            <div class="lab-center"><div class="lab-title">Biochemistry 🧪<span class="Q-number">4 MCQs</span></div></div>
 
             <div class="quiz-card">
                 <div class="question-section">
@@ -346,7 +343,7 @@ button.ans-btn.revealed {
             </div>
             
             <div class="lab-wrapper" data-subject="bioph">
-            <div class="lab-center"><div class="lab-title">Biophysics ⚛️<span class="Q-number">4 questions</span></div></div>
+            <div class="lab-center"><div class="lab-title">Biophysics ⚛️<span class="Q-number">4 MCQs</span></div></div>
 
          <div class="quiz-card">
     <div class="question-section">
@@ -501,10 +498,10 @@ button.ans-btn.revealed {
     function updateIcon(isLight) {
         const icon = document.getElementById('theme-icon');
         if (isLight) {
-            // MOON icon
+        
             icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
         } else {
-            // SUN icon
+            
             icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
         }
     }
@@ -521,19 +518,19 @@ button.ans-btn.revealed {
         const isLight = body.getAttribute('data-theme') === 'light';
 
         if (isLight) {
-            // Switch to DARK
+        
             body.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'dark'); // Save preference
+            localStorage.setItem('theme', 'dark'); 
             updateIcon(false);
         } else {
-            // Switch to LIGHT
+        
             body.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light'); // Save preference
+            localStorage.setItem('theme', 'light'); 
             updateIcon(true);
         }
     }
 
-    // --- Rest of your existing functions ---
+    
     function filterLabs(subject, btn) {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
@@ -547,13 +544,13 @@ button.ans-btn.revealed {
     const answerDiv = document.getElementById(id);
     const answerText = answerDiv.innerText;
 
-    // Check if the button is currently showing the answer
+  
     if (!btn.classList.contains('revealed')) {
-        // Show Answer mode
+      
         btn.innerText = answerText;
         btn.classList.add('revealed');
     } else {
-        // Hide Answer mode
+    
         btn.innerText = "Show Answer";
         btn.classList.remove('revealed');
     }
@@ -562,4 +559,5 @@ button.ans-btn.revealed {
 </script>
 
 </body>
-        </html>
+</html>
+
