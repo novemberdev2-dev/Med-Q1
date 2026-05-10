@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All questions_HDSF_2025-2026</title>
+
+    <style>
+       :root {
+            --bg-body: #121212;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #2a2f36;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --filter-bg: transparent;
+            --filter-txt-active: #1A1A1A;
+            --filter-bg-active:  #E8E8E8;
+            --filter-border-active: #E8E8E8;
+            --ans-btn-bg: #E8E8E8;
+            --ans-btn-txt: #1A1A1A;
+        }
+
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #eef6e4;
+            --ans-text: #2e7d32;
+            --filter-bg: transparent;
+            --filter-txt-active:  #ffffff;
+            --filter-bg-active: #4D4D4D;
+            --filter-border-active: #4D4D4D;
+            --ans-btn-bg:  #555555;
+            --ans-btn-txt: #ffffff;
+        }
+
+        .filter-btn.active {
+            background-color: var(--filter-bg-active);
+            color: var(--filter-txt-active);
+            border-color: var(--filter-border-active);
+        }
+
+        body {
+            -webkit-user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1150px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 14px;
+            border-radius: 9px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            
+        }
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 7px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .filter-container {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        .divider { border: none; margin-bottom: 12px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+
+        .ans-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ans-btn {
+            background-color: var(--ans-btn-bg);
+            color: var(--ans-btn-txt);
+            border: none;
+            padding: 7px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-weight: 650;
+            font-size: 16px;
+        }
+
+        .q-block.revealed .ans-btn {
+            background-color: var(--ans-bg);
+            color: var(--ans-text);
+            font-weight: 700;
+            padding: 7px 12px;
+            font-size: 16px;
+        }
+
+        mark { background-color: #f0cf6a; color: #000; }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-opts);
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.6;
+            box-sizing: border-box;
+            width: 100%;
+            display: block; 
+        }
+
+        .section-heading-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mcq-count-badge {
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 2px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body oncontextmenu="return false;">
+
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">End-Rotation</h3>
+            <p style="margin: 2px 0 0; font-size: 0.85rem; opacity: 0.8;">HDSF • 2025-2026 • Round 2</p>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+        
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="filter-container" id="filter-bar"></div>
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+<script>
+
+const allQuestions = [
+   { n: 1, s: "Anatomy", q: "The ejaculatory ducts open into the:", o: ["A. External urethral orifice", "B. Spongy urethra", "C. Internal urethral orifice", "D. Prostatic urethra", "E. Membranous urethra"], a: "D" },
+
+{ n: 2, s: "Anatomy", q: "The root (hilum) of the lung is located on the:", o: ["A. Costal surface", "B. Diaphragmatic surface", "C. Mediastinal surface", "D. Apex of the lung", "E. Base of the lung"], a: "C" },
+
+{ n: 3, s: "Anatomy", q: "The brainstem is composed of the:", o: ["A. Cerebrum and cerebellum", "B. Midbrain, pons, and medulla oblongata", "C. Pons and cerebellum only", "D. Medulla oblongata only", "E. Cerebrum and medulla"], a: "B" },
+
+{ n: 4, s: "Anatomy", q: "The palatine tonsils are located:", o: ["A. In the lateral wall of the oropharynx", "B. In the lateral wall of the nasopharynx", "C. In the laryngopharynx", "D. In the oral cavity proper", "E. On the tongue"], a: "A" },
+
+{ n: 5, s: "Physiology", q: "During catabolism, when ATP is low, glycerol can be converted into:", o: ["A. Ketone bodies", "B. Pyruvic acid", "C. Glucose", "D. Cholesterol", "E. Amino acids"], a: "B" },
+
+{ n: 6, s: "Physiology", q: "Cooling of the body by sweating and respiration mainly occurs through:", o: ["A. Perspiration", "B. Evaporation", "C. Convection", "D. Radiation", "E. Conduction"], a: "B" },
+
+{ n: 7, s: "Physiology", q: "Which hormone stimulates gluconeugenisis?", o: ["A. Cortisol", "B. Glucagon", "C. Thyroid hormone", "D. Insulin", "E. Estrogen"], a: "D" },
+
+{ n: 8, s: "Physiology", q: "Which of the following is correct about diffusion?", o: ["A. It requires ATP", "B. It moves substances from low to high concentration", "C. It does not require ATP and moves substances from high to low concentration", "D. It occurs only in living cells", "E. It requires carrier proteins in all cases"], a: "C" },
+
+{ n: 9, s: "Microbiology", q: "Which of the following is correct about bacterial plasmids?", o: ["A. They are linear DNA molecules only", "B. They replicate independently of the bacterial chromosome and may carry antibiotic resistance genes", "C. They are essential for bacterial survival", "D. They are found only in gram-positive bacteria", "E. They are composed of RNA"], a: "B" },
+
+{ n: 10, s: "Microbiology", q: "Which of the following is NOT true about prokaryotic cells?", o: ["A. They are usually unicellular organisms", "B. They are found in many environments", "C.They lack a nuclear membrane", "D. They lack membrane-bound organelles", "E. Their DNA is associated with histone proteins"], a: "E" },
+
+{ n: 11, s: "Microbiology", q: "Mycoplasma species are naturally resistant to which antibiotic?", o: ["A. Erythromycin", "B. Azithromycin", "C. Penicillin", "D. Tetracycline", "E. Clarithromycin"], a: "C" },
+
+{ n: 12, s: "Microbiology", q: "Mycoplasma lacks which of the following structures?", o: ["A. Cell membrane", "B.DNA", "C.RNA", "D. Peptidoglycan", "E. Ribosomes"], a: "D" },
+
+{ n: 13, s: "Microbiology", q: "Bacteria alter gene expression, virulence, pathogenicity, competition, and antimicrobial resistance by:", o: ["A. Binary fission", "B. Quorum sensing", "C. Transformation", "D. Chemotaxis", "E. Conjugation"], a: "B" },
+{ n: 14, s: "Genetics", q: "The theory stating that a tiny miniature adult called a 'homunculus' exists inside the sperm or egg is known as:", o: ["A. Epigenesis theory", "B. Preformation theory", "C. Chromosomal inheritance theory", "D. Germ layer theory", "E. Evolution theory"], a: "B" },
+{ n: 15, s: "Cell Biology", q: "Which organelle is known as the 'suicidal bag' of the cell?", o: ["A. Peroxisome", "B. Lysosome", "C. Endoplasmic reticulum", "D. Ribosome", "E. Golgi apparatus"], a: "B" },
+
+{ n: 16, s: "Molecular Biology", q: "Telomeres are:", o: ["A. Enzymes responsible for DNA replication", "B. Repetitive nucleotide sequences that protect the ends of chromosomes", "C. Proteins found in the cytoplasm", "D. RNA molecules involved in protein synthesis", "E. Structures that connect sister chromatids"], a: "B" },
+{ n: 17, s: "Molecular Biology", q: "A chromosome sequence changes from AB.CDEFG to AB.CDGFE, This type of mutation is called:", o: ["A. Duplication", "B. Substitution", "C. Inversion", "D. Translocation", "E. Deletion"], a: "C" },
+
+
+{ n: 18, s: "Molecular Biology", q: "Which of the following statements about DNA base pairing is INCORRECT?", o: ["A. pyrimidine always pairs with a purine", "B. Hydrogen bonds stabilize the base pairs", "C. Purines bind with pyrimidines on the same DNA strand", "D. Hydrogen bonds are located in the internal part of the double heliy", "E. Complementary base pairing occurs between opposite strands"], a: "C" },
+
+
+{ n: 19, s: "Histology", q: "Which of the following characteristics of epithelial cells is specialized for absorption?", o: ["A. Presence of lipids inside the cell", "B. Presence of tight junctions", "C. Presence of microvilli", "D. All of the above", "E. None of the above"], a: "C" },
+   
+   { n: 20, s: "Embryology", q: "When the egg is released during ovulation, it is in which stage?", o: ["A. Primary oocyte", "B. Secondary oocyte arrested in metaphase Il", "C. Mature ovum", "D. Zygote", "E. Morula"], a: "B" },
+];
+
+const filterLectures = [
+  { label: "All",                      val: "All" },
+  { label: "Anatomy 🦴",               val: "Anatomy" },
+  { label: "Physiology 🫀",            val: "Physiology" },
+  { label: "Microbiology 🦠",          val: "Microbiology" },
+  { label: "Genetics 🧬",              val: "Genetics" },
+  { label: "Cell biology 🔬",          val: "Cell Biology" },
+  { label: "Molecular biology 🧬",     val: "Molecular Biology" },
+  { label: "Histology 🫁",             val: "Histology" },
+  { label: "Embryology 👶",            val: "Embryology" },
+];
+
+let currentSubject = "All";
+
+const container = document.getElementById('quiz-content');
+const filterBar = document.getElementById('filter-bar');
+
+function renderFilterBar() {
+    filterBar.innerHTML = filterLectures.map(f =>
+        `<button class="filter-btn${f.val === currentSubject ? " active" : ""}" onclick="filterBySubject('${f.val}', this)">${f.label}</button>`
+    ).join('');
+}
+
+function getLectureLabel(val) {
+    if (val === "All") return "All";
+    const found = filterLectures.find(f => f.val === val);
+    return found ? found.label : val;
+}
+
+function updateSectionHeading() {
+    const existing = document.getElementById('section-heading');
+    const visibleBlocks = [...document.querySelectorAll('.q-block')].filter(b => b.style.display !== "none");
+    const count = visibleBlocks.length;
+
+    let noResultsMsg = document.getElementById('no-results-msg');
+    if (count === 0) {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.id = 'no-results-msg';
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.textContent = "No questions found.";
+            container.appendChild(noResultsMsg);
+        }
+    } else if (noResultsMsg) {
+        noResultsMsg.remove();
+    }
+
+    const label = getLectureLabel(currentSubject);
+    const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+
+    if (existing) {
+        existing.style.display = (count === 0) ? "none" : "flex";
+        existing.querySelector('.section-heading-title').textContent = label;
+        existing.querySelector('.mcq-count-badge').textContent = badgeText;
+    } else if (count > 0) {
+        const heading = document.createElement('div');
+        heading.id = 'section-heading';
+        heading.className = 'section-heading';
+        heading.innerHTML = `<span class="section-heading-title">${label}</span><span class="mcq-count-badge">${badgeText}</span>`;
+        container.insertBefore(heading, container.firstChild);
+    }
+}
+
+function renderQuiz() {
+    container.innerHTML = '';
+    allQuestions.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.lecture = item.s;
+        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+
+        const matchesSubject = currentSubject === "All" || item.s === currentSubject;
+        div.style.display = matchesSubject ? "block" : "none";
+
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <button class="ans-btn" data-answer="Answer: ${item.a}" onclick="toggleAnswer(this)">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+    updateSectionHeading();
+}
+
+function filterBySubject(val, btn) {
+    currentSubject = val;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    handleSearch();
+}
+
+function handleSearch() {
+    const term = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        resetBlock(block);
+        const matchesCategory = currentSubject === "All" || block.dataset.lecture === currentSubject;
+        const matchesSearch = term === "" || block.dataset.searchText.includes(term);
+        if (matchesCategory && matchesSearch) {
+            block.style.display = "block";
+            if (term !== "") highlight(block, term);
+        } else {
+            block.style.display = "none";
+        }
+    });
+    updateSectionHeading();
+}
+
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+    block.classList.remove('revealed');
+    const btn = block.querySelector('.ans-btn');
+    if (btn && btn.dataset.answer) btn.textContent = 'Answer';
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').innerHTML.replace(regex, '<mark>$1</mark>');
+    block.querySelectorAll('li').forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+}
+
+function toggleAnswer(btn) {
+    const block = btn.closest('.q-block');
+    const isRevealed = block.classList.toggle('revealed');
+    btn.textContent = isRevealed ? btn.dataset.answer : 'Answer';
+}
+
+function toggleTheme() {
+    const isLight = document.body.getAttribute('data-theme') === 'light';
+    const newTheme = isLight ? '' : 'light';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.getElementById('theme-icon').innerHTML = isLight 
+        ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
+        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
+
+(function () {
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}());
+
+renderFilterBar();
+renderQuiz();
+</script>
+</body>
+</html>
