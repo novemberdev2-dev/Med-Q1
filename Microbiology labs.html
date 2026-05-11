@@ -13,10 +13,10 @@
             --header-text: #38bdf8;
             --card-bg: #1a1c1e;
             --card-border: #26292b;
-            --ans-bg: #1e293b;
+               --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
             --ans-border: #2e7d32;
-            --input-border: #2a2f36;
+            --input-border: #26292b;
         
         }
 
@@ -28,9 +28,9 @@
             --header-text: #ffffff;
             --card-bg: #ffffff;
             --card-border: #cccccc;
-            --ans-bg: #e8f5e9;
+           --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
-            --ans-border: #2e7d32;
+          
             --input-border: #cccccc;
         }
 
@@ -84,11 +84,10 @@
             background-color: transparent;
             border: 1px solid transparent;
             color: var(--text-main);
-            padding: 8px 14px;
+            padding: 8px 13px;
             border-radius: 6px;
             font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
+            font-weight: 800;
             white-space: nowrap;
             transition: all 0.2s;
         }
@@ -106,7 +105,7 @@
             width: 48px;
             height: 48px;
             border-radius: 10px;
-        
+            
             display: flex;
             align-items: center;
             justify-content: center;
@@ -119,7 +118,7 @@
             text-align: center;
             font-size: 0.75rem;
             opacity: 0.5;
-            border-top: 1px solid var(--card-border);
+            
         }
         
         .question-number{
@@ -159,21 +158,34 @@
           
         }
 
-        button.ans-btn {
-            background-color: #729fcf;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 10px;
-            text-align: left;
-            width: auto;    
-            display: inline-block;
-            white-space: pre-line;
-    
-        }
+          .ans-btn{
+  background-color: var(--ans-bg);
+  color: var(--ans-text);
+}
+
+        
+button.ans-btn {
+    background-color: #729fcf;
+    color: white;
+    border: none;
+    padding: 9px 12px;
+    border-radius: 3px;
+    font-weight: 650;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-align: left;
+    width: auto;    
+    display: inline-block;
+    white-space: pre-line;
+    transition: background-color 0.1s, color 0.1s;
+}
+
+button.ans-btn.revealed {
+    background-color: var(--ans-bg) !important;
+    color: var(--ans-text) !important;
+    font-size: 0.9rem;
+    font-weight: 900;
+}
         
         .repeat{
           font-size:10px;
@@ -245,14 +257,14 @@
                 <div class="question-section">
                     <h3 class="question-number">1.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the name of the method?</span><br>
+                        <span><strong>A.</strong> What is the name of the method?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1a', this)">Show Answer</button>
-                        <div id="ans1a" class="answer-box">Filteration</div>
+                        <div id="ans1a" class="answer-box">Filteration.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is it used for? </span><br>
+                        <span><strong>B.</strong> What is it used for? </span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1b', this)">Show Answer</button>
-                        <div id="ans1b" class="answer-box">Filtering bacteria, Fungi, and Yeasts</div>
+                        <div id="ans1b" class="answer-box">Filtering bacteria, Fungi, and Yeasts.</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="filteration.jpg" alt="Exam Image"></div>
@@ -262,14 +274,14 @@
                 <div class="question-section">
                     <h3 class="question-number">2.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What’s this technique called?</span><br>
+                        <span><strong>A.</strong> What’s this technique called?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans2a', this)">Show Answer</button>
-                        <div id="ans2a" class="answer-box">Flaming by bunsen burner</div>
+                        <div id="ans2a" class="answer-box">Flaming by bunsen burner.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> It’s used for sterilizing what?</span><br>
+                        <span><strong>B.</strong> It’s used for sterilizing what?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans2b', this)">Show Answer</button>
-                        <div id="ans2b" class="answer-box">Inoculation loops and needles </div>
+                        <div id="ans2b" class="answer-box">Inoculation loops and needles. </div>
                     </div>
                 </div>
                 <div class="image-section"><img src="Flaming.jpg" alt="Exam Image"></div>
@@ -279,12 +291,12 @@
                 <div class="question-section">
                     <h3 class="question-number">3.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What’s the technique used for?</span><br>
+                        <span><strong>A.</strong> What’s the technique used for?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans3a', this)">Show Answer</button>
-                        <div id="ans3a" class="answer-box">Filtration</div>
+                        <div id="ans3a" class="answer-box">Filtration.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is the name of structure A&B?</span><br>
+                        <span><strong>B.</strong> What is the name of structure A&B?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans3b', this)">Show Answer</button>
                         <div id="ans3b" class="answer-box"><div>A. Filter</div>
                                             <div>B. To vacum pump</div>
@@ -352,14 +364,14 @@
                 <div class="question-section">
                     <h3 class="question-number">6.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is this called?</span><br>
+                        <span><strong>A.</strong> What is this called?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans5a', this)">Show Answer</button>
-                        <div id="ans5a" class="answer-box">Transport medium (cary-blair medium)</div>
+                        <div id="ans5a" class="answer-box">Transport medium (cary-blair medium).</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is used for?</span><br>
+                        <span><strong>B.</strong> What is used for?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans5b', this)">Show Answer</button>
-                        <div id="ans5b" class="answer-box">For transporting specimens</div>
+                        <div id="ans5b" class="answer-box">For transporting specimens.</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="cary-blair.jpg" alt="Exam Image"></div>
@@ -393,14 +405,14 @@
                 <div class="question-section">
                     <h3 class="question-number">8.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the media.</span><br>
+                        <span><strong>A.</strong> Identify the media.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans7a', this)">Show Answer</button>
-                        <div id="ans7a" class="answer-box">Mac Conkey’s agar</div>
+                        <div id="ans7a" class="answer-box">Mac Conkey’s agar.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Mention the type of the media according to its functional use.</span><br>
+                        <span><strong>B.</strong> Mention the type of the media according to its functional use.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans7b', this)">Show Answer</button>
-                        <div id="ans7b" class="answer-box">Selective media</div>
+                        <div id="ans7b" class="answer-box">Selective media.</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="Selectivemedia.jpg"" alt="Exam Image"></div>
@@ -415,14 +427,14 @@
                 <div class="question-section">
                     <h3 class="question-number">9.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the action.</span><br>
+                        <span><strong>A.</strong> Identify the action.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans8a', this)">Show Answer</button>
-                        <div id="ans8a" class="answer-box">Inoculation</div>
+                        <div id="ans8a" class="answer-box">Inoculation.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is the purpose of it?</span><br>
+                        <span><strong>B.</strong> What is the purpose of it?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans8b', this)">Show Answer</button>
-                        <div id="ans8b" class="answer-box">To transfer the bacteria from the sample to medium and isolate a pure colony of bacteria</div>
+                        <div id="ans8b" class="answer-box">To transfer the bacteria from the sample to medium and isolate a pure colony of bacteria.</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="Inoculation.jpg" alt="Exam Image"></div>
@@ -431,9 +443,9 @@
                 <div class="question-section">
                 
                     <div class="question-item">
-                        <span><strong>10.</strong>  Which sampling method is used for obtaining Oro-pharyngeal samples, burn, pus and ulcers? </span><br>
+                        <span><strong>10.</strong>  Which sampling method is used for obtaining Oro-pharyngeal samples, burn, pus and ulcers? </span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans9', this)">Show Answer</button>
-                        <div id="ans9" class="answer-box">Swab</div>
+                        <div id="ans9" class="answer-box">Swab.</div>
                     </div>
                    
                 </div>
@@ -515,14 +527,14 @@
                 <div class="question-section">
                     <h3 class="question-number">14.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the stain.</span><br>
+                        <span><strong>A.</strong> Identify the stain.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans12a', this)">Show Answer</button>
-                        <div id="ans12a" class="answer-box">Leifson flagella stain</div>
+                        <div id="ans12a" class="answer-box">Leifson flagella stain.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Identify the type of the stain.</span><br>
+                        <span><strong>B.</strong> Identify the type of the stain.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans12b', this)">Show Answer</button>
-                        <div id="ans12b" class="answer-box">Special stain</div>
+                        <div id="ans12b" class="answer-box">Special stain.</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="Flagella stain.jpg" alt="Exam Image"></div>
@@ -532,9 +544,9 @@
                 <div class="question-section">
                     <h3 class="question-number"><span class="repeat">Two times</span></h3>
                     <div class="question-item">
-                        <span><strong>15.</strong> What special stain is used to identify endospores in bacterial cells?</span><br>
+                        <span><strong>15.</strong> What special stain is used to identify endospores in bacterial cells?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans13a', this)">Show Answer</button>
-                        <div id="ans13a" class="answer-box">Malachite green</div>
+                        <div id="ans13a" class="answer-box">Malachite green.</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="Malachete stain.jpg" alt="Exam Image"></div>
@@ -571,14 +583,14 @@
                 <div class="question-section">
                     <h3 class="question-number">17.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the test called?</span><br>
+                        <span><strong>A.</strong> What is the test called?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans14a', this)">Show Answer</button>
-                        <div id="ans14a" class="answer-box">Latex agglutination test</div>
+                        <div id="ans14a" class="answer-box">Latex agglutination test.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> How can you know that the test is positive?</span><br>
+                        <span><strong>B.</strong> How can you know that the test is positive?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans14b', this)">Show Answer</button>
-                        <div id="ans14b" class="answer-box">Agglutination or clumping</div>
+                        <div id="ans14b" class="answer-box">Agglutination or clumping.</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="latex.jpg" alt="Exam Image"></div>
@@ -588,12 +600,12 @@
                 <div class="question-section">
                     <h3 class="question-number">18.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the name of the test?</span><br>
+                        <span><strong>A.</strong> What is the name of the test?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans15a', this)">Show Answer</button>
-                        <div id="ans15a" class="answer-box">Blood typing (AB and Rh) using agglutination</div>
+                        <div id="ans15a" class="answer-box">Blood typing (AB and Rh) using agglutination.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What does the clumping indicate and what is the result?</span><br>
+                        <span><strong>B.</strong> What does the clumping indicate and what is the result?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans15b', this)">Show Answer</button>
                         <div id="ans15b" class="answer-box">Indicates the presence of the corresponding antigen.
                 <div>Result: AB+, A+</div></div>
@@ -606,12 +618,12 @@
                 <div class="question-section">
                     <h3 class="question-number">19.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the name of the test?</span><br>
+                        <span><strong>A.</strong> What is the name of the test?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans16a', this)">Show Answer</button>
-                        <div id="ans16a" class="answer-box">Latex agglutination test</div>
+                        <div id="ans16a" class="answer-box">Latex agglutination test.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Mention the types of test.</span><br>
+                        <span><strong>B.</strong> Mention the types of test.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans16b', this)">Show Answer</button>
                         <div id="ans16b" class="answer-box">
                          <div>1. Active agglutination slide tests</div>
@@ -626,17 +638,17 @@
                 <div class="question-section">
                     <h3 class="question-number">20.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the name of the test?</span><br>
+                        <span><strong>A.</strong> What is the name of the test?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans27a', this)">Show Answer</button>
                         <div id="ans27a" class="answer-box">Immunochromatographic test.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What does the red line indicate?</span><br>
+                        <span><strong>B.</strong> What does the red line indicate?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans27b', this)">Show Answer</button>
                         <div id="ans27b" class="answer-box"> IgG is present.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>C.</strong> What is the stage of infection?</span><br>
+                        <span><strong>C.</strong> What is the stage of infection?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans27c', this)">Show Answer</button>
                         <div id="ans27c" class="answer-box"> Secondary stage infection.</div>
                     </div>
@@ -647,12 +659,12 @@
                 <div class="question-section">
                     <h3 class="question-number">21.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the name of the test?</span><br>
+                        <span><strong>A.</strong> What is the name of the test?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans28a', this)">Show Answer</button>
-                        <div id="ans28a" class="answer-box">Immunochromatographic test</div>
+                        <div id="ans28a" class="answer-box">Immunochromatographic test.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> This test shows negative result but it should shows _______ to be positive.</span><br>
+                        <span><strong>B.</strong> This test shows negative result but it should shows _______ to be positive.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans28b', this)">Show Answer</button>
                         <div id="ans28b" class="answer-box">Two lines (T line).</div>
                     </div>
@@ -669,9 +681,9 @@
                 <div class="question-section" style="flex: 1;">
                   
                     <div class="question-item">
-                        <span><strong>22.</strong> Which laboratory test is needed for a patient who presents with diarrhea, abdominal pain, anemia, poor growth or low weight, or abnormal stool color?</span><br>
+                        <span><strong>22.</strong> Which laboratory test is needed for a patient who presents with diarrhea, abdominal pain, anemia, poor growth or low weight, or abnormal stool color?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans17a', this)">Show Answer</button>
-                        <div id="ans17a" class="answer-box">Stool examination (analysis)</div>
+                        <div id="ans17a" class="answer-box">Stool examination (analysis).</div>
                     </div>
                 </div>
             </div>
@@ -706,7 +718,7 @@
                 <div class="question-section" style="flex: 1;">
                     
                     <div class="question-item">
-                        <span><strong>24.</strong> Name five abnormal compositions of urine.</span><br>
+                        <span><strong>24.</strong> Name five abnormal compositions of urine.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans19a', this)">Show Answer</button>
                         <div id="ans19a" class="answer-box">Carbohydrates, Proteins, Fats, Ketone bodies, Blood, Bile salts, Bile pigments.</div>
                     </div>
@@ -722,14 +734,14 @@
                 <div class="question-section">
                     <h3 class="question-number">25.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Name is this?</span><br>
+                        <span><strong>A.</strong> Name is this?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans20a', this)">Show Answer</button>
-                        <div id="ans20a" class="answer-box">Candida albicans or yeast like fungi</div>
+                        <div id="ans20a" class="answer-box">Candida albicans or yeast like fungi.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is its characteristic?</span><br>
+                        <span><strong>B.</strong> What is its characteristic?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans20b', this)">Show Answer</button>
-                        <div id="ans20b" class="answer-box">Pseudohyphae formation</div>
+                        <div id="ans20b" class="answer-box">Pseudohyphae formation.</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="yeastlikefungi.jpg" alt="Exam Image"></div>
@@ -739,14 +751,14 @@
                 <div class="question-section">
                     <h3 class="question-number">26.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify.</span><br>
+                        <span><strong>A.</strong> Identify.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans21a', this)">Show Answer</button>
-                        <div id="ans21a" class="answer-box">Yeast</div>
+                        <div id="ans21a" class="answer-box">Yeast.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is the type of culture?</span><br>
+                        <span><strong>B.</strong> What is the type of culture?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans21b', this)">Show Answer</button>
-                        <div id="ans21b" class="answer-box">SDA (Sabouraud's dextrose agar)</div>
+                        <div id="ans21b" class="answer-box">SDA (Sabouraud's dextrose agar).</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="Yeast.jpg" alt="Exam Image" style="height:280px;""></div>
@@ -756,14 +768,14 @@
                 <div class="question-section">
                     <h3 class="question-number">27.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Name of the species?</span><br>
+                        <span><strong>A.</strong> Name of the species?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans22a', this)">Show Answer</button>
-                        <div id="ans22a" class="answer-box">Candida albicans or yeast like fungi</div>
+                        <div id="ans22a" class="answer-box">Candida albicans or yeast like fungi.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is the stain used?</span><br>
+                        <span><strong>B.</strong> What is the stain used?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans21b', this)">Show Answer</button>
-                        <div id="ans21b" class="answer-box">Gram Stain or Periodic acid-Schiff stain</div>
+                        <div id="ans21b" class="answer-box">Gram Stain or Periodic acid-Schiff stain.</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="yeastlikefungi.jpg" alt="Exam Image"></div>
@@ -772,9 +784,9 @@
                 <div class="question-section">
                   
                     <div class="question-item">
-                        <span><strong>28.</strong> A sample was taken from a patient by skin scraping to detect mycosis, what is the name of the test used?</span><br>
+                        <span><strong>28.</strong> A sample was taken from a patient by skin scraping to detect mycosis, what is the name of the test used?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans23', this)">Show Answer</button>
-                        <div id="ans23" class="answer-box">KOH test</div>
+                        <div id="ans23" class="answer-box">KOH test.</div>
                     </div>
                   
                 </div>
@@ -791,21 +803,23 @@
     function toggleTheme() {
     const body = document.body;
     const icon = document.getElementById('theme-icon');
-    
-    
     const isLight = body.getAttribute('data-theme') === 'light';
 
     if (isLight) {
-    
         body.removeAttribute('data-theme');
-        
+        localStorage.setItem('theme', 'dark');
         icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
     } else {
-    
         body.setAttribute('data-theme', 'light');
-        
+        localStorage.setItem('theme', 'light');
         icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     }
+}
+
+// Restore saved theme on load
+if (localStorage.getItem('theme') === 'light') {
+    document.body.setAttribute('data-theme', 'light');
+    document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
 }
 
     function filterLabs(subject, btn) {
@@ -818,16 +832,21 @@
     }
 
     function toggleAnswer(id, btn) {
-        const answerDiv = document.getElementById(id);
-        const answerText = answerDiv.innerText;
-        if (btn.innerText === "Show Answer") {
-            btn.innerText = answerText;
-            btn.style.backgroundColor = "var(--ans-border)";
-        } else {
-            btn.innerText = "Show Answer";
-            btn.style.backgroundColor = "#729fcf";
-        }
+    const answerDiv = document.getElementById(id);
+    const answerText = answerDiv.innerText;
+
+  
+    if (!btn.classList.contains('revealed')) {
+      
+        btn.innerText = answerText;
+        btn.classList.add('revealed');
+    } else {
+    
+        btn.innerText = "Show Answer";
+        btn.classList.remove('revealed');
     }
+}
 </script>
 </body>
 </html>
+
