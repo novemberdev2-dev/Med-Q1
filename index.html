@@ -7,21 +7,39 @@
   <meta name="theme-color" content="#0c0d0e">
   <title>Block 2 | Med-Q</title>
 
-  <!-- ===== THEME & ACTIVATION FLASH FIX ===== -->
   <script>
-    if (localStorage.getItem('medq_theme') === 'light') {
-      document.documentElement.classList.add('light-mode-pre');
-    }
-    if (localStorage.getItem('medq_active') === 'true') {
-      document.documentElement.classList.add('already-activated');
-    }
-  </script>
+  if (localStorage.getItem('medq_theme') === 'light') {
+    document.documentElement.classList.add('light-mode-pre');
+  }
+  if (localStorage.getItem('medq_active') === 'true') {
+    document.documentElement.classList.add('already-activated');
+  }
+  // Profile flash fix: inject saved values before first paint
+  (function() {
+    var savedImg  = localStorage.getItem('medq_profile_img');
+    var savedName = localStorage.getItem('medq_profile_name');
+    if (!savedImg && !savedName) return;
+    var style = document.createElement('style');
+    // Hide the profile area just long enough for JS to patch the DOM
+    style.id = 'profile-preload-hide';
+    style.textContent = '#app-icon-el img, #app-name-el { opacity: 0; }';
+    document.head.appendChild(style);
+    // Patch as soon as the elements exist (DOMContentLoaded fires before images load)
+    document.addEventListener('DOMContentLoaded', function() {
+      if (savedImg)  { var el = document.getElementById('profile-img');    if (el) el.src = savedImg; }
+      if (savedName) { var el = document.getElementById('app-name-el');    if (el) el.textContent = savedName; }
+      if (savedImg)  { var el = document.getElementById('pm-preview-img'); if (el) el.src = savedImg; }
+      var s = document.getElementById('profile-preload-hide');
+      if (s) s.remove();
+    });
+  })();
+</script>
 
   <style>
 
     :root {
-      --bg-color: #161616;
-      --card-bg: rgba(26, 28, 30, 0.7);
+      --bg-color: #161616; 
+      --card-bg: rgba(26, 28, 30, 0.7); 
       --header-bg: #1e293b;
       --header-text: #38bdf8;
       --accent-hdsf: #f1f5f9;
@@ -29,7 +47,20 @@
       --text-main: #f1f5f9;
       --text-dim: #94a3b8;
       --border-color: rgba(255, 255, 255, 0.08);
-      --transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+      --transition:
+  background-color 0.2s ease,
+  border-color 0.2s ease,
+  transform 0.2s ease,
+  color 0.2s ease;
+      --dropdown-bg: #1a1c1e;
+      --dropdown-border: rgba(255,255,255,0.12);
+      --dropdown-hover: rgba(255,255,255,0.07);
+      --dropdown-active-bg: #D5D5D5;
+      --dropdown-active-color: #121212;
+      --dropdown-divider: rgba(255,255,255,0.08);
+      --settings-item-icon: #fff;
+      --settings-item-sub: #A2A2A2;
+      --border-theory-practical: rgba(255,255,255,0.03);
     }
 
     body.light-mode,
@@ -41,9 +72,16 @@
       --text-main: #1a1c1e;
       --text-dim: #555e6b;
       --border-color: rgba(0, 0, 0, 0.1);
+      --dropdown-bg: #ffffff;
+      --dropdown-border: rgba(0,0,0,0.12);
+      --dropdown-hover: rgba(0,0,0,0.05);
+      --dropdown-active-bg: #2D2D2D;
+      --dropdown-active-color: #ffffff;
+      --dropdown-divider: rgba(0,0,0,0.08);
+      --settings-item-icon: #2D2D2D;
+      --settings-item-sub:#999;
+      --border-theory-practical: rgba(0,0,0,0.04);
     }
-
-    /* Activation flash fix */
     html.already-activated #activation-overlay { display: none !important; }
     html.already-activated body { overflow: auto; }
 
@@ -64,10 +102,10 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    .main-header,
-    .year-selection-container,
-    .year-content,
-    .site-footer,
+    .main-header, 
+    .year-selection-container, 
+    .year-content, 
+    .site-footer, 
     #activation-overlay {
       position: relative;
       z-index: 1;
@@ -76,7 +114,6 @@
     /* ===== ACTIVATION SYSTEM ===== */
     body.locked { overflow: hidden; }
     body.locked .mcq-link { pointer-events: none; opacity: 0.5; }
-
     #activation-overlay {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -86,48 +123,115 @@
       align-items: center;
       justify-content: center;
     }
-
     .activation-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       padding: 40px 30px;
-      border-radius: 28px;
+      border-radius: 14px;
       text-align: center;
       width: 90%;
       max-width: 400px;
     }
-
     .activation-card input {
       width: 100%; padding: 16px; background: #000; border: 1px solid var(--border-color);
-      border-radius: 14px; color: #fff; text-align: center; margin-bottom: 20px;
+      border-radius: 8px; color: #fff; text-align: center; margin-bottom: 20px;
     }
-
     .activation-card button {
       width: 100%; padding: 16px; background: var(--accent-bbb); color: #000;
-      border: none; border-radius: 14px; font-weight: 700; cursor: pointer;
+      border: none; border-radius: 8px; font-weight: 800; font-size: 0.9rem;
     }
 
-    /* ===== TOP BAR ===== */
+    
     .top-bar {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 10px 4px;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
 
     .top-bar-left {
       display: flex;
       align-items: center;
       gap: 10px;
+      min-width: 0;
+      flex-shrink: 1;
     }
 
-    .top-bar-right {
+    /* ===== PROFILE AREA ===== */
+    .profile-area {
       display: flex;
       align-items: center;
       gap: 10px;
+      border-radius: 10px;
+      padding: 3px 6px 3px 0px;
+      transition: background 0.2s ease;
+      user-select: none;
+      min-width: 0;
+      flex-shrink: 1;
     }
+
+    .profile-area:hover {
+      background: rgba(255,255,255,0.05);
+    }
+
+    body.light-mode .profile-area:hover,
+    html.light-mode-pre body .profile-area:hover {
+      background: rgba(0,0,0,0.05);
+    }
+
+    .app-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--accent-bbb);
+      letter-spacing: -0.03em;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      flex-shrink: 0;
+      transition: border-color 0.2s ease;
+    }
+
+    .app-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .app-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: 0.02em;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+   @media (max-width: 480px) {
+  .app-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+    font-size: 1rem;
+  }
+  .profile-area {
+    align-items: center;
+  }
+  .top-bar-right {
+    flex-shrink: 0;
+  }
+}
 
     .top-bar-icon-btn {
       width: 46px;
@@ -140,6 +244,8 @@
       justify-content: center;
       transition: var(--transition);
       text-decoration: none;
+      position: relative;
+      
     }
 
     .top-bar-icon-btn:hover {
@@ -158,14 +264,9 @@
       transition: stroke 0.2s ease;
     }
 
-    .top-bar-icon-btn svg.chat-icon {
-      stroke: none;
-      fill: var(--text-dim);
-      transition: fill 0.2s ease;
+    .top-bar-icon-btn:hover svg {
+      stroke: var(--text-main);
     }
-
-    .top-bar-icon-btn:hover svg.chat-icon { fill: var(--text-main); }
-    .top-bar-icon-btn:hover svg { stroke: var(--text-main); }
 
     body.light-mode .top-bar-icon-btn,
     html.light-mode-pre body .top-bar-icon-btn {
@@ -174,13 +275,14 @@
     }
 
     body.light-mode .top-bar-icon-btn svg,
-    html.light-mode-pre body .top-bar-icon-btn svg { stroke: var(--text-dim); }
+    html.light-mode-pre body .top-bar-icon-btn svg {
+      stroke: var(--text-dim);
+    }
 
     body.light-mode .top-bar-icon-btn:hover svg,
-    html.light-mode-pre body .top-bar-icon-btn:hover svg { stroke: var(--text-main); }
-
-    body.light-mode .top-bar-icon-btn:hover svg.chat-icon,
-    html.light-mode-pre body .top-bar-icon-btn:hover svg.chat-icon { fill: var(--text-main); }
+    html.light-mode-pre body .top-bar-icon-btn:hover svg {
+      stroke: var(--text-main);
+    }
 
     body.light-mode .top-bar-icon-btn:hover,
     html.light-mode-pre body .top-bar-icon-btn:hover {
@@ -188,100 +290,116 @@
       border-color: #121212;
     }
 
-    .app-name {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--text-main);
-      letter-spacing: 0.02em;
+    #calendar-btn.dropdown-open {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(40, 42, 45, 0.9);
+    }
+    #calendar-btn.dropdown-open svg {
+      stroke: var(--text-main);
     }
 
-    .app-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      border: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      font-weight: 900;
-      color: var(--accent-bbb);
-      font-family: 'Segoe UI', sans-serif;
+    body.light-mode #calendar-btn.dropdown-open,
+    html.light-mode-pre body #calendar-btn.dropdown-open {
+      border-color: #121212;
+      background: rgba(255,255,255,1);
+    }
+    body.light-mode #calendar-btn.dropdown-open svg,
+    html.light-mode-pre body #calendar-btn.dropdown-open svg {
+      stroke: var(--text-main);
     }
 
-    /* ===== HEADER ===== */
-    .main-header {
-      width: 100%;
-      background: var(--header-bg);
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid var(--header-bg);
-      margin-bottom: 18px;
-      transition: background 0.3s ease, border-color 0.3s ease;
+    .year-dropdown-wrapper {
+      position: relative;
+      display: inline-block;
     }
 
-    .header-info h3 { margin: 0; font-size: 1.45rem; color: var(--header-text); font-weight: 800; }
-    .header-info p { margin: 6px 0 0; color: var(--header-text); font-size: 0.9rem; }
-
-    body.light-mode .main-header,
-    html.light-mode-pre body .main-header {
-      background: #2D2D2D;
-      border-color: #2D2D2D;
+    .year-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: var(--dropdown-bg);
+      border: 1px solid var(--dropdown-border);
+      border-radius: 7px;
+      overflow: hidden;
+      min-width: 140px;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
     }
 
-    /* ===== YEAR CHIPS ===== */
-    .year-selection-container {
-      width: 100%;
-      margin-bottom: 15px;
+    body.light-mode .year-dropdown,
+    html.light-mode-pre body .year-dropdown {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
     }
 
-    .year-nav {
+    .year-dropdown.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+
+    .year-dropdown-item {
+      padding: 13px 18px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--text-dim);
+      transition: background 0.15s ease, color 0.15s ease;
       display: flex;
       align-items: center;
       gap: 10px;
-      flex-wrap: wrap;
+      user-select: none;
     }
 
-    .year-chip {
-      padding: 10px 16px;
-      border-radius: 6px;
-      color: #E8E8E8;
-      border: 1px solid var(--border-color);
-      background: transparent;
-      font-size: 0.92rem;
-      font-weight: 680;
-      white-space: nowrap;
-      cursor: default;
+    .year-dropdown-item:not(:last-child) {
+      border-bottom: 1px solid var(--dropdown-divider);
     }
 
-    .year-chip.active {
-      background: #E8E8E8;
-      border-color: #E8E8E8;
-      color: #121212;
+    .year-dropdown-item:hover {
+      background: var(--dropdown-hover);
+      color: var(--text-main);
     }
 
-    body.light-mode .year-chip,
-    html.light-mode-pre body .year-chip {
-      color: #121212;
-      border-color: rgba(0,0,0,0.1);
-      background: transparent;
+    .year-dropdown-item.active {
+      background: var(--dropdown-active-bg);
+      color: var(--dropdown-active-color);
     }
 
-    body.light-mode .year-chip.active,
-    html.light-mode-pre body .year-chip.active {
-      background: #4D4D4D;
-      border-color: #4D4D4D;
-      color: #ffffff;
+    .year-dropdown-item.active:hover {
+      background: var(--dropdown-active-bg);
+      color: var(--dropdown-active-color);
     }
 
-    /* ===== SECTIONS ===== */
+    .year-dropdown-item.active .year-dot {
+      opacity: 1;
+    }
+
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .main-header {
+      width: 100%; background: var(--header-bg); 
+      padding: 12px; border-radius: 10px; border: 1px solid var(--header-bg); margin-bottom: 12px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .header-info h3 { margin: 0; font-size: 1.45rem; color: var(--header-text); font-weight: 800; }
+    .header-info p { margin: 6px 0 0; color: var(--header-text); font-size: 0.9rem; font-weight:600;}
+
     .year-content { display: none; width: 100%; }
     .year-content.active { display: block; }
+
+    .section-container { width: 100%; margin-bottom: 60px; }
 
     .sections-wrapper {
       display: flex;
       flex-direction: column;
       gap: 0;
+      transition: none;
     }
 
     .sections-wrapper.swapping .section-container {
@@ -294,33 +412,27 @@
       60%  { opacity: 0; transform: translateY(8px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-
-    .section-container { width: 100%; margin-bottom: 60px; }
-
+    
     .category-title {
-      font-size: 1.2rem;
+      font-size: 1rem;
+      font-weight: 700;
       margin: 12px 0 20px 0;
-      padding: 5px 18px;
-      border-radius: 5px;
+      padding: 7px 14px;
+      border-radius: 6px;
       align-items: center;
-      background: rgba(245, 247, 249, 0.94);
+      background: #D5D5D5;
     }
 
-    .hdsf-theme { border-color: var(--accent-hdsf); color: #121212; }
-    .bbb-theme  { border-color: var(--accent-bbb);  color: #121212; }
-
-    body.light-mode .category-title,
-    html.light-mode-pre body .category-title {
-      background: rgba(26, 28, 30, 0.7);
+    .hdsf-theme {
+      border-color: var(--accent-hdsf);
+      color: #121212;
     }
 
-    body.light-mode .hdsf-theme,
-    html.light-mode-pre body .hdsf-theme { color: var(--accent-bbb); }
+    .bbb-theme {
+      border-color: var(--accent-bbb);
+      color: #121212;
+    }
 
-    body.light-mode .bbb-theme,
-    html.light-mode-pre body .bbb-theme  { color: var(--accent-bbb); }
-
-    /* ===== CARDS ===== */
     .subject-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -333,7 +445,9 @@
       border: 1px solid var(--border-color);
       border-radius: 12px;
       padding: 14px;
-      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      transition: background-color 0.2s ease,
+                  border-color 0.2s ease,
+                  transform 0.2s ease;
       transform: translateZ(0);
       will-change: transform;
     }
@@ -342,6 +456,45 @@
       border-color: rgba(255,255,255,0.2);
       background: rgba(40, 42, 45, 0.8);
       transform: translateY(-2px);
+    }
+
+    .card-header h1 { font-size: 1.1rem; margin: 0 0 15px 0; color: var(--text-main); }
+
+    .links-container { display: flex; flex-direction: column; gap: 4px; }
+
+    .mcq-link {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-theory-practical);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .mcq-link:last-child { border-bottom: none; }
+    .mcq-link:hover { color: var(--accent-bbb); font-weight:500; }
+
+    .badge {
+      font-size: 0.75rem; padding: 3px 10px; border-radius: 4px;
+      background: rgba(38, 41, 43, 0.8); color: var(--accent-hdsf); font-weight: 500;
+    }
+
+    .site-footer {
+      margin-top: auto; padding: 20px; text-align: center;
+      font-size: 0.75rem; opacity: 0.6; 
+    }
+
+    body.light-mode,
+    html.light-mode-pre body {
+      background-color: #eef2f7;
+    }
+
+    body.light-mode .main-header,
+    html.light-mode-pre body .main-header {
+      background: #2D2D2D;
+      border-color: #2D2D2D;
     }
 
     body.light-mode .subject-card,
@@ -357,45 +510,425 @@
       border-color: #121212;
     }
 
-    .card-header h1 { font-size: 1.1rem; margin: 0 0 15px 0; color: var(--text-main); }
-
-    .links-container { display: flex; flex-direction: column; gap: 4px; }
-
-    .mcq-link {
-      color: var(--text-dim);
-      font-size: 0.95rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
-      text-decoration: none;
-      cursor: default;
+    body.light-mode .category-title,
+    html.light-mode-pre body .category-title {
+      background: rgba(26, 28, 30, 0.7);
     }
 
-    .mcq-link:last-child { border-bottom: none; }
-    .mcq-link:hover { color: var(--accent-bbb); }
-    body.light-mode .mcq-link:hover { color: black; }
+    body.light-mode .hdsf-theme,
+    html.light-mode-pre body .hdsf-theme {
+      border-color: var(--accent-hdsf);
+      color: var(--accent-bbb);
+    }
 
-    .badge {
-      font-size: 0.75rem; padding: 3px 10px; border-radius: 4px;
-      background: rgba(38, 41, 43, 0.8); color: var(--accent-hdsf); font-weight: 500;
+    body.light-mode .bbb-theme,
+    html.light-mode-pre body .bbb-theme {
+      border-color: var(--accent-bbb);
+      color: var(--accent-bbb);
     }
 
     body.light-mode .badge,
     html.light-mode-pre body .badge {
-      background: rgba(245, 247, 249, 0.94);
+      background: rgba(242, 244, 246, 0.95);
       color: #121212;
     }
 
-    /* ===== FOOTER ===== */
-    .site-footer {
-      width: 300px; margin-top: auto; padding: 20px; text-align: center;
-      font-size: 0.75rem; opacity: 0.6;
+    body.light-mode .mcq-link:hover,
+    html.light-mode-pre body .mcq-link:hover { color: black; }
+
+
+    /* ===== PROFILE EDIT MODAL ===== */
+    #profile-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 9000;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 70px 0 0 15px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
     }
 
-    body.light-mode,
-    html.light-mode-pre body { background-color: #eef2f7; }
+    #profile-modal-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    #profile-modal {
+      background: #111111;
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 14px;
+      padding: 22px 20px 18px;
+      width: 260px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.65);
+      transform: translateY(-8px) scale(0.97);
+      transition: transform 0.22s ease, opacity 0.22s ease;
+      opacity: 0;
+    }
+
+    #profile-modal-backdrop.open #profile-modal {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .pm-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #666;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 0 0 16px 0;
+    }
+
+    .pm-image-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .pm-avatar-preview {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.15);
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #222;
+    }
+
+    .pm-avatar-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .pm-pick-btn {
+      flex: 1;
+      padding: 9px 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      color: #ccc;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-align: center;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .pm-pick-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.22);
+      color: #fff;
+    }
+
+    .pm-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 7px;
+      display: block;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .pm-input {
+      width: 100%;
+      padding: 10px 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      color: #f1f5f9;
+      font-size: 0.9rem;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      outline: none;
+      transition: border-color 0.15s ease, background 0.15s ease;
+      margin-bottom: 18px;
+    }
+
+    .pm-input:focus {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .pm-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .pm-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: none;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .pm-btn:active {
+      transform: scale(0.97);
+    }
+
+    .pm-btn-cancel {
+      background: rgba(255,255,255,0.07);
+      color: #888;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .pm-btn-cancel:hover {
+      background: rgba(255,255,255,0.11);
+      color: #bbb;
+    }
+
+    .pm-btn-save {
+      background: #f1f5f9;
+      color: #111;
+    }
+
+    .pm-btn-save:hover {
+      background: #ffffff;
+    }
+
+    #profile-file-input {
+      display: none;
+    }
+
+    /* ===== SETTINGS DROPDOWN ===== */
+    .settings-dropdown-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    #settings-btn.dropdown-open {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(40, 42, 45, 0.9);
+    }
+    #settings-btn.dropdown-open svg {
+      stroke: var(--text-main);
+    }
+
+    body.light-mode #settings-btn.dropdown-open,
+    html.light-mode-pre body #settings-btn.dropdown-open {
+      border-color: #121212;
+      background: rgba(255,255,255,1);
+    }
+    body.light-mode #settings-btn.dropdown-open svg,
+    html.light-mode-pre body #settings-btn.dropdown-open svg {
+      stroke: var(--text-main);
+    }
+
+    .settings-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #111111;
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 14px;
+      overflow: hidden;
+      min-width: 200px;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px) scale(0.97);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.65);
+    }
+
+    .settings-dropdown.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+
+    /* Light mode settings dropdown */
+    body.light-mode .settings-dropdown,
+    html.light-mode-pre body .settings-dropdown {
+      background: #ffffff;
+      border-color: rgba(0,0,0,0.13);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+    }
+
+    .settings-dropdown-header {
+      padding: 14px 16px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #555;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    body.light-mode .settings-dropdown-header,
+    html.light-mode-pre body .settings-dropdown-header {
+      border-bottom-color: rgba(0,0,0,0.08);
+      color: #999;
+    }
+
+    .settings-close-btn {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      transition: background 0.15s ease;
+    }
+
+    .settings-close-btn:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    body.light-mode .settings-close-btn:hover,
+    html.light-mode-pre body .settings-close-btn:hover {
+      background: rgba(0,0,0,0.08);
+    }
+
+    .settings-close-btn svg {
+      width: 10px;
+      height: 10px;
+      stroke: #666;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      flex-shrink: 0;
+    }
+
+    .settings-close-btn:hover svg {
+      stroke: #aaa;
+    }
+
+    body.light-mode .settings-close-btn:hover svg,
+    html.light-mode-pre body .settings-close-btn:hover svg {
+      stroke: #444;
+    }
+
+    .settings-item {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 14px 16px;
+      transition: background 0.15s ease;
+      text-decoration: none;
+    }
+
+    .settings-item:not(:last-child) {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    body.light-mode .settings-item:not(:last-child),
+    html.light-mode-pre body .settings-item:not(:last-child) {
+      border-bottom-color: rgba(0,0,0,0.06);
+    }
+
+    .settings-item:hover {
+      background: rgba(255,255,255,0.06);
+    }
+
+    body.light-mode .settings-item:hover,
+    html.light-mode-pre body .settings-item:hover {
+      background: rgba(0,0,0,0.04);
+    }
+
+    .settings-item-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    body.light-mode .settings-item-icon,
+    html.light-mode-pre body .settings-item-icon {
+      background: #fff;
+      border-color: rgba(0,0,0,0.1);
+    }
+
+    .settings-item:hover .settings-item-icon {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    body.light-mode .settings-item:hover .settings-item-icon,
+    html.light-mode-pre body .settings-item:hover .settings-item-icon {
+      background: rgba(0,0,0,0.03);
+      border-color: rgba(0,0,0,0.18);
+    }
+
+    .settings-item-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--settings-item-icon);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.15s ease;
+    }
+
+    .settings-item:hover .settings-item-icon svg {
+      stroke: var(--settings-item-icon);
+    }
+
+    body.light-mode .settings-item:hover .settings-item-icon svg,
+    html.light-mode-pre body .settings-item:hover .settings-item-icon svg {
+      stroke: #111;
+    }
+
+    .settings-item-icon svg.contact-icon {
+      stroke: var(--settings-item-icon);
+      fill: #aaa;
+      transition: fill 0.15s ease;
+    }
+
+    .settings-item:hover .settings-item-icon svg.contact-icon {
+      fill: #fff;
+    }
+
+    body.light-mode .settings-item:hover .settings-item-icon svg.contact-icon,
+    html.light-mode-pre body .settings-item:hover .settings-item-icon svg.contact-icon {
+      fill: #111;
+    }
+
+    .settings-item-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .settings-item-label {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      transition: color 0.15s ease;
+    }
+
+    body.light-mode .settings-item-label,
+    html.light-mode-pre body .settings-item-label {
+      color: #1a1c1e;
+    }
+
+    .settings-item-sub {
+      font-size: 0.73rem;
+      color: var(--settings-item-sub);
+      font-weight: 500;
+    }
+
+    body.light-mode .settings-item-sub,
+    html.light-mode-pre body .settings-item-sub {
+      color: #999;
+    }
 
   </style>
 </head>
@@ -403,7 +936,7 @@
 
   <div id="activation-overlay">
     <div class="activation-card">
-      <h2>Unlock Med-Q</h2>
+      <h2>Welcome to Med-Q</h2>
       <p>Please enter your unique activation code to access the questions.</p>
       <input type="text" id="activation-code" placeholder="Enter Code Here">
       <button id="activate-btn">Activate App</button>
@@ -415,52 +948,151 @@
     </div>
   </div>
 
+  <!-- Hidden file input for profile image -->
+  <input type="file" id="profile-file-input" accept="image/*">
+
+  <!-- Profile Edit Modal -->
+  <div id="profile-modal-backdrop">
+    <div id="profile-modal">
+      <p class="pm-title">Edit Profile</p>
+
+      <div class="pm-image-row">
+        <div class="pm-avatar-preview">
+          <img id="pm-preview-img" src="https://i.imgur.com/AXJmZwo.png" alt="Preview">
+        </div>
+        <div class="pm-pick-btn" onclick="document.getElementById('profile-file-input').click()">
+          Change Photo
+        </div>
+      </div>
+
+      <label class="pm-label" for="pm-name-input">Display Name</label>
+      <input class="pm-input" id="pm-name-input" type="text" placeholder="Your name" maxlength="24">
+
+      <div class="pm-actions">
+        <button class="pm-btn pm-btn-cancel" onclick="closeProfileModal()">Cancel</button>
+        <button class="pm-btn pm-btn-save" onclick="saveProfile()">Save</button>
+      </div>
+    </div>
+  </div>
+
   <div class="top-bar">
     <div class="top-bar-left">
-      <div class="app-icon">
-        <img src="https://i.imgur.com/AXJmZwo.png" alt="Med-Q" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+      <!-- Clickable profile area -->
+      <div class="profile-area" onclick="openProfileModal()" title="Edit profile">
+        <div class="app-icon" id="app-icon-el">
+          <img id="profile-img" src="https://i.imgur.com/AXJmZwo.png" alt="Med-Q">
+        </div>
+        <span class="app-name" id="app-name-el">Med-Q</span>
       </div>
-      <span class="app-name">Med-Q</span>
     </div>
 
     <div class="top-bar-right">
 
-      <a href="https://t.me/Shabaz_Rasheed" target="_blank" class="top-bar-icon-btn" title="Contact Support">
-        <svg class="chat-icon" width="23px" height="23px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-          <path d="M38.0728,40.9023c-0.5522,0-1.0259-0.4478-1.0259-1s0.4219-1,0.9741-1h0.0518c0.5522,0,1,0.4478,1,1 S38.625,40.9023,38.0728,40.9023z"/>
-          <path d="M45.3604,40.9023c-0.5522,0-1.0273-0.4478-1.0273-1s0.4199-1,0.9722-1h0.0552c0.5522,0,1,0.4478,1,1 S45.9126,40.9023,45.3604,40.9023z"/>
-          <path d="M52.6445,40.9023c-0.5522,0-1.0273-0.4478-1.0273-1s0.4199-1,0.9722-1h0.0552c0.5522,0,1,0.4478,1,1 S53.1968,40.9023,52.6445,40.9023z"/>
-          <path d="M12.584,25.186c-0.5522,0-1.0293-0.4478-1.0293-1s0.418-1,0.9702-1h0.0591c0.5522,0,1,0.4478,1,1 S13.1362,25.186,12.584,25.186z"/>
-          <path d="M20.7529,25.186c-0.5522,0-1.0293-0.4478-1.0293-1s0.4185-1,0.9707-1h0.0586c0.5522,0,1,0.4478,1,1 S21.3052,25.186,20.7529,25.186z"/>
-          <path d="M28.9219,25.186c-0.5522,0-1.0293-0.4478-1.0293-1s0.4185-1,0.9707-1h0.0586c0.5522,0,1,0.4478,1,1 S29.4741,25.186,28.9219,25.186z"/>
-          <path d="M56.5327,26.0718h-0.0005c-3.6577-3.0059-8.2656-4.4053-12.9771-3.9463c-1.0573,0.1035-2.0867,0.3111-3.0887,0.5919 c-0.2051-3.1539-1.169-6.2225-2.8205-8.9474c-2.7339-4.5127-7.0605-7.6904-12.1841-8.9478 c-5.1226-1.2573-10.4302-0.4434-14.9414,2.2905c-9.3149,5.6431-12.3022,17.812-6.6592,27.1274 c0.4487,0.7378,0.9443,1.4468,1.4785,2.1147l-2.1206,6.457c-0.1152,0.3521-0.0269,0.7388,0.23,1.0059 c0.1914,0.1982,0.4526,0.3062,0.7202,0.3062c0.0923,0,0.1851-0.0127,0.2764-0.0391l7.8203-2.2476 c4.9188,2.3405,10.487,2.549,15.5263,0.6185c0.6382,4.1645,2.7308,8.1203,6.233,10.9997 c4.626,3.8027,10.7549,5.0024,16.4702,3.2461l6.5781,2.9609c0.1313,0.0591,0.2715,0.0879,0.4106,0.0879 c0.2183,0,0.4351-0.0718,0.6138-0.2104c0.2925-0.2275,0.4351-0.5977,0.3711-0.9624l-1.0391-5.9121 c0.5459-0.5166,1.062-1.0698,1.5391-1.6499C65.1724,43.4663,64.0791,32.2764,56.5327,26.0718z M12.8066,39.8755 c-0.2241-0.1113-0.4814-0.1353-0.7236-0.0664l-6.374,1.832l1.7026-5.1851c0.1084-0.3306,0.0376-0.6938-0.1875-0.959 c-0.604-0.7119-1.1606-1.4844-1.6528-2.2944C0.5,24.8315,3.1851,13.895,11.5571,8.8232c4.0537-2.458,8.8218-3.1885,13.4282-2.0591 c4.6045,1.1304,8.4932,3.9863,10.9502,8.0425c1.5782,2.6036,2.4474,5.5574,2.5516,8.5797 c-2.6577,1.0986-5.0207,2.841-6.8978,5.1259c-2.8444,3.4614-4.1367,7.6871-3.9944,11.8476 C22.8245,42.3625,17.4745,42.2095,12.8066,39.8755z M57.4243,49.7456c-0.5303,0.645-1.1147,1.2524-1.7378,1.8062 c-0.2598,0.2305-0.3809,0.5791-0.3208,0.9209l0.8066,4.5908l-5.2051-2.3433c-0.1304-0.0586-0.2705-0.0879-0.4106-0.0879 c-0.106,0-0.2124,0.0166-0.3145,0.0508c-5.1646,1.7104-10.7529,0.6758-14.9463-2.7725 c-6.6953-5.5044-7.6646-15.4312-2.1616-22.1289c2.666-3.2446,6.436-5.2568,10.6157-5.6655 c4.1816-0.4072,8.2681,0.8345,11.5127,3.5005h-0.0005C61.957,33.1211,62.9268,43.0483,57.4243,49.7456z"/>
-        </svg>
-      </a>
-
       <!-- Section Swap Button -->
-      <div class="top-bar-icon-btn" id="section-swap-btn" title="Swap HDSF / BBB order" onclick="toggleSectionSwap()">
-        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10 6L7 3M7 3L4 6M7 3V17M14 18L17 21M17 21L20 18M17 21V7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-        </svg>
+      
+
+      <div class="year-dropdown-wrapper">
+        <div class="top-bar-icon-btn" id="calendar-btn" title="Select Year" onclick="toggleYearDropdown()">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <div class="year-dropdown" id="year-dropdown">
+          <div class="year-dropdown-item active" id="item-2022" onclick="selectYear('2022', this)">
+            <span class="year-dot"></span>
+            2021 - 2025
+          </div>
+          <div class="year-dropdown-item" id="item-2026" onclick="selectYear('2026', this)">
+            <span class="year-dot"></span>
+            2025 - 2026
+          </div>
+        </div>
       </div>
 
-      <!-- Theme Toggle -->
-      <div class="top-bar-icon-btn dark-active" id="theme-toggle" title="Toggle theme" onclick="toggleTheme()">
-        <svg id="icon-moon" viewBox="0 0 24 24">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-        <svg id="icon-sun" viewBox="0 0 24 24" style="display:none;">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/>
-          <line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/>
-          <line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
+      <!-- Settings Button (replaces theme + contact) -->
+      <div class="settings-dropdown-wrapper">
+        <div class="top-bar-icon-btn" id="settings-btn" title="Settings" onclick="toggleSettingsDropdown()">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </div>
+
+        <div class="settings-dropdown" id="settings-dropdown">
+          <div class="settings-dropdown-header">
+            Settings
+            <div class="settings-close-btn" onclick="closeSettingsDropdown()">
+              <svg viewBox="0 0 12 12">
+                <line x1="1" y1="1" x2="11" y2="11"/>
+                <line x1="11" y1="1" x2="1" y2="11"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Theme toggle item -->
+          <div class="settings-item" onclick="toggleThemeFromSettings()">
+            <div class="settings-item-icon">
+              <!-- Moon icon (dark mode indicator) -->
+              <svg id="settings-icon-moon" viewBox="0 0 24 24">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+              <!-- Sun icon (light mode indicator) -->
+              <svg id="settings-icon-sun" viewBox="0 0 24 24" style="display:none;">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+            </div>
+            <div class="settings-item-text">
+              <span class="settings-item-label" id="settings-theme-label">Dark Mode</span>
+              <span class="settings-item-sub" id="settings-theme-sub">Switch to light</span>
+            </div>
+          </div>
+          <!-- Swap sections item -->
+<div class="settings-item" onclick="toggleSectionSwap()">
+  <div class="settings-item-icon">
+    <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 6L7 3M7 3L4 6M7 3V17M14 18L17 21M17 21L20 18M17 21V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </div>
+  <div class="settings-item-text">
+    <span class="settings-item-label" id="swap-label">Reorder</span>
+    <span class="settings-item-sub" id="swap-sub">Move HDSF / BBB</span>
+  </div>
+</div>
+         
+          
+
+          <!-- Contact item -->
+          <a class="settings-item" href="https://t.me/Shabaz_Rasheed" target="_blank" onclick="closeSettingsDropdown()">
+            <div class="settings-item-icon">
+              <svg class="contact-icon" width="16px" height="16px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <path d="M38.0728,40.9023c-0.5522,0-1.0259-0.4478-1.0259-1s0.4219-1,0.9741-1h0.0518c0.5522,0,1,0.4478,1,1 S38.625,40.9023,38.0728,40.9023z"/>
+                <path d="M45.3604,40.9023c-0.5522,0-1.0273-0.4478-1.0273-1s0.4199-1,0.9722-1h0.0552c0.5522,0,1,0.4478,1,1 S45.9126,40.9023,45.3604,40.9023z"/>
+                <path d="M52.6445,40.9023c-0.5522,0-1.0273-0.4478-1.0273-1s0.4199-1,0.9722-1h0.0552c0.5522,0,1,0.4478,1,1 S53.1968,40.9023,52.6445,40.9023z"/>
+                <path d="M12.584,25.186c-0.5522,0-1.0293-0.4478-1.0293-1s0.418-1,0.9702-1h0.0591c0.5522,0,1,0.4478,1,1 S13.1362,25.186,12.584,25.186z"/>
+                <path d="M20.7529,25.186c-0.5522,0-1.0293-0.4478-1.0293-1s0.4185-1,0.9707-1h0.0586c0.5522,0,1,0.4478,1,1 S21.3052,25.186,20.7529,25.186z"/>
+                <path d="M28.9219,25.186c-0.5522,0-1.0293-0.4478-1.0293-1s0.4185-1,0.9707-1h0.0586c0.5522,0,1,0.4478,1,1 S29.4741,25.186,28.9219,25.186z"/>
+                <path d="M56.5327,26.0718h-0.0005c-3.6577-3.0059-8.2656-4.4053-12.9771-3.9463c-1.0573,0.1035-2.0867,0.3111-3.0887,0.5919 c-0.2051-3.1539-1.169-6.2225-2.8205-8.9474c-2.7339-4.5127-7.0605-7.6904-12.1841-8.9478 c-5.1226-1.2573-10.4302-0.4434-14.9414,2.2905c-9.3149,5.6431-12.3022,17.812-6.6592,27.1274 c0.4487,0.7378,0.9443,1.4468,1.4785,2.1147l-2.1206,6.457c-0.1152,0.3521-0.0269,0.7388,0.23,1.0059 c0.1914,0.1982,0.4526,0.3062,0.7202,0.3062c0.0923,0,0.1851-0.0127,0.2764-0.0391l7.8203-2.2476 c4.9188,2.3405,10.487,2.549,15.5263,0.6185c0.6382,4.1645,2.7308,8.1203,6.233,10.9997 c4.626,3.8027,10.7549,5.0024,16.4702,3.2461l6.5781,2.9609c0.1313,0.0591,0.2715,0.0879,0.4106,0.0879 c0.2183,0,0.4351-0.0718,0.6138-0.2104c0.2925-0.2275,0.4351-0.5977,0.3711-0.9624l-1.0391-5.9121 c0.5459-0.5166,1.062-1.0698,1.5391-1.6499C65.1724,43.4663,64.0791,32.2764,56.5327,26.0718z M12.8066,39.8755 c-0.2241-0.1113-0.4814-0.1353-0.7236-0.0664l-6.374,1.832l1.7026-5.1851c0.1084-0.3306,0.0376-0.6938-0.1875-0.959 c-0.604-0.7119-1.1606-1.4844-1.6528-2.2944C0.5,24.8315,3.1851,13.895,11.5571,8.8232c4.0537-2.458,8.8218-3.1885,13.4282-2.0591 c4.6045,1.1304,8.4932,3.9863,10.9502,8.0425c1.5782,2.6036,2.4474,5.5574,2.5516,8.5797 c-2.6577,1.0986-5.0207,2.841-6.8978,5.1259c-2.8444,3.4614-4.1367,7.6871-3.9944,11.8476 C22.8245,42.3625,17.4745,42.2095,12.8066,39.8755z M57.4243,49.7456c-0.5303,0.645-1.1147,1.2524-1.7378,1.8062 c-0.2598,0.2305-0.3809,0.5791-0.3208,0.9209l0.8066,4.5908l-5.2051-2.3433c-0.1304-0.0586-0.2705-0.0879-0.4106-0.0879 c-0.106,0-0.2124,0.0166-0.3145,0.0508c-5.1646,1.7104-10.7529,0.6758-14.9463-2.7725 c-6.6953-5.5044-7.6646-15.4312-2.1616-22.1289c2.666-3.2446,6.436-5.2568,10.6157-5.6655 c4.1816-0.4072,8.2681,0.8345,11.5127,3.5005h-0.0005C61.957,33.1211,62.9268,43.0483,57.4243,49.7456z"/>
+              </svg>
+            </div>
+            <div class="settings-item-text">
+              <span class="settings-item-label">Contact</span>
+              <span class="settings-item-sub">@Shabaz_Rasheed</span>
+            </div>
+          </a>
+        </div>
       </div>
+
     </div>
   </div>
 
@@ -471,14 +1103,6 @@
     </div>
   </header>
 
-  <div class="year-selection-container">
-    <div class="year-nav">
-      <div class="year-chip active" id="chip-2022" onclick="showYear('2022', this)">2021 - 2025</div>
-      <div class="year-chip" id="chip-2026" onclick="showYear('2026', this)">2025 - 2026</div>
-    </div>
-  </div>
-
-  <!-- ===== 2022 CONTENT ===== -->
   <div id="content-2022" class="year-content active">
     <div class="sections-wrapper" id="sections-2022">
       <main class="section-container" id="section-hdsf-2022">
@@ -568,7 +1192,6 @@
     </div>
   </div>
 
-  <!-- ===== 2026 CONTENT ===== -->
   <div id="content-2026" class="year-content">
     <div class="sections-wrapper" id="sections-2026">
       <div class="section-container" id="section-hdsf-2026">
@@ -581,7 +1204,7 @@
               <span class="mcq-link" onclick="location.href='End-Rotation_HDSF-Practical_2025-2026.html'">Practical <span class="badge">10 Questions</span></span>
             </div>
           </div>
-          <div class="subject-card">
+           <div class="subject-card">
             <div class="card-header"><h1>End-Rotation 2 🔥</h1></div>
             <div class="links-container">
               <span class="mcq-link" onclick="location.href='End-Rotation2_HDSF_2025-2026.html'">Theory <span class="badge">20 MCQs</span></span>
@@ -601,7 +1224,7 @@
               <span class="mcq-link" onclick="location.href='End-rotation_Practical_BBB.html'">Practical <span class="badge">10 Questions</span></span>
             </div>
           </div>
-          <div class="subject-card">
+         <div class="subject-card">
             <div class="card-header"><h1>End-Rotation 2 🔥</h1></div>
             <div class="links-container">
               <span class="mcq-link" onclick="location.href='End-Rotation2_BBB_2025-2026.html'">Theory <span class="badge">20 MCQs</span></span>
@@ -616,23 +1239,96 @@
   <footer class="site-footer">© Developed by<strong> Shabaz Rasheed</strong></footer>
 
   <script>
-    // ===== SECTION SWAP =====
+
+    /* ===== PROFILE MODAL ===== */
+    const DEFAULT_IMG = 'https://i.imgur.com/AXJmZwo.png';
+    const DEFAULT_NAME = 'Med-Q';
+    let pendingImageDataUrl = null;
+
+    function openProfileModal() {
+      const backdrop = document.getElementById('profile-modal-backdrop');
+      const nameInput = document.getElementById('pm-name-input');
+      const previewImg = document.getElementById('pm-preview-img');
+
+      const savedName = localStorage.getItem('medq_profile_name') || DEFAULT_NAME;
+      const savedImg  = localStorage.getItem('medq_profile_img')  || DEFAULT_IMG;
+
+      nameInput.value = savedName;
+      previewImg.src  = savedImg;
+      pendingImageDataUrl = null;
+
+      backdrop.classList.add('open');
+      backdrop.addEventListener('click', onBackdropClick);
+    }
+
+    function onBackdropClick(e) {
+      if (e.target === document.getElementById('profile-modal-backdrop')) {
+        closeProfileModal();
+      }
+    }
+
+    function closeProfileModal() {
+      const backdrop = document.getElementById('profile-modal-backdrop');
+      backdrop.classList.remove('open');
+      backdrop.removeEventListener('click', onBackdropClick);
+      pendingImageDataUrl = null;
+    }
+
+    function saveProfile() {
+      const nameInput = document.getElementById('pm-name-input');
+      const newName = nameInput.value.trim() || DEFAULT_NAME;
+
+      localStorage.setItem('medq_profile_name', newName);
+      document.getElementById('app-name-el').textContent = newName;
+
+      if (pendingImageDataUrl) {
+        localStorage.setItem('medq_profile_img', pendingImageDataUrl);
+        document.getElementById('profile-img').src = pendingImageDataUrl;
+      }
+
+      closeProfileModal();
+    }
+
+    document.getElementById('profile-file-input').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        pendingImageDataUrl = ev.target.result;
+        document.getElementById('pm-preview-img').src = pendingImageDataUrl;
+      };
+      reader.readAsDataURL(file);
+      this.value = '';
+    });
+
+    function restoreProfile() {
+      const savedName = localStorage.getItem('medq_profile_name');
+      const savedImg  = localStorage.getItem('medq_profile_img');
+      if (savedName) document.getElementById('app-name-el').textContent = savedName;
+      if (savedImg)  document.getElementById('profile-img').src = savedImg;
+    }
+
+
+    /* ===== SECTION SWAP ===== */
     function applySwapState(swapped, animate) {
       const wrappers = document.querySelectorAll('.sections-wrapper');
       wrappers.forEach(wrapper => {
         const sections = wrapper.querySelectorAll('.section-container');
         if (sections.length < 2) return;
+
         if (animate) {
           wrapper.classList.add('swapping');
           setTimeout(() => wrapper.classList.remove('swapping'), 400);
         }
-        const bbb  = wrapper.querySelector('[id^="section-bbb"]');
-        const hdsf = wrapper.querySelector('[id^="section-hdsf"]');
-        if (!bbb || !hdsf) return;
+
         if (swapped) {
-          wrapper.insertBefore(bbb, hdsf);
+          const bbb = wrapper.querySelector('[id^="section-bbb"]');
+          const hdsf = wrapper.querySelector('[id^="section-hdsf"]');
+          if (bbb && hdsf) wrapper.insertBefore(bbb, hdsf);
         } else {
-          wrapper.insertBefore(hdsf, bbb);
+          const bbb = wrapper.querySelector('[id^="section-bbb"]');
+          const hdsf = wrapper.querySelector('[id^="section-hdsf"]');
+          if (bbb && hdsf) wrapper.insertBefore(hdsf, bbb);
         }
       });
     }
@@ -644,58 +1340,134 @@
       applySwapState(newState, true);
     }
 
-    // ===== YEAR CHIPS =====
-    function showYear(yearId, element) {
+    /* ===== YEAR DROPDOWN ===== */
+    function toggleYearDropdown() {
+      const dropdown = document.getElementById('year-dropdown');
+      const btn = document.getElementById('calendar-btn');
+      const isOpen = dropdown.classList.contains('open');
+      if (isOpen) {
+        dropdown.classList.remove('open');
+        btn.classList.remove('dropdown-open');
+      } else {
+        // Close settings if open
+        document.getElementById('settings-dropdown').classList.remove('open');
+        document.getElementById('settings-btn').classList.remove('dropdown-open');
+        dropdown.classList.add('open');
+        btn.classList.add('dropdown-open');
+      }
+    }
+
+    function selectYear(yearId, element) {
       document.querySelectorAll('.year-content').forEach(c => c.classList.remove('active'));
-      document.querySelectorAll('.year-chip').forEach(c => c.classList.remove('active'));
       document.getElementById('content-' + yearId).classList.add('active');
+
+      document.querySelectorAll('.year-dropdown-item').forEach(i => i.classList.remove('active'));
       element.classList.add('active');
+
+      document.getElementById('year-dropdown').classList.remove('open');
+      document.getElementById('calendar-btn').classList.remove('dropdown-open');
+
       localStorage.setItem('userSelectedYear', yearId);
     }
 
-    // ===== THEME =====
-    function toggleTheme() {
-      const body = document.body;
-      const btn  = document.getElementById('theme-toggle');
-      const moon = document.getElementById('icon-moon');
-      const sun  = document.getElementById('icon-sun');
-      if (body.classList.contains('light-mode')) {
-        body.classList.remove('light-mode');
-        moon.style.display = '';
-        sun.style.display = 'none';
-        btn.classList.replace('light-active', 'dark-active');
-        localStorage.setItem('medq_theme', 'dark');
+    /* ===== SETTINGS DROPDOWN ===== */
+    function toggleSettingsDropdown() {
+      const dropdown = document.getElementById('settings-dropdown');
+      const btn = document.getElementById('settings-btn');
+      const isOpen = dropdown.classList.contains('open');
+      if (isOpen) {
+        dropdown.classList.remove('open');
+        btn.classList.remove('dropdown-open');
       } else {
-        body.classList.add('light-mode');
-        moon.style.display = 'none';
-        sun.style.display = '';
-        btn.classList.replace('dark-active', 'light-active');
-        localStorage.setItem('medq_theme', 'light');
+        // Close year dropdown if open
+        document.getElementById('year-dropdown').classList.remove('open');
+        document.getElementById('calendar-btn').classList.remove('dropdown-open');
+        dropdown.classList.add('open');
+        btn.classList.add('dropdown-open');
       }
     }
 
-    // ===== ON LOAD =====
+    function closeSettingsDropdown() {
+      document.getElementById('settings-dropdown').classList.remove('open');
+      document.getElementById('settings-btn').classList.remove('dropdown-open');
+    }
+
+    function updateSettingsThemeUI(isLight) {
+      const moonIcon = document.getElementById('settings-icon-moon');
+      const sunIcon  = document.getElementById('settings-icon-sun');
+      const label    = document.getElementById('settings-theme-label');
+      const sub      = document.getElementById('settings-theme-sub');
+
+      if (isLight) {
+        moonIcon.style.display = 'none';
+        sunIcon.style.display  = '';
+        label.textContent = 'Light Mode';
+        sub.textContent   = 'Switch to dark';
+      } else {
+        moonIcon.style.display = '';
+        sunIcon.style.display  = 'none';
+        label.textContent = 'Dark Mode';
+        sub.textContent   = 'Switch to light';
+      }
+    }
+
+    function toggleThemeFromSettings() {
+      const body = document.body;
+      const isCurrentlyLight = body.classList.contains('light-mode');
+
+      if (isCurrentlyLight) {
+        body.classList.remove('light-mode');
+        localStorage.setItem('medq_theme', 'dark');
+        updateSettingsThemeUI(false);
+      } else {
+        body.classList.add('light-mode');
+        localStorage.setItem('medq_theme', 'light');
+        updateSettingsThemeUI(true);
+      }
+    }
+
+  
+    document.addEventListener('click', function(e) {
+    
+      const yearWrapper = document.querySelector('.year-dropdown-wrapper');
+      if (yearWrapper && !yearWrapper.contains(e.target)) {
+        document.getElementById('year-dropdown').classList.remove('open');
+        document.getElementById('calendar-btn').classList.remove('dropdown-open');
+      }
+
+      
+      const settingsWrapper = document.querySelector('.settings-dropdown-wrapper');
+      if (settingsWrapper && !settingsWrapper.contains(e.target)) {
+        closeSettingsDropdown();
+      }
+    });
+
+  
     window.onload = function() {
-      // Remove pre-render helper class
       document.documentElement.classList.remove('light-mode-pre');
 
-      // Restore year
+      
       const savedYear = localStorage.getItem('userSelectedYear');
       if (savedYear) {
-        const chip = document.getElementById('chip-' + savedYear);
-        if (chip) showYear(savedYear, chip);
+        const item = document.getElementById('item-' + savedYear);
+        if (item) selectYear(savedYear, item);
       }
 
-      // Restore theme
-      if (localStorage.getItem('medq_theme') === 'light') {
+    
+      const savedTheme = localStorage.getItem('medq_theme');
+      if (savedTheme === 'light') {
         document.body.classList.add('light-mode');
-        document.getElementById('icon-moon').style.display = 'none';
-        document.getElementById('icon-sun').style.display = '';
-        document.getElementById('theme-toggle').classList.replace('dark-active', 'light-active');
+        updateSettingsThemeUI(true);
+      } else {
+        updateSettingsThemeUI(false);
       }
 
-      // Restore section swap (no animation on load)
-      applySwapState(localStorage.getItem('medq_section_swap') === 'true', false);
+      
+      const savedSwap = localStorage.getItem('medq_section_swap') === 'true';
+      applySwapState(savedSwap, false);
+
+      
+      restoreProfile();
     };
   </script>
 
@@ -714,11 +1486,11 @@
     };
 
     const app = initializeApp(firebaseConfig);
-    const db  = getFirestore(app);
+    const db = getFirestore(app);
 
     const overlay = document.getElementById('activation-overlay');
-    const btn     = document.getElementById('activate-btn');
-    const status  = document.getElementById('status-msg');
+    const btn = document.getElementById('activate-btn');
+    const status = document.getElementById('status-msg');
 
     if (localStorage.getItem('medq_active') === 'true') {
       overlay.style.display = 'none';
@@ -733,7 +1505,7 @@
       status.style.color = "#38bdf8";
 
       try {
-        const docRef  = doc(db, "activationCodes", code);
+        const docRef = doc(db, "activationCodes", code);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists() && docSnap.data().isUsed === false) {
@@ -758,4 +1530,3 @@
 
 </body>
 </html>
-
