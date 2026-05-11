@@ -16,7 +16,8 @@
             --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
             --ans-border: #2e7d32;
-            --input-border: #334155;
+            --input-border: #2a2f36;
+            --q-number:#f1f5f9
         
         }
 
@@ -28,10 +29,10 @@
             --header-text: #ffffff;
             --card-bg: #ffffff;
             --card-border: #cccccc;
-            --ans-bg: #e8f5e9;
+           --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
-            --ans-border: #2e7d32;
             --input-border: #cccccc;
+             --q-number:#0c0d0e
         }
 
         body {
@@ -65,7 +66,7 @@
         .controls-row {
             display: flex;
             gap: 10px;
-            margin-bottom: 25px;
+            margin-bottom: 60px;
             align-items: center;
         }
 
@@ -87,11 +88,11 @@
             padding: 8px 14px;
             border-radius: 6px;
             font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
+            font-weight: 900;
             white-space: nowrap;
             transition: all 0.2s;
         }
+            
 
         .filter-btn.active {
             background-color: #729fcf;
@@ -106,7 +107,7 @@
             width: 48px;
             height: 48px;
             border-radius: 10px;
-            cursor: pointer;
+          
             display: flex;
             align-items: center;
             justify-content: center;
@@ -118,10 +119,10 @@
     padding: 10px 30px;   
     width: fit-content;     
     display: block;     
-    border-top: 1px solid var(--card-border);
     font-size: 0.8rem;
     color: var(--text-dim);
     text-align: center;
+    opacity: 0.6;
 }
 
 
@@ -175,30 +176,42 @@
         }
         .Q-number{
           font-size:12px;
-          border:1px solid green;
+          border:1px solid var(--q-number);
           padding:3px;
           border-radius:3px;
-          color:green;
+          color:var(--q-number);
           margin-left:auto;
           
         }
 
-        button.ans-btn {
-            background-color: #729fcf;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 10px;
-            text-align: left;
-            width: auto;    
-            display: inline-block;
-            white-space: pre-line;
-    
-    
-        }
+        .ans-btn{
+  background-color: var(--ans-bg);
+  color: var(--ans-text);
+}
+
+        
+button.ans-btn {
+    background-color: #729fcf;
+    color: white;
+    border: none;
+    padding: 9px 12px;
+    border-radius: 3px;
+    font-weight: 650;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-align: left;
+    width: auto;    
+    display: inline-block;
+    white-space: pre-line;
+    transition: background-color 0.1s, color 0.1s;
+}
+
+button.ans-btn.revealed {
+    background-color: var(--ans-bg) !important;
+    color: var(--ans-text) !important;
+    font-size: 0.9rem;
+    font-weight: 900;
+}
       
 
         .lab-title {
@@ -208,8 +221,8 @@
             font-weight: bold;
             color: #729fcf;
             padding-bottom: 5px;
-            display: flex;        /* Added */
-            align-items: center;  /* Added */
+            display: flex;    
+            align-items: center;  
             width: 100%; 
             
             
@@ -224,7 +237,7 @@
         }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body oncontextmenu="return false;" onload="initTheme()">
 
 <div class="container">
     <div class="header">
@@ -237,7 +250,7 @@
     <div class="controls-row">
         <div class="filter-container">
             <button class="filter-btn active" onclick="filterLabs('All', this)">All Labs</button>
-            <button class="filter-btn" onclick="filterLabs('L1', this)">Introduction to anatomy ⚡</button>
+            <button class="filter-btn" onclick="filterLabs('L1', this)">Introduction to anatomy 🦴</button>
             <button class="filter-btn" onclick="filterLabs('L2', this)">Axial skeleton 💀</button>
             <button class="filter-btn" onclick="filterLabs('L3', this)">Appendicular skeleton 🦴</button>
             <button class="filter-btn" onclick="filterLabs('L4', this)">Joints 🔗</button>
@@ -261,25 +274,25 @@
     <div id="quiz-content">
         
         <div class="lab-wrapper" data-subject="L1">
-            <div class="lab-center"><div class="lab-title">Introduction to anatomy ⚡<span class="Q-number">1 question</span></div></div>
+            <div class="lab-center"><div class="lab-title">Introduction to anatomy 🦴<span class="Q-number">1 Question</span></div></div>
             
             <div class="quiz-card">
                 <div class="question-section">
                     <h3 class="question-number">1.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Whats the name of this surface of hand ?</span><br>
+                        <span><strong>A.</strong> What is the name of this surface of hand?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1a', this)">Show Answer</button>
                         <div id="ans1a" class="answer-box">Palm.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Whats this name of this movement? </span><br>
+                        <span><strong>B.</strong> What is this name of this movement? </span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1b', this)">Show Answer</button>
                         <div id="ans1b" class="answer-box">Inversion.</div>
                     </div>
                 </div>
                 <div>
                   
-           <div class="image-section"><img src="https://i.imgur.com/7LmMgBU.jpeg" alt="Exam Image" style="height:200px;"></div>
+           <div class="image-section"><img src="https://i.imgur.com/7LmMgBU.jpeg" alt="Exam Image" style="height:180px;"></div>
                <div class="image-section"><img src="https://i.imgur.com/6ACQnm5.jpeg" alt="Exam Image" style="height:250px;"></div>
                   
                 </div>
@@ -288,7 +301,7 @@
         </div>
 
          <div class="lab-wrapper" data-subject="L2">
-            <div class="lab-center"><div class="lab-title">Axial skeleton 🦴 <span class="Q-number">4 questions</span></div></div>
+            <div class="lab-center"><div class="lab-title">Axial skeleton 💀 <span class="Q-number">4 Questions</span></div></div>
 
         
                         
@@ -296,12 +309,12 @@
                 <div class="question-section">
                     <h3 class="question-number">2.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the structure A?</span><br>
+                        <span><strong>A.</strong> What is the structure A?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans2a', this)">Show Answer</button>
                         <div id="ans2a" class="answer-box">Tubercle.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What does it articulate with?</span><br>
+                        <span><strong>B.</strong> What does it articulate with?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans2b', this)">Show Answer</button>
                         <div id="ans2b" class="answer-box">Articulates with the transverse process of thoracic vertebra.</div>
                     </div>
@@ -315,14 +328,14 @@
                 <div class="question-section">
                     <h3 class="question-number">3.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the area A and B.</span><br>
+                        <span><strong>A.</strong> Identify the area A and B.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans3a', this)">Show Answer</button>
                         <div id="ans3a" class="answer-box">A. Body
 B. Spinous process
 </div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What type of vertebrae is this?</span><br>
+                        <span><strong>B.</strong> What type of vertebrae is this?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans3b', this)">Show Answer</button>
                         <div id="ans3b" class="answer-box">Thoracic vertebrae.</div>
                     </div>
@@ -333,12 +346,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">4.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed area.</span><br>
+                        <span><strong>A.</strong> Identify the pointed area.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans4a', this)">Show Answer</button>
                         <div id="ans4a" class="answer-box">Foramen transversarium.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What does pass through it?</span><br>
+                        <span><strong>B.</strong> What does pass through it?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans4b', this)">Show Answer</button>
                         <div id="ans4b" class="answer-box">Vertebral artery and veins.</div>
                     </div>
@@ -349,12 +362,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">5.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed area?</span><br>
+                        <span><strong>A.</strong> What is the pointed area?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans5a', this)">Show Answer</button>
                         <div id="ans5a" class="answer-box">Costal groove.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is passing through it? </span><br>
+                        <span><strong>B.</strong> What is passing through it? </span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans5b', this)">Show Answer</button>
                         <div id="ans5b" class="answer-box">Nerve and Nutrient artery.</div>
                     </div>
@@ -366,18 +379,18 @@ B. Spinous process
 
 
       <div class="lab-wrapper" data-subject="L3">
-    <div class="lab-center"><div class="lab-title">Appendicular skeleton 🦴 <span class="Q-number">5 questions</span></div></div>
+    <div class="lab-center"><div class="lab-title">Appendicular skeleton 🦴 <span class="Q-number">5 Questions</span></div></div>
     
     <div class="quiz-card">
         <div class="question-section">
             <h3 class="question-number">6.</h3>
             <div class="question-item">
-                <span><strong>A.</strong> Identify the bone.</span><br>
+                <span><strong>A.</strong> Identify the bone.</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans6a', this)">Show Answer</button>
                 <div id="ans6a" class="answer-box">Radius.</div>
             </div>
             <div class="question-item">
-                <span><strong>B.</strong> It articulates medially with:</span><br>
+                <span><strong>B.</strong> It articulates medially with:</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans6b', this)">Show Answer</button>
                 <div id="ans6b" class="answer-box">Ulna.</div>
             </div>
@@ -389,12 +402,12 @@ B. Spinous process
         <div class="question-section">
             <h3 class="question-number">7.</h3>
             <div class="question-item">
-                <span><strong>A.</strong> Identify the pointed area.</span><br>
+                <span><strong>A.</strong> Identify the pointed area.</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans7a', this)">Show Answer</button>
                 <div id="ans7a" class="answer-box">Medial epicondyle.</div>
             </div>
             <div class="question-item">
-                <span><strong>B.</strong> What muscle attach to this area?</span><br>
+                <span><strong>B.</strong> What muscle attach to this area?</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans7b', this)">Show Answer</button>
                 <div id="ans7b" class="answer-box">Flexor muscle of the anterior compartment of the forearm.</div>
             </div>
@@ -406,12 +419,12 @@ B. Spinous process
         <div class="question-section">
             <h3 class="question-number">8.</h3>
             <div class="question-item">
-                <span><strong>A.</strong> Identify the structure A.</span><br>
+                <span><strong>A.</strong> Identify the structure A.</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans8a', this)">Show Answer</button>
                 <div id="ans8a" class="answer-box">Head of radius.</div>
             </div>
             <div class="question-item">
-                <span><strong>B.</strong> Identify the structure B.</span><br>
+                <span><strong>B.</strong> Identify the structure B.</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans8b', this)">Show Answer</button>
                 <div id="ans8b" class="answer-box">Styloid prosses (medial).</div>
             </div>
@@ -423,12 +436,12 @@ B. Spinous process
         <div class="question-section">
             <h3 class="question-number">9.</h3>
             <div class="question-item">
-                <span><strong>A.</strong> Identify the pointed area.</span><br>
+                <span><strong>A.</strong> Identify the pointed area.</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans9a', this)">Show Answer</button>
                 <div id="ans9a" class="answer-box">Medial epicondyle.</div>
             </div>
             <div class="question-item">
-                <span><strong>B.</strong> It is the origin of which muscle?</span><br>
+                <span><strong>B.</strong> It is the origin of which muscle?</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans9b', this)">Show Answer</button>
                 <div id="ans9b" class="answer-box">Flexor muscle.</div>
             </div>
@@ -439,7 +452,7 @@ B. Spinous process
         <div class="question-section">
             
             <div class="question-item">
-                <span><strong>10.</strong> Which bone is shown in this figure?</span><br>
+                <span><strong>10.</strong> Which bone is shown in this figure?</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans10a', this)">Show Answer</button>
                 <div id="ans10a" class="answer-box">Ulna.</div>
             </div>
@@ -451,18 +464,18 @@ B. Spinous process
 
 
         <div class="lab-wrapper" data-subject="L4">
-            <div class="lab-center"><div class="lab-title">Joints 🔗  <span class="Q-number">8 questions</span></div></div>
+            <div class="lab-center"><div class="lab-title">Joints 🔗  <span class="Q-number">8 Questions</span></div></div>
 
            <div class="quiz-card">
                 <div class="question-section">
                     <h3 class="question-number">11.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is this bone called?</span><br>
+                        <span><strong>A.</strong> What is this bone called?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans11a', this)">Show Answer</button>
                         <div id="ans11a" class="answer-box">Axis (2nd cervical vertebrae)</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> The superior part of this bone is articulated to?</span><br>
+                        <span><strong>B.</strong> The superior part of this bone is articulated to?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans11b', this)">Show Answer</button>
                         <div id="ans11b" class="answer-box">Atlas (1st cervical vertebrae).</div>
                     </div>
@@ -475,12 +488,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">12.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the name of the joint?</span><br>
+                        <span><strong>A.</strong> What is the name of the joint?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans12a', this)">Show Answer</button>
                         <div id="ans12a" class="answer-box">Inferior radio-ulnar joint. </div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is the type of the joint?</span><br>
+                        <span><strong>B.</strong> What is the type of the joint?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans12b', this)">Show Answer</button>
                         <div id="ans12b" class="answer-box">Synovial pivot joint.</div>
                     </div>
@@ -492,12 +505,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">13.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the joint.</span><br>
+                        <span><strong>A.</strong> Identify the joint.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans13a', this)">Show Answer</button>
                         <div id="ans13a" class="answer-box">Distal Tibio-febular joint. </div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Mention the type of the joint.</span><br>
+                        <span><strong>B.</strong> Mention the type of the joint.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans13b', this)">Show Answer</button>
                         <div id="ans13b" class="answer-box">Fibrous joint.</div>
                     </div>
@@ -509,12 +522,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">14.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed area. </span><br>
+                        <span><strong>A.</strong> Identify the pointed area. </span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans14a', this)">Show Answer</button>
                         <div id="ans14a" class="answer-box">Sternoclavicular joint.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is the type of the joint?</span><br>
+                        <span><strong>B.</strong> What is the type of the joint?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans14b', this)">Show Answer</button>
                         <div id="ans14b" class="answer-box">Synovial double-plane joint.</div>
                     </div>
@@ -525,12 +538,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">15.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the area A.</span><br>
+                        <span><strong>A.</strong> Identify the area A.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans15a', this)">Show Answer</button>
                         <div id="ans15a" class="answer-box">Trochlea.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What does it articulate with?</span><br>
+                        <span><strong>B.</strong> What does it articulate with?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans15b', this)">Show Answer</button>
                         <div id="ans15b" class="answer-box">Trochlear notch of the ulna.</div>
                     </div>
@@ -541,12 +554,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">16.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the jointed area.</span><br>
+                        <span><strong>A.</strong> Identify the jointed area.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans16a', this)">Show Answer</button>
                         <div id="ans16a" class="answer-box">Distal Tibio-fibular joint.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Mention the type of the joint.</span><br>
+                        <span><strong>B.</strong> Mention the type of the joint.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans16b', this)">Show Answer</button>
                         <div id="ans16b" class="answer-box">Fibrous joint.</div>
                     </div>
@@ -557,12 +570,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">17.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the name of the joint? </span><br>
+                        <span><strong>A.</strong> What is the name of the joint? </span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans17a', this)">Show Answer</button>
                         <div id="ans17a" class="answer-box">Superior radio-ulnar joint.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is the type of the joint?</span><br>
+                        <span><strong>B.</strong> What is the type of the joint?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans17b', this)">Show Answer</button>
                         <div id="ans17b" class="answer-box">Synovial pivot joint.</div>
                     </div>
@@ -573,12 +586,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">18.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed area.</span><br>
+                        <span><strong>A.</strong> Identify the pointed area.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans18a', this)">Show Answer</button>
                         <div id="ans18a" class="answer-box">Medial end ( Sternal end).</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What does it articulate with?</span><br>
+                        <span><strong>B.</strong> What does it articulate with?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans18b', this)">Show Answer</button>
                         <div id="ans18b" class="answer-box">Manubrium of the sternum.</div>
                     </div>
@@ -588,13 +601,13 @@ B. Spinous process
         </div>
 
              <div class="lab-wrapper" data-subject="L5">
-            <div class="lab-center"><div class="lab-title">Muscles 💪  <span class="Q-number">7 questions</span></div></div>
+            <div class="lab-center"><div class="lab-title">Muscles 💪  <span class="Q-number">7 Questions</span></div></div>
 
            <div class="quiz-card">
                 <div class="question-section">
 
                     <div class="question-item">
-                        <span><strong>19.</strong> Identify the pointed muscle.</span><br>
+                        <span><strong>19.</strong> Identify the pointed muscle.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans19a', this)">Show Answer</button>
                         <div id="ans19a" class="answer-box">Latissimus dorsi.</div>
                     </div>
@@ -607,12 +620,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">20.<span class="repeat">Two times</span></h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the name of the muscle labeled with green?</span><br>
+                        <span><strong>A.</strong> What is the name of the muscle labeled with green?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans20a', this)">Show Answer</button>
                         <div id="ans20a" class="answer-box">Lateral Pterygoid muscle.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> It is supplied by which nerve?</span><br>
+                        <span><strong>B.</strong> It is supplied by which nerve?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans20b', this)">Show Answer</button>
                         <div id="ans20b" class="answer-box">Lateral Pterygoid nerve (branch of mandibular division of trigeminal nerve).</div>
                     </div>
@@ -624,12 +637,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">21.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the name of muscle A.</span><br>
+                        <span><strong>A.</strong> Identify the name of muscle A.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans21a', this)">Show Answer</button>
                         <div id="ans21a" class="answer-box">Masseter muscle.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Identify the name of muscle B.</span><br>
+                        <span><strong>B.</strong> Identify the name of muscle B.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans21b', this)">Show Answer</button>
                         <div id="ans21b" class="answer-box">Sternocleidomastoid.</div>
                     </div>
@@ -640,12 +653,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">22.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Whats the name of this muscle?</span><br>
+                        <span><strong>A.</strong> Whats the name of this muscle?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans22a', this)">Show Answer</button>
                         <div id="ans22a" class="answer-box">Deltoid muscle.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> It is named according to?</span><br>
+                        <span><strong>B.</strong> It is named according to?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans22b', this)">Show Answer</button>
                         <div id="ans22b" class="answer-box">Its shape.</div>
                     </div>
@@ -656,12 +669,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">23.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the name of muscle A.</span><br>
+                        <span><strong>A.</strong> Identify the name of muscle A.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans23a', this)">Show Answer</button>
                         <div id="ans23a" class="answer-box">Trapezius.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Identify the name of muscle B.</span><br>
+                        <span><strong>B.</strong> Identify the name of muscle B.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans23b', this)">Show Answer</button>
                         <div id="ans23b" class="answer-box">Latissimus dorsi.</div>
                     </div>
@@ -672,12 +685,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">24.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the muscle.</span><br>
+                        <span><strong>A.</strong> Identify the muscle.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans24a', this)">Show Answer</button>
                         <div id="ans24a" class="answer-box">Obicularis Oris.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Identify the nerve supply.</span><br>
+                        <span><strong>B.</strong> Identify the nerve supply.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans24b', this)">Show Answer</button>
                         <div id="ans24b" class="answer-box">Facial nerve (7th Cranial nerve).</div>
                     </div>
@@ -688,12 +701,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">25.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the name of muscle A.</span><br>
+                        <span><strong>A.</strong> Identify the name of muscle A.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans25a', this)">Show Answer</button>
                         <div id="ans25a" class="answer-box">Trapezius.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Identify the name of muscle B.</span><br>
+                        <span><strong>B.</strong> Identify the name of muscle B.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans25b', this)">Show Answer</button>
                         <div id="ans25b" class="answer-box">Levator scapula.</div>
                     </div>
@@ -703,13 +716,13 @@ B. Spinous process
             </div>
         
           <div class="lab-wrapper" data-subject="L6">
-            <div class="lab-center"><div class="lab-title">Respiratory syststem 🫁  <span class="Q-number">11 questions</span></div></div>
+            <div class="lab-center"><div class="lab-title">Respiratory syststem 🫁  <span class="Q-number">11 Questions</span></div></div>
 
            <div class="quiz-card">
                 <div class="question-section">
 
                     <div class="question-item">
-                        <span><strong>26.</strong> Identify this structure.</span><br>
+                        <span><strong>26.</strong> Identify this structure.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans26a', this)">Show Answer</button>
                         <div id="ans26a" class="answer-box">Larynx.</div>
                     </div>
@@ -722,12 +735,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">27. <span class="repeat">Three times</span> </h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed area called?</span><br>
+                        <span><strong>A.</strong> What is the pointed area called?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans27a', this)">Show Answer</button>
                         <div id="ans27a" class="answer-box">Carina.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Indicate the level of the structure.</span><br>
+                        <span><strong>B.</strong> Indicate the level of the structure.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans27b', this)">Show Answer</button>
                         <div id="ans27b" class="answer-box">At the level of T4 or sternal angle.</div>
                     </div>
@@ -740,12 +753,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">28.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the name of structure A.</span><br>
+                        <span><strong>A.</strong> Identify the name of structure A.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans28a', this)">Show Answer</button>
                         <div id="ans28a" class="answer-box">Sphenoid sinus.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Identify the name of structure B.</span><br>
+                        <span><strong>B.</strong> Identify the name of structure B.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans28b', this)">Show Answer</button>
                         <div id="ans28b" class="answer-box">Epiglottis.</div>
                     </div>
@@ -756,12 +769,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">29.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed structure?</span><br>
+                        <span><strong>A.</strong> What is the pointed structure?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans29a', this)">Show Answer</button>
                         <div id="ans29a" class="answer-box">Laryngo-Pharynx.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Inferiorly it is continued with what?</span><br>
+                        <span><strong>B.</strong> Inferiorly it is continued with what?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans29b', this)">Show Answer</button>
                         <div id="ans29b" class="answer-box">Esophagus.</div>
                     </div>
@@ -772,12 +785,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">30.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the structure A.</span><br>
+                        <span><strong>A.</strong> Identify the structure A.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans30a', this)">Show Answer</button>
                         <div id="ans30a" class="answer-box">Nasal cavity.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Identify the structure B.</span><br>
+                        <span><strong>B.</strong> Identify the structure B.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans30b', this)">Show Answer</button>
                         <div id="ans30b" class="answer-box">Sphenoid sinus.</div>
                     </div>
@@ -788,12 +801,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">31.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed area.</span><br>
+                        <span><strong>A.</strong> Identify the pointed area.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans31a', this)">Show Answer</button>
                         <div id="ans31a" class="answer-box">Trachea.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Its bifurication is called:</span><br>
+                        <span><strong>B.</strong> Its bifurication is called:</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans31b', this)">Show Answer</button>
                         <div id="ans31b" class="answer-box">Carina.</div>
                     </div>
@@ -805,12 +818,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">32.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Indicate the pointed area?</span><br>
+                        <span><strong>A.</strong> Indicate the pointed area?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans34a', this)">Show Answer</button>
                         <div id="ans34a" class="answer-box">Esophagus opening.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is its vertebrae level?</span><br>
+                        <span><strong>B.</strong> What is its vertebrae level?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans34b', this)">Show Answer</button>
                         <div id="ans34b" class="answer-box">T10.</div>
                     </div>
@@ -822,12 +835,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">33.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Indicate the pointed area.</span><br>
+                        <span><strong>A.</strong> Indicate the pointed area.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans33a', this)">Show Answer</button>
                         <div id="ans33a" class="answer-box">Oro-Pharynx.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is the name of the anterior cavity?</span><br>
+                        <span><strong>B.</strong> What is the name of the anterior cavity?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans33b', this)">Show Answer</button>
                         <div id="ans33b" class="answer-box">Oral cavity.</div>
                     </div>
@@ -839,17 +852,17 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">34.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the name of opening.</span><br>
+                        <span><strong>A.</strong> Identify the name of opening.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans32a', this)">Show Answer</button>
                         <div id="ans32a" class="answer-box">Auditory tube.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Location?</span><br>
+                        <span><strong>B.</strong> Location?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans32b', this)">Show Answer</button>
                         <div id="ans32b" class="answer-box">Lateral wall of Naso-Pharynx.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>C.</strong> Function?</span><br>
+                        <span><strong>C.</strong> Function?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans32c', this)">Show Answer</button>
                         <div id="ans32c" class="answer-box">Connects Naso-Pharynx to the middle air.</div>
                     </div>
@@ -861,12 +874,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">35.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the side of the organ.</span><br>
+                        <span><strong>A.</strong> Identify the side of the organ.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans35a', this)">Show Answer</button>
                         <div id="ans35a" class="answer-box">The right side of the lung.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Identify the surface.</span><br>
+                        <span><strong>B.</strong> Identify the surface.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans35b', this)">Show Answer</button>
                         <div id="ans35b" class="answer-box">Sterno-Costal surface.</div>
                     </div>
@@ -877,12 +890,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">36.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Indicate the pointed structure.</span><br>
+                        <span><strong>A.</strong> Indicate the pointed structure.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans36a', this)">Show Answer</button>
                         <div id="ans36a" class="answer-box">Esophagus.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Passes through diaphragm at the level of?</span><br>
+                        <span><strong>B.</strong> Passes through diaphragm at the level of?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans36b', this)">Show Answer</button>
                         <div id="ans36b" class="answer-box">T10.</div>
                     </div>
@@ -899,18 +912,18 @@ B. Spinous process
             
             
              <div class="lab-wrapper" data-subject="L7">
-            <div class="lab-center"><div class="lab-title">Digestive system 💊<span class="Q-number">9 questions</span></div></div>
+            <div class="lab-center"><div class="lab-title">Digestive system 💊<span class="Q-number">9 Questions</span></div></div>
             
             <div class="quiz-card">
                 <div class="question-section">
                     <h3 class="question-number">37.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed structure?</span><br>
+                        <span><strong>A.</strong> What is the pointed structure?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans37a', this)">Show Answer</button>
                         <div id="ans37a" class="answer-box">Sublingual gland.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Its duct opens into?</span><br>
+                        <span><strong>B.</strong> Its duct opens into?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans37b', this)">Show Answer</button>
                         <div id="ans37b" class="answer-box">Opens into the oral cavity near the frenulum.</div>
                     </div>
@@ -930,12 +943,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">38.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the structure A?</span><br>
+                        <span><strong>A.</strong> What is the structure A?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans38a', this)">Show Answer</button>
                         <div id="ans38a" class="answer-box">Gallbladder.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is the structure B?</span><br>
+                        <span><strong>B.</strong> What is the structure B?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans38b', this)">Show Answer</button>
                         <div id="ans38b" class="answer-box">Caudate lobe.</div>
                     </div>
@@ -949,12 +962,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">39.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the structure A?</span><br>
+                        <span><strong>A.</strong> What is the structure A?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans39a', this)">Show Answer</button>
                         <div id="ans39a" class="answer-box">Cystic duct.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is the structure B?</span><br>
+                        <span><strong>B.</strong> What is the structure B?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans39b', this)">Show Answer</button>
                         <div id="ans39b" class="answer-box">Common hepatic duct.</div>
                     </div>
@@ -965,7 +978,7 @@ B. Spinous process
                 <div class="question-section">
                     
                     <div class="question-item">
-                        <span><strong>40.</strong> Identify the pointed structure.</span><br><br>
+                        <span><strong>40.</strong> Identify the pointed structure.</span><br><br><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans40', this)">Show Answer</button>
                         <div id="ans40" class="answer-box">Falciform ligament.</div>
                     </div>
@@ -977,12 +990,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">41.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the structure A?</span><br>
+                        <span><strong>A.</strong> What is the structure A?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans41a', this)">Show Answer</button>
                         <div id="ans41a" class="answer-box">Adrenal gland.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is the structure B? </span><br>
+                        <span><strong>B.</strong> What is the structure B? </span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans41b', this)">Show Answer</button>
                         <div id="ans41b" class="answer-box">Pancreas.</div>
                     </div>
@@ -996,12 +1009,12 @@ B. Spinous process
         <div class="question-section">
             <h3 class="question-number">42.</h3>
             <div class="question-item">
-                <span><strong>A.</strong> What is the pointed area?</span><br>
+                <span><strong>A.</strong> What is the pointed area?</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans42a', this)">Show Answer</button>
                 <div id="ans42a" class="answer-box"> Quadrate lobe.</div>
             </div>
             <div class="question-item">
-                <span><strong>B.</strong> Where is it located?</span><br>
+                <span><strong>B.</strong> Where is it located?</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans42b', this)">Show Answer</button>
                 <div id="ans42b" class="answer-box">Located between ligamentum teres and gall bladder.</div>
             </div>
@@ -1012,12 +1025,12 @@ B. Spinous process
         <div class="question-section">
             <h3 class="question-number">43.</h3>
             <div class="question-item">
-                <span><strong>A.</strong> Identify the pointed structure.</span><br>
+                <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans43a', this)">Show Answer</button>
                 <div id="ans43a" class="answer-box">Transverse mesocolon.</div>
             </div>
             <div class="question-item">
-                <span><strong>B.</strong> It contains _________ and _________.</span><br>
+                <span><strong>B.</strong> It contains _________ and _________.</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans43b', this)">Show Answer</button>
                 <div id="ans43b" class="answer-box">Not mentioned in the lec.</div>
             </div>
@@ -1040,7 +1053,7 @@ B. Spinous process
                               
                 
                 
-                </span><br><br>
+                </span><br><br><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans44', this)">Show Answer</button>
                 <div id="ans44" class="answer-box">C. Fundus</div>
             </div>
@@ -1052,12 +1065,12 @@ B. Spinous process
         <div class="question-section">
             <h3 class="question-number">45.</h3>
             <div class="question-item">
-                <span><strong>A.</strong> Identify the pointed structure.</span><br>
+                <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans45a', this)">Show Answer</button>
                 <div id="ans45a" class="answer-box">Greater omentum.</div>
             </div>
             <div class="question-item">
-                <span><strong>B.</strong> What is its function?</span><br>
+                <span><strong>B.</strong> What is its function?</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans45b', this)">Show Answer</button>
                 <div id="ans45b" class="answer-box">It connects the greater curvature of the stomach with the transverse colon.</div>
             </div>
@@ -1073,18 +1086,18 @@ B. Spinous process
     
     
       <div class="lab-wrapper" data-subject="L8">
-    <div class="lab-center"><div class="lab-title">Cardiovascular system 🫀 <span class="Q-number">15 questions</span></div></div>
+    <div class="lab-center"><div class="lab-title">Cardiovascular system 🫀 <span class="Q-number">15 Questions</span></div></div>
 
     <div class="quiz-card">
         <div class="question-section">
             <h3 class="question-number">46. <span class="repeat">Two times</span></h3></h3>
             <div class="question-item">
-                <span><strong>A.</strong> Identify the pointed structure.</span><br>
+                <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans46a', this)">Show Answer</button>
                 <div id="ans46a" class="answer-box">Internal jugular vein.</div>
             </div>
             <div class="question-item">
-                <span><strong>B.</strong> It is a continuation of what?</span><br>
+                <span><strong>B.</strong> It is a continuation of what?</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans46b', this)">Show Answer</button>
                 <div id="ans46b" class="answer-box">Sigmoid sinus.</div>
             </div>
@@ -1096,12 +1109,12 @@ B. Spinous process
         <div class="question-section">
             <h3 class="question-number">47.</h3>
             <div class="question-item">
-                <span><strong>A.</strong> Identify the pointed area.</span><br>
+                <span><strong>A.</strong> Identify the pointed area.</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans47a', this)">Show Answer</button>
                 <div id="ans47a" class="answer-box">Left ventricle.</div>
             </div>
             <div class="question-item">
-                <span><strong>B.</strong> Located at which level?</span><br>
+                <span><strong>B.</strong> Located at which level?</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans47b', this)">Show Answer</button>
                 <div id="ans47b" class="answer-box">5th intercostal space.</div>
             </div>
@@ -1113,12 +1126,12 @@ B. Spinous process
         <div class="question-section">
             <h3 class="question-number">48.</h3>
             <div class="question-item">
-                <span><strong>A.</strong> Identify the pointed structure.</span><br>
+                <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans48a', this)">Show Answer</button>
                 <div id="ans48a" class="answer-box">Right subclavian vein.</div>
             </div>
             <div class="question-item">
-                <span><strong>B.</strong> Unites with __________ to form brachiocephalic vein.</span><br>
+                <span><strong>B.</strong> Unites with __________ to form brachiocephalic vein.</span><br><br>
                 <button class="ans-btn" onclick="toggleAnswer('ans48b', this)">Show Answer</button>
                 <div id="ans48b" class="answer-box">Right internal jugular vein.</div>
             </div>
@@ -1133,12 +1146,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">49.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed structure called?</span><br>
+                        <span><strong>A.</strong> What is the pointed structure called?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans49a', this)">Show Answer</button>
                         <div id="ans49a" class="answer-box">Left common iliac vein</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is it formed from?</span><br>
+                        <span><strong>B.</strong> What is it formed from?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans49b', this)">Show Answer</button>
                         <div id="ans49b" class="answer-box">The external iliac vein & the internal iliac vein.</div>
                     </div>
@@ -1151,12 +1164,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">50.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed area.</span><br>
+                        <span><strong>A.</strong> Identify the pointed area.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans50a', this)">Show Answer</button>
                         <div id="ans50a" class="answer-box">Left atrium.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> This area has four ___________.</span><br>
+                        <span><strong>B.</strong> This area has four ___________.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans50b', this)">Show Answer</button>
                         <div id="ans50b" class="answer-box">Pulmonary veins.</div>
                     </div>
@@ -1168,12 +1181,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">51.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed structure.</span><br>
+                        <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans51a', this)">Show Answer</button>
                         <div id="ans51a" class="answer-box">Coronary artery. </div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> It is a branch of __________.</span><br>
+                        <span><strong>B.</strong> It is a branch of __________.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans51b', this)">Show Answer</button>
                         <div id="ans51b" class="answer-box">Ascending aorta.</div>
                     </div>
@@ -1185,7 +1198,7 @@ B. Spinous process
                 <div class="question-section">
                     
                     <div class="question-item">
-                        <span><strong>52.</strong> What is the name of the chamber of the heart opened in this figure? </span><br><br>
+                        <span><strong>52.</strong> What is the name of the chamber of the heart opened in this figure? </span><br><br><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans52', this)">Show Answer</button>
                         <div id="ans52" class="answer-box">Right Ventricle.</div>
                     </div>
@@ -1197,7 +1210,7 @@ B. Spinous process
                 <div class="question-section">
                   
                     <div class="question-item">
-                        <span><strong>53.</strong> Identify this part of the heart.</span><br><br>
+                        <span><strong>53.</strong> Identify this part of the heart.</span><br><br><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans53', this)">Show Answer</button>
                         <div id="ans53" class="answer-box">Base.</div>
                     </div>
@@ -1209,12 +1222,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">54.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed structure.</span><br>
+                        <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans54a', this)">Show Answer</button>
                         <div id="ans54a" class="answer-box">External iliac artery.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> It is branch of?</span><br>
+                        <span><strong>B.</strong> It is branch of?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans54b', this)">Show Answer</button>
                         <div id="ans54b" class="answer-box">Common iliac artery.</div>
                     </div>
@@ -1225,12 +1238,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">55.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed area? </span><br>
+                        <span><strong>A.</strong> What is the pointed area? </span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans55a', this)">Show Answer</button>
                         <div id="ans55a" class="answer-box">Right ventricle.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> It delivers blood to _________.</span><br>
+                        <span><strong>B.</strong> It delivers blood to _________.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans55b', this)">Show Answer</button>
                         <div id="ans55b" class="answer-box">Pulmonary trunk.</div>
                     </div>
@@ -1241,12 +1254,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">56.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed structure.</span><br>
+                        <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans56a', this)">Show Answer</button>
                         <div id="ans56a" class="answer-box">Inferior vena cava.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What forms this structure?</span><br>
+                        <span><strong>B.</strong> What forms this structure?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans56b', this)">Show Answer</button>
                         <div id="ans56b" class="answer-box">Formed by Right and left common iliac vein.</div>
                     </div>
@@ -1259,12 +1272,12 @@ B. Spinous process
                 <div class="question-section">
              <h3 class="question-number">57.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed structure.</span><br>
+                        <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans57a', this)">Show Answer</button>
                         <div id="ans57a" class="answer-box">Left subclavian artery.</div>
                     </div>
                       <div class="question-item">
-                        <span><strong>B.</strong> It is a branch of __________.</span><br>
+                        <span><strong>B.</strong> It is a branch of __________.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans57b', this)">Show Answer</button>
                         <div id="ans57b" class="answer-box">Arch of aorta.</div>
                     </div>
@@ -1277,12 +1290,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">58.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed area in figure A?</span><br>
+                        <span><strong>A.</strong> What is the pointed area in figure A?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans58a', this)">Show Answer</button>
                         <div id="ans58a" class="answer-box">left internal jugular vein.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is the pointed area in figure B?</span><br>
+                        <span><strong>B.</strong> What is the pointed area in figure B?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans58b', this)">Show Answer</button>
                         <div id="ans58b" class="answer-box">Right atrium.</div>
                     </div>
@@ -1300,12 +1313,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">59. <span class="repeat">Not mentioned in this year's lectures</span></h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed structure.</span><br>
+                        <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans66a', this)">Show Answer</button>
                         <div id="ans66a" class="answer-box">Right testicular artery.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> It is a branch of _____________.</span><br>
+                        <span><strong>B.</strong> It is a branch of _____________.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans66b', this)">Show Answer</button>
                         <div id="ans66b" class="answer-box">Abdominal aorta.</div>
                     </div>
@@ -1317,12 +1330,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">60.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed structure.</span><br>
+                        <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans59a', this)">Show Answer</button>
                         <div id="ans59a" class="answer-box">Subclavian vein.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> It is a continuation of _____________.</span><br>
+                        <span><strong>B.</strong> It is a continuation of _____________.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans59b', this)">Show Answer</button>
                         <div id="ans59b" class="answer-box">Axillary vein.</div>
                     </div>
@@ -1335,18 +1348,18 @@ B. Spinous process
             
             
               <div class="lab-wrapper" data-subject="L9">
-    <div class="lab-center"><div class="lab-title">Nervous system 🧠 <span class="Q-number">1 question</span></div></div>
+    <div class="lab-center"><div class="lab-title">Nervous system 🧠 <span class="Q-number">1 Question</span></div></div>
             
            <div class="quiz-card">
                 <div class="question-section">
                     <h3 class="question-number">61.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed area.</span><br>
+                        <span><strong>A.</strong> What is the pointed area.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans60a', this)">Show Answer</button>
                         <div id="ans60a" class="answer-box">Cerebellum.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is the blue area.</span><br>
+                        <span><strong>B.</strong> What is the blue area.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans60b', this)">Show Answer</button>
                         <div id="ans60b" class="answer-box">Frontal lobe.</div>
                     </div>
@@ -1357,18 +1370,18 @@ B. Spinous process
             
             
               <div class="lab-wrapper" data-subject="L10">
-    <div class="lab-center"><div class="lab-title">Genitourinary system 🫘 <span class="Q-number">5 questions</span></div></div>
+    <div class="lab-center"><div class="lab-title">Genitourinary system 🫘 <span class="Q-number">5 Questions</span></div></div>
            
              <div class="quiz-card">
                 <div class="question-section">
                     <h3 class="question-number">62.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the name of green area?</span><br>
+                        <span><strong>A.</strong> What is the name of green area?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans64a', this)">Show Answer</button>
                         <div id="ans64a" class="answer-box">Urethra.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is the pointed area?</span><br>
+                        <span><strong>B.</strong> What is the pointed area?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans64b', this)">Show Answer</button>
                         <div id="ans64b" class="answer-box">Prostate gland.</div>
                     </div>
@@ -1389,7 +1402,7 @@ B. Spinous process
                                 <div>E. Internal urethral meatus</div>
                             </ul>
                               
-                        </span><br>
+                        </span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans65', this)">Show Answer</button>
                         <div id="ans65" class="answer-box">B. membranous urethra</div>
                     </div>
@@ -1402,12 +1415,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">64.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the gland.</span><br>
+                        <span><strong>A.</strong> Identify the gland.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans63a', this)">Show Answer</button>
                         <div id="ans63a" class="answer-box">Prostate gland.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Located between __________ and _________.</span><br>
+                        <span><strong>B.</strong> Located between __________ and _________.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans63b', this)">Show Answer</button>
                         <div id="ans63b" class="answer-box">Urinary bladder and Rectum.</div>
                     </div>
@@ -1418,12 +1431,12 @@ B. Spinous process
                 <div class="question-section">
                     <h3 class="question-number">65.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed gland.</span><br>
+                        <span><strong>A.</strong> Identify the pointed gland.</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans61a', this)">Show Answer</button>
                         <div id="ans61a" class="answer-box">Bulbourethral (Cowper’s) gland.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Its duct opens into:</span><br>
+                        <span><strong>B.</strong> Its duct opens into:</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans61b', this)">Show Answer</button>
                         <div id="ans61b" class="answer-box">The proximal end of the penile urethra.</div>
                     </div>
@@ -1435,12 +1448,12 @@ B. Spinous process
                 <div class="question-section">
                      <h3 class="question-number">66.<span class="repeat">Two times</span></h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed area?</span><br>
+                        <span><strong>A.</strong> What is the pointed area?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans62a', this)">Show Answer</button>
                         <div id="ans62a" class="answer-box">Trigone.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> Where it is located?</span><br>
+                        <span><strong>B.</strong> Where it is located?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans62b', this)">Show Answer</button>
                         <div id="ans62b" class="answer-box">Urinary bladder.</div>
                     </div>
@@ -1451,28 +1464,32 @@ B. Spinous process
             </div>
         
           
-<footer class="site-footer">Developed by <strong>Shabaz Rasheed</strong></footer>
+<footer class="site-footer">© Developed by <strong>Shabaz Rasheed</strong></footer>
 
 <script>
-    function toggleTheme() {
-    const body = document.body;
-    const icon = document.getElementById('theme-icon');
-    
-    
-    const isLight = body.getAttribute('data-theme') === 'light';
-
-    if (isLight) {
-        
-        body.removeAttribute('data-theme');
-        
-        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-    } else {
-        
-        body.setAttribute('data-theme', 'light');
-        
-        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    function initTheme() {
+        const icon = document.getElementById('theme-icon');
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.setAttribute('data-theme', 'light');
+            icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        }
     }
-}
+
+    function toggleTheme() {
+        const body = document.body;
+        const icon = document.getElementById('theme-icon');
+        const isLight = body.getAttribute('data-theme') === 'light';
+
+        if (isLight) {
+            body.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'dark');
+            icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+        } else {
+            body.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        }
+    }
 
     function filterLabs(subject, btn) {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1484,16 +1501,21 @@ B. Spinous process
     }
 
     function toggleAnswer(id, btn) {
-        const answerDiv = document.getElementById(id);
-        const answerText = answerDiv.innerText;
-        if (btn.innerText === "Show Answer") {
-            btn.innerText = answerText;
-            btn.style.backgroundColor = "var(--ans-border)";
-        } else {
-            btn.innerText = "Show Answer";
-            btn.style.backgroundColor = "#729fcf";
-        }
+    const answerDiv = document.getElementById(id);
+    const answerText = answerDiv.innerText;
+
+  
+    if (!btn.classList.contains('revealed')) {
+      
+        btn.innerText = answerText;
+        btn.classList.add('revealed');
+    } else {
+    
+        btn.innerText = "Show Answer";
+        btn.classList.remove('revealed');
     }
+}
 </script>
 </body>
-                                            </html>
+</html>
+
