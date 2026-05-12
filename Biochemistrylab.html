@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practical_Biochemsitry_BBB</title>
+    <title>Practical_Biochemsitry_End-Rotation_HDSF</title>
     <style>
         :root {
             --bg-body: #121212;
@@ -109,7 +109,7 @@
             white-space: nowrap;
             transition: all 0.2s;
             flex-shrink: 0;
-          
+            
         }
         .filter-btn.active {
             background-color: #729fcf;
@@ -129,6 +129,7 @@
             justify-content: center;
             transition: all 0.3s;
             position: relative;
+            
         }
         #filter-mode-btn::after {
             content: attr(data-tooltip);
@@ -283,7 +284,7 @@
 <script>
 
 const questions = [
-    
+  
     {
         id: 'q1',
         lab: '1', year: '22', badge: '2021-2022',
@@ -554,7 +555,7 @@ const questions = [
         answer: '30–299 mg/24 hours.'
     },
 
-    
+  
     {
         id: 'q44',
         lab: '7', year: 'U', badge: 'Unknown year',
@@ -603,7 +604,7 @@ function renderCard(q) {
     const imgHtml = q.img
         ? `<div class="image-section"><img src="${q.img}" alt="Exam Image"></div>`
         : '';
-    
+  
     return `
         <div class="quiz-card" data-lab="${q.lab}" data-year="${q.year}" data-id="${q.id}">
             <div class="question-section">
@@ -614,7 +615,7 @@ function renderCard(q) {
                 </div>
             </div>
             ${imgHtml}
-            <div class="badge-box">${q.badge}</div>
+            ${currentMode === 'lecture' ? `<div class="badge-box">${q.badge}</div>` : ''}
         </div>`;
 }
 
@@ -682,7 +683,7 @@ function toggleFilterMode() {
     const btn = document.getElementById('filter-mode-btn');
     const icon = document.getElementById('filter-icon');
 
-    // reset answer buttons
+    
     document.querySelectorAll('.ans-btn').forEach(b => {
         b.innerText = 'Show Answer';
         b.classList.remove('revealed');
@@ -716,6 +717,7 @@ function toggleAnswer(id, btn) {
         btn.classList.remove('revealed');
     }
 }
+
 
 function handleSearch() {
     const searchTerm = document.getElementById('search-input').value.toLowerCase();
