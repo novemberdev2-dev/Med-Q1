@@ -18,11 +18,7 @@
             --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
             --filter-bg: transparent;
-            --filter-txt-active: #1A1A1A;
-            --filter-bg-active:  #DDDDDD;
-            --filter-border-active: #DDDDDD;
-            --ans-btn-bg: #D3D3D3;
-            --ans-btn-txt: #1A1A1A;
+            
         }
 
         [data-theme="light"] {
@@ -37,17 +33,13 @@
             --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
             --filter-bg: transparent;
-            --filter-txt-active:  #ffffff;
-            --filter-bg-active: #4D4D4D;
-            --filter-border-active: #4D4D4D;
-            --ans-btn-bg:  #555555;
-            --ans-btn-txt: #ffffff;
+            
         }
 
         .filter-btn.active {
-            background-color: var(--filter-bg-active);
-            color: var(--filter-txt-active);
-            border-color: var(--filter-border-active);
+            background-color:  #729fcf;
+            color: #fff;
+            border-color:  #729fcf;
         }
 
         body {
@@ -173,14 +165,16 @@
         }
 
         .ans-btn {
-            background-color: var(--ans-btn-bg);
-            color: var(--ans-btn-txt);
+            background-color:  #729fcf;
+            color:  #fff;
             border: none;
             padding: 7px 20px;
             border-radius: 4px;
             margin-top: 20px;
             font-weight: 650;
             font-size: 16px;
+            transition: background-color 0.2s, color 0.2s;
+
         }
 
         .q-block.revealed .ans-btn {
