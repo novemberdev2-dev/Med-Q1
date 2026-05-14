@@ -265,7 +265,7 @@ const allQuestions = [
   { n: 3, s: "Introduction to anatomy", q: "Which of the following is correct about superficial fascia:", o: ["A. Dense connective tissue covering muscles","B. Fatty layer located directly under the skin","C. Fibrous layer around organs","D. Cartilaginous supportive tissue","E. Elastic tissue of joints"], a: "B" },
   { n: 4, s: "Introduction to anatomy", q: "Adduction is .........", o: ["A. Movement away from the midline in sagittal plane","B. Rotation around long axis","C. Circular movement of a joint","D. Forward movement in sagittal plane","E. Movement of a part of body toward the midline in coronal plane"], a: "E" },
   { n: 5, s: "Introduction to anatomy", q: "What's the type of fascia found in parotid gland? (Not in the lecture)", o: ["A. Pretracheal fascia","B. Prevertebral fascia","C. Investing fascia","D. Deep cervical fascia","E. Buccopharyngeal fascia"], a: "C" },
-  { n: 6, s: "Axil skeleton", q: " Which one of the following is a bone within a tendon:", o: ["A. Sesamoid bone","B. Flat bone","C. Long bone","D. Compact bone","E. Irregular bone"], a: "A" },
+  { n: 6, s: "Axil skeleton", q: " Is a bone within tendon:", o: ["A. Protuberance","B. Sesamoid bone","C. Groove","D. Periosteum","E. Tubercle"], a: "B" },
 
   { n: 7, s: "Axil skeleton", q: "The transverse process of the thoracic vertebrae articulates with:", o: ["A. Head of the rib","B. Tubercle of the rib","C. Neck of the rib","D. Angle of the rib","E. Body of the rib"], a: "B" },
   { n: 8, s: "Axil skeleton", q: "Which one of the following all cervical vertebrae have?", o: ["A. They all have a body","B. They all have an arch","C. Bifidius spine","D. Costal facet","E. Transverse foramen"], a: "E" },
@@ -295,7 +295,11 @@ const allQuestions = [
   { n: 29, s: "Joints", q: "Hip joint is:", o: ["A. Uniaxial joint","B. Biaxial joint","C. Plane joint","D. Multiaxial joint","E. Hinge joint"], a: "D" },
   { n: 30, s: "Joints", q: "The possible movements of radioulnar joints are:", o: ["A. Flexion and extension","B. Abduction and adduction","C. Pronation and supination","D. Rotation and circumduction","E. Elevation and depression"], a: "C" },
   { n: 31, s: "Joints", q: "Sternoclavicular joint is a:", o: ["A. Gliding joint","B. Saddle joint","C. Ball and socket joint","D. Hinge joint","E. Pivot joint"], a: "B" },
-  { n: 32, s: "Joints", q: "Head of the humerus articulates with:", o: ["A. Acromion","B. Coracoid process","C. Clavicle","D. Scapular spine","E. Glenoid cavity"], a: "E" },
+  
+  
+  { n: 32, s: "Joints", q: "Head of the humerus articulates with:", o: ["A. Glenoid cavity","B. Inferior angle of scapula","C. Superior angle of scapula","D. Head of radius","E. Troclea of humerus"], a: "A" },
+  
+  
   { n: 33, s: "Joints", q: "Inferior radioulnar joint stabilized by:", o: ["A. Interosseous membrane","B. Articular disk","C. Annular ligament","D. Joint capsule","E. Collateral ligaments"], a: "B" },
 
   { n: 34, s: "Digestive system", q: "Greater omentum attach the stomach to the:", o: ["A. Liver","B. Spleen","C. Transverse colon","D. Pancreas","E. Duodenum"], a: "C" },
@@ -304,13 +308,13 @@ const allQuestions = [
   { n: 37, s: "Digestive system", q: "Bile is stored in __________?", o: ["A. Liver","B. Gall bladder","C. Pancreas","D. Duodenum","E. Spleen"], a: "B" },
   { n: 38, s: "Digestive system", q: "Cystic duct joins common hepatic duct to form?", o: ["A. Hepatic duct","B. Pancreatic duct","C. Accessory bile duct","D. Duodenal duct","E. Common bile duct"], a: "E" },
   { n: 39, s: "Digestive system", q: "Which of the following organs is intraperitoneal:", o: ["A. Duodenum","B. Pancreas","C. Ascending colon","D. Stomach","E. Kidneys"], a: "D" },
-  { n: 40, s: "Digestive system", q: "The greater omentum is attached to:", o: ["A. Lesser curvature of the stomach","B. Liver","C. Greater curvature of the stomach","D. Pancreas","E. Duodenum"], a: "C" },
+  { n: 40, s: "Digestive system", q: "The greater omentum is attached to:", o: ["A. Lesser curvature of the stomach","B. Greater curvature of the stomach","C. Esophagus","D. Sigmoid colon","E. Ascending colon"], a: "B" },
   { n: 41, s: "Digestive system", q: "Parotid gland open into:", o: ["A. Into mouth vestibule opposite the second upper molar tooth","B. Oral cavity proper","C. Floor of mouth","D. Nasopharynx","E. Oropharynx"], a: "A" },
   { n: 42, s: "Digestive system", q: "The structure that is in relation to anterior abdominal wall it's base situated one third the way up joining the right anterior superior iliac spine to umbilicus:", o: ["A. Cecum","B. Ascending colon","C. Ileum","D. Sigmoid colon","E. Appendix"], a: "E" },
   { n: 43, s: "Digestive system", q: "Is a retroperitoneal organs:", o: ["A. Stomach","B. Duodenum","C. Spleen","D. Jejunum","E. Ileum"], a: "B" },
   { n: 44, s: "Digestive system", q: "Rectum is continuation of:", o: ["A. Descending colon","B. Transverse colon","C. Sigmoid colon","D. Ascending colon","E. Cecum"], a: "C" },
   { n: 45, s: "Digestive system", q: "Which of the following is retroperitoneal?", o: ["A. Transverse colon","B. Sigmoid colon","C. Jejunum","D. Ascending colon","E. Ileum"], a: "D" },
-  { n: 46, s: "Digestive system", q: "The pancreas lies:", o: ["A. Behind the stomach","B. In front of the stomach","C. Below the stomach","D. Above the stomach","E. Lateral to the stomach"], a: "A" },
+  { n: 46, s: "Digestive system", q: "The pancreas lies:", o: ["A. Behind the stomach","B. In front of the stomach","C. To the right of the stomach","D. To the left of the stomach","E. Behind the liver"], a: "A" },
   { n: 47, s: "Digestive system", q: "Which of the following is true about the duodenum?", o: ["A. It is intraperitoneal","B. It is wholly retroperitoneal","C. It is partly intraperitoneal","D. It is mesenteric","E. It is subperitoneal"], a: "B" },
   { n: 48, s: "Digestive system", q: "Which one is correct about the location of the appendix?", o: ["A. Pelvic","B. Pre-ileal","C. Post-ileal","D. Subcecal","E. Retrocecal"], a: "E" },
   { n: 49, s: "Digestive system", q: "Which one is right about peritoneal cavity?", o: ["A. Contains air","B. Contains organs","C. Contains fat","D. Contains only fluid","E. Contains muscles"], a: "D" },
@@ -322,7 +326,7 @@ const allQuestions = [
   { n: 53, s: "Nervous system", q: "Ventral ramus is:", o: ["A. Sensory nerve","B. Mixed nerve","C. Motor nerve","D. Autonomic nerve","E. Visceral nerve"], a: "B" },
   { n: 54, s: "Autonomic nervous system", q: "The fight or flight is being controlled by which part of CNS?", o: ["A. Parasympathetic system","B. Somatic nervous system","C. Sympathetic system","D. Central nervous system","E. Enteric nervous system"], a: "C" },
   { n: 55, s: "Nervous system", q: "The white matter is referred to the myelinated axons in?", o: ["A. PNS","B. Autonomic nervous system","C. Enteric nervous system","D. CNS","E. Peripheral receptors"], a: "D" },
-  { n: 56, s: "Nervous system", q: "Central nervous system is composed of:", o: ["A. Brain and spinal cord","B. Brain and nerves","C. Spinal cord and ganglia","D. Nerves and ganglia","E. Brain and ganglia"], a: "A" },
+  { n: 56, s: "Nervous system", q: "Central nervous system is composed of:", o: ["A. 12 pairs of cranial nerves","B. 31 pairs of spinal nerves","C. Brain and spinal cord","D. Sympathetic and parasympathetic nervous system","E. Somatic and autonomic nerves"], a: "C" },
   { n: 57, s: "Nervous system", q: "The part which ONLY sensory (afferent) nerve fibers are present in?", o: ["A. Ventral root","B. Dorsal root","C. Ventral ramus","D. Spinal nerve","E. Sympathetic trunk"], a: "B" },
   { n: 58, s: "Autonomic nervous system", q: "The sympathetic tract has:", o: ["A. 10 white rami communicantes","B. 12 white rami communicantes","C. 16 white rami communicantes","D. 18 white rami communicantes","E. 14 white rami communicantes"], a: "E" },
   { n: 59, s: "Nervous system", q: "Accumulation of cell bodies in the PNS?", o: ["A. Nuclei","B. Tracts","C. Fasciculi","D. Ganglia","E. Roots"], a: "D" },
@@ -375,12 +379,12 @@ const allQuestions = [
   { n: 95, s: "Genitourinary system", q: "The testicular artery is a branch of:", o: ["A. Common iliac artery", "B. Internal iliac artery", "C. External iliac artery", "D. Abdominal aorta", "E. Femoral artery"], a: "D" },
   { n: 96, s: "Cardiovascular system", q: "Choose the correct one about the subclavian vein:", o: ["A. Drains the pelvis", "B. Continuation of axillary vein", "C. Branch of internal jugular vein", "D. Drains the heart", "E. Branch of femoral vein"], a: "B" },
   { n: 97, s: "Cardiovascular system", q: "Choose the correct one about the internal iliac vein:", o: ["A. Drains the lower limb", "B. Drains the abdominal wall", "C. Drains the thorax", "D. Drains the upper limb", "E. Drains blood from the pelvic area"], a: "E" },
-  { n: 98, s: "Cardiovascular system", q: "Arises from the left ventricle:", o: ["A. Pulmonary artery", "B. Pulmonary vein", "C. Superior vena cava", "D. Aorta", "E. Inferior vena cava"], a: "D" },
-  { n: 99, s: "Respiratory system", q: "The following is a movable partition between the two lungs:", o: ["A. Pleura", "B. Pericardium", "C. Mediastinum", "D. Diaphragm", "E. Hilum"], a: "C" },
+  { n: 98, s: "Cardiovascular system", q: "Arises from the left ventricle:", o: ["A. Pulmonary trunk", "B. Superior vena cava", "C. Pulmonary vein", "D. Aorta", "E. Coronary artery"], a: "D" },
+  { n: 99, s: "Respiratory system", q: "The following is a movable partition between the two lungs:", o: ["A. Meninges", "B. Diaphragm", "C. Mediastinum", "D. Peritoneum", "E. Sternum"], a: "C" },
   { n: 100, s: "Respiratory system", q: "If gauze didn't work for epistaxis (severe nosebleeding) and you suspect that the posterior part is injured, which artery do you ligate? (Not in the lecture)", o: ["A. Facial artery", "B. Sphenopalatine artery", "C. Maxillary artery", "D. Greater palatine artery", "E. Superior labial artery"], a: "B" },
   { n: 101, s: "Cardiovascular system", q: "Which of the following forms the base of the heart:", o: ["A. Right atrium", "B. Left ventricle", "C. Right ventricle", "D. Pericardium", "E. Left atrium"], a: "E" },
   { n: 102, s: "Cardiovascular system", q: "The sternocostal surface of the heart is created by:", o: ["A. Left ventricle", "B. Left atrium", "C. Right atrium", "D. Right ventricle", "E. Interventricular septum"], a: "D" },
-  { n: 103, s: "Cardiovascular system", q: "The vein which drains the heart walls is called:", o: ["A. Great cardiac vein", "B. Small cardiac vein", "C. Coronary sinus", "D. Middle cardiac vein", "E. Anterior cardiac vein"], a: "C" },
+  { n: 103, s: "Cardiovascular system", q: "The vein which drains the heart walls is called:", o: ["A. Superior vena cava", "B. Superior vena cava", "C. Coronary sinus", "D. Pulmonary vein", "E. Brachiocephalic vein"], a: "C" },
   { n: 104, s: "Cardiovascular system", q: "The thickest wall is that of:", o: ["A. Right atrium", "B. Left ventricle", "C. Left atrium", "D. Right ventricle", "E. Interventricular septum"], a: "B" },
   { n: 105, s: "Cardiovascular system", q: "The heart is located in _____________ of the mediastinum.", o: ["A. Superior", "B. Anterior", "C. Inferior", "D. Posterior", "E. Middle"], a: "E" },
   { n: 106, s: "Muscles", q: "Which muscle is responsible for extension of the elbow?", o: ["A. Biceps brachii", "B. Brachialis", "C. Anconeus", "D. Triceps brachii", "E. Supinator"], a: "D" },
@@ -390,7 +394,7 @@ const allQuestions = [
   { n: 110, s: "Respiratory system", q: "Which is incorrect?", o: ["A. The diaphragm has a central tendon", "B. The diaphragm separates thorax and abdomen", "C. The diaphragm is the main muscle of respiration", "D. The tendon of diaphragm is attached to bone", "E. The diaphragm is dome-shaped"], a: "D" },
   { n: 111, s: "Muscles", q: "One of these muscles doesn't contribute to facial expression?", o: ["A. Orbicularis oris", "B. Zygomaticus major", "C. Occipitalis muscle", "D. Buccinator", "E. Frontalis"], a: "C" },
   { n: 112, s: "Muscles", q: "Which muscle in the forearm has a role in supination?", o: ["A. Pronator teres", "B. Biceps brachii", "C. Palmaris longus", "D. Brachialis", "E. Flexor carpi radialis"], a: "B" },
-  { n: 113, s: "Muscles", q: "These contract under voluntary control:", o: ["A. Smooth muscle", "B. Cardiac muscle", "C. Visceral muscle", "D. Involuntary muscle", "E. Skeletal muscle"], a: "E" },
+  { n: 113, s: "Muscles", q: "These contracts under the voluntary control:", o: ["A. Smooth muscle", "B. Skeletal muscle", "C. Cardiac muscle", "D. Myoepithelial cells", "E. Peritonium"], a: "B" },
   { n: 114, s: "Muscles", q: "Smooth muscle is:", o: ["A. Striated", "B. Cells are located at the periphery", "C. Found in the heart", "D. Involuntary", "E. Multinucleated"], a: "D" },
   { n: 115, s: "Muscles", q: "Muscles of mastication are supplied by ____________", o: ["A. Maxillary division of trigeminal nerve", "B. Facial nerve", "C. Mandibular division of trigeminal nerve", "D. Glossopharyngeal nerve", "E. Hypoglossal nerve"], a: "C" },
   { n: 116, s: "Muscles", q: "Most of the superficial muscles of the posterior compartment of the forearm arise from ___________", o: ["A. Medial epicondyle of the humerus", "B. Lateral epicondyle of the humerus", "C. Olecranon process", "D. Shaft of the ulna", "E. Shaft of the radius"], a: "B" },
@@ -620,3 +624,4 @@ renderQuiz();
 </script>
 </body>
 </html>
+
