@@ -3,40 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>End-Rotation_Genetics_2022-2025</title>
+    <title>Genetics_HDSF_2021-2025</title>
 
     <style>
-               :root {
+       :root {
+            --bg-body: #121212;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e283b;
+            --header-text: #38bdf8;
+            --border-color: #26282b;
+            --input-bg: #1a1c1e;
+            --input-border: #2a2f36;
+            --ans-bg: #1e283b;
+            --ans-text: #f0cf6a;
+            --filter-bg: transparent;
+            
+        }
 
-    --bg-body: #0c0d0e;
-    --text-main: #f1f5f9;
-    --text-opts: #f1f5f9;
-    --header-bg: #1e293b;
-    --header-text: #38bdf8;
-    --border-color: #26292b;
-    --input-bg: #1a1c1e;
-    --input-border: #2a2f36;
-    --ans-bg: #1e293b;
-    --ans-text: #f0cf6a;
-}
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #eef6e4;
+            --ans-text: #2e7d32;
+            --filter-bg: transparent;
+            
+        }
 
-[data-theme="light"] {
-
-    --bg-body: #ffffff;
-    --text-main: #000000;
-    --text-opts: #333333;
-    --header-bg: #2D2D2D;
-    --header-text: #ffffff;
-    --border-color: #e0e0e0;
-    --input-bg: #ffffff;
-    --input-border: #cccccc;
-    --ans-bg: #f1f8e9;
-    --ans-text: #2e7d32;
-}
+        .filter-btn.active {
+            background-color: #728fcf;
+            color: #fff;
+            border-color:  #728fcf;
+        }
 
         body {
             -webkit-user-select: none;
-            user-select: none;
             background-color: var(--bg-body);
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -44,12 +51,14 @@
             display: flex;
             justify-content: center;
             transition: background-color 0.3s ease;
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
-            max-width: none;
-            padding: 20px 30px;
+            max-width: 1150px;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         .header { 
@@ -58,7 +67,7 @@
             background-color: var(--header-bg);
             color: var(--header-text);
             padding: 16px;
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -87,7 +96,7 @@
             border: 1px solid var(--input-border);
             background-color: var(--input-bg);
             color: var(--text-main);
-            border-radius: 8px;
+            border-radius: 7px;
             outline: none;
         }
 
@@ -97,14 +106,47 @@
             color: var(--text-main);
             width: 48px;
             height: 48px;
-            border-radius: 8px;
-            cursor: pointer;
+            border-radius: 7px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
         }
 
-        .divider { border: none; border-top: 1px solid var(--border-color); margin-bottom: 25px; }
+        .filter-container {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 750;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        .divider { border: none; margin-bottom: 12px; }
 
         .q-block {
             margin-bottom: 40px;
@@ -114,25 +156,85 @@
 
         .q-block:last-child { border-bottom: none; }
         .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
-        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 25px; }
-        .ans-row { display: flex; justify-content: space-between; align-items: center; }
-        .ans-text { font-weight: 700; color: var(--ans-text); visibility: hidden; background-color: var(--ans-bg); padding: 6px 12px; border-radius: 4px; }
-        .q-block.revealed .ans-text { visibility: visible; }
-           .ans-btn { background-color: #729fcf; color: white; border: none; padding: 9px 16px; border-radius: 6px; font-weight: 700; font-size: 0.9rem}
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+
+        .ans-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ans-btn {
+            background-color:  #728fcf;
+            color:  #fff;
+            border: none;
+            padding: 7px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-weight: 650;
+            font-size: 16px;
+            transition: background-color 0.2s, color 0.2s;
+
+        }
+
+        .q-block.revealed .ans-btn {
+            background-color: var(--ans-bg);
+            color: var(--ans-text);
+            font-weight: 700;
+            padding: 7px 12px;
+            font-size: 16px;
+        }
 
         mark { background-color: #f0cf6a; color: #000; }
-        a { color: inherit; text-decoration: none; }
 
-        @media (max-width: 600px) { .header { flex-direction: column; gap: 12px; } }
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-opts);
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.6;
+            box-sizing: border-box;
+            width: 100%;
+            display: block; 
+        }
+
+        .section-heading-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mcq-count-badge {
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 2px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
     </style>
+
 </head>
 
-<body oncontextmenu="return false;"> 
+<body oncontextmenu="return false;">
+
 <div class="container">
     <div class="header">
         <div style="text-align: left;">
             <h3 style="margin: 0; font-size: 1.4rem;">Final & End-Rotation</h3>
-            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Genetics 🧬 • 2022-2025</p>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Genetics 🧬 • 2021-2025</p>
         </div>
     </div>
 
@@ -141,39 +243,27 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
         </div>
-          <button class="theme-toggle" onclick="toggleTheme()">
-    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-    </svg>
-</button>
+        
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
     </div>
-   
+
+    <div class="filter-container" id="filter-bar"></div>
+
     <hr class="divider">
     <div id="quiz-content"></div>
 </div>
 
 <script>
-function toggleTheme() {
-    const body = document.body;
-    const icon = document.getElementById('theme-icon');
-    const isLight = body.getAttribute('data-theme') === 'light';
 
-    if (isLight) {
-        body.removeAttribute('data-theme');
-        localStorage.setItem('theme', 'dark');
-        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-    } else {
-        body.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
-        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-    }
-}
-
-const data = [
-
-  {
+const allQuestions = [
+   {
     n: 1,
-    q: "In turner syndrome which one is not happening?",
+     s: "9",
+    q: "In turner syndrome, which one is not happening?",
     o: [
       "A. Short stature",
       "B. Eye folds",
@@ -183,20 +273,12 @@ const data = [
     ],
     a: "B"
   },
-  {
-    n: 2,
-    q: "Human gamete (egg-sperm) is:",
-    o: [
-      "A. 46 Chromosomes",
-      "B. 23 Pairs of chromosomes",
-      "C. Diploid cells",
-      "D. 23 Chromosomes",
-      "E. 44 Autosomes"
-    ],
-    a: "D"
-  },
+  
+   { n: 2, s: "4", q: "If an individual is missing two of the four alpha-globin chains, what type of thalassemia is diagnosed?", o: ["A. Alpha-thalassemia minima", "B. Hemoglobin H disease", "C. Alpha-thalassemia major", "D. Hydrops fetalis", "E. Alpha-thalassemia trait"], a: "E" },
+ 
   {
     n: 3,
+    s: "4",
     q: "HbB (Bart's hemoglobin) has ____________.",
     o: [
       "A. 4 Alpha",
@@ -209,6 +291,7 @@ const data = [
   },
   {
     n: 4,
+    s: "9",
     q: "DOWN's syndrome:",
     o: [
       "A. Monosomy X",
@@ -221,6 +304,7 @@ const data = [
   },
   {
     n: 5,
+    s:"1",
     q: "Monohybrid ratio is?",
     o: [
       "A. 9:3:3:1",
@@ -233,6 +317,7 @@ const data = [
   },
   {
     n: 6,
+    s: "1",
     q: "According to this notion, the traits acquired during one's lifetime become incorporated into one's hereditary information and are passed on to offspring?",
     o: [
       "A. Inheritance of acquired characteristics",
@@ -245,6 +330,7 @@ const data = [
   },
   {
     n: 7,
+    s: "10",
     q: "Which of the following is not quantitative?",
     o: [
       "A. Height",
@@ -257,6 +343,7 @@ const data = [
   },
   {
     n: 8,
+    s: "2",
     q: "In ichthyosis, what enzyme is deficient?",
     o: [
       "A. Hexosaminidase A",
@@ -269,6 +356,7 @@ const data = [
   },
   {
     n: 9,
+    s: "4",
     q: "What is the condition caused by three deletions in the alpha-thalassemia genes?",
     o: [
       "A. Alpha-thalassemia trait",
@@ -281,6 +369,7 @@ const data = [
   },
   {
     n: 10,
+    s: "2",
     q: "What is the genotype for a male affected with hemophilia?",
     o: [
       "A. XhXh",
@@ -293,6 +382,7 @@ const data = [
   },
   {
     n: 11,
+    s: "1",
     q: "What is the name of the concept that describes inheritance as Inside the egg or sperm exists a tiny, miniature adult, which is simply enlarged during development?",
     o: [
       "A. Cell theory",
@@ -305,6 +395,7 @@ const data = [
   },
   {
     n: 12,
+    s: "5",
     q: "Which of the following is not a trait of albinism?",
     o: [
       "A. Strabismus",
@@ -315,20 +406,10 @@ const data = [
     ],
     a: "C"
   },
+
   {
     n: 13,
-    q: "A chromosome has the segments AB.CDEFGHI, which mutates to AB.CDGEFHI, what is this type of mutation called?",
-    o: [
-      "A. Inversion",
-      "B. Deletion",
-      "C. Duplication",
-      "D. Translocation",
-      "E. Non-disjunction"
-    ],
-    a: "A"
-  },
-  {
-    n: 14,
+    s:"11",
     q: "What is the prenatal diagnosis method when fluid from the womb is taken?",
     o: [
       "A. Chorionic villus sampling",
@@ -339,22 +420,25 @@ const data = [
     ],
     a: "E"
   },
+
   {
-    n: 15,
-    q: "What kind of mutation causes cri-du-chat syndrome?",
+    n: 14,
+    s: "9",
+    q: "What kind of mutation causes cry du chat syndrome?",
     o: [
-      "A. Trisomy of chromosome 5",
-      "B. A partial deletion in the short arm (p) of chromosome 5 (5p-)",
-      "C. Robertsonian translocation",
-      "D. Inversion of chromosome 5",
-      "E. Ring chromosome 5"
+      "A. Deletion of the long arm (q arm) of chromosome 3",
+      "B. Deletion of the short arm (q arm) of chromosome 5",
+      "C. Deletion of the short arm (p arm) of chromosome 5",
+      "D. Duplication of the long arm (p arm) of chromosome 3",
+      "E. Duplication of the long arm (q arm) of chromosome 3"
     ],
-    a: "B"
+    a: "C"
   },
   
 
   {
-    n: 16,
+    n: 15,
+    s: "2",
     q: "Ichthyosis disease happen due to deficiency in:",
     o: [
       "A. Hexosaminidase A",
@@ -366,7 +450,8 @@ const data = [
     a: "D"
   },
   {
-    n: 17,
+    n: 16,
+    s: "10",
     q: "Sickle cells animea is a __________ disease.",
     o: [
       "A. Monogenic",
@@ -378,7 +463,8 @@ const data = [
     a: "A"
   },
   {
-    n: 18,
+    n: 17,
+    s: "4",
     q: "If you are missing two of the four alpha globin chain genes, and then you have which type of thalassemia?",
     o: [
       "A. Alpha thalassemia major",
@@ -390,7 +476,8 @@ const data = [
     a: "E"
   },
   {
-    n: 19,
+    n: 18,
+    s:"3",
     q: "Chiasma:",
     o: [
       "A. Separation of sister chromatids",
@@ -402,7 +489,8 @@ const data = [
     a: "B"
   },
   {
-    n: 20,
+    n: 19,
+    s:"9",
     q: "Edwards syndrome:",
     o: [
       "A. Presence of third 18th chromosome",
@@ -414,19 +502,19 @@ const data = [
     a: "A"
   },
   {
-    n: 21,
+    n: 20, s:"3",
     q: "Number of human body chromosomes:",
     o: [
-      "A. 23 Chromosome",
-      "B. 44 Chromosome",
-      "C. 48 Chromosome",
-      "D. 46 Chromosome",
-      "E. 92 Chromosome"
+      "A. 23 Chromosomes",
+      "B. 44 Chromosomes",
+      "C. 48 Chromosomes",
+      "D. 46 Chromosomes",
+      "E. 92 Chromosomes"
     ],
     a: "D"
   },
   {
-    n: 22,
+    n: 21, s:"1",
     q: "Dihybrid ratio:",
     o: [
       "A. 3:1",
@@ -437,32 +525,11 @@ const data = [
     ],
     a: "C"
   },
+   { n: 22, s:"7", q: "Which type of allele expresses its phenotype only when two copies are present in an individual?", o: ["A. Codominant", "B. Incomplete dominant", "C. Wild-type", "D. Recessive", "E. Hemizygous"], a: "D" },
+ 
+ 
   {
-    n: 23,
-    q: "How much bart body (bodies) found in someone which has 48 xxxy?",
-    o: [
-      "A. Zero",
-      "B. One",
-      "C. Three",
-      "D. Four",
-      "E. Two"
-    ],
-    a: "E"
-  },
-  {
-    n: 24,
-    q: "Which of the following structures is composed of erectile tissue, contains no hair or fat, and becomes engorged (tightens) during sexual intercourse?",
-    o: [
-      "A. Labia major",
-      "B. Labia minor",
-      "C. Clitoris",
-      "D. Hymen",
-      "E. Mons pubis"
-    ],
-    a: "B"
-  },
-  {
-    n: 25,
+    n: 23, s:"2",
     q: "Father doesn't send disease to his sons but ALL the girls are infected it should be:",
     o: [
       "A. Autosomal dominant",
@@ -474,7 +541,8 @@ const data = [
     a: "D"
   },
   {
-    n: 26,
+    n: 24,
+    s:"8",
     q: "If husband have A blood type and wife has B blood type which one is possible to the offsprings:",
     o: [
       "A. Only AB",
@@ -486,7 +554,8 @@ const data = [
     a: "C"
   },
   {
-    n: 27,
+    n: 25,
+    s:"8",
     q: "Determine blood group:",
     o: [
       "A. RBC",
@@ -498,7 +567,8 @@ const data = [
     a: "A"
   },
   {
-    n: 28,
+    n: 26,
+    s: "5",
     q: "Is not a sign of the albinism:",
     o: [
       "A. Strabismus",
@@ -510,7 +580,8 @@ const data = [
     a: "E"
   },
   {
-    n: 29,
+    n: 27,
+    s: "9",
     q: "Cry du chat syndrome:",
     o: [
       "A. Absence of long arm of chromosome number 5",
@@ -522,7 +593,8 @@ const data = [
     a: "B"
   },
   {
-    n: 30,
+    n: 28,
+    s: "4",
     q: "Deletion of three genes of alpha hemoglobin chain causes:",
     o: [
       "A. Alpha thalassemia trait",
@@ -533,22 +605,11 @@ const data = [
     ],
     a: "D"
   },
-  
-  
+     { n: 29, s:"2", q: "If an affected female passes a trait to all of her daughters but none of her sons, the inheritance pattern is referred to as?", o: ["A. X-linked dominant", "B. Autosomal recessive", "C. Y-linked inheritance", "D. Mitochondrial inheritance", "E. X-linked recessive"], a: "A" },
+
   {
-    n: 31,
-    q: "Which of the following is sexually transmited?",
-    o: [
-      "A. Giardiasis",
-      "B. Amoebiasis",
-      "C. Trichomonas",
-      "D. Malaria",
-      "E. Toxoplasmosis"
-    ],
-    a: "C"
-  },
-  {
-    n: 32,
+    n: 30,
+    s: "2",
     q: "Baldness pattern is:",
     o: [
       "A. Sex-Linked Recessive",
@@ -560,11 +621,12 @@ const data = [
     a: "E"
   },
   {
-    n: 33,
+    n: 31,
+    s: "5",
     q: "Is a disease which cause faulty in the chloride ion:",
     o: [
       "A. Sickle cell anemia",
-      "B. Cystic fibrous",
+      "B. Cystic fibrosis",
       "C. Phenylketonuria",
       "D. Tay-Sachs disease",
       "E. Hemochromatosis"
@@ -572,7 +634,8 @@ const data = [
     a: "B"
   },
   {
-    n: 34,
+    n: 32,
+    s: "2",
     q: "Hemophilia C is caused by deficiency of:",
     o: [
       "A. Factor XI",
@@ -584,7 +647,8 @@ const data = [
     a: "A"
   },
   {
-    n: 35,
+    n: 33,
+    s: "4",
     q: "Missing three alleles of alpha globin genes causes...",
     o: [
       "A. Alpha thalassemia trait",
@@ -596,7 +660,8 @@ const data = [
     a: "D"
   },
   {
-    n: 36,
+    n: 34,
+    s: "1",
     q: "According to this notion the traits acquired during one's lifetime become incorporated into one's hereditary information and are passed on to offspring",
     o: [
       "A. Germ-plasm theory",
@@ -608,7 +673,8 @@ const data = [
     a: "C"
   },
   {
-    n: 37,
+    n: 35,
+    s: "2",
     q: "Ichthyosis is caused by a deficiency of the enzyme:",
     o: [
       "A. Tyrosinase",
@@ -620,7 +686,8 @@ const data = [
     a: "E"
   },
   {
-    n: 38,
+    n: 36,
+    s: "10",
     q: "Which of the following is not quantitative?",
     o: [
       "A. Human height",
@@ -632,7 +699,8 @@ const data = [
     a: "B"
   },
   {
-    n: 39,
+    n: 37,
+    s: "2",
     q: "Parahemophilia is caused by deficiency of:",
     o: [
       "A. Factor VIII",
@@ -644,7 +712,8 @@ const data = [
     a: "D"
   },
   {
-    n: 40,
+    n: 38,
+    s: "2",
     q: "The males affected with hemophilia B would have a deficiency of clotting factor",
     o: [
       "A. VIII (8)",
@@ -656,7 +725,8 @@ const data = [
     a: "C"
   },
   {
-    n: 41,
+    n: 39,
+    s: "2",
     q: "A man with green colourblindness has......",
     o: [
       "A. Deutronopia",
@@ -668,7 +738,8 @@ const data = [
     a: "A"
   },
   {
-    n: 42,
+    n: 40,
+    s: "2",
     q: "Hemophilia A is caused by deficiency of:",
     o: [
       "A. Factor IX",
@@ -680,7 +751,8 @@ const data = [
     a: "E"
   },
   {
-    n: 43,
+    n: 41,
+    s: "4",
     q: "If you have a deletion of two alleles of the alpha-globin chain, you will experience:",
     o: [
       "A. Silent carrier",
@@ -692,7 +764,8 @@ const data = [
     a: "B"
   },
   {
-    n: 44,
+    n: 42,
+    s: "2",
     q: "In males, Hemophilia B is the most common. It is caused by a deficiency of which factor?",
     o: [
       "A. Factor VIII",
@@ -704,69 +777,22 @@ const data = [
     a: "D"
   },
   {
-    n: 45,
+    n: 43,
+    s: "5",
     q: "What is the primary cause of cystic fibrosis and what is it effected by:",
     o: [
-      "A. Mutation in the HBB gene, and it is affected by altitude",
-      "B. Mutation in the PAH gene, and it is affected by diet",
+      "A. Mutation in the HBB gene, and it may become more severe with altitude",
+      "B. Mutation in the PAH gene, and it may become more severe with diet",
       "C. Mutation in the CFTR gene, and it may become more severe with environmental factors",
-      "D. Mutation in the HEXA gene, and it is affected by age",
-      "E. Mutation in the F8 gene, and it is affected by trauma"
+      "D. Mutation in the HEXA gene, and it may become more severe with age",
+      "E. Mutation in the F8 gene, and it may become more severe with trauma"
     ],
     a: "C"
   },
   
-
-  {
-    n: 46,
-    q: "What is the basic organizational unit for DNA in chromosomes?",
-    o: [
-      "A. Histone octamer",
-      "B. Chromatin fiber",
-      "C. Solenoid",
-      "D. Centromere",
-      "E. Nucleosome"
-    ],
-    a: "E"
-  },
-  {
-    n: 47,
-    q: "What is the function of telomeres in DNA?",
-    o: [
-      "A. To code for essential metabolic enzymes",
-      "B. To maintain stability of the chromosome and prevent fusion of chromosomes",
-      "C. To initiate the process of DNA replication",
-      "D. To hold sister chromatids together during mitosis",
-      "E. To allow for the attachment of spindle fibers"
-    ],
-    a: "B"
-  },
-  {
-    n: 48,
-    q: "What is the function of bile salts?",
-    o: [
-      "A. To break down complex carbohydrates",
-      "B. To regulate blood glucose levels",
-      "C. To neutralize stomach acid in the duodenum",
-      "D. To help in digesting lipids",
-      "E. To stimulate the release of pepsinogen"
-    ],
-    a: "D"
-  },
-  {
-    n: 49,
-    q: "What is the prokaryotic mechanism that regulates genetic expression by using enhancers and activators called?",
-    o: [
-      "A. Translation",
-      "B. Transcription",
-      "C. Operon",
-      "D. Promoter",
-      "E. Attenuation"
-    ],
-    a: "C"
-  },
-  {
-    n: 50,
+{
+    n: 44,
+    s: "2",
     q: "Hemophilia B is caused by deficiency of:",
     o: [
       "A. Factor IX",
@@ -777,21 +803,11 @@ const data = [
     ],
     a: "A"
   },
-  {
-    n: 51,
-    q: "Which of the following is not a trait for prokaryotes?",
-    o: [
-      "A. Their genes are dispersed in the cytoplasm without a nucleus",
-      "B. They have one circular DNA",
-      "C. They lack membrane-bound organelles",
-      "D. They reproduce primarily through binary fission",
-      "E. They have histones"
-    ],
-    a: "E"
-  },
+   { n: 45, s: "10", q: "Which of the following is considered a non-quantitative (qualitative) trait in the human body?", o: ["A. Body height", "B. Skin pigmentation", "C. Blood type", "D. Systolic blood pressure", "E. Body mass index"], a: "C" },
 
     {
-    n: 52,
+    n: 46,
+    s: "2",
     q: "Treatment of hemophilia A can be by delivering factor ________?",
     o: [
       "A. VIII",
@@ -802,9 +818,11 @@ const data = [
     ],
     a: "A"
   },
+  
 
     {
-    n: 53,
+    n: 47,
+    s: "2",
     q: "Hemophilia B can be treated by:",
     o: [
       "A. Clotting factor VIII",
@@ -817,7 +835,8 @@ const data = [
   },
 
     {
-    n: 54,
+    n: 48,
+    s: "4",
     q: "If you are missing two of the four alpha globin chain genes, and then you have which type of thalassemia?",
     o: [
       "A. Alpha thalassemia major",
@@ -831,7 +850,8 @@ const data = [
 
   
   {
-    n: 55,
+    n: 49,
+    s:"11",
     q: "A small sample of fluid is removed by means of a sterile needle A needle is inserted through the abdominal wall, this procedure is?",
     o: [
       "A. Biopsy",
@@ -843,8 +863,9 @@ const data = [
     a: "E"
   },
   {
-    n: 56,
-    q: "Cri du, chat syndrome has:",
+    n: 50,
+    s: "9",
+    q: "Cry du chat syndrome has:",
     o: [
       "A. A part of p arm of chromosome 5 is absent",
       "B. An extra copy of chromosome 21",
@@ -854,71 +875,211 @@ const data = [
     ],
     a: "A"
   },
-    { n: 57, q: "Which of the following is considered a non-quantitative (qualitative) trait in the human body?", o: ["A. Body height", "B. Skin pigmentation", "C. Blood type", "D. Systolic blood pressure", "E. Body mass index"], a: "C" },
- { n: 58, q: "If an individual is missing two of the four alpha-globin chains, what type of thalassemia is diagnosed?", o: ["A. Alpha-thalassemia minima", "B. Hemoglobin H disease", "C. Alpha-thalassemia major", "D. Hydrops fetalis", "E. Alpha-thalassemia trait"], a: "E" },
+  
+  
+{ n: 51, s:"9", q: "Regarding Klinefelter syndrome:", o: ["A. It's an example of nondisjunction of XY chromosomes", "B. It's an example of nondisjunction of autosomes", "C. Individuals are abnormally short", "D. Affected individuals are characterized by testicular atrophy", "E. Presence of Simian crease is a diagnostic sign"], a: "D" },
+
  
- { n: 59, q: "Which of the following is an example of a positive (beneficial) mutation in humans?", o: ["A. Sickle cell anemia", "B. CCR5-delta 32 mutation", "C. Cystic fibrosis transmembrane conductance regulator", "D. Huntington's disease", "E. P53 tumor suppressor mutation"], a: "B" },
- { n: 60, q: "Which type of allele expresses its phenotype only when two copies are present in an individual?", o: ["A. Codominant", "B. Incomplete dominant", "C. Wild-type", "D. Recessive", "E. Hemizygous"], a: "D" },
- 
- { n: 61, q: "If an affected female passes a trait to all of her daughters but none of her sons, the inheritance pattern is referred to as?", o: ["A. X-linked dominant", "B. Autosomal recessive", "C. Y-linked inheritance", "D. Mitochondrial inheritance", "E. X-linked recessive"], a: "A" },
+ { n: 52, s:"U", q: "Which of the following is an example of a positive (beneficial) mutation in humans?", o: ["A. Sickle cell anemia", "B. CCR5-delta 32 mutation", "C. Cystic fibrosis transmembrane conductance regulator", "D. Huntington's disease", "E. P53 tumor suppressor mutation"], a: "B" },
+
+ {
+    n: 53,
+    s:"U",
+    q: "Human gamete (egg-sperm) is:",
+    o: [
+      "A. 46 Chromosomes",
+      "B. 23 Pairs of chromosomes",
+      "C. Diploid cells",
+      "D. 23 Chromosomes",
+      "E. 44 Autosomes"
+    ],
+    a: "D"
+  },
+   {
+    n: 54, s:"U",
+    q: "How much bart body (bodies) found in someone which has 48 xxxy?",
+    o: [
+      "A. Zero",
+      "B. One",
+      "C. Three",
+      "D. Four",
+      "E. Two"
+    ],
+    a: "E"
+  },
+   {
+    n: 55, s:"U",
+    q: "Which of the following is not a trait for prokaryotes?",
+    o: [
+      "A. Their genes are dispersed in the cytoplasm without a nucleus",
+      "B. They have one circular DNA",
+      "C. They lack membrane-bound organelles",
+      "D. They reproduce primarily through binary fission",
+      "E. They have histones"
+    ],
+    a: "E"
+  },
 
 ];
 
+const filterLectures = [
+  { label: "All",                      val: "All" },
+  { label: "Mendelian genetics",      val: "1" },
+  { label: "Sex-Linked inheritance",            val: "2" },
+  { label: "Linked genes",          val: "3" },
+  { label: "Thalassemia",              val: "4" },
+  { label: "Autosomal Recessive Inheritance",          val: "5" },
+  { label: "New born screening",     val: "6" },
+  { label: "Introduction to Genetics",             val: "7" },
+  { label: "Extending of mendelian genetics",            val: "8" },
+  { label: "Types of genetic diseases (disorders)",            val: "9" },
+  { label: "Autosomal partly dominant inheritance",            val: "10" },
+  { label: "Prenatal Genetic Testing",            val: "11" },
+  { label: "Gene therapy",            val: "12" },
+  { label: "Unkown",            val: "U" },
+  
+];
+
+let currentSubject = "All";
+
 const container = document.getElementById('quiz-content');
+const filterBar = document.getElementById('filter-bar');
+
+function renderFilterBar() {
+    filterBar.innerHTML = filterLectures.map(f =>
+        `<button class="filter-btn${f.val === currentSubject ? " active" : ""}" onclick="filterBySubject('${f.val}', this)">${f.label}</button>`
+    ).join('');
+}
+
+function getLectureLabel(val) {
+    if (val === "All") return "All";
+    const found = filterLectures.find(f => f.val === val);
+    return found ? found.label : val;
+}
+
+function updateSectionHeading() {
+    const existing = document.getElementById('section-heading');
+    const visibleBlocks = [...document.querySelectorAll('.q-block')].filter(b => b.style.display !== "none");
+    const count = visibleBlocks.length;
+
+    let noResultsMsg = document.getElementById('no-results-msg');
+    if (count === 0) {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.id = 'no-results-msg';
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.textContent = "No questions found.";
+            container.appendChild(noResultsMsg);
+        }
+    } else if (noResultsMsg) {
+        noResultsMsg.remove();
+    }
+
+    const label = getLectureLabel(currentSubject);
+    const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+
+    if (existing) {
+        existing.style.display = (count === 0) ? "none" : "flex";
+        existing.querySelector('.section-heading-title').textContent = label;
+        existing.querySelector('.mcq-count-badge').textContent = badgeText;
+    } else if (count > 0) {
+        const heading = document.createElement('div');
+        heading.id = 'section-heading';
+        heading.className = 'section-heading';
+        heading.innerHTML = `<span class="section-heading-title">${label}</span><span class="mcq-count-badge">${badgeText}</span>`;
+        container.insertBefore(heading, container.firstChild);
+    }
+}
 
 function renderQuiz() {
     container.innerHTML = '';
-    data.forEach(item => {
+    allQuestions.forEach(item => {
         const div = document.createElement('div');
         div.className = 'q-block';
-        div.dataset.searchText = (item.s + " " + item.q + " " + item.o.join(" ")).toLowerCase();
+        div.dataset.lecture = item.s;
+        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+
+        const matchesSubject = currentSubject === "All" || item.s === currentSubject;
+        div.style.display = matchesSubject ? "block" : "none";
+
         div.innerHTML = `
             <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
             <ul class="opts">
                 ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
             </ul>
             <div class="ans-row">
-                <span class="ans-text">Answer: ${item.a}</span>
-                <button class="ans-btn" onclick="this.closest('.q-block').classList.toggle('revealed')">Answer</button>
+                <button class="ans-btn" data-answer="Answer: ${item.a}" onclick="toggleAnswer(this)">Answer</button>
             </div>
         `;
         container.appendChild(div);
     });
+    updateSectionHeading();
+}
+
+function filterBySubject(val, btn) {
+    currentSubject = val;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    handleSearch();
 }
 
 function handleSearch() {
-    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const term = document.getElementById('search-input').value.toLowerCase();
     const blocks = document.querySelectorAll('.q-block');
-    
     blocks.forEach(block => {
-        const qTextElem = block.querySelector('.q-text');
-        const optElems = block.querySelectorAll('li');
-        
-        
-        qTextElem.innerHTML = qTextElem.dataset.original;
-        optElems.forEach(li => li.innerHTML = li.dataset.original);
-
-        if (searchTerm === "") {
+        resetBlock(block);
+        const matchesCategory = currentSubject === "All" || block.dataset.lecture === currentSubject;
+        const matchesSearch = term === "" || block.dataset.searchText.includes(term);
+        if (matchesCategory && matchesSearch) {
             block.style.display = "block";
-        } else if (block.dataset.searchText.includes(searchTerm)) {
-            block.style.display = "block";
-            const regex = new RegExp(`(${searchTerm})`, 'gi');
-            qTextElem.innerHTML = qTextElem.innerHTML.replace(regex, '<mark>$1</mark>');
-            optElems.forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+            if (term !== "") highlight(block, term);
         } else {
             block.style.display = "none";
         }
     });
+    updateSectionHeading();
 }
-    (function() {
-    const saved = localStorage.getItem('theme');
-    const icon = document.getElementById('theme-icon');
-    if (saved === 'light') {
-        document.body.setAttribute('data-theme', 'light');
-        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-    }
-})();
 
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+    block.classList.remove('revealed');
+    const btn = block.querySelector('.ans-btn');
+    if (btn && btn.dataset.answer) btn.textContent = 'Answer';
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').innerHTML.replace(regex, '<mark>$1</mark>');
+    block.querySelectorAll('li').forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+}
+
+function toggleAnswer(btn) {
+    const block = btn.closest('.q-block');
+    const isRevealed = block.classList.toggle('revealed');
+    btn.textContent = isRevealed ? btn.dataset.answer : 'Answer';
+}
+
+function toggleTheme() {
+    const isLight = document.body.getAttribute('data-theme') === 'light';
+    const newTheme = isLight ? '' : 'light';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.getElementById('theme-icon').innerHTML = isLight 
+        ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
+        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
+
+(function () {
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}());
+
+renderFilterBar();
 renderQuiz();
 </script>
 </body>
