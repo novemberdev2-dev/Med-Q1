@@ -3,40 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>End-Rotation_Microbiology_2022-2025</title>
+    <title>All questions_Microbiology_2021-2025</title>
 
     <style>
-          :root {
-    
-    --bg-body: #0c0d0e;
-    --text-main: #f1f5f9;
-    --text-opts: #f1f5f9;
-    --header-bg: #1e293b;
-    --header-text: #38bdf8;
-    --border-color: #26292b;
-    --input-bg: #1a1c1e;
-    --input-border: #2a2f36;
-    --ans-bg: #1e293b;
-    --ans-text: #f0cf6a;
-}
+       :root {
+            --bg-body: #121212;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #2a2f36;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --year-color: #ffffff;
+            --year-border: #ffffff;
+            --filter-bg: transparent;
+            
+        }
 
-[data-theme="light"] {
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #eef6e4;
+            --ans-text: #2e7d32;
+            --year-color: #000000;
+            --year-border: #000000;
+            --filter-bg: transparent;
+          
+        }
 
-    --bg-body: #ffffff;
-    --text-main: #000000;
-    --text-opts: #333333;
-    --header-bg: #2D2D2D;
-    --header-text: #ffffff;
-    --border-color: #e0e0e0;
-    --input-bg: #ffffff;
-    --input-border: #cccccc;
-    --ans-bg: #f1f8e9;
-    --ans-text: #2e7d32;
-}
+        .filter-btn.active {
+            background-color: #728fcf;
+            color: #fff;
+            border-color: #728fcf;
+        }
 
         body {
             -webkit-user-select: none;
-            user-select: none;
             background-color: var(--bg-body);
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -44,12 +55,14 @@
             display: flex;
             justify-content: center;
             transition: background-color 0.3s ease;
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
-            max-width: none;
-            padding: 20px 30px;
+            max-width: 1150px;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         .header { 
@@ -58,7 +71,7 @@
             background-color: var(--header-bg);
             color: var(--header-text);
             padding: 16px;
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -87,23 +100,58 @@
             border: 1px solid var(--input-border);
             background-color: var(--input-bg);
             color: var(--text-main);
-            border-radius: 8px;
+            border-radius: 7px;
             outline: none;
         }
 
-        .theme-toggle {
+        .theme-toggle, .icon-btn {
             background-color: var(--input-bg);
             border: 1px solid var(--input-border);
             color: var(--text-main);
             width: 48px;
             height: 48px;
-            border-radius: 8px;
+            border-radius: 7px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
         }
 
-        .divider { border: none; border-top: 1px solid var(--border-color); margin-bottom: 25px; }
+      
+        .filter-container {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            margin-top: 8px;
+        }
+
+        .divider { border: none; margin-bottom: 12px; }
 
         .q-block {
             margin-bottom: 40px;
@@ -114,24 +162,144 @@
         .q-block:last-child { border-bottom: none; }
         .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
         .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
-        .ans-row { display: flex; justify-content: space-between; align-items: center; }
+
+        .ans-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+         .ans-btn {
+            background-color: #728fcf;
+            color: #fff;
+            border: none;
+            padding: 7px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-weight: 650;
+            font-size: 16px;
+            transition: background-color 0.2s, color 0.2s;
+            
+        }
+
+        body.mode-lectures .q-block.revealed .ans-btn {
+            background-color: var(--ans-bg);
+            color: var(--ans-text);
+            font-weight: 700;
+            padding: 7px 12px;
+            font-size: 16px;
+        }
+
         .ans-text { font-weight: 700; color: var(--ans-text); visibility: hidden; background-color: var(--ans-bg); padding: 6px 12px; border-radius: 4px; }
         .q-block.revealed .ans-text { visibility: visible; }
-        .ans-btn { background-color: #729fcf; color: white; border: none; padding: 9px 19px; border-radius: 5px; font-weight: 700; }
+
+        .year-label {
+            font-size: 0.71rem;
+            font-weight: 700;
+            align-self: center;
+            letter-spacing: 0.04em;
+            margin-right: 4px;
+            margin-top: 28px;
+            white-space: nowrap;
+            color: var(--year-color);
+            border: 1px solid var(--border-color);
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
 
         mark { background-color: #f0cf6a; color: #000; }
-        a { color: inherit; text-decoration: none; }
 
-        @media (max-width: 600px) { .header { flex-direction: column; gap: 12px; } }
+        .icon-btn-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        #btn-tooltip {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #3a3f47;
+            color: #f1f5f9;
+            border-radius: 8px;
+            padding: 7px 14px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 9999;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        }
+
+        
+        #btn-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 7px solid transparent;
+            border-top-color: #3a3f47;
+        }
+
+        #btn-tooltip.visible { opacity: 1; }
+
+        
+        .icon-btn-wrap:hover #btn-tooltip {
+            opacity: 1;
+        }
+
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-opts);
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.6;
+            box-sizing: border-box;
+            width: 100%;
+            display: block; 
+        }
+
+        .section-heading-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mcq-count-badge {
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 2px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
     </style>
+
 </head>
 
-<body oncontextmenu="return false;"> 
+<body oncontextmenu="return false;" class="mode-lectures">
+
 <div class="container">
     <div class="header">
         <div style="text-align: left;">
-            <h3 style="margin: 0; font-size: 1.4rem;">Final & End-Rotation</h3>
-            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Microbiology 🦠 • 2022-2025</p>
+            <h3 style="margin: 0; font-size: 1.4rem;">Final &amp; End-Rotation</h3>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">️Microbiology 🦠 • 2022-2025</p>
         </div>
     </div>
 
@@ -140,1336 +308,421 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
         </div>
+        <div class="icon-btn-wrap">
+            <div id="btn-tooltip">By lectures</div>
+            <button class="icon-btn" id="filter-mode-btn" onclick="toggleFilterMode()">
+                <svg id="filter-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+            </button>
+        </div>
         <button class="theme-toggle" onclick="toggleTheme()">
-    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-    </svg>
-</button>
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
     </div>
-   
+
+    <div class="filter-container" id="filter-bar"></div>
+
     <hr class="divider">
     <div id="quiz-content"></div>
 </div>
 
 <script>
-function toggleTheme() {
-    const body = document.body;
-    const icon = document.getElementById('theme-icon');
-    const isLight = body.getAttribute('data-theme') === 'light';
 
-    if (isLight) {
-        body.removeAttribute('data-theme');
-        localStorage.setItem('theme', 'dark');
-        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-    } else {
-        body.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
-        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+const allQuestions = [
+{ n: 1, s: "19", y: "U", yt: "Unkown year", q: "Which one of the following statements regarding Nematodes is incorrect?", o: ["A. They possess a complete digestive tract", "B. They are hermaphrodites", "C. They have a cylindrical body shape", "D. They are covered by a non-cellular cuticle", "E. They possess a body cavity called a pseudocoel"], a: "B" },
+{ n: 2, s: "2", y: "24", yt: "2023-2024", q: "Which one of the following Gram negative bacteria has and gram positive doesn't?", o: ["A. Thick peptidoglycan layer", "B. Cytoplasmic membrane", "C. Teichoic acids", "D. Outer membrane", "E. Periplasmic space"], a: "D" },
+
+{ n: 3, s: "12", y: "24", yt: "2023-2024", q: "Obligated Intracellular bacteria which causes atypical pneumonia:", o: ["A. Streptococcus pneumoniae", "B. Haemophilus influenzae", "C. Chlamydia peumonia", "D. Legionella pneumophila", "E. Mycobacterium tuberculosis"], a: "C" },
+
+{ n: 4, s: "12", y: "24", yt: "2023-2024", q: "The smallest known free-living organisms that lack cell wall and cause atypical pneumonia:", o: ["A. Chlamydia trachomatis", "B. Coxiella burnetii", "C. Rickettsia prowazekii", "D. Klebsiella pneumoniae", "E. Mycoplasma pneumonia"], a: "E" },
+
+{ n: 5, s: "12", y: "24", yt: "2023-2024", q: "Rocky Mountain spotted fever is caused by:", o: ["A. Borrelia burgdorferi", "B. Rickettsia rickettsii", "C. Orientia tsutsugamushi", "D. Ehrlichia chaffeensis", "E. Francisella tularensis"], a: "B" },
+
+{ n: 6, s: "5", y: "24", yt: "2023-2024", q: "Which one is correct about bacteriostatic drugs?", o: ["A. Inhibit growth of the bacteria and depends on the phagocytes of the patient to kill the organism", "B. Cause direct irreversible damage to the bacterial cell wall", "C. Lead to immediate lysis and death of the microbial population", "D. Are always more effective than bactericidal agents", "E. Act exclusively by inhibiting viral replication"], a: "A" },
+
+{ n: 7, s: "11", y: "24", yt: "2023-2024", q: "What is the normal flora typically found in the high acidity environment of the vagina?", o: ["A. Staphylococcus aureus", "B. Escherichia coli", "C. Candida albicans", "D. Lactobacillus acidophilus", "E. Gardnerella vaginalis"], a: "D" },
+{ n: 8, s: "11", y: "22", yt: "2021-2022", q: "Regarding microbiota which is incorrect ?", o: ["A. Prevents colonization by pathogens", "B. Produces essential vitamins like K and B12", "C. Increases mucosal injury", "D. Stimulates the development of the immune system", "E. Assists in the digestion of complex carbohydrates"], a: "C" },
+
+{ n: 9, s: "U", y: "22", yt: "2021-2022", q: "Route of infection for Naegleria:", o: ["A. Ingestion of contaminated food", "B. Skin contact with moist soil", "C. Sexual transmission", "D. Vector-borne via mosquito bite", "E. Inhalation"], a: "E" },
+
+{ n: 10, s: "15", y: "22", yt: "2021-2022", q: "Cyclopes are intermediate hosts of?", o: ["A. Taenia saginata", "B. Dracunculus medinensis", "C. Wuchereria bancrofti", "D. Schistosoma mansoni", "E. Fasciola hepatica"], a: "B" },
+
+{ n: 11, s: "15", y: "22", yt: "2021-2022", q: "Asexual reproduction happens in?", o: ["A. Definitive host", "B. Reservoir host", "C. Paratenic host", "D. Intermediate host", "E. Accidental host"], a: "D" },
+
+{ n: 12, s: "16", y: "22", yt: "2021-2022", q: "Trematodes intermediate host is", o: ["A. Mosquitoes", "B. Sandflies", "C. Snails", "D. Ticks", "E. Cattle"], a: "C" },
+
+{ n: 13, s: "2", y: "22", yt: "2021-2022", q: "One of the following is wrong about Transposons:", o: ["A. Independent replication", "B. Jumping genes", "C. Move from one DNA site to another", "D. Can carry antibiotic resistance genes", "E. Found in both prokaryotes and eukaryotes"], a: "A" },
+
+{ n: 14, s: "5", y: "22", yt: "2021-2022", q: "A drug was produced against ergosterol, regarding ant-infection which of these will be affected by the drug?", o: ["A. Gram positive bacteria", "B. Gram negative bacteria", "C. Enveloped viruses", "D. Protozoa", "E. Fungi"], a: "E" },
+{ n: 15, s: "U", y: "24", yt: "2023-2024", q: "As part of control of C.psittaci and psuttacosis in birds:", o: ["A. Mass vaccination of all migratory species", "B. Psittacine birds hatched in the United States are preferred as pets", "C. Routine use of antifungal agents in bird feed", "D. Eradication of all wild parrot populations", "E. Isolation of birds from human contact for six months"], a: "B" },
+
+{ n: 16, s: "16", y: "24", yt: "2023-2024", q: "Characteristic of all trematodes:", o: ["A. They are all dioecious", "B. They lack a digestive tract", "C. They use arthropods as primary hosts", "D. Snail acts as 1st intermediate host", "E. They possess a segmented body"], a: "D" },
+
+{ n: 17, s: "U", y: "24", yt: "2023-2024", q: "Plasmid that are integrated with chromosomal DNA is called?", o: ["A. Transposon", "B. Bacteriophage", "C. Episome", "D. Virion", "E. Operon"], a: "C" },
+{ n: 18, s: "3", y: "22", yt: "2021-2022", q: "Significance of mutation in bacteria:", o: ["A. Can lead to the loss of essential metabolic pathways", "B. Only occurs during exposure to UV light", "C. Always results in the death of the bacterial cell", "D. Prevents any further horizontal gene transfer", "E. All of them"], a: "E" },
+{ n: 19, s: "2", y: "24", yt: "2023-2024", q: "A culture isolate from a patient with subacute endocarditis is reported to be gram positive and possess a complex carbohydrate cell wall. What is the most likely taxonomic group of the causal agent?", o: ["A. Eukaryote", "B. Prokaryote", "C. Virus", "D. Archaeon", "E. Viroid"], a: "B" },
+
+{ n: 20, s: "2", y: "24", yt: "2023-2024", q: "________ a gelatinous layer covering the entire bacterium composed of polysaccharide except in anthrax bacillus in which it's composed of polypeptide.", o: ["A. Capsule", "B. Cell wall", "C. Flagella", "D. Pili", "E. Cytoplasmic membrane"], a: "A" },
+
+{ n: 21, s: "2", y: "24", yt: "2023-2024", q: "A 68-year-old woman on chemotherapy for leukemia has developed sepsis due to an infection with Escherichia coli (Gram negative bacteria). The following day the patient develops septic shock and dies. The structure on the bacterium most likely responsible for causing septic shock in this patient is:", o: ["A. Capsule", "B. Spore", "C. Pili", "D. Lipopolysaccharide", "E. Teichoic acid"], a: "D" },
+
+{ n: 22, s: "14", y: "24", yt: "2023-2024", q: "Cell-mediated immunity against fungal infection is provided by?", o: ["A. Production of specific IgG antibodies", "B. Activation of the classical complement pathway", "C. Non-specifically by effector cells", "D. Release of histamine from mast cells", "E. Secretion of IgA on mucosal surfaces"], a: "C" },
+{ n: 23, s: "13", y: "25", yt: "2024-2025", q: "Bacteria that cause nosocomial (hospital-acquired) infections often produce extracellular substances that allow them to stick firmly to medical devices, such as intravenous catheters. Which one of the following is the name of this extracellular substance?", o: ["A. Endotoxin", "B. Peptidoglycan", "C. Exotoxin", "D. Flagellin", "E. Glycocalyx"], a: "E" },
+
+{ n: 24, s: "4", y: "25", yt: "2024-2025", q: "The proportion of antibiotic-resistant bacteria has increased along with the widespread use of antibiotics. This is due to the fact that antibiotics:", o: ["A. Are unstable in vivo", "B. Act as agents of selection for resistant organisms", "C. Are mainly bacteriostatic in vivo", "D. Are powerful mutagens", "E. Are mainly bactericidal in vivo"], a: "B" },
+
+{ n: 25, s: "6", y: "25", yt: "2024-2025", q: "What is the name of the form when parasites are active and are in their sexual and mature state?", o: ["A. Cyst stage", "B. Egg stage", "C. Larval stage", "D. Trophozoite stage", "E. Bradyzoite stage"], a: "D" },
+
+{ n: 26, s: "16", y: "25", yt: "2024-2025", q: "Which trematode has a terminal spine?", o: ["A. Schistosoma japonicum", "B. Schistosoma mansoni", "C. Schistosoma haematobium", "D. Paragonimus westermani", "E. Fasciola hepatica"], a: "C" },
+
+{ n: 27, s: "16", y: "25", yt: "2024-2025", q: "What is a specific characteristic of trematodes that parasitize on humans?", o: ["A. Their first intermediate host are snails", "B. They all possess a hooked scolex", "C. They lack a functional digestive system", "D. They are primarily transmitted by mosquitoes", "E. They multiply by binary fission in the blood"], a: "A" },
+
+{ n: 28, s: "10", y: "25", yt: "2024-2025", q: "Which of the following is true about endotoxins?", o: ["A. They are highly toxic per microgram", "B. They are secreted by living bacteria", "C. They are composed primarily of proteins", "D. They can be converted into toxoids for vaccines", "E. They activate interleukin-1"], a: "E" },
+
+{ n: 29, s: "7", y: "25", yt: "2024-2025", q: "Which of the following is true about DNA viruses?", o: ["A. They always carry their own RNA-dependent RNA polymerase", "B. They use the host cell's machinery to replication", "C. They only replicate within the host cell cytoplasm", "D. They are generally more prone to mutation than RNA viruses", "E. They lack a protein capsid structure"], a: "B" },
+
+{ n: 30, s: "7", y: "25", yt: "2024-2025", q: "What role does the viral capsule serve?", o: ["A. It provides motility to the viral particle", "B. It acts as a primary energy source for the virus", "C. It facilitates the synthesis of viral lipids", "D. It serves as antigens for which neutralizing antibodies can be produced", "E. It prevents the virus from attaching to host receptors"], a: "D" },
+
+{ n: 31, s: "15", y: "25", yt: "2024-2025", q: "Which of the following is false about endoparasites?", o: ["A. Fleas are responsible for transmitting Diplydium caninum", "B. Oriental rat fleas are vectors for Rickettsia typhi which cause murine typhus", "C. Adult fleas are endoparasites", "D. Pets may have a flea infestation", "E. Some fleas can transmit the bubonic plague"], a: "C" },
+{ n: 32, s: "11", y: "25S", yt: "2024-2025 Second Trial", q: "Staphylococcus, which is normally found in the respiratory tract, can bacogs pathpgenic and cause disease in the other tissue. This is called:", o: ["A. Mutualistic", "B. Commensalism", "C. Symbiotic", "D. Antagonistic", "E. Opportunistic"], a: "E" },
+{ n: 33, s: "12", y: "25", yt: "2024-2025", q: "What disease is typically not found in mycoplasma infection?", o: ["A. Encephalitis", "B. Tonsilitis", "C. Urethritis", "D. Pharyngitis", "E. Meningitis"], a: "B" },
+{ n: 34, s: "15", y: "25", yt: "2024-2025", q: "What is the role of the intermediate host?", o: ["A. It is where the immature and asexual stage of a parasite may live", "B. It is where the parasite reaches sexual maturity", "C. It is the host that suffers the most severe clinical symptoms", "D. It serves as the primary reservoir for the adult parasite", "E. It is the only host required for the entire life cycle"], a: "A" },
+{ n: 35, s: "18", y: "25", yt: "2024-2025", q: "Where does superficial mycoses occur?", o: ["A. The deep subcutaneous tissues", "B. The systemic circulation and organs", "C. The bone marrow and lymph nodes", "D. The cornified layer of the skin", "E. The mucous membranes of the lungs"], a: "D" },
+{ n: 36, s: "18", y: "25", yt: "2024-2025", q: "What is true about mycotoxins?", o: ["A. They are produced by all species of bacteria", "B. They are essential for fungal primary metabolism", "C. They weaken the immune system without producing symptoms", "D. They are easily destroyed by standard cooking temperatures", "E. They are used to treat fungal infections in humans"], a: "C" },
+{ n: 37, s: "17", y: "U", yt: "Unkown year", q: "Which one of the following plasmodium species cause a fatal disease?", o: ["A. Plasmodium vivax", "B. Plasmodium ovale", "C. Plasmodium malariae", "D. Plasmodium knowlesi", "E. Plasmodium Falciparum"], a: "E" },
+{ n: 38, s: "14", y: "U", yt: "Unkown year", q: "What increases fungi pathogenicity?", o: ["A. The absence of a nuclear membrane", "B. The ability to adhere to host cells by cell wall glycoproteins", "C. The ability to perform photosynthesis", "D. The production of peptidoglycan layers", "E. Their strictly anaerobic nature"], a: "B" },
+{ n: 39, s: "14", y: "U", yt: "Unkown year", q: "Fungal pathogenicity increased with:", o: ["A. Decrease in environmental temperature", "B. Sensitivity to ultraviolet radiation", "C. Reduced rate of spore formation", "D. Ability to adhere to host cells by way of cell wall glycoproteins", "E. Loss of the ability to form hyphae"], a: "D" },
+{ n: 40, s: "18", y: "U", yt: "Unkown year", q: "MYCOTOXINS are:", o: ["A. Primary metabolic enzymes used for growth", "B. Structural components of the fungal cell wall", "C. Secondary metabolites produced by food-borne filamentous fungi", "D. Toxins produced by gram-negative bacteria", "E. Protective proteins against viral infections"], a: "C" },
+{ n: 41, s: "11", y: "U", yt: "Unkown year", q: "Which one is a normal flora found in mouth and can cause dental plaque?", o: ["A. Streptococcus mutans", "B. Staphylococcus epidermidis", "C. Neisseria meningitidis", "D. Corynebacterium diphtheriae", "E. Bacteroides fragilis"], a: "A" },
+{ n: 42, s: "18", y: "U", yt: "Unkown year", q: "Which of the following is wrong regarding mycotoxins:", o: ["A. They are secondary metabolites", "B. They can be found in contaminated grain", "C. They can cause chronic health effects", "D. They are produced by filamentous fungi", "E. They are volatile"], a: "E" },
+{ n: 43, s: "17", y: "U", yt: "Unkown year", q: "All of these diseases are transmitted by flies except:", o: ["A. Typhoid fever", "B. Dysentery", "C. Trachoma", "D. Cholera", "E. African sleeping sickness"], a: "E" },
+{ n: 44, s: "11", y: "25S", yt: "2024-2025 Second Trial", q: "Oral flora contribute:", o: ["A. To the breakdown of tooth enamel via alkaline salts", "B. To the synthesis of essential dietary fibers", "C. To the transmission of systemic viral infections", "D. To immunity by inducing low levels of circulating and secretory Ab that may cross react with pathogen", "E. To the prevention of saliva production"], a: "D" },
+{ n: 45, s: "11", y: "U", yt: "Unkown year", q: "Which flora found in oral cavity and causes dental?", o: ["A. Escherichia coli", "B. Candida albicans", "C. Streptococcus mutant", "D. Lactobacillus casei", "E. Actinomyces israelii"], a: "C" },
+{ n: 46, s: "17", y: "U", yt: "Unkown year", q: "Which type of Plasmodium causes fatal disease:", o: ["A. Plasmodium vivax", "B. Plasmodium malariae", "C. Plasmodium ovale", "D. Plasmodium berghei", "E. Plasmodium falciparum"], a: "E" },
+{ n: 47, s: "14", y: "U", yt: "Unkown year", q: "Which of the following is increasing fungus pathogenicity:", o: ["A. Inability to grow at 37 degrees Celsius", "B. Ability to adhere to host cells by way of cell wall", "C. Secretion of high levels of insulin-like proteins", "D. Absence of a polysaccharide capsule", "E. Susceptibility to low pH environments"], a: "B" },
+{ n: 48, s: "2", y: "23", yt: "2022-2023", q: "Main difference between Gram positive and Gram negative bacteria is....", o: ["A. Ribosome size", "B. Presence of a nucleus", "C. Method of reproduction", "D. Cell wall", "E. Cytoplasmic composition"], a: "D" },
+{ n: 49, s: "2", y: "23", yt: "2022-2023", q: "A patient is diagnosed with endocarditis caused by a Gram-positive bacterial pathogen. Based on its cellular structure, this causal agent is classified as:", o: ["A. Eukaryotic", "B. Viral", "C. Prokaryotic", "D. Fungal", "E. Protozoan"], a: "C" },
+{ n: 50, s: "1", y: "24", yt: "2023-2024", q: "Bacteria growth by?", o: ["A. Binary fussion", "B. Budding", "C. Spore formation", "D. Sexual conjugation", "E. Mitotic division"], a: "A" },
+{ n: 51, s: "3", y: "U", yt: "Unkown year", q: "Microbiotal genetic is the study of genetic of microorganisms, which one of the following isn't studied?", o: ["A. Bacteria", "B. Prions", "C. Viruses", "D. Fungi", "E. Protozoa"], a: "B" },
+{ n: 52, s: "16", y: "U", yt: "Unkown year", q: "Which of the following is correct about schistosoma spp.?", o: ["A. They are transmitted by ingestion of undercooked fish", "B. They possess a segmented body structure", "C. Humans are the only intermediate host", "D. The diagnostic is through the eggs", "E. They are hermaphroditic organisms"], a: "D" },
+{ n: 53, s: "2", y: "23", yt: "2022-2023", q: "Patient got infection after diagnosis, the result was found cell wall which contain carbohydrate which organism do you think it will be:", o: ["A. Virus", "B. Prion", "C. Prokaryotic", "D. Helminth", "E. Viroid"], a: "C" },
+{ n: 54, s: "9", y: "23", yt: "2022-2023", q: "The lag which growth rate is equal to death rate which Exhaustion of nutrients and Accumulation of toxic products happen:", o: ["A. Lag phase", "B. Log phase", "C. Exponential phase", "D. Decline phase", "E. Stationary phase"], a: "E" },
+{ n: 55, s: "5", y: "23", yt: "2022-2023", q: "Resistance against Fluoroquinolones happen by mutation in:", o: ["A. Ribosomal 30s subunit", "B. DNA gyrase", "C. Beta-lactamase", "D. Cell membrane permeability", "E. RNA polymerase"], a: "B" },
+{ n: 56, s: "2", y: "23", yt: "2022-2023", q: "The difference between gram positive and negative bacteria is in:", o: ["A. Cell wall", "B. Ribosome structure", "C. Nuclear membrane", "D. Cytoplasmic volume", "E. Presence of mitochondria"], a: "A" },
+{ n: 57, s: "2", y: "23", yt: "2022-2023", q: "Found in gram negative but not gram positive:", o: ["A. Peptidoglycan", "B. Cytoplasmic membrane", "C. Teichoic acid", "D. Outer membrane", "E. Ribosomes"], a: "D" },
+{ n: 58, s: "2", y: "23", yt: "2022-2023", q: "Mycoplasma bacteria lacks in:", o: ["A. Cell membrane", "B. DNA and RNA", "C. Peptidoglycan", "D. Ribosomes", "E. Metabolic enzymes"], a: "C" },
+{ n: 59, s: "17", y: "23", yt: "2022-2023", q: "Which parasite is the major cause of blindness:", o: ["A. Toxoplasma gondii", "B. Trypanosoma cruzi", "C. Giardia lamblia", "D. Entamoeba histolytica", "E. Onchocercecas volvulus"], a: "E" },
+{ n: 60, s: "2", y: "23", yt: "2022-2023", q: "Acid fast stain called acid fast stain because:", o: ["A. It uses acid as the primary stain", "B. Once stained, it cannot be removed by acid", "C. It only stains organisms in acidic environments", "D. The cell wall contains high levels of acetic acid", "E. It turns all bacteria red immediately"], a: "B" },
+{ n: 61, s: "5", y: "23", yt: "2022-2023", q: "A man go to hiking then near their house in the wouds he found a tick on his body then he removed but after weeks he got symptoms like fever, so what do you think he got infected:", o: ["A. Lyme disease", "B. Malaria", "C. Dengue fever", "D. Rocky Mountain spotted fever", "E. Yellow fever"], a: "D" },
+{ n: 62, s: "19", y: "23", yt: "2022-2023", q: "Which one incorrect about nematoids:", o: ["A. They have a complete digestive tract", "B. They are cylindrical in shape", "C. They are hermaphrodite", "D. They possess a pseudocoelom", "E. They have a tough outer cuticle"], a: "C" },
+{ n: 63, s: "16", y: "23", yt: "2022-2023", q: "Which one is correct about schistosoma ssp.?", o: ["A. Their diagnosis stage by egg feces", "B. They are transmitted via insect vectors", "C. They infect the host through ingestion of cysts", "D. They reproduce primarily by budding", "E. They lack a snail intermediate host"], a: "A" },
+{ n: 64, s: "6", y: "23", yt: "2022-2023", q: "Which of the following is transmitted through arthropod vectors?", o: ["A. Trichomonas", "B. Enterobius", "C. Ascaris", "D. Balantidium", "E. Trypanosoma"], a: "E" },
+
+{ n: 65, s: "2", y: "24", yt: "2023-2024", q: "A structure is found only in cell wall of gram negative, It is responsible for many of the features of disease, such as fever and shock:", o: ["A. Exotoxin", "B. Lipopolysaccharide", "C. Peptidoglycan", "D. Mycolic acid", "E. Flagellin"], a: "B" },
+
+{ n: 66, s: "2", y: "24", yt: "2023-2024", q: "Are pieces of DNA that move readily between the DNAs of bacteria and plasmids:", o: ["A. Introns", "B. Exons", "C. Promoters", "D. Transposons", "E. Operators"], a: "D" },
+
+{ n: 67, s: "2", y: "24", yt: "2023-2024", q: "Which structure help bacteria to adhere to host cells?", o: ["A. Flagella", "B. Capsule", "C. Pilus", "D. Mesosome", "E. Plasmid"], a: "C" },
+{ n: 68, s: "16", y: "U", yt: "Unkown year", q: "This is a specific characteristic of human trematodes:", o: ["A. They require two definitive hosts", "B. They are strictly endoparasites of birds", "C. They have a simplified life cycle without larvae", "D. They lack suckers for attachment", "E. A snail is the intermediate host."], a: "E" },
+{ n: 69, s: "3", y: "U", yt: "Unkown year", q: "Prokaryotic genome is defined:", o: ["A. Chromosome only", "B. Plasmid", "C. Mitochondria DNA", "D. Nuclear envelope", "E. Histone proteins"], a: "B" },
+{ n: 70, s: "6", y: "23", yt: "2022-2023", q: "All of following protozoa are in blood and tissue except:", o: ["A. Cryptosporidium", "B. Leishmania", "C. Trypanosoma", "D. Plasmodium", "E. Toxoplasma"], a: "A" },
+{ n: 71, s: "12", y: "23", yt: "2022-2023", q: "Which of the followings is incorrect about chlamydia:", o: ["A. They are obligate intracellular parasites", "B. They possess both DNA and RNA", "C. They are sensitive to antibiotics", "D. Transport by arthropods", "E. They have a unique life cycle with EB and RB"], a: "D" },
+{ n: 72, s: "17", y: "23", yt: "2022-2023", q: "What causes river blindness:", o: ["A. Tsetse fly", "B. Mosquito", "C. Black fly", "D. Sandfly", "E. Housefly"], a: "C" },
+{ n: 73, s: "9", y: "U", yt: "Unkown year", q: "During bacterial infection the state at which bacterial cells adapt then enzymes and intermediate are formed and accumulate to start the growth:", o: ["A. Log phase", "B. Stationary phase", "C. Death phase", "D. Decline phase", "E. Lag phase"], a: "E" },
+{ n: 74, s: "2", y: "U", yt: "Unkown year", q: "A 68-year-old woman on chemotherapy for leukemia has developed sepsis due to an infection with Escherichia coli (Gram negative bacteria). The following day the patient develops septic shock and dies. The structure on the bacterium most likely responsible for causing septic shock in this patient is:", o: ["A. Capsule", "B. Lipopolysaccharide", "C. Pili", "D. Spore", "E. Teichoic acid"], a: "B" },
+{ n: 75, s: "13", y: "U", yt: "Unkown year", q: "Hospital acquired infection are less likely to be transmitted by this route:", o: ["A. Respiratory tract", "B. Urinary tract", "C. Surgical wounds", "D. Genital tract", "E. Intravenous catheters"], a: "D" },
+{ n: 76, s: "2", y: "U", yt: "Unkown year", q: "Gram-positive bacteria stain positive because:", o: ["A. They possess an outer lipopolysaccharide membrane", "B. Their cell wall is primarily composed of mycolic acid", "C. The cell wall retains crystal violet stain", "D. They have a thin layer of peptidoglycan", "E. They lack a cytoplasmic membrane"], a: "C" },
+{ n: 77, s: "2", y: "U", yt: "Unkown year", q: "Mycobacterium tuberculosis can't be gram stained and it's called acid-fast bacteria because:", o: ["A. It has too much lipid in cell wall so dye can't penetrate", "B. It lacks a cell wall entirely", "C. The cytoplasm is too acidic for basic dyes", "D. It only grows inside macrophages", "E. It is too small to be seen under a light microscope"], a: "A" },
+{ n: 78, s: "8", y: "U", yt: "Unkown year", q: "A patient's test for lgG was positive, what test must be used to find out whether the IgG is of old infection or new infection?", o: ["A. Western blot analysis", "B. IgM capture ELISA", "C. Complement fixation test", "D. Nucleic acid amplification", "E. IgG avidity test"], a: "E" },
+{ n: 79, s: "5", y: "U", yt: "Unkown year", q: "Which one is right about Bacteriostatics?", o: ["A. They cause immediate lysis of the bacterial cell wall", "B. They inhibit microorganism and depend on phagocytes of the patient to kill organism", "C. They are only effective against viral infections", "D. They work by damaging the host's cellular DNA", "E. They induce permanent mutations in the bacterial genome"], a: "B" },
+{ n: 80, s: "17", y: "U", yt: "Unkown year", q: "Scabies is caused by ___________.", o: ["A. Pediculus humanus", "B. Cimex lectularius", "C. Pulex irritans", "D. Human itch mite", "E. Phthirus pubis"], a: "D" },
+{ n: 81, s: "U", y: "U", yt: "Unkown year", q: "Human tissue infestation by the human botfly in which the skin lesion resembles a boil, with a small opening at the top:", o: ["A. Pediculosis", "B. Ascariasis", "C. Myaisis", "D. Leishmaniasis", "E. Dracunculiasis"], a: "C" },
+{ n: 82, s: "7", y: "U", yt: "Unkown year", q: "Which of the following compositions of COVID-19 coronavirus is destroyed by soap & alcohol?", o: ["A. Capsid proteins", "B. Double-stranded DNA", "C. Ribosomal RNA", "D. Peptidoglycan layer", "E. Envelope"], a: "E" },
+{ n: 83, s: "5", y: "24", yt: "2023-2024", q: "How do bacteria develop resistance against quinolone antibiotics?", o: ["A. Production of beta-lactamase enzymes", "B. Through DNA gyrase", "C. Alteration of the 50s ribosomal subunit", "D. Synthesis of a thicker capsule", "E. Inactivation of the drug via phosphorylation"], a: "B" },
+
+{ n: 84, s: "14", y: "24", yt: "2023-2024", q: "Fungi pathogenicity increases by:", o: ["A. Adhere to host cell by glycoprotein", "B. Secretion of bacterial endotoxins", "C. Conversion into a viral prophage", "D. Ability to perform anaerobic fermentation", "E. Absence of a defined nucleus"], a: "A" },
+
+{ n: 85, s: "19", y: "24", yt: "2023-2024", q: "Which one is incorrect about Nematode?", o: ["A. They have a complete digestive system", "B. They are often called roundworms", "C. They possess a pseudocoelom", "D. They are hermaphrodite", "E. They have a non-segmented body"], a: "D" },
+{ n: 86, s: "18", y: "25", yt: "2024-2025", q: "What is true about mycotoxins?", o: ["A. Mycotoxins are produced by certain fungi", "B. Mycotoxins severity vary from carcinogenic to allergenic", "C. Mycotoxins are only harmful to plants", "D. Mycotoxins are destroyed completely by normal cooking temperatures", "E. Mycotoxins are produced by viruses"], a: "B" },
+
+{ n: 87, s: "8", y: "U", yt: "Unkown year", q: "Which of the following viral structures plays an important role in the transmission of COVID-19 Coronavirus between animals and humans?", o: ["A. Matrix protein", "B. Hemagglutinin-esterase", "C. Lipid bilayer", "D. Non-structural proteins", "E. Spike"], a: "E" },
+{ n: 88, s: "8", y: "U", yt: "Unkown year", q: "Which of the following methods used in diagnosing a suspected outpatient viral infection case taking into consideration the time and cost?", o: ["A. Electron microscopy", "B. Latex agglutination test", "C. Viral cell culture", "D. Whole genome sequencing", "E. Animal inoculation"], a: "B" },
+{ n: 89, s: "8", y: "U", yt: "Unkown year", q: "To follow up a case of HIV infection on treatment which of the following is achieved?", o: ["A. CD4/CD8 ratio only", "B. Western blot confirmation", "C. Bone marrow biopsy", "D. Viral load (PCR)", "E. Total white blood cell count"], a: "D" },
+{ n: 90, s: "14", y: "22", yt: "2021-2022", q: "Regarding fungi, which one is the most accurate?", o: ["A. Fungi are prokaryotic organisms", "B. Fungi contain chlorophyll for energy production", "C. Fungi contain ergosterol in their cell membrane", "D. All fungi are obligate intracellular parasites", "E. Fungi possess a cell wall made of peptidoglycan"], a: "C" },
+
+{ n: 91, s: "9", y: "22", yt: "2021-2022", q: "What type of bacteria grow better at low oxygen level?", o: ["A. Microaerophilic", "B. Obligate aerobes", "C. Obligate anaerobes", "D. Facultative anaerobes", "E. Capnophilic"], a: "A" },
+
+{ n: 92, s: "9", y: "22", yt: "2021-2022", q: "Balance rate of death and growth?", o: ["A. Lag phase", "B. Log phase", "C. Death phase", "D. Decline phase", "E. Stationary phase"], a: "E" },
+
+{ n: 93, s: "5", y: "22", yt: "2021-2022", q: "lysozyme, which is present in human tears, results in degradation of?", o: ["A. Cytoplasmic membrane lipids", "B. Peptidoglycan", "C. Viral envelopes", "D. Ribosomal RNA", "E. Mitochondrial DNA"], a: "B" },
+
+{ n: 94, s: "19", y: "22", yt: "2021-2022", q: "All are true regarding cestodes except?", o: ["A. They are flat and ribbon-like", "B. They lack a digestive tract", "C. They are hermaphroditic", "D. They are unsegmented", "E. They use a scolex for attachment"], a: "D" },
+
+{ n: 95, s: "2", y: "22", yt: "2021-2022", q: "Bacillus anthracis has _________ in its cell wall.", o: ["A. Teichoic acid only", "B. Mycolic acid", "C. D-glutamic acid", "D. Lipopolysaccharide", "E. Chitin"], a: "C" },
+
+{ n: 96, s: "8", y: "22", yt: "2021-2022", q: "When you wash your hands with soup or alcohol, what structure of COVID 19 will be degraded?", o: ["A. The ribosome", "B. The nucleus", "C. The cell wall", "D. The mitochondria", "E. The envelope"], a: "E" },
+
+{ n: 97, s: "7", y: "22", yt: "2021-2022", q: "What structure present in all viruses?", o: ["A. Envelope", "B. Capsid", "C. Cytoplasm", "D. Flagella", "E. Nucleus"], a: "B" },
+
+{ n: 98, s: "U", y: "22", yt: "2021-2022", q: "What structure helps the bacteria/pathogen to adhere to other cells?", o: ["A. Mesosome", "B. Ribosome", "C. Plasmid", "D. Ligand", "E. Porin"], a: "D" },
+{ n: 99, s: "16", y: "24", yt: "2023-2024", q: "Which one of the following its diagnosis is by detection of eggs in feces?", o: ["A. Plasmodium falciparum", "B. Trichomonas vaginalis", "C. Schistosoma spp", "D. Leishmania donovani", "E. Toxoplasma gondii"], a: "C" },
+{ n: 100, s: "8", y: "24", yt: "2023-2024", q: "Which of the followings viral structures plays a big role in transmission of covid-19 Corona virus between animals and humans?", o: ["A. Spike", "B. Capsid", "C. Envelope", "D. RNA polymerase", "E. Matrix"], a: "A" },
+{ n: 101, s: "16", y: "U", yt: "Unkown year", q: "Which specific trematode is characterized by having a terminal spine on its eggs?", o: ["A. Schistosoma japonicum", "B. Schistosoma haematobium", "C. Schistosoma mansoni", "D. Paragonimus westermani", "E. Fasciola hepatica"], a: "B" },
+{ n: 102, s: "16", y: "U", yt: "Unkown year", q: "Which of the following is a specific characteristic of trematodes that parasitize humans?", o: ["A. They lack a digestive tract", "B. They require a vertebrate as their only host", "C. They reproduce only via binary fission", "D. They are primarily transmitted by airborne droplets", "E. Their first intermediate hosts are typically snails"], a: "E" },
+{ n: 103, s: "18", y: "U", yt: "Unkown year", q: "In which specific anatomical location does superficial mycoses typically occur?", o: ["A. The deep dermal layers", "B. The subcutaneous fat tissue", "C. The cornified layer of the skin", "D. The systemic circulation", "E. The visceral organs"], a: "C" },
+{ n: 104, s: "11", y: "U", yt: "Unkown year", q: "How does the oral flora primarily contribute to host defense?", o: ["A. By secreting high concentrations of systemic antibiotics", "B. By inducing low levels of circulating and secreted antibodies", "C. By permanently neutralizing all ingested viral particles", "D. By forming a physical barrier that prevents gas exchange", "E. By deactivating the toll-like receptors of the epithelium"], a: "B" },
+{ n: 105, s: "11", y: "U", yt: "Unkown year", q: "Which member of the normal flora is typically found in the high acidity environment of the vagina?", o: ["A. Staphylococcus aureus", "B. Escherichia coli", "C. Lactobacillus acidophilus", "D. Neisseria gonorrhoeae", "E. Streptococcus pyogenes"], a: "C" },
+{ n: 106, s: "14", y: "U", yt: "Unkown year", q: "How is the pathogenicity of certain fungi primarily increased?", o: ["A. By the loss of their cell wall", "B. By shrinking in size to avoid detection", "C. By converting into an autotrophic state", "D. By adhering to host cells via surface glycoproteins", "E. By producing chlorophyll"], a: "D" },
+{ n: 107, s: "11", y: "U", yt: "Unkown year", q: "When a bacterium like Staphylococcus, normally found in the respiratory tract, causes disease in other tissues, it is called?", o: ["A. Obligate pathogen", "B. Symbiotic infection", "C. Opportunistic infection", "D. Latent infection", "E. Commensalism"], a: "C" },
+{ n: 108, s: "U", y: "25S", yt: "2024-2025 Second Trial", q: "Which of the following components are found within the connective tissue of muscle?", o: ["A. Lymphatic vessels", "B. Collagen fibers", "C. Fibroblasts", "D. Nerve fibers", "E. All of the above"], a: "E" },
+{ n: 109, s: "U", y: "25S", yt: "2024-2025 Second Trial", q: "Which cells can act as antigens or immune triggers and are found near the surface of the skin?", o: ["A. Keratinocytes", "B. Melanocytes", "C. Merkel cells", "D. Adipocytes", "E. Osteocytes"], a: "A" },
+{ n: 110, s: "11", y: "U", yt: "Unkown year", q: "Disadvantages of microbial biota?", o: ["A. They always reduce nutrient absorption", "B. They produce harmful radiation", "C. They can cause diseases, especially in immunocompromised individuals", "D. They inhibit all immune responses", "E. They destroy all epithelial tissues"], a: "C" },
+{ n: 111, s: "9", y: "U", yt: "Unkown year", q: "Total cell count increases but viable count stays constant?", o: ["A. Lag phase", "B. 3rd stationary phase", "C. Logarithmic (Exponential) phase", "D. Death phase", "E. Adaptation phase"], a: "B" },
+{ n: 112, s: "13", y: "U", yt: "Unkown year", q: "Sources of infection (an endogenous source)?", o: ["A. Contaminated surgical instruments", "B. Hospital staff hands", "C. Patients own flora", "D. Airborne pathogens from other patients", "E. Infected animals"], a: "C" },
+{ n: 113, s: "2", y: "23", yt: "2022-2023", q: "Essential bacterial component is?", o: ["A. Nucleus", "B. Ribosome", "C. Golgi apparatus", "D. Chloroplast", "E. Mitochondria"], a: "B" },
+{ n: 114, s: "17", y: "U", yt: "Unkown year", q: "Elephantiasis is caused by the parasitic worm?", o: ["A. Wuchereria bancrofti", "B. Plasmodium falciparum", "C. Schistosoma mansoni", "D. Taenia solium", "E. Entamoeba histolytica"], a: "A" },
+{ n: 115, s: "6", y: "23", yt: "2022-2023", q: "Which of the following is sexually transmited?", o: ["A. Giardiasis", "B. Amoebiasis", "C. Trichomonas", "D. Malaria", "E. Toxoplasmosis"], a: "C" },
+{ n: 116, s: "19", y: "25", yt: "2024-2025", q: "What is false regarding cestodes?", o: ["A. Cestodes are dorsoventrally flattened parasites", "B. Adult cestodes inhabit the intestinal tract of vertebrates", "C. Cestodes have 4 larval stages and an adult stage", "D. Cestodes lack a digestive system", "E. Taenia species are examples of cestodes"], a: "C" },
+{ n: 117, s: "8", y: "25", yt: "2024-2025", q: "Which of the following is true about virus replication?", o: ["A. Viruses attach to specific sites of the cell membrane", "B. Viruses replicate independently without a host cell", "C. Viral replication occurs only in bacterial cells", "D. Viruses produce energy through respiration", "E. All viruses contain both DNA and RNA"], a: "A" },
+{ n: 118, s: "2", y: "25", yt: "2024-2025", q: "What is false about mycoplasma?", o: ["A. Mycoplasma are among the smallest free-living organisms", "B. Mycoplasma lack a rigid cell wall", "C. Mycoplasma can pass through bacterial filters", "D. Mycoplasma are resistant to penicillin", "E. Mycoplasma have cell walls made of peptidoglycans"], a: "E" },
+
+ 
+
+
+];
+
+const filterLectures = [
+  { label: "All",                                 val: "All" },
+  { label: "The Microbial world",                 val: "1" },
+  { label: "Structure of Bacterial Cells",            val: "2" },
+  { label: "Microbial genetics",            val: "3" },
+  { label: "Antimicrobial Drug Resistance",            val: "4" },
+  { label: "Antimicrobial Drugs",            val: "5" },
+  { label: "Protozoa",            val: "6" },
+  { label: "Medical Virology",            val: "7" },
+  { label: "Viral Replication & Diagnosis",            val: "8" },
+  { label: "Microbial Growth & Physiology",            val: "9" },
+  { label: "Pathogenesis",            val: "10" },
+  { label: "Normal Microbial Flora",                 val: "11" },
+  { label: "Atypical Bacteria",                 val: "12" },
+  { label: "Nosocomial Infections",            val: "13" },
+  { label: "Fungal Properties",            val: "14" },
+  { label: "Introduction to Parasitology",            val: "15" },
+  { label: "General Trematodes",            val: "16" },
+  { label: "Entomology",            val: "17" },
+  { label: "Classification of Mycosis",            val: "18" },
+  { label: "Cestodes & Nematodes",            val: "19" },
+  { label: "Unkown",            val: "U" },
+  
+];
+ 
+ 
+
+const filterYears = [
+  { label: "All",                   val: "All" },
+  { label: "2021 - 2022",           val: "22"  },
+  { label: "2022 - 2023",           val: "23"  },
+  { label: "2023 - 2024",           val: "24"  },
+  { label: "2024 - 2025",           val: "25"  },
+  { label: "2024 - 2025 Second Trial",      val: "25S"  },
+  { label: "Unkown year",      val: "U"  },
+];
+
+let currentMode = "lectures"; 
+let currentSubject = "All";
+
+const container = document.getElementById('quiz-content');
+const filterBar = document.getElementById('filter-bar');
+
+function renderFilterBar() {
+    const filters = currentMode === "lectures" ? filterLectures : filterYears;
+    filterBar.innerHTML = filters.map(f =>
+        `<button class="filter-btn${f.val === currentSubject ? " active" : ""}" onclick="filterBySubject('${f.val}', this)">${f.label}</button>`
+    ).join('');
+}
+
+function getLectureLabel(val) {
+    if (val === "All") return "All";
+    const found = filterLectures.find(f => f.val === val);
+    return found ? found.label : val;
+}
+
+function updateSectionHeading() {
+    const existing = document.getElementById('section-heading');
+    const visibleBlocks = [...document.querySelectorAll('.q-block')].filter(b => b.style.display !== "none");
+    const count = visibleBlocks.length;
+
+    let noResultsMsg = document.getElementById('no-results-msg');
+    
+    if (count === 0) {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.id = 'no-results-msg';
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.textContent = "No questions found.";
+            container.appendChild(noResultsMsg);
+        }
+    } else if (noResultsMsg) {
+        noResultsMsg.remove();
+    }
+
+    if (currentMode !== "lectures") {
+        if (existing) existing.remove();
+        return;
+    }
+
+    const label = getLectureLabel(currentSubject);
+    const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+
+    if (existing) {
+        existing.style.display = (count === 0) ? "none" : "flex";
+        existing.querySelector('.section-heading-title').textContent = label;
+        existing.querySelector('.mcq-count-badge').textContent = badgeText;
+    } else if (count > 0) {
+        const heading = document.createElement('div');
+        heading.id = 'section-heading';
+        heading.className = 'section-heading';
+        heading.innerHTML = `<span class="section-heading-title">${label}</span><span class="mcq-count-badge">${badgeText}</span>`;
+        container.insertBefore(heading, container.firstChild);
     }
 }
 
-const data = [
-  {
-    n: 1,
-    q: "Which one of the following statements regarding Nematodes is incorrect?",
-    o: [
-      "A. They possess a complete digestive tract",
-      "B. They are hermaphrodites",
-      "C. They have a cylindrical body shape",
-      "D. They are covered by a non-cellular cuticle",
-      "E. They possess a body cavity called a pseudocoel"
-    ],
-    a: "B"
-  },
-  {
-    n: 2,
-    q: "Which one of the following Gram negative bacteria has and gram positive doesn't?",
-    o: [
-      "A. Thick peptidoglycan layer",
-      "B. Cytoplasmic membrane",
-      "C. Teichoic acids",
-      "D. Outer membrane",
-      "E. Periplasmic space"
-    ],
-    a: "D"
-  },
-  {
-    n: 3,
-    q: "Obligated Intracellular bacteria which causes atypical pneumonia:",
-    o: [
-      "A. Streptococcus pneumoniae",
-      "B. Haemophilus influenzae",
-      "C. Chlamydia peumonia",
-      "D. Legionella pneumophila",
-      "E. Mycobacterium tuberculosis"
-    ],
-    a: "C"
-  },
-  {
-    n: 4,
-    q: "The smallest known free-living organisms that lack cell wall and cause atypical pneumonia:",
-    o: [
-      "A. Chlamydia trachomatis",
-      "B. Coxiella burnetii",
-      "C. Rickettsia prowazekii",
-      "D. Klebsiella pneumoniae",
-      "E. Mycoplasma pneumonia"
-    ],
-    a: "E"
-  },
-  {
-    n: 5,
-    q: "Rocky Mountain spotted fever is caused by:",
-    o: [
-      "A. Borrelia burgdorferi",
-      "B. Rickettsia rickettsii",
-      "C. Orientia tsutsugamushi",
-      "D. Ehrlichia chaffeensis",
-      "E. Francisella tularensis"
-    ],
-    a: "B"
-  },
-  {
-    n: 6,
-    q: "Which one is correct about bacteriostatic drugs?",
-    o: [
-      "A. Inhibit growth of the bacteria and depends on the phagocytes of the patient to kill the organism",
-      "B. Cause direct irreversible damage to the bacterial cell wall",
-      "C. Lead to immediate lysis and death of the microbial population",
-      "D. Are always more effective than bactericidal agents",
-      "E. Act exclusively by inhibiting viral replication"
-    ],
-    a: "A"
-  },
-  {
-    n: 7,
-    q: "What is the normal flora typically found in the high acidity environment of the vagina?",
-    o: [
-      "A. Staphylococcus aureus",
-      "B. Escherichia coli",
-      "C. Candida albicans",
-      "D. Lactobacillus acidophilus",
-      "E. Gardnerella vaginalis"
-    ],
-    a: "D"
-  },
-  {
-    n: 8,
-    q: "regarding microbiota which is incorrect ?",
-    o: [
-      "A. Prevents colonization by pathogens",
-      "B. Produces essential vitamins like K and B12",
-      "C. Increases mucosal injury",
-      "D. Stimulates the development of the immune system",
-      "E. Assists in the digestion of complex carbohydrates"
-    ],
-    a: "C"
-  },
-  {
-    n: 9,
-    q: "Route of infection for Naegleria:",
-    o: [
-      "A. Ingestion of contaminated food",
-      "B. Skin contact with moist soil",
-      "C. Sexual transmission",
-      "D. Vector-borne via mosquito bite",
-      "E. Inhalation"
-    ],
-    a: "E"
-  },
-  {
-    n: 10,
-    q: "Cyclopes are intermediate hosts of?",
-    o: [
-      "A. Taenia saginata",
-      "B. Dracunculus medinensis",
-      "C. Wuchereria bancrofti",
-      "D. Schistosoma mansoni",
-      "E. Fasciola hepatica"
-    ],
-    a: "B"
-  },
-  {
-    n: 11,
-    q: "Asexual reproduction happens in?",
-    o: [
-      "A. Definitive host",
-      "B. Reservoir host",
-      "C. Paratenic host",
-      "D. Intermediate host",
-      "E. Accidental host"
-    ],
-    a: "D"
-  },
-  {
-    n: 12,
-    q: "Trematodes intermediate host is",
-    o: [
-      "A. Mosquitoes",
-      "B. Sandflies",
-      "C. Snails",
-      "D. Ticks",
-      "E. Cattle"
-    ],
-    a: "C"
-  },
-  {
-    n: 13,
-    q: "One of the following is wrong about Transposons:",
-    o: [
-      "A. Independent replication",
-      "B. Jumping genes",
-      "C. Move from one DNA site to another",
-      "D. Can carry antibiotic resistance genes",
-      "E. Found in both prokaryotes and eukaryotes"
-    ],
-    a: "A"
-  },
-  {
-    n: 14,
-    q: "A drug was produced against ergosterol, regarding ant-infection which of these will be affected by the drug?",
-    o: [
-      "A. Gram positive bacteria",
-      "B. Gram negative bacteria",
-      "C. Enveloped viruses",
-      "D. Protozoa",
-      "E. Fungi"
-    ],
-    a: "E"
-  },
-  {
-    n: 15,
-    q: "As part of control of C.psittaci and psuttacosis in birds:",
-    o: [
-      "A. Mass vaccination of all migratory species",
-      "B. Psittacine birds hatched in the United States are preferred as pets",
-      "C. Routine use of antifungal agents in bird feed",
-      "D. Eradication of all wild parrot populations",
-      "E. Isolation of birds from human contact for six months"
-    ],
-    a: "B"
-  },
-  {
-    n: 16,
-    q: "Characteristic of all trematodes:",
-    o: [
-      "A. They are all dioecious",
-      "B. They lack a digestive tract",
-      "C. They use arthropods as primary hosts",
-      "D. Snail acts as 1st intermediate host",
-      "E. They possess a segmented body"
-    ],
-    a: "D"
-  },
-  {
-    n: 17,
-    q: "Plasmid that are integrated with chromosomal DNA is called?",
-    o: [
-      "A. Transposon",
-      "B. Bacteriophage",
-      "C. Episome",
-      "D. Virion",
-      "E. Operon"
-    ],
-    a: "C"
-  },
-  {
-    n: 18,
-    q: "Significance of mutation in bacteria:",
-    o: [
-      "A. Can lead to the loss of essential metabolic pathways",
-      "B. Only occurs during exposure to UV light",
-      "C. Always results in the death of the bacterial cell",
-      "D. Prevents any further horizontal gene transfer",
-      "E. All of them"
-    ],
-    a: "E"
-  },
-  {
-    n: 19,
-    q: "A culture isolate from a patient with subacute endocarditis is reported to be gram positive and possess a complex carbohydrate cell wall. What is the most likely taxonomic group of the causal agent?",
-    o: [
-      "A. Eukaryote",
-      "B. Prokaryote",
-      "C. Virus",
-      "D. Archaeon",
-      "E. Viroid"
-    ],
-    a: "B"
-  },
-  {
-    n: 20,
-    q: "________ a gelatinous layer covering the entire bacterium composed of polysaccharide except in anthrax bacillus in which it's composed of polypeptide.",
-    o: [
-      "A. Capsule",
-      "B. Cell wall",
-      "C. Flagella",
-      "D. Pili",
-      "E. Cytoplasmic membrane"
-    ],
-    a: "A"
-  },
-  {
-    n: 21,
-    q: "A 68-year-old woman on chemotherapy for leukemia has developed sepsis due to an infection with Escherichia coli (Gram negative bacteria). The following day the patient develops septic shock and dies. The structure on the bacterium most likely responsible for causing septic shock in this patient is",
-    o: [
-      "A. Capsule",
-      "B. Spore",
-      "C. Pili",
-      "D. Lipopolysaccharide",
-      "E. Teichoic acid"
-    ],
-    a: "D"
-  },
-  {
-    n: 22,
-    q: "Cell-mediated immunity against fungal infection is provided by?",
-    o: [
-      "A. Production of specific IgG antibodies",
-      "B. Activation of the classical complement pathway",
-      "C. Non-specifically by effector cells",
-      "D. Release of histamine from mast cells",
-      "E. Secretion of IgA on mucosal surfaces"
-    ],
-    a: "C"
-  },
-  {
-    n: 23,
-    q: "Bacteria that cause nosocomial (hospital-acquired) infections often produce extracellular substances that allow them to stick firmly to medical devices, such as intravenous catheters. Which one of the following is the name of this extracellular substance?",
-    o: [
-      "A. Endotoxin",
-      "B. Peptidoglycan",
-      "C. Exotoxin",
-      "D. Flagellin",
-      "E. Glycocalyx"
-    ],
-    a: "E"
-  },
-  {
-    n: 24,
-    q: "The proportion of antibiotic-resistant bacteria has increased along with the widespread use of antibiotics. This is due to the fact that antibiotics:",
-    o: [
-      "A. Are unstable in vivo",
-      "B. Act as agents of selection for resistant organisms",
-      "C. Are mainly bacteriostatic in vivo",
-      "D. Are powerful mutagens",
-      "E. Are mainly bactericidal in vivo"
-    ],
-    a: "B"
-  },
-  {
-    n: 25,
-    q: "What is the name of the form when parasites are active and are in their sexual and mature state?",
-    o: [
-      "A. Cyst stage",
-      "B. Egg stage",
-      "C. Larval stage",
-      "D. Trophozoite stage",
-      "E. Bradyzoite stage"
-    ],
-    a: "D"
-  },
-
-  {
-    n: 26,
-    q: "Which trematode has a terminal spine?",
-    o: [
-      "A. Schistosoma japonicum",
-      "B. Schistosoma mansoni",
-      "C. Schistosoma haematobium",
-      "D. Paragonimus westermani",
-      "E. Fasciola hepatica"
-    ],
-    a: "C"
-  },
-  {
-    n: 27,
-    q: "What is a specific characteristic of trematodes that parasitize on humans?",
-    o: [
-      "A. Their first intermediate host are snails",
-      "B. They all possess a hooked scolex",
-      "C. They lack a functional digestive system",
-      "D. They are primarily transmitted by mosquitoes",
-      "E. They multiply by binary fission in the blood"
-    ],
-    a: "A"
-  },
-  {
-    n: 28,
-    q: "Which of the following is true about endotoxins?",
-    o: [
-      "A. They are highly toxic per microgram",
-      "B. They are secreted by living bacteria",
-      "C. They are composed primarily of proteins",
-      "D. They can be converted into toxoids for vaccines",
-      "E. They activate interleukin-1"
-    ],
-    a: "E"
-  },
-  {
-    n: 29,
-    q: "Which of the following is true about DNA viruses?",
-    o: [
-      "A. They always carry their own RNA-dependent RNA polymerase",
-      "B. They use the host cell's machinery to replication",
-      "C. They only replicate within the host cell cytoplasm",
-      "D. They are generally more prone to mutation than RNA viruses",
-      "E. They lack a protein capsid structure"
-    ],
-    a: "B"
-  },
-  {
-    n: 30,
-    q: "What role does the viral capsule serve?",
-    o: [
-      "A. It provides motility to the viral particle",
-      "B. It acts as a primary energy source for the virus",
-      "C. It facilitates the synthesis of viral lipids",
-      "D. It serves as antigens for which neutralizing antibodies can be produced",
-      "E. It prevents the virus from attaching to host receptors"
-    ],
-    a: "D"
-  },
-  {
-    n: 31,
-    q: "Which of the following is false about endoparasites?",
-    o: [
-      "A. Fleas are responsible for transmitting Diplydium caninum",
-      "B. Oriental rat fleas are vectors for Rickettsia typhi which cause murine typhus",
-      "C. Adult fleas are endoparasites",
-      "D. Pets may have a flea infestation",
-      "E. Some fleas can transmit the bubonic plague"
-    ],
-    a: "C"
-  },
-  {
-    n: 32,
-    q: "Staphylococcus, which is normally found in the respiratory tract, can bacogs pathpgenic and cause disease in the other tissue. This is called:",
-    o: [
-      "A. Mutualistic",
-      "B. Commensalism",
-      "C. Symbiotic",
-      "D. Antagonistic",
-      "E. Opportunistic"
-    ],
-    a: "E"
-  },
-  {
-    n: 33,
-    q: "What disease is typically not found in mycoplasma infection?",
-    o: [
-      "A. Encephalitis",
-      "B. Tonsilitis",
-      "C. Urethritis",
-      "D. Tracheobronchitis",
-      "E. Atypical pneumonia"
-    ],
-    a: "B"
-  },
-  {
-    n: 34,
-    q: "What is the role of the intermediate host?",
-    o: [
-      "A. It is where the immature and asexual stage of a parasite may live",
-      "B. It is where the parasite reaches sexual maturity",
-      "C. It is the host that suffers the most severe clinical symptoms",
-      "D. It serves as the primary reservoir for the adult parasite",
-      "E. It is the only host required for the entire life cycle"
-    ],
-    a: "A"
-  },
-  {
-    n: 35,
-    q: "Where does superficial mycoses occur?",
-    o: [
-      "A. The deep subcutaneous tissues",
-      "B. The systemic circulation and organs",
-      "C. The bone marrow and lymph nodes",
-      "D. The cornified layer of the skin",
-      "E. The mucous membranes of the lungs"
-    ],
-    a: "D"
-  },
-  {
-    n: 36,
-    q: "What is true about mycotoxins?",
-    o: [
-      "A. They are produced by all species of bacteria",
-      "B. They are essential for fungal primary metabolism",
-      "C. They weaken the immune system without producing symptoms",
-      "D. They are easily destroyed by standard cooking temperatures",
-      "E. They are used to treat fungal infections in humans"
-    ],
-    a: "C"
-  },
-  {
-    n: 37,
-    q: "Which one of the following plasmodium species cause a fatal disease?",
-    o: [
-      "A. Plasmodium vivax",
-      "B. Plasmodium ovale",
-      "C. Plasmodium malariae",
-      "D. Plasmodium knowlesi",
-      "E. Plasmodium Falciparum"
-    ],
-    a: "E"
-  },
-  {
-    n: 38,
-    q: "What increase fungi pathogenicity?",
-    o: [
-      "A. The absence of a nuclear membrane",
-      "B. The ability to adhere to host cells by cell wall glycoproteins",
-      "C. The ability to perform photosynthesis",
-      "D. The production of peptidoglycan layers",
-      "E. Their strictly anaerobic nature"
-    ],
-    a: "B"
-  },
-  {
-    n: 39,
-    q: "Fungal pathogenicity increased with:",
-    o: [
-      "A. Decrease in environmental temperature",
-      "B. Sensitivity to ultraviolet radiation",
-      "C. Reduced rate of spore formation",
-      "D. Ability to adhere to host cells by way of cell wall glycoproteins",
-      "E. Loss of the ability to form hyphae"
-    ],
-    a: "D"
-  },
-  {
-    n: 40,
-    q: "MYCOTOXINS are:",
-    o: [
-      "A. Primary metabolic enzymes used for growth",
-      "B. Structural components of the fungal cell wall",
-      "C. Secondary metabolites produced by food-borne filamentous fungi",
-      "D. Toxins produced by gram-negative bacteria",
-      "E. Protective proteins against viral infections"
-    ],
-    a: "C"
-  },
-  {
-    n: 41,
-    q: "Which one is a normal flora found in mouth and can cause dental plaque?",
-    o: [
-      "A. Streptococcus mutans",
-      "B. Staphylococcus epidermidis",
-      "C. Neisseria meningitidis",
-      "D. Corynebacterium diphtheriae",
-      "E. Bacteroides fragilis"
-    ],
-    a: "A"
-  },
-  {
-    n: 42,
-    q: "Which of the following is wrong regarding mycotoxins:",
-    o: [
-      "A. They are secondary metabolites",
-      "B. They can be found in contaminated grain",
-      "C. They can cause chronic health effects",
-      "D. They are produced by filamentous fungi",
-      "E. They are volatile"
-    ],
-    a: "E"
-  },
-  {
-    n: 43,
-    q: "All of these diseases are transmitted by flies except:",
-    o: [
-      "A. Typhoid fever",
-      "B. Dysentery",
-      "C. Trachoma",
-      "D. Cholera",
-      "E. African sleeping sickness"
-    ],
-    a: "E"
-  },
-  {
-    n: 44,
-    q: "Oral flora contribute:",
-    o: [
-      "A. To the breakdown of tooth enamel via alkaline salts",
-      "B. To the synthesis of essential dietary fibers",
-      "C. To the transmission of systemic viral infections",
-      "D. To immunity by inducing low levels of circulating and secretory Ab that may cross react with pathogen",
-      "E. To the prevention of saliva production"
-    ],
-    a: "D"
-  },
-  {
-    n: 45,
-    q: "Which flora found in oral cavity and causes dental?",
-    o: [
-      "A. Escherichia coli",
-      "B. Candida albicans",
-      "C. Streptococcus mutant",
-      "D. Lactobacillus casei",
-      "E. Actinomyces israelii"
-    ],
-    a: "C"
-  },
-  {
-    n: 46,
-    q: "Which type of Plasmodium causes fatal disease:",
-    o: [
-      "A. Plasmodium vivax",
-      "B. Plasmodium malariae",
-      "C. Plasmodium ovale",
-      "D. Plasmodium berghei",
-      "E. Plasmodium falciparum"
-    ],
-    a: "E"
-  },
-  {
-    n: 47,
-    q: "Which of the following is increasing fungus pathogenicity:",
-    o: [
-      "A. Inability to grow at 37 degrees Celsius",
-      "B. Ability to adhere to host cells by way of cell wall",
-      "C. Secretion of high levels of insulin-like proteins",
-      "D. Absence of a polysaccharide capsule",
-      "E. Susceptibility to low pH environments"
-    ],
-    a: "B"
-  },
-  {
-    n: 48,
-    q: "Main difference between Gram positive and Gram negative bacteria is....",
-    o: [
-      "A. Ribosome size",
-      "B. Presence of a nucleus",
-      "C. Method of reproduction",
-      "D. Cell wall",
-      "E. Cytoplasmic composition"
-    ],
-    a: "D"
-  },
-  {
-    n: 49,
-    q: "A patient is diagnosed with endocarditis caused by a Gram-positive bacterial pathogen. Based on its cellular structure, this causal agent is classified as:",
-    o: [
-      "A. Eukaryotic",
-      "B. Viral",
-      "C. Prokaryotic",
-      "D. Fungal",
-      "E. Protozoan"
-    ],
-    a: "C"
-  },
-  {
-    n: 50,
-    q: "Bacteria growth by?",
-    o: [
-      "A. Binary fussion",
-      "B. Budding",
-      "C. Spore formation",
-      "D. Sexual conjugation",
-      "E. Mitotic division"
-    ],
-    a: "A"
-  },
-  
-
-  {
-    n: 51,
-    q: "Microbiotal genetic is the study of genetic of microorganisms, which one of the following isn't studied?",
-    o: [
-      "A. Bacteria",
-      "B. Prions",
-      "C. Viruses",
-      "D. Fungi",
-      "E. Protozoa"
-    ],
-    a: "B"
-  },
-  {
-    n: 52,
-    q: "Which of the following is correct about schistosoma spp.?",
-    o: [
-      "A. They are transmitted by ingestion of undercooked fish",
-      "B. They possess a segmented body structure",
-      "C. Humans are the only intermediate host",
-      "D. The diagnostic is through the eggs",
-      "E. They are hermaphroditic organisms"
-    ],
-    a: "D"
-  },
-  {
-    n: 53,
-    q: "Patient got infection after diagnosis, the result was found cell wall which contain carbohydrate which organism do you think it will be:",
-    o: [
-      "A. Virus",
-      "B. Prion",
-      "C. Prokaryotic",
-      "D. Helminth",
-      "E. Viroid"
-    ],
-    a: "C"
-  },
-  {
-    n: 54,
-    q: "The lag which growth rate is equal to death rate which Exhaustion of nutrients and Accumulation of toxic products happen:",
-    o: [
-      "A. Lag phase",
-      "B. Log phase",
-      "C. Exponential phase",
-      "D. Decline phase",
-      "E. Stationary phase"
-    ],
-    a: "E"
-  },
-  {
-    n: 55,
-    q: "Resistance against Fluoroquinolones happen by mutation in:",
-    o: [
-      "A. Ribosomal 30s subunit",
-      "B. DNA gyrase",
-      "C. Beta-lactamase",
-      "D. Cell membrane permeability",
-      "E. RNA polymerase"
-    ],
-    a: "B"
-  },
-  {
-    n: 56,
-    q: "The difference between gram positive and negative bacteria is in:",
-    o: [
-      "A. Cell wall",
-      "B. Ribosome structure",
-      "C. Nuclear membrane",
-      "D. Cytoplasmic volume",
-      "E. Presence of mitochondria"
-    ],
-    a: "A"
-  },
-  {
-    n: 57,
-    q: "Found in gram negative but not gram positive:",
-    o: [
-      "A. Peptidoglycan",
-      "B. Cytoplasmic membrane",
-      "C. Teichoic acid",
-      "D. Outer membrane",
-      "E. Ribosomes"
-    ],
-    a: "D"
-  },
-  {
-    n: 58,
-    q: "Mycoplasma bacteria lacks in:",
-    o: [
-      "A. Cell membrane",
-      "B. DNA and RNA",
-      "C. Peptidoglycan",
-      "D. Ribosomes",
-      "E. Metabolic enzymes"
-    ],
-    a: "C"
-  },
-  {
-    n: 59,
-    q: "Which parasite is the major cause of blindness:",
-    o: [
-      "A. Toxoplasma gondii",
-      "B. Trypanosoma cruzi",
-      "C. Giardia lamblia",
-      "D. Entamoeba histolytica",
-      "E. Onchoceraca volvulus"
-    ],
-    a: "E"
-  },
-  {
-    n: 60,
-    q: "Acid fast stain called acid fast stain because:",
-    o: [
-      "A. It uses acid as the primary stain",
-      "B. Once stained, it cannot be removed by acid",
-      "C. It only stains organisms in acidic environments",
-      "D. The cell wall contains high levels of acetic acid",
-      "E. It turns all bacteria red immediately"
-    ],
-    a: "B"
-  },
-  {
-    n: 61,
-    q: "A man go to hiking then near their house in the wouds he found a tick on his body then he removed but after weeks he got symptoms like fever, so what do you think he got infected:",
-    o: [
-      "A. Lyme disease",
-      "B. Malaria",
-      "C. Dengue fever",
-      "D. Rocky Mountain spotted fever",
-      "E. Yellow fever"
-    ],
-    a: "D"
-  },
-  {
-    n: 62,
-    q: "Which one incorrect about nematoids:",
-    o: [
-      "A. They have a complete digestive tract",
-      "B. They are cylindrical in shape",
-      "C. They are hermaphrodite",
-      "D. They possess a pseudocoelom",
-      "E. They have a tough outer cuticle"
-    ],
-    a: "C"
-  },
-  {
-    n: 63,
-    q: "Which one is correct about schistosoma ssp.?",
-    o: [
-      "A. Their diagnosis stage by egg feces",
-      "B. They are transmitted via insect vectors",
-      "C. They infect the host through ingestion of cysts",
-      "D. They reproduce primarily by budding",
-      "E. They lack a snail intermediate host"
-    ],
-    a: "A"
-  },
-  {
-    n: 64,
-    q: "Which of the following is transmitted through arthropod vectors?",
-    o: [
-      "A. Trichomonas",
-      "B. Enterobius",
-      "C. Ascaris",
-      "D. Balantidium",
-      "E. Trypanosoma"
-    ],
-    a: "E"
-  },
-  {
-    n: 65,
-    q: "A structure is found only in cell wall of gram negative, It is responsible for many of the features of disease, such as fever and shock:",
-    o: [
-      "A. Exotoxin",
-      "B. Lipopolysaccharide",
-      "C. Peptidoglycan",
-      "D. Mycolic acid",
-      "E. Flagellin"
-    ],
-    a: "B"
-  },
-  {
-    n: 66,
-    q: "Are pieces of DNA that move readily between the DNAs of bacteria and plasmids:",
-    o: [
-      "A. Introns",
-      "B. Exons",
-      "C. Promoters",
-      "D. Transposons",
-      "E. Operators"
-    ],
-    a: "D"
-  },
-  {
-    n: 67,
-    q: "Which structure help bacteria to adhere to host cells?",
-    o: [
-      "A. Flagella",
-      "B. Capsule",
-      "C. Pilus",
-      "D. Mesosome",
-      "E. Plasmid"
-    ],
-    a: "C"
-  },
-  {
-    n: 68,
-    q: "This is a specific characteristic of human trematodes:",
-    o: [
-      "A. They require two definitive hosts",
-      "B. They are strictly endoparasites of birds",
-      "C. They have a simplified life cycle without larvae",
-      "D. They lack suckers for attachment",
-      "E. A snail is the intermediate host."
-    ],
-    a: "E"
-  },
-  {
-    n: 69,
-    q: "Prokaryotic genome is defined:",
-    o: [
-      "A. Chromosome only",
-      "B. Plasmid",
-      "C. Mitochondria DNA",
-      "D. Nuclear envelope",
-      "E. Histone proteins"
-    ],
-    a: "B"
-  },
-  {
-    n: 70,
-    q: "All of following protozoa are in blood and tissue except:",
-    o: [
-      "A. Cryptosporidium",
-      "B. Leishmania",
-      "C. Trypanosoma",
-      "D. Plasmodium",
-      "E. Toxoplasma"
-    ],
-    a: "A"
-  },
-  {
-    n: 71,
-    q: "Which of the followings is incorrect about chlamydia:",
-    o: [
-      "A. They are obligate intracellular parasites",
-      "B. They possess both DNA and RNA",
-      "C. They are sensitive to antibiotics",
-      "D. Transport by arthropods",
-      "E. They have a unique life cycle with EB and RB"
-    ],
-    a: "D"
-  },
-  {
-    n: 72,
-    q: "What causes river blindness:",
-    o: [
-      "A. Tsetse fly",
-      "B. Mosquito",
-      "C. Black fly",
-      "D. Sandfly",
-      "E. Housefly"
-    ],
-    a: "C"
-  },
-  {
-    n: 73,
-    q: "During bacterial infection the state at which bacterial cells adapt then enzymes and intermediate are formed and accumulate to start the growth:",
-    o: [
-      "A. Log phase",
-      "B. Stationary phase",
-      "C. Death phase",
-      "D. Decline phase",
-      "E. Lag phase"
-    ],
-    a: "E"
-  },
-  {
-    n: 74,
-    q: "A 68-year-old woman on chemotherapy for leukemia has developed sepsis due to an infection with Escherichia coli (Gram negative bacteria). The following day the patient develops septic shock and dies. The structure on the bacterium most likely responsible for causing septic shock in this patient is",
-    o: [
-      "A. Capsule",
-      "B. Lipopolysaccharide",
-      "C. Pili",
-      "D. Spore",
-      "E. Teichoic acid"
-    ],
-    a: "B"
-  },
-  {
-    n: 75,
-    q: "Hospital acquired infection are less likely to be transmitted by this route:",
-    o: [
-      "A. Respiratory tract",
-      "B. Urinary tract",
-      "C. Surgical wounds",
-      "D. Genital tract",
-      "E. Intravenous catheters"
-    ],
-    a: "D"
-  },
-  
-  {
-    n: 76,
-    q: "Gram-positive bacteria stain positive because:",
-    o: [
-      "A. They possess an outer lipopolysaccharide membrane",
-      "B. Their cell wall is primarily composed of mycolic acid",
-      "C. The cell wall retains crystal violet stain",
-      "D. They have a thin layer of peptidoglycan",
-      "E. They lack a cytoplasmic membrane"
-    ],
-    a: "C"
-  },
-  {
-    n: 77,
-    q: "Mycobacterium tuberculosis can't be gram stained and it's called acid-fast bacteria because:",
-    o: [
-      "A. It has too much lipid in cell wall so dye can't penetrate",
-      "B. It lacks a cell wall entirely",
-      "C. The cytoplasm is too acidic for basic dyes",
-      "D. It only grows inside macrophages",
-      "E. It is too small to be seen under a light microscope"
-    ],
-    a: "A"
-  },
-  {
-    n: 78,
-    q: "A patient's test for lgG was positive, what test must be used to find out whether the IgG is of old infection or new infection?",
-    o: [
-      "A. Western blot analysis",
-      "B. IgM capture ELISA",
-      "C. Complement fixation test",
-      "D. Nucleic acid amplification",
-      "E. IgG avidity test"
-    ],
-    a: "E"
-  },
-  {
-    n: 79,
-    q: "Which one is right about Bacteriostatics?",
-    o: [
-      "A. They cause immediate lysis of the bacterial cell wall",
-      "B. They inhibit microorganism and depend on phagocytes of the patient to kill organism",
-      "C. They are only effective against viral infections",
-      "D. They work by damaging the host's cellular DNA",
-      "E. They induce permanent mutations in the bacterial genome"
-    ],
-    a: "B"
-  },
-  {
-    n: 80,
-    q: "Scabies is caused by ___________.",
-    o: [
-      "A. Pediculus humanus",
-      "B. Cimex lectularius",
-      "C. Pulex irritans",
-      "D. Human itch mite",
-      "E. Phthirus pubis"
-    ],
-    a: "D"
-  },
-  {
-    n: 81,
-    q: "Human tissue infestation by the human botfly in which the skin lesion resembles a boil, with a small opening at the top:",
-    o: [
-      "A. Pediculosis",
-      "B. Ascariasis",
-      "C. Myaisis",
-      "D. Leishmaniasis",
-      "E. Dracunculiasis"
-    ],
-    a: "C"
-  },
-  {
-    n: 82,
-    q: "Which of the following compositions of COVID-19 coronavirus is destroyed by soap & alcohol?",
-    o: [
-      "A. Capsid proteins",
-      "B. Double-stranded DNA",
-      "C. Ribosomal RNA",
-      "D. Peptidoglycan layer",
-      "E. Envelope"
-    ],
-    a: "E"
-  },
-  {
-    n: 83,
-    q: "How do bacteria develop resistance against quinolone antibiotics?",
-    o: [
-      "A. Production of beta-lactamase enzymes",
-      "B. Through DNA gyrase",
-      "C. Alteration of the 50s ribosomal subunit",
-      "D. Synthesis of a thicker capsule",
-      "E. Inactivation of the drug via phosphorylation"
-    ],
-    a: "B"
-  },
-  {
-    n: 84,
-    q: "Fungi pathogenicity increases by:",
-    o: [
-      "A. Adhere to host cell by glycoprotein",
-      "B. Secretion of bacterial endotoxins",
-      "C. Conversion into a viral prophage",
-      "D. Ability to perform anaerobic fermentation",
-      "E. Absence of a defined nucleus"
-    ],
-    a: "A"
-  },
-  {
-    n: 85,
-    q: "Which one is incorrect about Nematode?",
-    o: [
-      "A. They have a complete digestive system",
-      "B. They are often called roundworms",
-      "C. They possess a pseudocoelom",
-      "D. They are hermaphrodite",
-      "E. They have a non-segmented body"
-    ],
-    a: "D"
-  },
-  {
-    n: 86,
-    q: "Which of the following compositions of COVID-19 coronavirus is destroyed by soap & alcohol?",
-    o: [
-      "A. Nucleocapsid",
-      "B. Viral polymerase",
-      "C. Envelope",
-      "D. Surface spikes only",
-      "E. Genomic RNA"
-    ],
-    a: "C"
-  },
-  {
-    n: 87,
-    q: "Which of the following viral structures plays an important role in the transmission of COVID-19 Coronavirus between animals and humans?",
-    o: [
-      "A. Matrix protein",
-      "B. Hemagglutinin-esterase",
-      "C. Lipid bilayer",
-      "D. Non-structural proteins",
-      "E. Spike"
-    ],
-    a: "E"
-  },
-  {
-    n: 88,
-    q: "Which of the following methods used in diagnosing a suspected outpatient viral infection case taking into consideration the time and cost?",
-    o: [
-      "A. Electron microscopy",
-      "B. Latex agglutination test",
-      "C. Viral cell culture",
-      "D. Whole genome sequencing",
-      "E. Animal inoculation"
-    ],
-    a: "B"
-  },
-  {
-    n: 89,
-    q: "To follow up a case of HIV infection on treatment which of the following is achieved?",
-    o: [
-      "A. CD4/CD8 ratio only",
-      "B. Western blot confirmation",
-      "C. Bone marrow biopsy",
-      "D. Viral load (PCR)",
-      "E. Total white blood cell count"
-    ],
-    a: "D"
-  },
-  {
-    n: 90,
-    q: "Regarding fungi, which one is the most accurate?",
-    o: [
-      "A. Fungi are prokaryotic organisms",
-      "B. Fungi contain chlorophyll for energy production",
-      "C. Fungi contain ergosterol in their cell membrane",
-      "D. All fungi are obligate intracellular parasites",
-      "E. Fungi possess a cell wall made of peptidoglycan"
-    ],
-    a: "C"
-  },
-  {
-    n: 91,
-    q: "What type of bacteria grow better at low oxygen level?",
-    o: [
-      "A. Microaerophilic",
-      "B. Obligate aerobes",
-      "C. Obligate anaerobes",
-      "D. Facultative anaerobes",
-      "E. Capnophilic"
-    ],
-    a: "A"
-  },
-  {
-    n: 92,
-    q: "Balance rate of death and growth?",
-    o: [
-      "A. Lag phase",
-      "B. Log phase",
-      "C. Death phase",
-      "D. Decline phase",
-      "E. Stationary phase"
-    ],
-    a: "E"
-  },
-  {
-    n: 93,
-    q: "lysozyme, which is present in human tears, results in degradation of?",
-    o: [
-      "A. Cytoplasmic membrane lipids",
-      "B. Peptidoglycan",
-      "C. Viral envelopes",
-      "D. Ribosomal RNA",
-      "E. Mitochondrial DNA"
-    ],
-    a: "B"
-  },
-  {
-    n: 94,
-    q: "All are true regarding cestodes except?",
-    o: [
-      "A. They are flat and ribbon-like",
-      "B. They lack a digestive tract",
-      "C. They are hermaphroditic",
-      "D. They are unsegmented",
-      "E. They use a scolex for attachment"
-    ],
-    a: "D"
-  },
-  {
-    n: 95,
-    q: "Bacillus anthracis has _________ in its cell wall.",
-    o: [
-      "A. Teichoic acid only",
-      "B. Mycolic acid",
-      "C. D-glutamic acid",
-      "D. Lipopolysaccharide",
-      "E. Chitin"
-    ],
-    a: "C"
-  },
-  {
-    n: 96,
-    q: "When you wash your hands with soup or alcohol, what structure of COVID 19 will be degraded?",
-    o: [
-      "A. The ribosome",
-      "B. The nucleus",
-      "C. The cell wall",
-      "D. The mitochondria",
-      "E. The envelope"
-    ],
-    a: "E"
-  },
-  {
-    n: 97,
-    q: "What structure present in all viruses?",
-    o: [
-      "A. Envelope",
-      "B. Capsid",
-      "C. Cytoplasm",
-      "D. Flagella",
-      "E. Nucleus"
-    ],
-    a: "B"
-  },
-  {
-    n: 98,
-    q: "What structure helps the bacteria/pathogen to adhere to other cells?",
-    o: [
-      "A. Mesosome",
-      "B. Ribosome",
-      "C. Plasmid",
-      "D. Ligand",
-      "E. Porin"
-    ],
-    a: "D"
-  },
-  {
-    n: 99,
-    q: "Which one of the following its diagnosis is by detection of eggs in feces?",
-    o: [
-      "A. Plasmodium falciparum",
-      "B. Trichomonas vaginalis",
-      "C. Schistosoma spp",
-      "D. Leishmania donovani",
-      "E. Toxoplasma gondii"
-    ],
-    a: "C"
-  },
-  {
-    n: 100,
-    q: "Which of the followings viral structures plays a big role in transmission of covid-19 Corona virus between animals and humans?",
-    o: [
-      "A. Spike",
-      "B. Capsid",
-      "C. Envelope",
-      "D. RNA polymerase",
-      "E. Matrix"
-    ],
-    a: "A"
-  },
-       { n: 101, q: "Which specific trematode is characterized by having a terminal spine on its eggs?", o: ["A. Schistosoma japonicum", "B. Schistosoma haematobium", "C. Schistosoma mansoni", "D. Paragonimus westermani", "E. Fasciola hepatica"], a: "B" },
- 
- { n: 102, q: "Which of the following is a specific characteristic of trematodes that parasitize humans?", o: ["A. They lack a digestive tract", "B. They require a vertebrate as their only host", "C. They reproduce only via binary fission", "D. They are primarily transmitted by airborne droplets", "E. Their first intermediate hosts are typically snails"], a: "E" },
- { n: 103, q: "In which specific anatomical location does superficial mycoses typically occur?", o: ["A. The deep dermal layers", "B. The subcutaneous fat tissue", "C. The cornified layer of the skin", "D. The systemic circulation", "E. The visceral organs"], a: "C" },
- { n: 104, q: "How does the oral flora primarily contribute to host defense?", o: ["A. By secreting high concentrations of systemic antibiotics", "B. By inducing low levels of circulating and secreted antibodies", "C. By permanently neutralizing all ingested viral particles", "D. By forming a physical barrier that prevents gas exchange", "E. By deactivating the toll-like receptors of the epithelium"], a: "B" },
-
- { n: 105, q: "Which member of the normal flora is typically found in the high acidity environment of the vagina?", o: ["A. Staphylococcus aureus", "B. Escherichia coli", "C. Lactobacillus acidophilus", "D. Neisseria gonorrhoeae", "E. Streptococcus pyogenes"], a: "C" },
- { n: 106, q: "How is the pathogenicity of certain fungi primarily increased?", o: ["A. By the loss of their cell wall", "B. By shrinking in size to avoid detection", "C. By converting into an autotrophic state", "D. By adhering to host cells via surface glycoproteins", "E. By producing chlorophyll"], a: "D" },
- { n: 107, q: "When a bacterium like Staphylococcus, normally found in the respiratory tract, causes disease in other tissues, it is called?", o: ["A. Obligate pathogen", "B. Symbiotic infection", "C. Opportunistic infection", "D. Latent infection", "E. Commensalism"], a: "C" },
- { n: 108, q: "Which of the following components are found within the connective tissue of muscle?", o: ["A. Lymphatic vessels", "B. Collagen fibers", "C. Fibroblasts", "D. Nerve fibers", "E. All of the above"], a: "E" },
- 
- { n: 109, q: "Which cells can act as antigens or immune triggers and are found near the surface of the skin?", o: ["A. Keratinocytes", "B. Melanocytes", "C. Merkel cells", "D. Adipocytes", "E. Osteocytes"], a: "A" },
-    { n: 110, q: "Disadvantages of microbial biota?", o: ["A. They always reduce nutrient absorption", "B. They produce harmful radiation", "C. They can cause diseases, especially in immunocompromised individuals", "D. They inhibit all immune responses", "E. They destroy all epithelial tissues"], a: "C" },
-
-{ n: 111, q: "Total cell count increases but viable count stays constant?", o: ["A. Lag phase", "B. 3rd stationary phase", "C. Logarithmic (Exponential) phase", "D. Death phase", "E. Adaptation phase"], a: "B" },
-
-{ n: 112, q: "Sources of infection (an endogenous source)?", o: ["A. Contaminated surgical instruments", "B. Hospital staff hands", "C. Patients own flora", "D. Airborne pathogens from other patients", "E. Infected animals"], a: "C" },
-
-{ n: 113, q: "Essential bacterial component is?", o: ["A. Nucleus", "B. Ribosome", "C. Golgi apparatus", "D. Chloroplast", "E. Mitochondria"], a: "B" },
-
-{ n: 114, q: "Elephantiasis?", o: ["A. Wuchereria bancrofti", "B. Plasmodium falciparum", "C. Schistosoma mansoni", "D. Taenia solium", "E. Entamoeba histolytica"], a: "A" },
-     {
-    n: 115,
-    q: "Which of the following is sexually transmited?",
-    o: [
-      "A. Giardiasis",
-      "B. Amoebiasis",
-      "C. Trichomonas",
-      "D. Malaria",
-      "E. Toxoplasmosis"
-    ],
-    a: "C"
-  },
-     { n: 116, q: "What is false regarding cestodes?", o: ["A. Cestodes are dorsoventrally flattened parasites", "B. Adult cestodes inhabit the intestinal tract of vertebrates", "C. Cestodes have 4 larval stages and an adult stage", "D. Cestodes lack a digestive system", "E. Taenia species are examples of cestodes"], a: "C" },
-
-{ n: 117, q: "Which of the following is true about virus replication?", o: ["A. Viruses attach to specific sites of the cell membrane", "B. Viruses replicate independently without a host cell", "C. Viral replication occurs only in bacterial cells", "D. Viruses produce energy through respiration", "E. All viruses contain both DNA and RNA"], a: "A" },
-
-{ n: 118, q: "What is false about mycoplasma?", o: ["A. Mycoplasma are among the smallest free-living organisms", "B. Mycoplasma lack a rigid cell wall", "C. Mycoplasma can pass through bacterial filters", "D. Mycoplasma are resistant to penicillin", "E. Mycoplasma have cell walls made of peptidoglycans"], a: "E" },
-
-{ n: 119, q: "What is true about mycotoxins?", o: ["A. Mycotoxins are produced by certain fungi", "B. Mycotoxins severity vary from carcinogenic to allergenic", "C. Mycotoxins are only harmful to plants", "D. Mycotoxins are destroyed completely by normal cooking temperatures", "E. Mycotoxins are produced by viruses"], a: "B" },
-];
-
-const container = document.getElementById('quiz-content');
-
 function renderQuiz() {
     container.innerHTML = '';
-    data.forEach(item => {
+    allQuestions.forEach(item => {
         const div = document.createElement('div');
         div.className = 'q-block';
-        div.dataset.searchText = (item.s + " " + item.q + " " + item.o.join(" ")).toLowerCase();
-        div.innerHTML = `
-            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
-            <ul class="opts">
-                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
-            </ul>
-            <div class="ans-row">
-                <span class="ans-text">Answer: ${item.a}</span>
-                <button class="ans-btn" onclick="this.closest('.q-block').classList.toggle('revealed')">Answer</button>
-            </div>
-        `;
+        div.dataset.lecture = item.s;
+        div.dataset.year = item.y;
+        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+
+        const activeFilterVal = currentSubject;
+        const matchesSubject = activeFilterVal === "All" || (currentMode === "lectures" ? item.s === activeFilterVal : item.y === activeFilterVal);
+        div.style.display = matchesSubject ? "block" : "none";
+
+        if (currentMode === "lectures") {
+            div.innerHTML = `
+                <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+                <ul class="opts">
+                    ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+                </ul>
+                <div class="ans-row">
+                    <button class="ans-btn" data-answer="Answer: ${item.a}" onclick="toggleAnswer(this)">Answer</button>
+                    <span class="year-label">${item.yt}</span>
+                </div>
+            `;
+        } else {
+            div.innerHTML = `
+                <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+                <ul class="opts">
+                    ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+                </ul>
+                <div class="ans-row">
+                    <span class="ans-text">Answer: ${item.a}</span>
+                    <button class="ans-btn" onclick="this.closest('.q-block').classList.toggle('revealed')">Answer</button>
+                </div>
+            `;
+        }
         container.appendChild(div);
     });
+    updateSectionHeading();
+}
+
+function filterBySubject(val, btn) {
+    currentSubject = val;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    handleSearch(); 
+}
+
+function toggleFilterMode() {
+    currentMode = (currentMode === "lectures") ? "years" : "lectures";
+    currentSubject = "All";
+    document.body.className = `mode-${currentMode}`;
+    
+    const icon = document.getElementById('filter-icon');
+    if (currentMode === "years") {
+        icon.innerHTML = `<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>`;
+    } else {
+        icon.innerHTML = `<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>`;
+    }
+
+    renderFilterBar();
+    renderQuiz();
+    showTooltip();
 }
 
 function handleSearch() {
-    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const term = document.getElementById('search-input').value.toLowerCase();
     const blocks = document.querySelectorAll('.q-block');
-    
     blocks.forEach(block => {
-        const qTextElem = block.querySelector('.q-text');
-        const optElems = block.querySelectorAll('li');
+        resetBlock(block);
+        const matchesCategory = currentSubject === "All" || (currentMode === "lectures" ? block.dataset.lecture === currentSubject : block.dataset.year === currentSubject);
+        const matchesSearch = term === "" || block.dataset.searchText.includes(term);
         
-        
-        qTextElem.innerHTML = qTextElem.dataset.original;
-        optElems.forEach(li => li.innerHTML = li.dataset.original);
-
-        if (searchTerm === "") {
+        if (matchesCategory && matchesSearch) {
             block.style.display = "block";
-        } else if (block.dataset.searchText.includes(searchTerm)) {
-            block.style.display = "block";
-            const regex = new RegExp(`(${searchTerm})`, 'gi');
-            qTextElem.innerHTML = qTextElem.innerHTML.replace(regex, '<mark>$1</mark>');
-            optElems.forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+            if (term !== "") highlight(block, term);
         } else {
             block.style.display = "none";
         }
     });
+    updateSectionHeading();
 }
-(function() {
-    const saved = localStorage.getItem('theme');
-    const icon = document.getElementById('theme-icon');
-    if (saved === 'light') {
-        document.body.setAttribute('data-theme', 'light');
-        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-    }
-})();
 
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+    block.classList.remove('revealed');
+    const btn = block.querySelector('.ans-btn');
+    if (btn && btn.dataset.answer) btn.textContent = 'Answer';
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').innerHTML.replace(regex, '<mark>$1</mark>');
+    block.querySelectorAll('li').forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+}
+
+function toggleAnswer(btn) {
+    const block = btn.closest('.q-block');
+    const isRevealed = block.classList.toggle('revealed');
+    btn.textContent = isRevealed ? btn.dataset.answer : 'Answer';
+}
+
+function showTooltip() {
+    const tooltip = document.getElementById('btn-tooltip');
+    tooltip.textContent = currentMode === "lectures" ? "By lectures" : "By years";
+    tooltip.classList.add('visible');
+    document.getElementById('filter-mode-btn').classList.add('glowing');
+    setTimeout(() => { tooltip.classList.remove('visible'); document.getElementById('filter-mode-btn').classList.remove('glowing'); }, 2000);
+}
+
+function toggleTheme() {
+    const isLight = document.body.getAttribute('data-theme') === 'light';
+    const newTheme = isLight ? '' : 'light';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);  
+    document.getElementById('theme-icon').innerHTML = isLight 
+        ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
+        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
+
+
+(function () {
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}());
+
+renderFilterBar();
 renderQuiz();
 </script>
 </body>
