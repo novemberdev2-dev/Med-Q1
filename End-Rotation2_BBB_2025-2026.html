@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All questions_BBB_2025-2026</title>
+    <title>BBB2_Theory_2025-2026</title>
 
     <style>
        :root {
@@ -18,11 +18,7 @@
             --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
             --filter-bg: transparent;
-            --filter-txt-active: #1A1A1A;
-            --filter-bg-active:  #ffffff;
-            --filter-border-active:  #ffffff;
-            --ans-btn-bg: #E8E8E8;
-            --ans-btn-txt: #1A1A1A;
+            
         }
 
         [data-theme="light"] {
@@ -37,17 +33,13 @@
             --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
             --filter-bg: transparent;
-            --filter-txt-active:  #ffffff;
-            --filter-bg-active: #4D4D4D;
-            --filter-border-active: #4D4D4D;
-            --ans-btn-bg:  #555555;
-            --ans-btn-txt: #ffffff;
+            
         }
 
         .filter-btn.active {
-            background-color: var(--filter-bg-active);
-            color: var(--filter-txt-active);
-            border-color: var(--filter-border-active);
+            background-color:   #728fcf;
+            color: #fff;
+            border-color:   #728fcf;
         }
 
         body {
@@ -151,7 +143,7 @@
             flex: 0 0 auto;
             white-space: nowrap;
             margin-bottom: 10px;
-            margin-top: 10px;
+            margin-top: 6px;
         }
 
         .divider { border: none; margin-bottom: 12px; }
@@ -173,14 +165,15 @@
         }
 
         .ans-btn {
-            background-color: var(--ans-btn-bg);
-            color: var(--ans-btn-txt);
+            background-color:   #728fcf;
+            color: #fff;
             border: none;
             padding: 7px 20px;
             border-radius: 4px;
             margin-top: 20px;
             font-weight: 650;
             font-size: 16px;
+            transition: background-color 0.2s, color 0.2s;
         }
 
         .q-block.revealed .ans-btn {
@@ -239,8 +232,8 @@
 <div class="container">
     <div class="header">
         <div style="text-align: left;">
-            <h3 style="margin: 0; font-size: 1.4rem;">End-Rotation</h3>
-            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">BBB • 2025-2026 • Round 2</p>
+            <h3 style="margin: 0; font-size: 1.4rem;">End-Rotation 2</h3>
+            <p style="margin: 2px 0 0; font-size: 0.84rem; opacity: 0.8; font-weight:700;">BBB • Theory • 2025-2026</p>
         </div>
     </div>
 
@@ -289,15 +282,19 @@ const allQuestions = [
 
 { n:12, s:"Biochemistry", q:"Sugar alcohols are:", o:["A. Used as high-calorie sweeteners","B. Highly digestible sugars","C. Fermented by bacteria in large intestine","D. Commonly used as low-calorie sweeteners","E. Taste like glucose sugars but do not significantly increase blood glucose"], a:"E" },
 
-  { n:13, s:"Biophysics", q:"The electron source in X-ray tube is:", o:["A. Anode","B. Cathode","C. Filament","D. Tungsten target","E. Glass envelope"], a:"B" },
+  { n:13, s:"Biophysics", q:"The electron source in X-ray tube is:", o:["A. Anode","B. Cathode","C. Filament","D. Collimator","E. Glass envelope"], a:"B" },
     
-    { n:14, s:"Biophysics", q:"What is the function of the transducer in sonography?", o:["A. It transmits and receives ultrasound waves","B. It produces X-rays","C. It measures blood glucose level","D. It amplifies magnetic fields","E. It records electrical activity of the heart"], a:"A" },
+  
+{ n: 14, s: "Biophysics", q: "Which of the following affects cellular radiosensitivity?", o: ["A. Blood pressure", "B. Age of the person only", "C. Oxygen level, cell cycle phase, degree of differentiation and cell type", "D. Body temperature only", "E. Genetic code of mitochondria only"], a: "C" },
     
-    { n:15, s:"Biophysics", q:"What happens to blood vessels in chronic hypertension?", o:["A. Increased pressure on vessel wall leads to thickening and reduced elasticity","B. Vessel walls become thinner and more fragile","C. Complete loss of smooth muscle cells occurs immediately","D. Vasodilation with increased elasticity develops","E. No structural changes occur in blood vessels"], a:"A" },
+{ n: 15, s: "Biophysics", q: "What is the significance of half-life?", o: ["A. It gives colored imaging in diagnostic procedures", "B. It calculates decay time and dose in nuclear medicine", "C. It determines blood pressure regulation in tissues", "D. It measures membrane permeability of cells", "E. It describes enzyme activation rate in metabolism"], a: "B" },
     
-   { n:16, s:"Biophysics", q:"Na⁺/K⁺ pump maintains membrane potential by what mechanism?", o:["A. Active transport of 3 Na⁺ out and 2 K⁺ into the cell","B. Passive diffusion of Na⁺ and K⁺ down their gradients","C. Movement of 2 Na⁺ in and 3 K⁺ out of the cell","D. Equal exchange of Na⁺ and K⁺ ions","E. No energy-dependent transport is involved"], a:"A" },
+  
+   { n: 16, s: "Biophysics", q: "What is the role of the Na⁺/K⁺ pump?", o: ["A. It takes part in depolarisation of the cell membrane", "B. It returns cell membrane back to resting state by transporting 3 Na⁺ out and 2 K⁺ inside", "C. It opens voltage-gated sodium channels", "D. It transports ions passively without ATP", "E. It equalizes intracellular and extracellular chloride concentration"], a: "B" },
 
-{ n:17, s:"Biophysics", q:"Which ion mainly maintains resting membrane polarization?", o:["A. Potassium (K⁺)","B. Sodium (Na⁺)","C. Calcium (Ca²⁺)","D. Chloride (Cl⁻)","E. Magnesium (Mg²⁺)"], a:"A" },
+{ n:17, s:"Biophysics", q:"Which ion is mainly responsible for maintaining resting membrane potential?", o:["A. Potassium (K⁺)","B. Sodium (Na⁺)","C. Calcium (Ca²⁺)","D. Chloride (Cl⁻)","E. Magnesium (Mg²⁺)"], a:"A" },
+
+{ n: 18, s: "Biophysics", q: "In chronic hypertension, there is an increase of oxygen uptake by the myocardial cells because:", o: ["A. The radius of the ventricle decreases", "B. The stress and pressure against the ventricular walls increases work", "C. The coronary blood flow decreases", "D. Myocardial oxygen extraction decreases", "E. Heart rate decreases"], a: "B" },
     
     { n:19, s:"Basic emergency care", q:"Unconscious patient with neck pain and snoring/gurgling breathing, What is the first management?", o:["A. Jaw thrust maneuver","B. Head tilt-chin lift maneuver","C. Give oral fluids","D. Sit the patient upright","E. Perform abdominal thrust"], a:"A" },
    { n:20, s:"Basic emergency care", q:"A patient has HR 100 and RR 4/min. What is the first management?", o:["A. Put him in a recovery position","B. Endotracheal intubation","C. Bag-valve-mask (BVM) ventilation","D. Administer naloxone immediately","E. Observe and monitor only"], a:"C" },
@@ -307,7 +304,7 @@ const filterLectures = [
   { label: "All",                      val: "All" },
   { label: "Biochemistry 🧪",               val: "Biochemistry" },
   { label: "Biophysics ⚛️",            val: "Biophysics" },
-  { label: "Basic emergency care ⚕️",          val: "Basic emergency care" },
+  { label: "Basic emergency care 🚑",          val: "Basic emergency care" },
 ];
 
 let currentSubject = "All";
@@ -454,3 +451,4 @@ renderQuiz();
 </script>
 </body>
 </html>
+
