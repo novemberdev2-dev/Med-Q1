@@ -874,7 +874,7 @@ const labGroups = [
 function renderCard(q) {
     const parts = q.parts || [{ question: q.question, answer: q.answer }];
 
-    // NEW — number always shows, repeat badge appears beside it when present
+
 const repeatHtml = q.number
     ? `<h3 class="question-number">${q.number}. ${q.repeat ? `<span class="repeat">${q.repeat}</span>` : ''}</h3>`
     : (q.repeat ? `<h3 class="question-number"><span class="repeat">${q.repeat}</span></h3>` : '');
