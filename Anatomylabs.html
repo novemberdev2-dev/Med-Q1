@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practical_Anatomy_End-Rotation_HDSF</title>
+    <title>AnatomyLabs_Final&End-Rotation_2021-2025</title>
     
     <style>
-        :root {
+          :root {
             --bg-body: #0c0d0e;
             --text-main: #f1f5f9;
             --header-bg: #1e293b;
             --header-text: #38bdf8;
             --card-bg: #1a1c1e;
             --card-border: #26292b;
-            --ans-bg: #1e293b;
+               --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
             --ans-border: #2e7d32;
-            --input-border: #2a2f36;
-            --q-number:#f1f5f9
+            --input-border: #26292b;
         
         }
 
@@ -31,8 +30,8 @@
             --card-border: #cccccc;
            --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
+          
             --input-border: #cccccc;
-             --q-number:#0c0d0e
         }
 
         body {
@@ -66,7 +65,7 @@
         .controls-row {
             display: flex;
             gap: 10px;
-            margin-bottom: 60px;
+            margin-bottom: 25px;
             align-items: center;
         }
 
@@ -85,14 +84,13 @@
             background-color: transparent;
             border: 1px solid transparent;
             color: var(--text-main);
-            padding: 8px 14px;
+            padding: 8px 13px;
             border-radius: 6px;
             font-size: 0.85rem;
-            font-weight: 900;
+            font-weight: 800;
             white-space: nowrap;
             transition: all 0.2s;
         }
-            
 
         .filter-btn.active {
             background-color: #729fcf;
@@ -107,27 +105,21 @@
             width: 48px;
             height: 48px;
             border-radius: 10px;
-          
+            
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
         }
-       
-     .site-footer {
-    margin: 40px auto;      
-    padding: 10px 30px;   
-    width: fit-content;     
-    display: block;     
-    font-size: 0.8rem;
-    color: var(--text-dim);
-    text-align: center;
-    opacity: 0.6;
-}
-
-
-      
         
+        .site-footer {
+            margin-top: 80px;
+            padding: 15px;
+            text-align: center;
+            font-size: 0.75rem;
+            opacity: 0.5;
+            
+        }
         
         .question-number{
           margin-top: 0;  
@@ -165,26 +157,8 @@
         .answer-box { display: none !important;
           
         }
-        
-        .repeat{
-          font-size:12px;
-          border:1px solid red;
-          padding:3px;
-          border-radius:3px;
-          color:red;
-          margin-left:15px;
-        }
-        .Q-number{
-          font-size:12px;
-          border:1px solid var(--q-number);
-          padding:3px;
-          border-radius:3px;
-          color:var(--q-number);
-          margin-left:auto;
-          
-        }
 
-        .ans-btn{
+          .ans-btn{
   background-color: var(--ans-bg);
   color: var(--ans-text);
 }
@@ -212,21 +186,38 @@ button.ans-btn.revealed {
     font-size: 0.9rem;
     font-weight: 900;
 }
-      
+        
+        .repeat{
+          font-size:10px;
+          color:red;
+          border:1px solid red;
+          border-radius:2px;
+          padding:3px;
+          margin-left: 20px;
+          
+          
+        }
+        .Q-number {
+  font-size: 12px;
+  border: 1px solid var(--text-main);
+  padding: 3px 5px;
+  border-radius: 3px;
+  color: var(--text-main);
+}
+    
 
         .lab-title {
-            text-align: left;
-            margin: 40px 0 20px 0;
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #729fcf;
-            padding-bottom: 5px;
-            display: flex;    
-            align-items: center;  
-            width: 100%; 
-            
-            
-        }
+    text-align: center;
+    margin: 40px 0 20px 0;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #729fcf;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
         .lab-center { text-align: left; width: 100%; }
 
         @media (max-width: 700px) {
@@ -237,13 +228,13 @@ button.ans-btn.revealed {
         }
     </style>
 </head>
-<body oncontextmenu="return false;" onload="initTheme()">
-
+<body oncontextmenu="return false;">
+  
 <div class="container">
     <div class="header">
         <div style="text-align: left;">
             <h3 style="margin: 0; font-size: 1.4rem;">Final & End-Rotation</h3>
-            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Anatomy Labs 🧠 • 2022-2025</p>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Anatomy Labs 🧠 • 2021-2025</p>
         </div>
     </div>
 
@@ -271,1311 +262,713 @@ button.ans-btn.revealed {
         
     </div>
 
-    <div id="quiz-content">
-        
-        <div class="lab-wrapper" data-subject="L1">
-            <div class="lab-center"><div class="lab-title">Introduction to anatomy 🦴<span class="Q-number">1 Question</span></div></div>
-            
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">1.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the name of this surface of hand?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans1a', this)">Show Answer</button>
-                        <div id="ans1a" class="answer-box">Palm.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is this name of this movement? </span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans1b', this)">Show Answer</button>
-                        <div id="ans1b" class="answer-box">Inversion.</div>
-                    </div>
-                </div>
-                <div>
-                  
-           <div class="image-section"><img src="https://i.imgur.com/7LmMgBU.jpeg" alt="Exam Image" style="height:180px;"></div>
-               <div class="image-section"><img src="https://i.imgur.com/6ACQnm5.jpeg" alt="Exam Image" style="height:250px;"></div>
-                  
-                </div>
-             
-            </div>
-        </div>
-
-         <div class="lab-wrapper" data-subject="L2">
-            <div class="lab-center"><div class="lab-title">Axial skeleton 💀 <span class="Q-number">4 Questions</span></div></div>
-
-        
-                        
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">2.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the structure A?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans2a', this)">Show Answer</button>
-                        <div id="ans2a" class="answer-box">Tubercle.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What does it articulate with?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans2b', this)">Show Answer</button>
-                        <div id="ans2b" class="answer-box">Articulates with the transverse process of thoracic vertebra.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/Bc9GyQm.png" alt="Exam Image"></div>
-            </div>
-
-         
-
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">3.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the area A and B.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans3a', this)">Show Answer</button>
-                        <div id="ans3a" class="answer-box">A. Body
-B. Spinous process
+    <div id="main-content"></div>
 </div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What type of vertebrae is this?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans3b', this)">Show Answer</button>
-                        <div id="ans3b" class="answer-box">Thoracic vertebrae.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/0D2tM8U.png"" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">4.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed area.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans4a', this)">Show Answer</button>
-                        <div id="ans4a" class="answer-box">Foramen transversarium.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What does pass through it?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans4b', this)">Show Answer</button>
-                        <div id="ans4b" class="answer-box">Vertebral artery and veins.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/MSt03q1.png"" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">5.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed area?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans5a', this)">Show Answer</button>
-                        <div id="ans5a" class="answer-box">Costal groove.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is passing through it? </span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans5b', this)">Show Answer</button>
-                        <div id="ans5b" class="answer-box">Nerve and Nutrient artery.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/e8OBas9.jpeg"" alt="Exam Image"></div>
-            </div>
-        </div>
-        
 
-
-      <div class="lab-wrapper" data-subject="L3">
-    <div class="lab-center"><div class="lab-title">Appendicular skeleton 🦴 <span class="Q-number">5 Questions</span></div></div>
-    
-    <div class="quiz-card">
-        <div class="question-section">
-            <h3 class="question-number">6.</h3>
-            <div class="question-item">
-                <span><strong>A.</strong> Identify the bone.</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans6a', this)">Show Answer</button>
-                <div id="ans6a" class="answer-box">Radius.</div>
-            </div>
-            <div class="question-item">
-                <span><strong>B.</strong> It articulates medially with:</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans6b', this)">Show Answer</button>
-                <div id="ans6b" class="answer-box">Ulna.</div>
-            </div>
-        </div>
-        <div class="image-section"><img src="https://i.imgur.com/RDZjvRh.jpeg" alt="Exam Image"></div>
-    </div>
-
-    <div class="quiz-card">
-        <div class="question-section">
-            <h3 class="question-number">7.</h3>
-            <div class="question-item">
-                <span><strong>A.</strong> Identify the pointed area.</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans7a', this)">Show Answer</button>
-                <div id="ans7a" class="answer-box">Medial epicondyle.</div>
-            </div>
-            <div class="question-item">
-                <span><strong>B.</strong> What muscle attach to this area?</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans7b', this)">Show Answer</button>
-                <div id="ans7b" class="answer-box">Flexor muscle of the anterior compartment of the forearm.</div>
-            </div>
-        </div>
-        <div class="image-section"><img src="https://i.imgur.com/hPh57WK.jpeg" alt="Exam Image" style="height:300px;"></div>
-    </div>
-
-    <div class="quiz-card">
-        <div class="question-section">
-            <h3 class="question-number">8.</h3>
-            <div class="question-item">
-                <span><strong>A.</strong> Identify the structure A.</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans8a', this)">Show Answer</button>
-                <div id="ans8a" class="answer-box">Head of radius.</div>
-            </div>
-            <div class="question-item">
-                <span><strong>B.</strong> Identify the structure B.</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans8b', this)">Show Answer</button>
-                <div id="ans8b" class="answer-box">Styloid prosses (medial).</div>
-            </div>
-        </div>
-        <div class="image-section"><img src="https://i.imgur.com/rdOhrno.png" alt="Exam Image" style="height:300px;"></div>
-    </div>
-
-    <div class="quiz-card">
-        <div class="question-section">
-            <h3 class="question-number">9.</h3>
-            <div class="question-item">
-                <span><strong>A.</strong> Identify the pointed area.</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans9a', this)">Show Answer</button>
-                <div id="ans9a" class="answer-box">Medial epicondyle.</div>
-            </div>
-            <div class="question-item">
-                <span><strong>B.</strong> It is the origin of which muscle?</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans9b', this)">Show Answer</button>
-                <div id="ans9b" class="answer-box">Flexor muscle.</div>
-            </div>
-        </div>
-        <div class="image-section"><img src="https://i.imgur.com/Mog4C3p.jpeg" alt="Exam Image"></div>
-    </div>
-    <div class="quiz-card">
-        <div class="question-section">
-            
-            <div class="question-item">
-                <span><strong>10.</strong> Which bone is shown in this figure?</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans10a', this)">Show Answer</button>
-                <div id="ans10a" class="answer-box">Ulna.</div>
-            </div>
-            
-        </div>
-        <div class="image-section"><img src="https://i.imgur.com/CF8urWW.png" alt="Exam Image" style="height:360px;"></div>
-    </div>
-</div> 
-
-
-        <div class="lab-wrapper" data-subject="L4">
-            <div class="lab-center"><div class="lab-title">Joints 🔗  <span class="Q-number">8 Questions</span></div></div>
-
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">11.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is this bone called?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans11a', this)">Show Answer</button>
-                        <div id="ans11a" class="answer-box">Axis (2nd cervical vertebrae)</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> The superior part of this bone is articulated to?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans11b', this)">Show Answer</button>
-                        <div id="ans11b" class="answer-box">Atlas (1st cervical vertebrae).</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/hcpkHs4.jpeg" alt="Exam Image"></div>
-            </div>
-            
-            
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">12.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the name of the joint?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans12a', this)">Show Answer</button>
-                        <div id="ans12a" class="answer-box">Inferior radio-ulnar joint. </div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is the type of the joint?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans12b', this)">Show Answer</button>
-                        <div id="ans12b" class="answer-box">Synovial pivot joint.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/JmTvO6G.jpeg" alt="Exam Image" style="height:360px; "></div>
-            </div>
-            
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">13.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the joint.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans13a', this)">Show Answer</button>
-                        <div id="ans13a" class="answer-box">Distal Tibio-febular joint. </div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Mention the type of the joint.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans13b', this)">Show Answer</button>
-                        <div id="ans13b" class="answer-box">Fibrous joint.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/9wQnUxq.jpeg" alt="Exam Image" style="height:360px; "></div>
-            </div>
-
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">14.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed area. </span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans14a', this)">Show Answer</button>
-                        <div id="ans14a" class="answer-box">Sternoclavicular joint.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is the type of the joint?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans14b', this)">Show Answer</button>
-                        <div id="ans14b" class="answer-box">Synovial double-plane joint.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/On3f9av.png" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">15.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the area A.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans15a', this)">Show Answer</button>
-                        <div id="ans15a" class="answer-box">Trochlea.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What does it articulate with?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans15b', this)">Show Answer</button>
-                        <div id="ans15b" class="answer-box">Trochlear notch of the ulna.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/QlYaV8v.jpeg" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">16.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the jointed area.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans16a', this)">Show Answer</button>
-                        <div id="ans16a" class="answer-box">Distal Tibio-fibular joint.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Mention the type of the joint.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans16b', this)">Show Answer</button>
-                        <div id="ans16b" class="answer-box">Fibrous joint.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/SWmjecx.jpeg" alt="Exam Image" style="height:360px;"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">17.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the name of the joint? </span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans17a', this)">Show Answer</button>
-                        <div id="ans17a" class="answer-box">Superior radio-ulnar joint.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is the type of the joint?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans17b', this)">Show Answer</button>
-                        <div id="ans17b" class="answer-box">Synovial pivot joint.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/ytl14zh.jpeg" alt="Exam Image" style="height:360px;"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">18.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed area.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans18a', this)">Show Answer</button>
-                        <div id="ans18a" class="answer-box">Medial end ( Sternal end).</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What does it articulate with?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans18b', this)">Show Answer</button>
-                        <div id="ans18b" class="answer-box">Manubrium of the sternum.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/IrjEdRD.png" alt="Exam Image"></div>
-            </div>
-        </div>
-
-             <div class="lab-wrapper" data-subject="L5">
-            <div class="lab-center"><div class="lab-title">Muscles 💪  <span class="Q-number">8 Questions</span></div></div>
-
-           <div class="quiz-card">
-                <div class="question-section">
-
-                    <div class="question-item">
-                        <span><strong>19.</strong> Identify the pointed muscle.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans19a', this)">Show Answer</button>
-                        <div id="ans19a" class="answer-box">Latissimus dorsi.</div>
-                    </div>
-                  
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/2oeTXvf.jpeg" alt="Exam Image"></div>
-            </div>
-        
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">20.<span class="repeat">Two times</span></h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the name of the muscle labeled with green?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans20a', this)">Show Answer</button>
-                        <div id="ans20a" class="answer-box">Lateral Pterygoid muscle.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> It is supplied by which nerve?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans20b', this)">Show Answer</button>
-                        <div id="ans20b" class="answer-box">Lateral Pterygoid nerve (branch of mandibular division of trigeminal nerve).</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/BY8UuuN.jpeg" alt="Exam Image"></div>
-            </div>
-        
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">21.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the name of muscle A.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans21a', this)">Show Answer</button>
-                        <div id="ans21a" class="answer-box">Masseter muscle.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Identify the name of muscle B.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans21b', this)">Show Answer</button>
-                        <div id="ans21b" class="answer-box">Sternocleidomastoid.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/2lbXJ6j.jpeg" alt="Exam Image"></div>
-            </div>
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">22.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Whats the name of this muscle?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans22a', this)">Show Answer</button>
-                        <div id="ans22a" class="answer-box">Deltoid muscle.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> It is named according to?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans22b', this)">Show Answer</button>
-                        <div id="ans22b" class="answer-box">Its shape.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/VxUd0e6.jpeg" alt="Exam Image"></div>
-            </div>
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">23.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the name of muscle A.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans23a', this)">Show Answer</button>
-                        <div id="ans23a" class="answer-box">Trapezius.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Identify the name of muscle B.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans23b', this)">Show Answer</button>
-                        <div id="ans23b" class="answer-box">Latissimus dorsi.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/L0nUPAt.jpeg" alt="Exam Image"></div>
-            </div>
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">24.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the muscle.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans24a', this)">Show Answer</button>
-                        <div id="ans24a" class="answer-box">Obicularis Oris.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Identify the nerve supply.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans24b', this)">Show Answer</button>
-                        <div id="ans24b" class="answer-box">Facial nerve (7th Cranial nerve).</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/puNHbs2.jpeg" alt="Exam Image"></div>
-            </div>
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">25.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the muscle A.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans70a', this)">Show Answer</button>
-                        <div id="ans70a" class="answer-box">Sternocleidomastoid.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Identify the muscle B.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans70b', this)">Show Answer</button>
-                        <div id="ans70b" class="answer-box">Trapezius.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/FXk2IZ2.jpeg" alt="Exam Image"></div>
-            </div>
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">26.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the name of muscle A.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans25a', this)">Show Answer</button>
-                        <div id="ans25a" class="answer-box">Trapezius.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Identify the name of muscle B.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans25b', this)">Show Answer</button>
-                        <div id="ans25b" class="answer-box">Levator scapula.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/Hq6NDQb.jpeg" alt="Exam Image"></div>
-            </div>
-            </div>
-        
-          <div class="lab-wrapper" data-subject="L6">
-            <div class="lab-center"><div class="lab-title">Respiratory syststem 🫁  <span class="Q-number">11 Questions</span></div></div>
-
-           <div class="quiz-card">
-                <div class="question-section">
-
-                    <div class="question-item">
-                        <span><strong>27.</strong> Identify this structure.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans26a', this)">Show Answer</button>
-                        <div id="ans26a" class="answer-box">Larynx.</div>
-                    </div>
-                  
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/r68xjoV.jpeg" alt="Exam Image" style="height:240px;"></div>
-            </div>
-        
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">28. <span class="repeat">Three times</span> </h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed area called?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans27a', this)">Show Answer</button>
-                        <div id="ans27a" class="answer-box">Carina.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Indicate the level of the structure.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans27b', this)">Show Answer</button>
-                        <div id="ans27b" class="answer-box">At the level of T4 or sternal angle.</div>
-                    </div>
-                    
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/nbqLNoJ.jpeg" alt="Exam Image"></div>
-            </div>
-        
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">29.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the name of structure A.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans28a', this)">Show Answer</button>
-                        <div id="ans28a" class="answer-box">Sphenoid sinus.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Identify the name of structure B.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans28b', this)">Show Answer</button>
-                        <div id="ans28b" class="answer-box">Epiglottis.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/fafS7ui.jpeg" alt="Exam Image"></div>
-            </div>
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">30.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed structure?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans29a', this)">Show Answer</button>
-                        <div id="ans29a" class="answer-box">Laryngo-Pharynx.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Inferiorly it is continued with what?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans29b', this)">Show Answer</button>
-                        <div id="ans29b" class="answer-box">Esophagus.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/L3WfDNf.jpeg" alt="Exam Image"></div>
-            </div>
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">31.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the structure A.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans30a', this)">Show Answer</button>
-                        <div id="ans30a" class="answer-box">Nasal cavity.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Identify the structure B.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans30b', this)">Show Answer</button>
-                        <div id="ans30b" class="answer-box">Sphenoid sinus.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/BxFYQDl.jpeg" alt="Exam Image"></div>
-            </div>
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">32.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed area.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans31a', this)">Show Answer</button>
-                        <div id="ans31a" class="answer-box">Trachea.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Its bifurication is called:</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans31b', this)">Show Answer</button>
-                        <div id="ans31b" class="answer-box">Carina.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/AIkes7m.jpeg" alt="Exam Image"></div>
-            </div>
-            
-             <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">33.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Indicate the pointed area?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans34a', this)">Show Answer</button>
-                        <div id="ans34a" class="answer-box">Esophagus opening.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is its vertebrae level?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans34b', this)">Show Answer</button>
-                        <div id="ans34b" class="answer-box">T10.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/ne1wALQ.jpeg" alt="Exam Image"></div>
-            </div>
-          
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">34.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Indicate the pointed area.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans33a', this)">Show Answer</button>
-                        <div id="ans33a" class="answer-box">Oro-Pharynx.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is the name of the anterior cavity?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans33b', this)">Show Answer</button>
-                        <div id="ans33b" class="answer-box">Oral cavity.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/Vddvx8E.jpeg" alt="Exam Image"></div>
-            </div>
-            
-             <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">35.  <span class="repeat">Two times</span></h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the name of opening.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans32a', this)">Show Answer</button>
-                        <div id="ans32a" class="answer-box">Eustachian tube (Auditory tube).</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Location?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans32b', this)">Show Answer</button>
-                        <div id="ans32b" class="answer-box">Lateral wall of Naso-Pharynx.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>C.</strong> Function?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans32c', this)">Show Answer</button>
-                        <div id="ans32c" class="answer-box">Connects Naso-Pharynx to the middle air.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/HCthwUo.jpeg" alt="Exam Image"></div>
-            </div>
-          
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">36.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the side of the organ.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans35a', this)">Show Answer</button>
-                        <div id="ans35a" class="answer-box">The right side of the lung.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Identify the surface.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans35b', this)">Show Answer</button>
-                        <div id="ans35b" class="answer-box">Sterno-Costal surface.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/lQ1Jenw.png" alt="Exam Image"></div>
-            </div>
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">37.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Indicate the pointed structure.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans36a', this)">Show Answer</button>
-                        <div id="ans36a" class="answer-box">Esophagus.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Passes through diaphragm at the level of?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans36b', this)">Show Answer</button>
-                        <div id="ans36b" class="answer-box">T10.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/zjbBwCd.png" alt="Exam Image" style="height:300px;"></div>
-            </div>
-            </div>
-            
-            
-   <div class="lab-wrapper" data-subject="L7">
-            <div class="lab-center"><div class="lab-title">Digestive system 💊<span class="Q-number">10 Questions</span></div></div>
-            
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">38.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed structure?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans37a', this)">Show Answer</button>
-                        <div id="ans37a" class="answer-box">Sublingual gland.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Its duct opens into?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans37b', this)">Show Answer</button>
-                        <div id="ans37b" class="answer-box">Opens into the oral cavity near the frenulum.</div>
-                    </div>
-                </div>
-                <div>
-                  
-                     <div class="image-section"><img src="https://i.imgur.com/j2Nloks.jpeg" alt="Exam Image" style="height:230px;"></div>
-            
-                  
-                </div>
-             
-            </div>
-      
-
-                        
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">39.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the structure A?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans38a', this)">Show Answer</button>
-                        <div id="ans38a" class="answer-box">Gallbladder.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is the structure B?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans38b', this)">Show Answer</button>
-                        <div id="ans38b" class="answer-box">Caudate lobe.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/t09g6DH.jpeg" alt="Exam Image"></div>
-            </div>
-
-         
-
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">40.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the structure A?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans39a', this)">Show Answer</button>
-                        <div id="ans39a" class="answer-box">Cystic duct.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is the structure B?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans39b', this)">Show Answer</button>
-                        <div id="ans39b" class="answer-box">Common hepatic duct.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/811cXa6.jpeg"" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    
-                    <div class="question-item">
-                        <span><strong>41.</strong> Identify the pointed structure.</span><br><br><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans40', this)">Show Answer</button>
-                        <div id="ans40" class="answer-box">Falciform ligament.</div>
-                    </div>
-                  
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/WAvVno0.jpeg"" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">42.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the structure A?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans41a', this)">Show Answer</button>
-                        <div id="ans41a" class="answer-box">Adrenal gland.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is the structure B? </span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans41b', this)">Show Answer</button>
-                        <div id="ans41b" class="answer-box">Pancreas.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/TUnZ0I1.jpeg"" alt="Exam Image"></div>
-            </div>
-        
-        
-        
-    <div class="quiz-card">
-        <div class="question-section">
-            <h3 class="question-number">43.</h3>
-            <div class="question-item">
-                <span><strong>A.</strong> What is the pointed area?</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans42a', this)">Show Answer</button>
-                <div id="ans42a" class="answer-box"> Quadrate lobe.</div>
-            </div>
-            <div class="question-item">
-                <span><strong>B.</strong> Where is it located?</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans42b', this)">Show Answer</button>
-                <div id="ans42b" class="answer-box">Located between ligamentum teres and gall bladder.</div>
-            </div>
-        </div>
-        <div class="image-section"><img src="https://i.imgur.com/kj5bYeM.jpeg" alt="Exam Image"></div>
-    </div>
-    <div class="quiz-card">
-        <div class="question-section">
-            <h3 class="question-number">44.</h3>
-            <div class="question-item">
-                <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans43a', this)">Show Answer</button>
-                <div id="ans43a" class="answer-box">Transverse mesocolon.</div>
-            </div>
-            <div class="question-item">
-                <span><strong>B.</strong> It contains _________ and _________.</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans43b', this)">Show Answer</button>
-                <div id="ans43b" class="answer-box">Not mentioned in the lec.</div>
-            </div>
-        </div>
-        <div class="image-section"><img src="https://i.imgur.com/bXCEqJJ.jpeg" alt="Exam Image"></div>
-    </div>
-    <div class="quiz-card">
-        <div class="question-section">
-            
-            <div class="question-item">
-                <span><strong>45.</strong> Identify this part of the gallbladder.
-                
-                  <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
-                                <div>A. Body</div>
-                                <div>B. Neck</div>
-                                <div>C. Fundus</div>
-                                <div>D. Bile duct</div>
-                                <div>E. Cystic duct</div>
-                            </ul>
-                              
-                
-                
-                </span><br><br><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans44', this)">Show Answer</button>
-                <div id="ans44" class="answer-box">C. Fundus</div>
-            </div>
-            
-        </div>
-        <div class="image-section"><img src="https://i.imgur.com/J84zXla.jpeg" alt="Exam Image"></div>
-    </div>
-    <div class="quiz-card">
-        <div class="question-section">
-            <h3 class="question-number">46.</h3>
-            <div class="question-item">
-                <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans45a', this)">Show Answer</button>
-                <div id="ans45a" class="answer-box">Greater omentum.</div>
-            </div>
-            <div class="question-item">
-                <span><strong>B.</strong> What is its function?</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans45b', this)">Show Answer</button>
-                <div id="ans45b" class="answer-box">It connects the greater curvature of the stomach with the transverse colon.</div>
-            </div>
-        </div>
-        <div class="image-section"><img src="https://i.imgur.com/b0UAoCF.jpeg" alt="Exam Image"></div>
-    </div>
-     <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">47.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Name the structure A.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans100a', this)">Show Answer</button>
-                        <div id="ans100a" class="answer-box">Ileum.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Name the structure B.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans100b', this)">Show Answer</button>
-                        <div id="ans100b" class="answer-box">Appendix.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="Ilium-Appendix.jpg" alt="Exam Image"></div>
-            </div>
-
-    </div>
-
-        
-
-
-    
-    
-    
-      <div class="lab-wrapper" data-subject="L8">
-    <div class="lab-center"><div class="lab-title">Cardiovascular system 🫀 <span class="Q-number">16 Questions</span></div></div>
-
-    <div class="quiz-card">
-        <div class="question-section">
-            <h3 class="question-number">48. <span class="repeat">Two times</span></h3></h3>
-            <div class="question-item">
-                <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans46a', this)">Show Answer</button>
-                <div id="ans46a" class="answer-box">Internal jugular vein.</div>
-            </div>
-            <div class="question-item">
-                <span><strong>B.</strong> It is a continuation of what?</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans46b', this)">Show Answer</button>
-                <div id="ans46b" class="answer-box">Sigmoid sinus.</div>
-            </div>
-        </div>
-        <div class="image-section"><img src="https://i.imgur.com/7danIiy.jpeg" alt="Exam Image" style="height:300px;"></div>
-    </div>
-
-    <div class="quiz-card">
-        <div class="question-section">
-            <h3 class="question-number">49.</h3>
-            <div class="question-item">
-                <span><strong>A.</strong> Identify the pointed area.</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans47a', this)">Show Answer</button>
-                <div id="ans47a" class="answer-box">Left ventricle.</div>
-            </div>
-            <div class="question-item">
-                <span><strong>B.</strong> Located at which level?</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans47b', this)">Show Answer</button>
-                <div id="ans47b" class="answer-box">5th intercostal space.</div>
-            </div>
-        </div>
-        <div class="image-section"><img src="https://i.imgur.com/JQ8rSHY.jpeg" alt="Exam Image" style="height:300px;"></div>
-    </div>
-
-    <div class="quiz-card">
-        <div class="question-section">
-            <h3 class="question-number">50.</h3>
-            <div class="question-item">
-                <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans48a', this)">Show Answer</button>
-                <div id="ans48a" class="answer-box">Right subclavian vein.</div>
-            </div>
-            <div class="question-item">
-                <span><strong>B.</strong> Unites with __________ to form brachiocephalic vein.</span><br><br>
-                <button class="ans-btn" onclick="toggleAnswer('ans48b', this)">Show Answer</button>
-                <div id="ans48b" class="answer-box">Right internal jugular vein.</div>
-            </div>
-        </div>
-        <div class="image-section"><img src="https://i.imgur.com/bK5GFtF.png" alt="Exam Image"></div>
-    </div>
-   
-
-
-
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">51.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed structure called?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans49a', this)">Show Answer</button>
-                        <div id="ans49a" class="answer-box">Left common iliac vein</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is it formed from?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans49b', this)">Show Answer</button>
-                        <div id="ans49b" class="answer-box">The external iliac vein & the internal iliac vein.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/7UA4spu.jpeg" alt="Exam Image"></div>
-            </div>
-            
-            
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">52.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed area.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans50a', this)">Show Answer</button>
-                        <div id="ans50a" class="answer-box">Left atrium.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> This area has four ___________.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans50b', this)">Show Answer</button>
-                        <div id="ans50b" class="answer-box">Pulmonary veins.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/9Cntb99.jpeg" alt="Exam Image"></div>
-            </div>
-            
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">53.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans51a', this)">Show Answer</button>
-                        <div id="ans51a" class="answer-box">Coronary artery. </div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> It is a branch of __________.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans51b', this)">Show Answer</button>
-                        <div id="ans51b" class="answer-box">Ascending aorta.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/fnqjKYa.jpeg" alt="Exam Image"></div>
-            </div>
-
-            <div class="quiz-card">
-                <div class="question-section">
-                    
-                    <div class="question-item">
-                        <span><strong>54.</strong> What is the name of the chamber of the heart opened in this figure? </span><br><br><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans52', this)">Show Answer</button>
-                        <div id="ans52" class="answer-box">Right Ventricle.</div>
-                    </div>
-                    
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/GvKqKYM.jpeg" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                  
-                    <div class="question-item">
-                        <span><strong>55.</strong> Identify this part of the heart.</span><br><br><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans53', this)">Show Answer</button>
-                        <div id="ans53" class="answer-box">Base.</div>
-                    </div>
-                    
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/UR4JHSU.jpeg" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">56.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans54a', this)">Show Answer</button>
-                        <div id="ans54a" class="answer-box">External iliac artery.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> It is branch of?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans54b', this)">Show Answer</button>
-                        <div id="ans54b" class="answer-box">Common iliac artery.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/eg81TuO.jpeg" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">57.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed area? </span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans55a', this)">Show Answer</button>
-                        <div id="ans55a" class="answer-box">Right ventricle.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> It delivers blood to _________.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans55b', this)">Show Answer</button>
-                        <div id="ans55b" class="answer-box">Pulmonary trunk.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/L19IpI5.png" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">58.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans56a', this)">Show Answer</button>
-                        <div id="ans56a" class="answer-box">Inferior vena cava.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What forms this structure?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans56b', this)">Show Answer</button>
-                        <div id="ans56b" class="answer-box">Formed by Right and left common iliac vein.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/bLRDpEC.jpeg" alt="Exam Image"></div>
-            </div>
-        
-
-           <div class="quiz-card">
-                <div class="question-section">
-             <h3 class="question-number">59.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans57a', this)">Show Answer</button>
-                        <div id="ans57a" class="answer-box">Left subclavian artery.</div>
-                    </div>
-                      <div class="question-item">
-                        <span><strong>B.</strong> It is a branch of __________.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans57b', this)">Show Answer</button>
-                        <div id="ans57b" class="answer-box">Arch of aorta.</div>
-                    </div>
-                  
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/MeElbxu.jpeg" alt="Exam Image"></div>
-            </div>
-        
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">60.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed area in figure A?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans58a', this)">Show Answer</button>
-                        <div id="ans58a" class="answer-box">left internal jugular vein.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is the pointed area in figure B?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans58b', this)">Show Answer</button>
-                        <div id="ans58b" class="answer-box">Right atrium.</div>
-                    </div>
-                </div>
-              
-                   <div class="image-section"><img src="https://i.imgur.com/XYpCCPj.jpeg" alt="Exam Image"></div>
-                <div class="image-section"><img src="https://i.imgur.com/mHAO03L.jpeg" alt="Exam Image"></div>
-                  
-              
-               
-            </div>
-        
-           
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">61. <span class="repeat">Not mentioned in this year's lectures</span></h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans66a', this)">Show Answer</button>
-                        <div id="ans66a" class="answer-box">Right testicular artery.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> It is a branch of _____________.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans66b', this)">Show Answer</button>
-                        <div id="ans66b" class="answer-box">Abdominal aorta.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/PvSizBB.jpeg" alt="Exam Image"></div>
-            </div>
-
-          <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">62.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed structure.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans59a', this)">Show Answer</button>
-                        <div id="ans59a" class="answer-box">Subclavian vein.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> It is a continuation of _____________.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans59b', this)">Show Answer</button>
-                        <div id="ans59b" class="answer-box">Axillary vein.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/fQDISqa.jpeg" alt="Exam Image"></div>
-          </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                       <h3 class="question-number">63.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Name the structure A.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans1e', this)">Show Answer</button>
-                        <div id="ans1e" class="answer-box">Brachiocephalic artery.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Name the structure B.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans1f', this)">Show Answer</button>
-                        <div id="ans1f" class="answer-box">Left subclavian artery.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="Arteries.jpg" alt="Exam Image"></div>
-            </div>
-          
-            </div>
-            
-            
-            
-              <div class="lab-wrapper" data-subject="L9">
-    <div class="lab-center"><div class="lab-title">Nervous system 🧠 <span class="Q-number">1 Question</span></div></div>
-            
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">64.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed area.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans60a', this)">Show Answer</button>
-                        <div id="ans60a" class="answer-box">Cerebellum.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is the blue area.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans60b', this)">Show Answer</button>
-                        <div id="ans60b" class="answer-box">Frontal lobe.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/tTb8v85.jpeg" alt="Exam Image"></div>
-            </div>
-            </div>
-            
-            
-              <div class="lab-wrapper" data-subject="L10">
-    <div class="lab-center"><div class="lab-title">Genitourinary system 🫘 <span class="Q-number">6 Questions</span></div></div>
-           
-             <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">65.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the name of green area?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans64a', this)">Show Answer</button>
-                        <div id="ans64a" class="answer-box">Urethra.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is the pointed area?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans64b', this)">Show Answer</button>
-                        <div id="ans64b" class="answer-box">Prostate gland.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/qZ3Ru6z.jpeg" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    
-                    <div class="question-item">
-                        <span><strong>66.</strong> Identify the pointed structure.
-                        
-                          <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
-                                <div>A. Prostatic urethra</div>
-                                <div>B. Membranous urethra</div>
-                                <div>C. Penile urethra</div>
-                                <div>D. External urethral meatus</div>
-                                <div>E. Internal urethral meatus</div>
-                            </ul>
-                              
-                        </span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans65', this)">Show Answer</button>
-                        <div id="ans65" class="answer-box">B. membranous urethra</div>
-                    </div>
-                    
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/HGWeycY.jpeg" alt="Exam Image"></div>
-            </div>
-          
-           <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">67.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the gland.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans63a', this)">Show Answer</button>
-                        <div id="ans63a" class="answer-box">Prostate gland.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Located between __________ and _________.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans63b', this)">Show Answer</button>
-                        <div id="ans63b" class="answer-box">Urinary bladder and Rectum.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/61S4am4.jpeg" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">68.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Identify the pointed gland.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans61a', this)">Show Answer</button>
-                        <div id="ans61a" class="answer-box">Bulbourethral (Cowper’s) gland.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Its duct opens into:</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans61b', this)">Show Answer</button>
-                        <div id="ans61b" class="answer-box">The proximal end of the penile urethra.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/A6oMfpn.jpeg" alt="Exam Image"></div>
-            </div>
-          
-             <div class="quiz-card">
-                <div class="question-section">
-                     <h3 class="question-number">69.<span class="repeat">Two times</span></h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed area?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans62a', this)">Show Answer</button>
-                        <div id="ans62a" class="answer-box">Trigone.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Where it is located?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans62b', this)">Show Answer</button>
-                        <div id="ans62b" class="answer-box">Urinary bladder.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/5Eujo4u.jpeg" alt="Exam Image"></div>
-            </div>
-             <div class="quiz-card">
-                <div class="question-section">
-                     <h3 class="question-number">70.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> Name structure A.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans68a', this)">Show Answer</button>
-                        <div id="ans68a" class="answer-box">Medulla.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Name structure B.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans68b', this)">Show Answer</button>
-                        <div id="ans68b" class="answer-box">Renal pelvis.</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/EXmPAey.jpeg" alt="Exam Image"></div>
-            </div>
-           
-            </div>
-        
-          
 <footer class="site-footer">© Developed by <strong>Shabaz Rasheed</strong></footer>
 
 <script>
-    function initTheme() {
-        const icon = document.getElementById('theme-icon');
-        if (localStorage.getItem('theme') === 'light') {
-            document.body.setAttribute('data-theme', 'light');
-            icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+
+const questions = [
+
+    // ── Introduction to anatomy (L1) ──
+    {
+        id: 'q1', lab: 'L1', number: '1',
+        parts: [
+            { question: '<strong>A.</strong> What is the name of this surface of hand?', answer: 'Palm.' },
+            { question: '<strong>B.</strong> What is this name of this movement?', answer: 'Inversion.' }
+        ],
+        img: [
+            'https://i.imgur.com/FMf4izg.jpeg',
+            'https://i.imgur.com/l2mhfKv.jpeg'
+        ],
+        imgStyle: ['height:180px;', 'height:250px;']
+    },
+
+    // ── Axial skeleton (L2) ──
+    {
+        id: 'q2', lab: 'L2', number: '2',
+        parts: [
+            { question: '<strong>A.</strong> What is the structure A?', answer: 'Tubercle.' },
+            { question: '<strong>B.</strong> What does it articulate with?', answer: 'Articulates with the transverse process of thoracic vertebra.' }
+        ],
+        img: 'https://i.imgur.com/Bc9GyQm.png'
+    },
+    {
+        id: 'q3', lab: 'L2', number: '3',
+        parts: [
+            { question: '<strong>A.</strong> Identify the area A and B.', answer: 'A. Body\nB. Spinous process' },
+            { question: '<strong>B.</strong> What type of vertebrae is this?', answer: 'Thoracic vertebrae.' }
+        ],
+        img: 'https://i.imgur.com/0D2tM8U.png'
+    },
+    {
+        id: 'q4', lab: 'L2', number: '4',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed area.', answer: 'Foramen transversarium.' },
+            { question: '<strong>B.</strong> What does pass through it?', answer: 'Vertebral artery and veins.' }
+        ],
+        img: 'https://i.imgur.com/MSt03q1.png'
+    },
+    {
+        id: 'q5', lab: 'L2', number: '5',
+        parts: [
+            { question: '<strong>A.</strong> What is the pointed area?', answer: 'Costal groove.' },
+            { question: '<strong>B.</strong> What is passing through it?', answer: 'Nerve and Nutrient artery.' }
+        ],
+        img: 'https://i.imgur.com/e8OBas9.jpeg'
+    },
+
+    // ── Appendicular skeleton (L3) ──
+    {
+        id: 'q6', lab: 'L3', number: '6',
+        parts: [
+            { question: '<strong>A.</strong> Identify the bone.', answer: 'Radius.' },
+            { question: '<strong>B.</strong> It articulates medially with:', answer: 'Ulna.' }
+        ],
+        img: 'https://i.imgur.com/RDZjvRh.jpeg'
+    },
+    {
+        id: 'q7', lab: 'L3', number: '7',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed area.', answer: 'Medial epicondyle.' },
+            { question: '<strong>B.</strong> What muscle attach to this area?', answer: 'Flexor muscle of the anterior compartment of the forearm.' }
+        ],
+        img: 'https://i.imgur.com/hPh57WK.jpeg',
+        imgStyle: 'height:300px;'
+    },
+    {
+        id: 'q8', lab: 'L3', number: '8',
+        parts: [
+            { question: '<strong>A.</strong> Identify the structure A.', answer: 'Head of radius.' },
+            { question: '<strong>B.</strong> Identify the structure B.', answer: 'Styloid prosses (medial).' }
+        ],
+        img: 'https://i.imgur.com/rdOhrno.png',
+        imgStyle: 'height:300px;'
+    },
+    {
+        id: 'q9', lab: 'L3', number: '9',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed area.', answer: 'Medial epicondyle.' },
+            { question: '<strong>B.</strong> It is the origin of which muscle?', answer: 'Flexor muscle.' }
+        ],
+        img: 'https://i.imgur.com/Mog4C3p.jpeg'
+    },
+    {
+        id: 'q10', lab: 'L3',
+        question: '<strong>10.</strong> Which bone is shown in this figure?',
+        answer: 'Ulna.',
+        img: 'https://i.imgur.com/CF8urWW.png',
+        imgStyle: 'height:360px;'
+    },
+
+    // ── Joints (L4) ──
+    {
+        id: 'q11', lab: 'L4', number: '11',
+        parts: [
+            { question: '<strong>A.</strong> What is this bone called?', answer: 'Axis (2nd cervical vertebrae)' },
+            { question: '<strong>B.</strong> The superior part of this bone is articulated to?', answer: 'Atlas (1st cervical vertebrae).' }
+        ],
+        img: 'https://i.imgur.com/hcpkHs4.jpeg'
+    },
+    {
+        id: 'q12', lab: 'L4', number: '12',
+        parts: [
+            { question: '<strong>A.</strong> What is the name of the joint?', answer: 'Inferior radio-ulnar joint.' },
+            { question: '<strong>B.</strong> What is the type of the joint?', answer: 'Synovial pivot joint.' }
+        ],
+        img: 'https://i.imgur.com/JmTvO6G.jpeg',
+        imgStyle: 'height:360px;'
+    },
+    {
+        id: 'q13', lab: 'L4', number: '13',
+        parts: [
+            { question: '<strong>A.</strong> Identify the joint.', answer: 'Distal Tibio-febular joint.' },
+            { question: '<strong>B.</strong> Mention the type of the joint.', answer: 'Fibrous joint.' }
+        ],
+        img: 'https://i.imgur.com/9wQnUxq.jpeg',
+        imgStyle: 'height:360px;'
+    },
+    {
+        id: 'q14', lab: 'L4', number: '14',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed area.', answer: 'Sternoclavicular joint.' },
+            { question: '<strong>B.</strong> What is the type of the joint?', answer: 'Synovial double-plane joint.' }
+        ],
+        img: 'https://i.imgur.com/On3f9av.png'
+    },
+    {
+        id: 'q15', lab: 'L4', number: '15',
+        parts: [
+            { question: '<strong>A.</strong> Identify the area A.', answer: 'Trochlea.' },
+            { question: '<strong>B.</strong> What does it articulate with?', answer: 'Trochlear notch of the ulna.' }
+        ],
+        img: 'https://i.imgur.com/QlYaV8v.jpeg'
+    },
+    {
+        id: 'q16', lab: 'L4', number: '16',
+        parts: [
+            { question: '<strong>A.</strong> Identify the jointed area.', answer: 'Distal Tibio-fibular joint.' },
+            { question: '<strong>B.</strong> Mention the type of the joint.', answer: 'Fibrous joint.' }
+        ],
+        img: 'https://i.imgur.com/SWmjecx.jpeg',
+        imgStyle: 'height:360px;'
+    },
+    {
+        id: 'q17', lab: 'L4', number: '17',
+        parts: [
+            { question: '<strong>A.</strong> What is the name of the joint?', answer: 'Superior radio-ulnar joint.' },
+            { question: '<strong>B.</strong> What is the type of the joint?', answer: 'Synovial pivot joint.' }
+        ],
+        img: 'https://i.imgur.com/ytl14zh.jpeg',
+        imgStyle: 'height:360px;'
+    },
+    {
+        id: 'q18', lab: 'L4', number: '18',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed area.', answer: 'Medial end ( Sternal end).' },
+            { question: '<strong>B.</strong> What does it articulate with?', answer: 'Manubrium of the sternum.' }
+        ],
+        img: 'https://i.imgur.com/IrjEdRD.png'
+    },
+
+    // ── Muscles (L5) ──
+    {
+        id: 'q19', lab: 'L5',
+        question: '<strong>19.</strong> Identify the pointed muscle.',
+        answer: 'Latissimus dorsi.',
+        img: 'https://i.imgur.com/2oeTXvf.jpeg'
+    },
+    {
+        id: 'q20', lab: 'L5', number: '20', repeat: 'Two times',
+        parts: [
+            { question: '<strong>A.</strong> What is the name of the muscle labeled with green?', answer: 'Lateral Pterygoid muscle.' },
+            { question: '<strong>B.</strong> It is supplied by which nerve?', answer: 'Lateral Pterygoid nerve (branch of mandibular division of trigeminal nerve).' }
+        ],
+        img: 'https://i.imgur.com/BY8UuuN.jpeg'
+    },
+    {
+        id: 'q21', lab: 'L5', number: '21',
+        parts: [
+            { question: '<strong>A.</strong> Identify the name of muscle A.', answer: 'Masseter muscle.' },
+            { question: '<strong>B.</strong> Identify the name of muscle B.', answer: 'Sternocleidomastoid.' }
+        ],
+        img: 'https://i.imgur.com/2lbXJ6j.jpeg'
+    },
+    {
+        id: 'q22', lab: 'L5', number: '22',
+        parts: [
+            { question: '<strong>A.</strong> Whats the name of this muscle?', answer: 'Deltoid muscle.' },
+            { question: '<strong>B.</strong> It is named according to?', answer: 'Its shape.' }
+        ],
+        img: 'https://i.imgur.com/VxUd0e6.jpeg'
+    },
+    {
+        id: 'q23', lab: 'L5', number: '23',
+        parts: [
+            { question: '<strong>A.</strong> Identify the name of muscle A.', answer: 'Trapezius.' },
+            { question: '<strong>B.</strong> Identify the name of muscle B.', answer: 'Latissimus dorsi.' }
+        ],
+        img: 'https://i.imgur.com/L0nUPAt.jpeg'
+    },
+    {
+        id: 'q24', lab: 'L5', number: '24',
+        parts: [
+            { question: '<strong>A.</strong> Identify the muscle.', answer: 'Obicularis Oris.' },
+            { question: '<strong>B.</strong> Identify the nerve supply.', answer: 'Facial nerve (7th Cranial nerve).' }
+        ],
+        img: 'https://i.imgur.com/puNHbs2.jpeg'
+    },
+    {
+        id: 'q25', lab: 'L5', number: '25',
+        parts: [
+            { question: '<strong>A.</strong> Identify the muscle A.', answer: 'Sternocleidomastoid.' },
+            { question: '<strong>B.</strong> Identify the muscle B.', answer: 'Trapezius.' }
+        ],
+        img: 'https://i.imgur.com/FXk2IZ2.jpeg'
+    },
+    {
+        id: 'q26', lab: 'L5', number: '26',
+        parts: [
+            { question: '<strong>A.</strong> Identify the name of muscle A.', answer: 'Trapezius.' },
+            { question: '<strong>B.</strong> Identify the name of muscle B.', answer: 'Levator scapula.' }
+        ],
+        img: 'https://i.imgur.com/Hq6NDQb.jpeg'
+    },
+
+    // ── Respiratory system (L6) ──
+    {
+        id: 'q27', lab: 'L6',
+        question: '<strong>27.</strong> Identify this structure.',
+        answer: 'Larynx.',
+        img: 'https://i.imgur.com/r68xjoV.jpeg',
+        imgStyle: 'height:240px;'
+    },
+    {
+        id: 'q28', lab: 'L6', number: '28', repeat: 'Three times',
+        parts: [
+            { question: '<strong>A.</strong> What is the pointed area called?', answer: 'Carina.' },
+            { question: '<strong>B.</strong> Indicate the level of the structure.', answer: 'At the level of T4 or sternal angle.' }
+        ],
+        img: 'https://i.imgur.com/nbqLNoJ.jpeg'
+    },
+    {
+        id: 'q29', lab: 'L6', number: '29',
+        parts: [
+            { question: '<strong>A.</strong> Identify the name of structure A.', answer: 'Sphenoid sinus.' },
+            { question: '<strong>B.</strong> Identify the name of structure B.', answer: 'Epiglottis.' }
+        ],
+        img: 'https://i.imgur.com/fafS7ui.jpeg'
+    },
+    {
+        id: 'q30', lab: 'L6', number: '30',
+        parts: [
+            { question: '<strong>A.</strong> What is the pointed structure?', answer: 'Laryngo-Pharynx.' },
+            { question: '<strong>B.</strong> Inferiorly it is continued with what?', answer: 'Esophagus.' }
+        ],
+        img: 'https://i.imgur.com/L3WfDNf.jpeg'
+    },
+    {
+        id: 'q31', lab: 'L6', number: '31',
+        parts: [
+            { question: '<strong>A.</strong> Identify the structure A.', answer: 'Nasal cavity.' },
+            { question: '<strong>B.</strong> Identify the structure B.', answer: 'Sphenoid sinus.' }
+        ],
+        img: 'https://i.imgur.com/BxFYQDl.jpeg'
+    },
+    {
+        id: 'q32', lab: 'L6', number: '32',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed area.', answer: 'Trachea.' },
+            { question: '<strong>B.</strong> Its bifurication is called:', answer: 'Carina.' }
+        ],
+        img: 'https://i.imgur.com/AIkes7m.jpeg'
+    },
+    {
+        id: 'q33', lab: 'L6', number: '33',
+        parts: [
+            { question: '<strong>A.</strong> Indicate the pointed area?', answer: 'Esophagus opening.' },
+            { question: '<strong>B.</strong> What is its vertebrae level?', answer: 'T10.' }
+        ],
+        img: 'https://i.imgur.com/ne1wALQ.jpeg'
+    },
+    {
+        id: 'q34', lab: 'L6', number: '34',
+        parts: [
+            { question: '<strong>A.</strong> Indicate the pointed area.', answer: 'Oro-Pharynx.' },
+            { question: '<strong>B.</strong> What is the name of the anterior cavity?', answer: 'Oral cavity.' }
+        ],
+        img: 'https://i.imgur.com/Vddvx8E.jpeg'
+    },
+    {
+        id: 'q35', lab: 'L6', number: '35', repeat: 'Two times',
+        parts: [
+            { question: '<strong>A.</strong> Identify the name of opening.', answer: 'Eustachian tube (Auditory tube).' },
+            { question: '<strong>B.</strong> Location?', answer: 'Lateral wall of Naso-Pharynx.' },
+            { question: '<strong>C.</strong> Function?', answer: 'Connects Naso-Pharynx to the middle air.' }
+        ],
+        img: 'https://i.imgur.com/HCthwUo.jpeg'
+    },
+    {
+        id: 'q36', lab: 'L6', number: '36',
+        parts: [
+            { question: '<strong>A.</strong> Identify the side of the organ.', answer: 'The right side of the lung.' },
+            { question: '<strong>B.</strong> Identify the surface.', answer: 'Sterno-Costal surface.' }
+        ],
+        img: 'https://i.imgur.com/lQ1Jenw.png'
+    },
+    {
+        id: 'q37', lab: 'L6', number: '37',
+        parts: [
+            { question: '<strong>A.</strong> Indicate the pointed structure.', answer: 'Esophagus.' },
+            { question: '<strong>B.</strong> Passes through diaphragm at the level of?', answer: 'T10.' }
+        ],
+        img: 'https://i.imgur.com/zjbBwCd.png',
+        imgStyle: 'height:300px;'
+    },
+
+    // ── Digestive system (L7) ──
+    {
+        id: 'q38', lab: 'L7', number: '38',
+        parts: [
+            { question: '<strong>A.</strong> What is the pointed structure?', answer: 'Sublingual gland.' },
+            { question: '<strong>B.</strong> Its duct opens into?', answer: 'Opens into the oral cavity near the frenulum.' }
+        ],
+        img: 'https://i.imgur.com/j2Nloks.jpeg',
+        imgStyle: 'height:230px;'
+    },
+    {
+        id: 'q39', lab: 'L7', number: '39',
+        parts: [
+            { question: '<strong>A.</strong> What is the structure A?', answer: 'Gallbladder.' },
+            { question: '<strong>B.</strong> What is the structure B?', answer: 'Caudate lobe.' }
+        ],
+        img: 'https://i.imgur.com/t09g6DH.jpeg'
+    },
+    {
+        id: 'q40', lab: 'L7', number: '40',
+        parts: [
+            { question: '<strong>A.</strong> What is the structure A?', answer: 'Cystic duct.' },
+            { question: '<strong>B.</strong> What is the structure B?', answer: 'Common hepatic duct.' }
+        ],
+        img: 'https://i.imgur.com/811cXa6.jpeg'
+    },
+    {
+        id: 'q41', lab: 'L7',
+        question: '<strong>41.</strong> Identify the pointed structure.',
+        answer: 'Falciform ligament.',
+        img: 'https://i.imgur.com/WAvVno0.jpeg'
+    },
+    {
+        id: 'q42', lab: 'L7', number: '42',
+        parts: [
+            { question: '<strong>A.</strong> What is the structure A?', answer: 'Adrenal gland.' },
+            { question: '<strong>B.</strong> What is the structure B?', answer: 'Pancreas.' }
+        ],
+        img: 'https://i.imgur.com/TUnZ0I1.jpeg'
+    },
+    {
+        id: 'q43', lab: 'L7', number: '43',
+        parts: [
+            { question: '<strong>A.</strong> What is the pointed area?', answer: 'Quadrate lobe.' },
+            { question: '<strong>B.</strong> Where is it located?', answer: 'Located between ligamentum teres and gall bladder.' }
+        ],
+        img: 'https://i.imgur.com/kj5bYeM.jpeg'
+    },
+    {
+        id: 'q44', lab: 'L7', number: '44',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed structure.', answer: 'Transverse mesocolon.' },
+            { question: '<strong>B.</strong> It contains _________ and _________.', answer: 'Not mentioned in the lec.' }
+        ],
+        img: 'https://i.imgur.com/bXCEqJJ.jpeg'
+    },
+    {
+        id: 'q45', lab: 'L7',
+        question: '<strong>45.</strong> Identify this part of the gallbladder.<ul style="list-style-type:disc;margin-left:20px;padding:0;line-height:1.8"><div>A. Body</div><div>B. Neck</div><div>C. Fundus</div><div>D. Bile duct</div><div>E. Cystic duct</div></ul>',
+        answer: 'C. Fundus',
+        img: 'https://i.imgur.com/J84zXla.jpeg'
+    },
+    {
+        id: 'q46', lab: 'L7', number: '46',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed structure.', answer: 'Greater omentum.' },
+            { question: '<strong>B.</strong> What is its function?', answer: 'It connects the greater curvature of the stomach with the transverse colon.' }
+        ],
+        img: 'https://i.imgur.com/b0UAoCF.jpeg'
+    },
+    {
+        id: 'q47', lab: 'L7', number: '47',
+        parts: [
+            { question: '<strong>A.</strong> Name the structure A.', answer: 'Ileum.' },
+            { question: '<strong>B.</strong> Name the structure B.', answer: 'Appendix.' }
+        ],
+        img: 'Ilium-Appendix.jpg'
+    },
+
+    // ── Cardiovascular system (L8) ──
+    {
+        id: 'q48', lab: 'L8', number: '48', repeat: 'Two times',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed structure.', answer: 'Internal jugular vein.' },
+            { question: '<strong>B.</strong> It is a continuation of what?', answer: 'Sigmoid sinus.' }
+        ],
+        img: 'https://i.imgur.com/7danIiy.jpeg',
+        imgStyle: 'height:300px;'
+    },
+    {
+        id: 'q49', lab: 'L8', number: '49',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed area.', answer: 'Left ventricle.' },
+            { question: '<strong>B.</strong> Located at which level?', answer: '5th intercostal space.' }
+        ],
+        img: 'https://i.imgur.com/JQ8rSHY.jpeg',
+        imgStyle: 'height:300px;'
+    },
+    {
+        id: 'q50', lab: 'L8', number: '50',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed structure.', answer: 'Right subclavian vein.' },
+            { question: '<strong>B.</strong> Unites with __________ to form brachiocephalic vein.', answer: 'Right internal jugular vein.' }
+        ],
+        img: 'https://i.imgur.com/bK5GFtF.png'
+    },
+    {
+        id: 'q51', lab: 'L8', number: '51',
+        parts: [
+            { question: '<strong>A.</strong> What is the pointed structure called?', answer: 'Left common iliac vein' },
+            { question: '<strong>B.</strong> What is it formed from?', answer: 'The external iliac vein & the internal iliac vein.' }
+        ],
+        img: 'https://i.imgur.com/7UA4spu.jpeg'
+    },
+    {
+        id: 'q52', lab: 'L8', number: '52',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed area.', answer: 'Left atrium.' },
+            { question: '<strong>B.</strong> This area has four ___________.', answer: 'Pulmonary veins.' }
+        ],
+        img: 'https://i.imgur.com/9Cntb99.jpeg'
+    },
+    {
+        id: 'q53', lab: 'L8', number: '53',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed structure.', answer: 'Coronary artery.' },
+            { question: '<strong>B.</strong> It is a branch of __________.', answer: 'Ascending aorta.' }
+        ],
+        img: 'https://i.imgur.com/fnqjKYa.jpeg'
+    },
+    {
+        id: 'q54', lab: 'L8',
+        question: '<strong>54.</strong> What is the name of the chamber of the heart opened in this figure?',
+        answer: 'Right Ventricle.',
+        img: 'https://i.imgur.com/GvKqKYM.jpeg'
+    },
+    {
+        id: 'q55', lab: 'L8',
+        question: '<strong>55.</strong> Identify this part of the heart.',
+        answer: 'Base.',
+        img: 'https://i.imgur.com/UR4JHSU.jpeg'
+    },
+    {
+        id: 'q56', lab: 'L8', number: '56',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed structure.', answer: 'External iliac artery.' },
+            { question: '<strong>B.</strong> It is branch of?', answer: 'Common iliac artery.' }
+        ],
+        img: 'https://i.imgur.com/eg81TuO.jpeg'
+    },
+    {
+        id: 'q57', lab: 'L8', number: '57',
+        parts: [
+            { question: '<strong>A.</strong> What is the pointed area?', answer: 'Right ventricle.' },
+            { question: '<strong>B.</strong> It delivers blood to _________.', answer: 'Pulmonary trunk.' }
+        ],
+        img: 'https://i.imgur.com/L19IpI5.png'
+    },
+    {
+        id: 'q58', lab: 'L8', number: '58',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed structure.', answer: 'Inferior vena cava.' },
+            { question: '<strong>B.</strong> What forms this structure?', answer: 'Formed by Right and left common iliac vein.' }
+        ],
+        img: 'https://i.imgur.com/bLRDpEC.jpeg'
+    },
+    {
+        id: 'q59', lab: 'L8', number: '59',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed structure.', answer: 'Left subclavian artery.' },
+            { question: '<strong>B.</strong> It is a branch of __________.', answer: 'Arch of aorta.' }
+        ],
+        img: 'https://i.imgur.com/MeElbxu.jpeg'
+    },
+    {
+        id: 'q60', lab: 'L8', number: '60',
+        parts: [
+            { question: '<strong>A.</strong> What is the pointed area in figure A?', answer: 'left internal jugular vein.' },
+            { question: '<strong>B.</strong> What is the pointed area in figure B?', answer: 'Right atrium.' }
+        ],
+        img: [
+            'https://i.imgur.com/sciLsgj.jpeg',
+            'https://i.imgur.com/Tt37tUL.png'
+        ]
+    },
+    {
+        id: 'q61', lab: 'L8', number: '61', repeat: 'Not mentioned in this year\'s lectures',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed structure.', answer: 'Right testicular artery.' },
+            { question: '<strong>B.</strong> It is a branch of _____________.', answer: 'Abdominal aorta.' }
+        ],
+        img: 'https://i.imgur.com/PvSizBB.jpeg'
+    },
+    {
+        id: 'q62', lab: 'L8', number: '62',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed structure.', answer: 'Subclavian vein.' },
+            { question: '<strong>B.</strong> It is a continuation of _____________.', answer: 'Axillary vein.' }
+        ],
+        img: 'https://i.imgur.com/fQDISqa.jpeg'
+    },
+    {
+        id: 'q63', lab: 'L8', number: '63',
+        parts: [
+            { question: '<strong>A.</strong> Name the structure A.', answer: 'Brachiocephalic artery.' },
+            { question: '<strong>B.</strong> Name the structure B.', answer: 'Left subclavian artery.' }
+        ],
+        img: 'Arteries.jpg'
+    },
+
+    // ── Nervous system (L9) ──
+    {
+        id: 'q64', lab: 'L9', number: '64',
+        parts: [
+            { question: '<strong>A.</strong> What is the pointed area.', answer: 'Cerebellum.' },
+            { question: '<strong>B.</strong> What is the blue area.', answer: 'Frontal lobe.' }
+        ],
+        img: 'https://i.imgur.com/tTb8v85.jpeg'
+    },
+
+    // ── Genitourinary system (L10) ──
+    {
+        id: 'q65', lab: 'L10', number: '65',
+        parts: [
+            { question: '<strong>A.</strong> What is the name of green area?', answer: 'Urethra.' },
+            { question: '<strong>B.</strong> What is the pointed area?', answer: 'Prostate gland.' }
+        ],
+        img: 'https://i.imgur.com/qZ3Ru6z.jpeg'
+    },
+    {
+        id: 'q66', lab: 'L10',
+        question: '<strong>66.</strong> Identify the pointed structure.<ul style="list-style-type:disc;margin-left:20px;padding:0;line-height:1.8"><div>A. Prostatic urethra</div><div>B. Membranous urethra</div><div>C. Penile urethra</div><div>D. External urethral meatus</div><div>E. Internal urethral meatus</div></ul>',
+        answer: 'B. membranous urethra',
+        img: 'https://i.imgur.com/HGWeycY.jpeg'
+    },
+    {
+        id: 'q67', lab: 'L10', number: '67',
+        parts: [
+            { question: '<strong>A.</strong> Identify the gland.', answer: 'Prostate gland.' },
+            { question: '<strong>B.</strong> Located between __________ and _________.', answer: 'Urinary bladder and Rectum.' }
+        ],
+        img: 'https://i.imgur.com/61S4am4.jpeg'
+    },
+    {
+        id: 'q68', lab: 'L10', number: '68',
+        parts: [
+            { question: '<strong>A.</strong> Identify the pointed gland.', answer: "Bulbourethral (Cowper's) gland." },
+            { question: '<strong>B.</strong> Its duct opens into:', answer: 'The proximal end of the penile urethra.' }
+        ],
+        img: 'https://i.imgur.com/A6oMfpn.jpeg'
+    },
+    {
+        id: 'q69', lab: 'L10', number: '69', repeat: 'Two times',
+        parts: [
+            { question: '<strong>A.</strong> What is the pointed area?', answer: 'Trigone.' },
+            { question: '<strong>B.</strong> Where it is located?', answer: 'Urinary bladder.' }
+        ],
+        img: 'https://i.imgur.com/5Eujo4u.jpeg'
+    },
+    {
+        id: 'q70', lab: 'L10', number: '70',
+        parts: [
+            { question: '<strong>A.</strong> Name structure A.', answer: 'Medulla.' },
+            { question: '<strong>B.</strong> Name structure B.', answer: 'Renal pelvis.' }
+        ],
+        img: 'https://i.imgur.com/EXmPAey.jpeg'
+    }
+
+];
+
+const labGroups = [
+    { key: 'L1',  label: 'Introduction to anatomy 🦴' },
+    { key: 'L2',  label: 'Axial skeleton 💀' },
+    { key: 'L3',  label: 'Appendicular skeleton 🦴' },
+    { key: 'L4',  label: 'Joints 🔗' },
+    { key: 'L5',  label: 'Muscles 💪' },
+    { key: 'L6',  label: 'Respiratory system 🫁' },
+    { key: 'L7',  label: 'Digestive system 💊' },
+    { key: 'L8',  label: 'Cardiovascular system 🫀' },
+    { key: 'L9',  label: 'Nervous system 🧠' },
+    { key: 'L10', label: 'Genitourinary system 🫘' },
+];
+
+
+function renderCard(q) {
+    const parts = q.parts || [{ question: q.question, answer: q.answer }];
+
+    // NEW — number always shows, repeat badge appears beside it when present
+const repeatHtml = q.number
+    ? `<h3 class="question-number">${q.number}. ${q.repeat ? `<span class="repeat">${q.repeat}</span>` : ''}</h3>`
+    : (q.repeat ? `<h3 class="question-number"><span class="repeat">${q.repeat}</span></h3>` : '');
+
+    const partsHtml = parts.map((part, i) => `
+        <div class="question-item">
+            <span>${part.question}</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('${q.id}_${i}', this)">Show Answer</button>
+            <div id="${q.id}_${i}" class="answer-box">${part.answer}</div>
+        </div>`).join('');
+
+    const imgSection = q.img
+    ? `<div class="image-section">
+        ${
+            Array.isArray(q.img)
+? `<div style="display:flex;flex-direction:column;width:100%; gap:10px;">
+    ${q.img.map((src, idx) => `
+      <div style="position:relative;">
+        <span style="position:absolute;top:8px;left:10px;z-index:1;font-weight:bold;font-size:1.1rem;color:white;background:rgba(0,0,0,0.5);padding:2px 8px;border-radius:4px;">${String.fromCharCode(65+idx)}</span>
+        <img src="${src}" alt="Exam Image" style="width:100%;display:block;">
+        
+      </div>`).join('')}
+  </div>`
+            : `<img src="${q.img}" alt="Exam Image" ${q.imgStyle ? `style="${q.imgStyle}"` : ''}>`
         }
-    }
+       </div>`
+    : '';
 
-    function toggleTheme() {
-        const body = document.body;
-        const icon = document.getElementById('theme-icon');
-        const isLight = body.getAttribute('data-theme') === 'light';
+    return `
+        <div class="quiz-card" data-lab="${q.lab}">
+            <div class="question-section">
+                ${repeatHtml}${partsHtml}
+            </div>
+            ${imgSection}
+        </div>`;
+}
 
-        if (isLight) {
-            body.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'dark');
-            icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-        } else {
-            body.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
-            icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-        }
-    }
+function renderContent() {
+    const container = document.getElementById('main-content');
+    let html = '';
+    labGroups.forEach(group => {
+        const groupQuestions = questions.filter(q => q.lab === group.key);
+        if (groupQuestions.length === 0) return;
+        html += `<div class="lab-wrapper" data-subject="${group.key}">
+    <div class="lab-center"><div class="lab-title">${group.label}<span class="Q-number">${groupQuestions.length} Questions</span></div></div>
+            ${groupQuestions.map(renderCard).join('')}
+        </div>`;
+    });
+    container.innerHTML = html;
+}
 
-    function filterLabs(subject, btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const wrappers = document.querySelectorAll('.lab-wrapper');
-        wrappers.forEach(wrap => {
-            wrap.style.display = (subject === 'All' || wrap.dataset.subject === subject) ? "block" : "none";
-        });
-    }
 
-    function toggleAnswer(id, btn) {
+function filterLabs(subject, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.lab-wrapper').forEach(wrap => {
+        wrap.style.display = (subject === 'All' || wrap.dataset.subject === subject) ? 'block' : 'none';
+    });
+}
+
+
+function toggleAnswer(id, btn) {
     const answerDiv = document.getElementById(id);
-    const answerText = answerDiv.innerText;
-
-  
     if (!btn.classList.contains('revealed')) {
-      
-        btn.innerText = answerText;
+        btn.innerText = answerDiv.innerText;
         btn.classList.add('revealed');
     } else {
-    
-        btn.innerText = "Show Answer";
+        btn.innerText = 'Show Answer';
         btn.classList.remove('revealed');
     }
 }
+
+
+function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    const isLight = body.getAttribute('data-theme') === 'light';
+    if (isLight) {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+        body.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}
+
+if (localStorage.getItem('theme') === 'light') {
+    document.body.setAttribute('data-theme', 'light');
+    document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
+
+renderContent();
 </script>
 </body>
 </html>
-
-
