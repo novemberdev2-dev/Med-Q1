@@ -3,23 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practical_Molecular biology_End-Rotation_HDSF</title>
+    <title>Final_Molecularbiologylabs_End-Rotation_2021-2025</title>
     
     <style>
-        :root {
-            --bg-body: #0c0d0e;
-            --text-main: #f1f5f9;
-            --header-bg: #1e293b;
-            --header-text: #38bdf8;
-            --card-bg: #1a1c1e;
-            --card-border: #26292b;
-            --ans-bg: #1e293b;
-            --ans-text: #f0cf6a;
-            --ans-border: #2e7d32;
-            --input-border: #334155;
-        
-        }
-
+    
         [data-theme="light"] {
           
             --bg-body: #f4f4f9;
@@ -28,12 +15,12 @@
             --header-text: #ffffff;
             --card-bg: #ffffff;
             --card-border: #cccccc;
-            --ans-bg: #e8f5e9;
+             --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
-            --ans-border: #2e7d32;
             --input-border: #cccccc;
+            --q-number:#0c0d0e
         }
-
+          
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-body);
@@ -54,33 +41,16 @@
             text-align: center; 
             background-color: var(--header-bg);
             color: var(--header-text);
-            padding: 16px;
-            border-radius: 10px;
+            padding: 14px;
+            border-radius: 9px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-weight: 700;
             margin-bottom: 20px;
         }
 
-        /* Positions the toggle to the right */
-        .header-right {
-            display: flex;
-            align-items: center;
-        }
-
-        .theme-toggle {
-            background-color: var(--card-bg);
-            border: 1px solid var(--input-border);
-            color: var(--text-main);
-            width: 48px;
-            height: 48px;
-            border-radius: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
+     
         
         .site-footer {
             margin-top: 80px;
@@ -88,10 +58,13 @@
             text-align: center;
             font-size: 0.75rem;
             opacity: 0.5;
-            border-top: 1px solid var(--card-border);
+           
         }
         
-        .question-number { margin-top: 0; margin-bottom: 20px; }
+        .question-number{
+          margin-top: 0;  
+          margin-bottom: 20px;
+        }
 
         .quiz-card {
             display: flex;
@@ -121,73 +94,108 @@
         .question-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--card-border); }
         .question-item:last-child { border-bottom: none; }
         
-        .answer-box { display: none !important; }
+        .answer-box { display: none !important;}
 
-        button.ans-btn {
-            background-color: #729fcf;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 10px;
-            text-align: left;
-            width: auto;    
-            display: inline-block;
-            white-space: pre-line;
-        }
+.ans-btn{
+  background-color: var(--ans-bg);
+  color: var(--ans-text);
+}
+
         
+button.ans-btn {
+    background-color: #729fcf;
+    color: white;
+    border: none;
+    padding: 9px 12px;
+    border-radius: 3px;
+    font-weight: 650;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-align: left;
+    width: auto;    
+    display: inline-block;
+    white-space: pre-line;
+    cursor: pointer;
+    transition: background-color 0.1s, color 0.1s;
+}
+
+button.ans-btn.revealed {
+    background-color: var(--ans-bg) !important;
+    color: var(--ans-text) !important;
+    font-size: 0.9rem;
+    font-weight: 900;
+}
+
+
         .lab-title {
-            text-align: center;
-            margin: 40px 0 20px 0;
-            font-size: 1.4rem;
+            text-align: left;
+            margin: 60px 0 20px 0;
+            font-size: 1.3rem;
             font-weight: bold;
             color: #729fcf;
             padding-bottom: 5px;
-            display: inline-block;
+            display: flex;
+            align-items:center;
+            justify-content: space-between;
+            width: 100%;      
+            
         }
+            
         .lab-center { text-align: left; width: 100%; }
+        
+        .Q-number{
+          font-size:12px;
+          border:1px solid var(--q-number);
+          padding:3px 5px ;
+          border-radius:3px;
+          color:var(--q-number);
+}
 
         @media (max-width: 700px) {
             .quiz-card { flex-direction: column-reverse; }
             .image-section { border-left: none; border-bottom: 1px solid var(--card-border); }
-            .header { flex-direction: row; }
+            .header { flex-direction: column; gap: 12px; }
+            .filter-btn { padding: 8px 8px; font-size: 0.75rem; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
+  <script>
+    
+    (function() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.setAttribute('data-theme', 'light');
+        }
+    })();
+</script>
+
 
 <div class="container">
     <div class="header">
         <div style="text-align: left;">
-            <h3 style="margin: 0; font-size: 1.4rem;">Final & End-Rotation</h3>
-            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Molecular biology Lab 🧬 • 2022-2025</p>
+            <h3 style="margin: 0; font-size: 1.4rem;">Final & End-Rotaion</h3>
+            <p style="margin: 2px 0 0; font-size: 0.86rem; opacity: 0.8;"> Molecular biology lab 🧬• 2021-2025</p>
         </div>
-        
     </div>
-    <div class="header-right">
-              <button class="theme-toggle" onclick="toggleTheme()">
-    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-    </svg>
-</button>
-        </div>
+
+   
 
     <div id="quiz-content">
-        <div class="lab-wrapper">
-            <div class="lab-center"><div class="lab-title">Molecular biology lab 🧬</div></div>
+      
+         <div class="lab-wrapper" data-subject="Anatomy">
+            <div class="lab-center"><div class="lab-title">Molecular biology Lab 🧬<span class="Q-number">4 Questions</span></div></div>
             
             <div class="quiz-card">
                 <div class="question-section">
                     <h3 class="question-number">1.</h3>
                     <div class="question-item">
-                        <span><strong>A.</strong> Name of instrument?</span><br>
+                        <span><strong>A.</strong> Name of instrument?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1a', this)">Show Answer</button>
                         <div id="ans1a" class="answer-box">Electrophoresis apparatus.</div>
                     </div>
                     <div class="question-item">
-                        <span><strong>B.</strong> What is this used for?</span><br>
+                        <span><strong>B.</strong> What is this used for?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1b', this)">Show Answer</button>
                         <div id="ans1b" class="answer-box">DNA/RNA separation.</div>
                     </div>
@@ -195,10 +203,26 @@
                 <div class="image-section"><img src="gel.jpg" alt="Exam Image"> </div>
             </div>
 
-            <div class="quiz-card">
+               <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">2.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> Name this device?</span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans4a', this)">Show Answer</button>
+                        <div id="ans4a" class="answer-box">Nanodrop.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> What is this used for?</span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans4b', this)">Show Answer</button>
+                        <div id="ans4b" class="answer-box">Measuring nucleic acid concentration.</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="https://i.imgur.com/XsbNTvT.jpeg" alt="Exam Image"> </div>
+            </div>
+             <div class="quiz-card">
                 <div class="question-section">
                     <div class="question-item">
-                        <span><strong>2.</strong> Which equipment in the lab is used for amplification of DNA?
+                        <span><strong>3.</strong> Which equipment in the lab is used for amplification of DNA?
                             <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
                                 <div>A. Electrophoresis Apparatus</div>
                                 <div>B. PCR Machine</div>
@@ -212,11 +236,10 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="quiz-card">
+             <div class="quiz-card">
                 <div class="question-section">
                     <div class="question-item">
-                        <span><strong>3.</strong> What is the purpose of the biosafety cabinet?</span><br><br>
+                        <span><strong>4.</strong> What is the purpose of the biosafety cabinet?</span><br><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans3', this)">Show Answer</button>
                         <div id="ans3" class="answer-box">To provide a sterile work environment.</div>
                     </div>
@@ -224,42 +247,31 @@
             </div>
         </div>
     </div>
-</div>
+            
+<footer class="site-footer">© Developed by <strong>Shabaz Rasheed</strong></footer>
 
-<footer class="site-footer">Developed by <strong>Shabaz Rasheed</strong></footer>
 
-<script>
-    function toggleTheme() {
-    const body = document.body;
-    const icon = document.getElementById('theme-icon');
+    <script>
     
     
-    const isLight = body.getAttribute('data-theme') === 'light';
+    function toggleAnswer(id, btn) {
+    const answerDiv = document.getElementById(id);
+    const answerText = answerDiv.innerText;
 
-    if (isLight) {
-    
-        body.removeAttribute('data-theme');
-    
-        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+  
+    if (!btn.classList.contains('revealed')) {
+      
+        btn.innerText = answerText;
+        btn.classList.add('revealed');
     } else {
-
-        body.setAttribute('data-theme', 'light');
-        
-        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    
+        btn.innerText = "Show Answer";
+        btn.classList.remove('revealed');
     }
 }
 
-    function toggleAnswer(id, btn) {
-        const answerDiv = document.getElementById(id);
-        const answerText = answerDiv.innerText;
-        if (btn.innerText === "Show Answer") {
-            btn.innerText = answerText;
-            btn.style.backgroundColor = "var(--ans-border)";
-        } else {
-            btn.innerText = "Show Answer";
-            btn.style.backgroundColor = "#729fcf";
-        }
-    }
 </script>
+
 </body>
 </html>
+
