@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final1_HDSF_2025-2026</title>
+
+    <style>
+       :root {
+            --bg-body: #121212;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #2a2f36;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --filter-bg: transparent;
+            
+        }
+
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #eef6e4;
+            --ans-text: #2e7d32;
+            --filter-bg: transparent;
+            
+        }
+
+        .filter-btn.active {
+            background-color: #728fcf;
+            color: #fff;
+            border-color: #728fcf;
+        }
+
+        body {
+            -webkit-user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1150px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 7px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .filter-container {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            margin-top: 6px;
+        }
+
+        .divider { border: none; margin-bottom: 12px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+
+        .ans-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ans-btn {
+            background-color:  #728fcf;
+            color: #fff;
+            border: none;
+            padding: 7px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-weight: 650;
+            font-size: 16px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .q-block.revealed .ans-btn {
+            background-color: var(--ans-bg);
+            color: var(--ans-text);
+            font-weight: 700;
+            padding: 7px 12px;
+            font-size: 16px;
+        }
+
+        mark { background-color: #f0cf6a; color: #000; }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-opts);
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.6;
+            box-sizing: border-box;
+            width: 100%;
+            display: block; 
+        }
+
+        .section-heading-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mcq-count-badge {
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 2px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body oncontextmenu="return false;">
+
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">Final Exam 1</h3>
+            <p style="margin: 2px 0 0; font-size: 0.86rem; opacity: 0.8;">HDSF • Theory • 2025-2026</p>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+        
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="filter-container" id="filter-bar"></div>
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+<script>
+
+const allQuestions = [
+  
+   { n: 1, s: "Anatomy", q: "Palm of the hand faces backward, what is the movement?", o: ["A. Flexion", "B. Pronation", "C. Extension", "D. Supination", "E. Abduction"], a: "B" },
+
+  { n: 2, s: "Anatomy", q: "The sole of the foot faces inward, What is the movement?", o: ["A. Eversion", "B. Plantar flexion", "C. Circumduction", "D. Inversion", "E. Dorsiflexion"], a: "D" },
+  
+  { n: 3, s: "Anatomy", q: "What suture is found between the frontal bone and parietal bones?", o: ["A. Coronal suture", "B. Lambdoid suture", "C. Squamous suture", "D. Pterion", "E. Sagittal suture"], a: "A" },
+  
+   { n: 4, s: "Anatomy", q: "Which of the following is not cranial bone?", o: ["A. Frontal", "B. Temporal", "C. Mandible", "D. Occipital", "E. Sphenoid"], a: "C" },
+   
+    { n: 5, s: "Anatomy", q: "Narrowest part of the humerus bone:", o: ["A. Greater tubercle", "B. Capitulum", "C. Medial epicondyle", "D. Anatomical neck", "E. Surgical neck"], a: "E" },
+  
+ { n: 6, s: "Anatomy", q: "Acromioclavicular joint is:", o: ["A. Saddle", "B. Hinge", "C. Plane", "D. Pivot", "E. Ball and socket"], a: "C" },
+ 
+{ n: 7, s: "Anatomy", q: "Damage to the superior radioulnar joint affects which structure most likely?", o: ["A. Articular disk", "B. Annular ligament", "C. Shaft of the radius", "D. Shaft of the ulna", "E. Head of the ulna"], a: "B" },
+
+{ n: 8, s: "Anatomy", q: "Which type of muscle prevents unwanted movement?", o: ["A. Prime mover", "B. Smooth muscle", "C. Antagonist muscle", "D. Synergist muscle", "E. Fixator muscle"], a: "D" },
+
+ { n: 9, s: "Anatomy", q: "Superficial muscle that extends from skull and vertebral colomn medially, clavicle and scapula laterally and supplied by accessory nerve?", o: ["A. Deltoid", "B. Trapezius", "C. Rhomboid major", "D. Rhomboid minor", "E. Latissimus dorsi"], a: "D" },
+ 
+    { n: 10, s: "Anatomy", q: "The attachment that moves the most?", o: ["A. Ligament", "B. Tendon", "C. Insertion", "D. Fascia", "E. Origin"], a: "C" },
+
+  { n: 11, s: "Anatomy", q: "Occasionally flattened muscles are attached by a thin sheet of fibrous tissue called:", o: ["A. Synovial membrane", "B. Aponeurosis", "C. Periosteum", "D. Tendon", "E. Cartilage"], a: "B" },
+  
+   { n: 12, s: "Anatomy", q: "Paranasal sinuses open into the:", o: ["A. Anterior wall", "B. Superior wall", "C. Lateral wall", "D. Inferior wall", "E. Medial wall"], a: "C" },
+  
+  { n: 13, s: "Anatomy", q: "Pharynx ends at:", o: ["A. T4", "B. C1", "C. T1", "D. C6", "E. C3"], a: "D" },
+  
+   { n: 14, s: "Anatomy", q: "What separates superior inferior mediastinum?", o: ["A. Sternal angle", "B. Diaphragm", "C. Clavicle", "D. T1 vertebra ", "E. Xiphoid process"], a: "A" },
+   
+   { n: 15, s: "Anatomy", q: "Bile duct and pancreatic duct open into:", o: ["A. Ileum", "B. Stomach", "C. Cecum", "D. Jejunum", "E. Duodenum"], a: "E" },
+   
+   { n: 16, s: "Anatomy", q: "The superior vena cava drains into:", o: ["A. Left ventricle", "B. Right ventricle", "C. Right atrium", "D. Left atrium", "E. Pulmonary trunk "], a: "C" },
+  
+  { n: 17, s: "Anatomy", q: "Which artery supplies pelvis and buttock region?", o: ["A. Femoral artery", "B. Internal iliac artery", "C. Internal carotid artery ", "D. External iliac artery", "E. External carotid artery"], a: "B" },
+
+  { n: 18, s: "Anatomy", q: "Which vein arises from the venous network of the hand and runs on the lateral side of the forearm?", o: ["A. Cephalic vein", "B. Basilic vein", "C. Ulnar vein", "D. Median cubital vein", "E. Radial vein"], a: "A" },
+ 
+ { n: 19, s: "Anatomy", q: "Which of the following is a primary motor area of the brain?", o: ["A. Postcentral gyrus", "B. Occipital lobe", "C. Precentral gyrus", "D. Temporal lobe", "E. Cerebellum"], a: "C" },
+
+  { n: 20, s: "Anatomy", q: "Bundle of axon in the CNS?", o: ["A. Plexus", "B. Ganglion", "C. Nerve ", "D. Nucleus", "E. Tract"], a: "E" },
+  
+  
+  { n: 21, s: "Physiology", q: "Which of following receptors is an interoreceptor?", o: ["A. Meisnner corpuscle", "B. Krause end bulb", "C. Pacinian corpuscle", "D. Visceroceptor", "E. Thermoreceptor"], a: "D" },
+  
+  { n: 22, s: "Physiology", q: "A person drinks a lot of alcohol, the number of which organelle increases in the liver?", o: ["A. Smooth endoplasmic reticulum", "B. Peroxisomes", "C. Ribosomes", "D. Lysosomes", "E. Rough endoplasmic reticulum"], a: "B" },
+
+ { n: 23, s: "Physiology", q: "Sodium glucose cotransporter is an example of:", o: ["A. Simple diffusion", "B. Primary active transport", "C. Facilitated diffusion", "D. Secondary active transport (symporter)", "E. Secondary active transport (antiporter)"], a: "D" },
+  { n: 24, s: "Physiology", q: "Facilitated diffusion differs from simple diffusion because facilitated diffusion:", o: ["A. Requires ATP to move substances", "B. Requires carrier and channel proteins", "C. Occurs only in the nucleus", "D. Moves molecules against gradient", "E. Uses vesicles"], a: "B" },
+  
+ { n: 25, s: "Physiology", q: "Which nutrient is required in the body in the largest amount?", o: ["A. Protein", "B. Carbohydrates", "C. Fat", "D. Vitamins", "E. Water"], a: "E" },
+
+{ n: 26, s: "Physiology", q: "Which of these decreases metabolism that leads to decrease in body temperature?", o: ["A. Thyroid hormones", "B. Epinphrine and norepinphrine", "C. Plic", "D. Shivering", "E. Vasodilation"], a: "E" },
+
+{ n: 27, s: "Physiology", q: "Cis-fatty acids are healthy but when reheated they become?", o: ["A. Saturated fatty acids", "B. Omega-3 fatty acids", "C. Phospholipids", "D. Essential fatty acids", "E. Trans-fatty acids"], a: "E" },
+
+ { n: 28, s: "Physiology", q: "Which of these signal termination of food intake?", o: ["A. Low blood glucose", "B. Gastrin secretion", "C. Distention in the GI tract especially the stomach and duodenum,after a meal", "D. Increased ghrelin", "E. Empty stomach"], a: "C" },
+  
+  { n: 29, s: "Physiology", q: "In Receptor-mediated endocytosis, What is formed around LDL receptor complex?", o: ["A. Albumin", "B. Clathrin coated pit", "C. Gap junction", "D. Tight junction", "E. Desmosome"], a: "B" },
+
+  { n: 30, s: "Physiology", q: "In emphysema, the rate of oxygen diffusion in the alveoli decrease, this affects?", o: ["A. Surface area", "B. Temperature", "C. Substance mass", "D. Diffusion distance", "E. Concentration gradient"], a: "A" },
+
+  { n: 31, s: "Physiology", q: "Which of the following is not a symptom of inflammation?", o: ["A. Redness", "B. Swelling", "C. Heat", "D. Pain", "E. Coldness"], a: "E" },
+  
+  { n: 32, s: "Physiology", q: "Which of these causes glycogenolysis?", o: ["A. Insulin", "B. Thyroxine", "C. Glucagon", "D. Calcitonin", "E. Estrogen"], a: "C" },
+
+  { n: 33, s: "Physiology", q: "In water-soluble hormones, which of following activates G protein?", o: ["A. Hormone-receptor complex", "B. Adenylate cyclase", "C. Protein kinase", "D. Sodium channel", "E. cAMP"], a: "A" },
+
+  { n: 34, s: "Physiology", q: "Which of these is a contractile protein?", o: ["A. Collagen and elastin", "B. Keratin and fibrin", "C. Tubulin and dynein", "D. Actin and myosin", "E. Albumin and globulin"], a: "D" },
+
+  { n: 35, s: "Physiology", q: "One gram of lipid (fat) is equal to:", o: ["A. 4 cal", "B. 6 cal", "C. 7 cal", "D. 2 cal", "E. 9 cal"], a: "E" },
+
+  { n: 36, s: "Physiology", q: "Which of these vitamins act as antioxidants?", o: ["A. Vitamins—C, E, and beta-carotene (A provitamin)", "B. Vitamins B1 and B2", "C. Vitamins—K, D, and C", "D. Vitamin D only", "E. Folic acid and biotin"], a: "A" },
+
+
+ { n: 37, s: "Physiology", q: "Endocrine signaling transports its substances through:", o: ["A. Lymph", "B. Blood", "C. Synovial fluid", "D. CSF", "E. Saliva"], a: "B" },
+ 
+  { n: 38, s: "Physiology", q: "Which process moves molecules against their concentration gradient?", o: ["A. Osmosis", "B. Diffusion", "C. Filtration", "D. Active transport", "E. Facilitated diffusion"], a: "D" },
+
+{ n: 39, s: "Physiology", q: "Make up about half the volume of the CNS, and in case of injury or disease, it multiplies to fill in the spaces formerly occupied by neurons, and it do not generate or propagate action potentials.", o: ["A. Neurolemma", "B. Ganglion", "C. Tract", "D. Nucleus", "E. Neuroglia"], a: "E" },
+{ n: 40, s: "Physiology", q: "Which organelle has an early role in apoptosis?", o: ["A. Lysosome", "B. Ribosome", "C. Mitochondria", "D. Golgi apparatus", "E. Centrosome"], a: "C" },
+
+ 
+  
+ { n: 41, s: "Microbiology", q: "Which specific trematode is characterized by having a terminal spine on its eggs?", o: ["A. Fasciola hepatica", "B. Schistosoma mansoni", "C. Clonorchis sinensis", "D. Schistosoma heamatobium", "E. Paragonimus westermani"], a: "D" },
+ { n: 42, s: "Microbiology", q: "Which antibiotics are responsible for stopping cell wall synthesis ?", o: ["A. Penicillin", "B. Tetracycline", "C. Chloramphenicol", "D. Erythromycin", "E. Gentamicin"], a: "A" },
+
+
+  { n: 43, s: "Microbiology", q: "Hypopigmentation caused by Tinea versicolor is which type of mycosis?", o: ["A. Surface level", "B. Deep systemic", "C. Opportunistic", "D. Subcutaneous", "E. Cutaneous"], a: "A" },
+
+  { n: 44, s: "Microbiology", q: "Vector of malaria?", o: ["A. Sand fly", "B. Tsetse fly", "C. Anopheles mosquito", "D. Housefly", "E. Flea"], a: "C" },
+
+  { n: 45, s: "Microbiology", q: "Which plasmids are responsible for the transfer of genetic material through conjugation?", o: ["A. Virulence plasmid", "B. R (resistance) plasmid", "C. F (fertility) plasmid", "D. Degenerative plasmid", "E. Col plasmid"], a: "C" },
+  
+    { n: 46, s: "Microbiology", q: "C3b in humans act as:", o: ["A. Cytokines", "B. Opsonins", "C. Antibodies", "D. Histamines", "E. Interferons"], a: "B" },
+
+
+
+  { n: 47, s: "Microbiology", q: "Which candida albicans mechanism stops complimentary?", o: ["A. Capsule formation", "B. Cytokine called GM-CSF", "C. Flagella production", "D. Biofilm pigmentation", "E. Spore formation"], a: "B" },
+
+  { n: 48, s: "Microbiology", q: "Mycoplasma can be acid fast but not gram stained because of:", o: ["A. Absence of ribosomes", "B. Presence of spores", "C. High levels of lipids (myco lipids) in its cell wall", "D. Lack of DNA", "E. Thick peptidoglycan wall"], a: "C" },
+
+  { n: 49, s: "Microbiology", q: "Second intermediate host of fasiolo hepatica?", o: ["A. Snail", "B. Fish", "C. Mosquito", "D. Human", "E. Aquatic plant"], a: "E" },
+
+  { n: 50, s: "Microbiology", q: "What is the gold standard laboratory procedure for easily diagnosis of Covid 19 ?", o: ["A. RT-PCR", "B. Viral culture", "C. Light microscopy", "D. Antibody lgG test", "E. Antigen rapid test only"], a: "A" },
+
+  { n: 51, s: "Microbiology", q: "Which of the following is true about Chlamydia bacteria?", o: ["A. It produces its own ATP", "B. It reproduces outside host cells", "C. It is visible without staining under light microscope", "D. It is dimorphic, having an elementary body and a reticulate body", "E. It forms spores"], a: "D" },
+
+  { n: 52, s: "Microbiology", q: "Which of these is true about endotoxins?", o: ["A. They are proteins secreted by bacteria", "B. Its the lipid A part of lipopolysaccharide( LPS)", "C. They are produced only by fungi", "D. They are heat labile exotoxins", "E. They are part of bacterial capsule"], a: "B" },
+
+  { n: 53, s: "Microbiology", q: "Which is the correct one?", o: ["A. Simple transposons contain plasmids only", "B. IS elements contain ribosomes", "C. Composite transposons: consist of two IS elements flanking a central region containing accessory genes", "D. Transposons are found only in viruses", "E. Plasmids are made of RNA"], a: "C" },
+
+  { n: 54, s: "Microbiology", q: "In nosocomial infections what causes endogenous infections?", o: ["A. Air pollution", "B. Contaminated water", "C. Insects", "D. Person’s own normal flora", "E. Fungal spores"], a: "D" },
+
+  { n: 55, s: "Microbiology", q: "Affects pathogenic bacteria without harming the host?", o: ["A. Antigenicity", "B. Selective toxicity", "C. Pathogenicity", "D. Virulence", "E. Resistance"], a: "B" },
+
+  { n: 56, s: "Microbiology", q: "Which of these is right about schistosoma?", o: ["A. Infective stage is metacercaria", "B. Hermaphrodict", "C. Diagnosis by detection if egg in stool", "D. Its liver fluke", "E. Has two intermediate hosts"], a: "C" },
+
+  { n: 57, s: "Microbiology", q: "A 65-year-old man develops pneumonia. The organisms isolated from the sputum are gram-positive cocci that are alpha hemolytic on blood agar and sensitive to optochin. Which structure of the causal agent provides protection against phagocytosis?", o: ["A. Capsule", "B. Flagella", "C. Pili", "D. Endospore", "E. Cell membrane"], a: "A" },
+
+  { n: 58, s: "Microbiology", q: "Which of these normal flora has a mutualistic relationship with humans and synthesis vitamin K and B in the digestive tract?", o: ["A. Staphylococcus aureus", "B. Lactobacillus", "C. E.Coli", "D. Streptococcus pyogenes", "E. Clostridium tetani"], a: "C" },
+
+  { n: 59, s: "Microbiology", q: "Nosocomial infections are infections that occur:", o: ["A. 24 hours after hospital admission", "B. 48 hours after hospital admission", "C. Only in children", "D. Through food poisoning", "E. During surgery only"], a: "B" },
+
+  { n: 60, s: "Microbiology", q: "How does viral RNA change into DNA?", o: ["A. DNA polymerase", "B. Ligase", "C. Reverse transcriptase", "D. Helicase", "E. Primase"], a: "C" },
+
+  { n: 61, s: "Microbiology", q: "A 7-year-old child comes to the clinic with diarrhea, abdominal cramps, bloating, and foul-smelling greasy stools after drinking contaminated river water during a trip. The physician suspects infection with?", o: ["A. Entamoeba histolytica", "B. Giardia lambdia", "C. Taenia saginata", "D. Ascaris lumbricoides", "E. Schistosoma mansoni"], a: "B" },
+
+  { n: 62, s: "Microbiology", q: "Which of the following is associated with the cytopathic effect of viruses?", o: ["A. Formation of spores", "B. Production of exotoxins", "C. Rarely related to cell death", "D. Production of giant cells", "E. Capsule formation"], a: "D" },
+  
+  { n: 63, s: "Genetics", q: "What is the phenotypic ratio in a dihybrid cross?", o: ["A. 1:2:1", "B. 3:1", "C. 9:3:3:1", "D. 1:1", "E. 2:1"], a: "C" },
+  
+ { n: 64, s: "Genetics", q: "Which theory is considered the most accepted of inheritance?", o: ["A. Pangenesis", "B. Preformationism", "C. Inheritance of acquired characteristics", "D. Blending theory", "E. Germ-plasm theory"], a: "E" },
+
+  { n: 65, s: "Genetics", q: "According to this notion the traits acquired during one’s lifetime become incorporated into one’s hereditary information and are passed on to offspring?", o: ["A. Pangenesis", "B. Preformationism", "C. Inheritance of acquired characteristics", "D. Blending theory", "E. Germ-plasm theory"], a: "C" },
+
+  { n: 66, s: "Genetics", q: "Bart’s Hgb disease contains which globin chains?", o: ["A. 2α & 2β", "B. 4β", "C. 2γ", "D. 4γ", "E. 2δ"],  a: "D" },
+
+  { n: 67, s: "Genetics", q: "All of the following show autosomal recessive disorder except:", o: ["A. Cystic fibrosis", "B. Achondroplasia", "C. Sickle cell anemia", "D. Tay-Sachs disease", "E. Phenylketonuria"], a: "B" },
+    { n: 68, s: "Genetics", q: "Which disease is caused by a defect in the chloride channel?", o: ["A. Sickle cell anemia", "B. Huntington disease", "C. Cystic Fibrosis", "D. Turner syndrome", "E. Thalassemia"], a: "C" },
+
+  { n: 69, s: "Genetics", q: "Parahemophilia is caused by deficiency of factor:", o: ["A. VIII", "B. IX", "C. X", "D. V", "E. XI"], a: "D" },
+
+  { n: 70, s: "Genetics", q: "The homologous chromosomes are paired in synapsis in:", o: ["A. DNA replication", "B. Crossing over", "C. Cytokinesis", "D. Translation", "E. Mutation"], a: "B" },
+  
+  { n: 71, s: "Genetics", q: "Wolf-Hirschhorn syndrome is caused by:", o: [ "A. Deletion of the short arm of chromosome 5", "B. Deletion of the short arm of chromosome 21", "C. Deletion of the short arm of chromosome 4", "D. Deletion of the long arm of chromosome 18", "E. Deletion of the long arm of chromosome 5" ], a: "C"},
+
+ { n: 72, s: "Genetics", q: "Breast development occurring typically in females but not males, is what type of inheritance?", o: ["A. Autosomal dominant", "B. Sex-limited trait", "C. Sex-influenced trait", "D. X-linked dominant", "E. X-linked recessive"], a: "B" },
+    { n: 73, s: "Genetics", q: "Deletion of one alpha-globin gene in a-thalassemia results in:", o: ["A. Silent carrier", "B. Hgb H", "C. Bart's Hgb", "D. α-thalassemia major", "E. α-thalassemia trait"], a: "A" },
+
+  { n: 74, s: "Genetics", q: "A father affected by a disorder passes it to all daughters but non of his sons, What is the pattern of inheritance?", o: ["A. Autosomal recessive", "B. X-linked dominant", "C. X-linked recessive", "D. Y-linked", "E. X-linked recessive"], a: "B" },
+
+  { n: 75, s: "Genetics", q: "Is performed by aspirating fetal trophoblastic tissue by either a trans cervical or trans abdominal approach.", o: ["A. Amniocentesis", "B. Karyotyping", "C. Cordocentesis", "D. Chorionic villus sampling", "E. Ultrasound"], a: "D" },
+   { n: 76, s: "Genetics", q: "Patau syndrome is associated with which chromosomal abnormality?", o: ["A. Extra chromosome 21", "B. Extra chromosome 18", "C. Missing chromosome X", "D. Extra chromosome 13", "E. Deletion of chromosome 5"], a: "D" },
+
+ { n: 77, s: "Genetics", q: "Hirschhorn syndrome?", o: ["A. Missing the short arm (p arm) of chromosome 4", "B. Missing the short arm (p arm) of chromosome 5", "C. Missing the long arm (q arm) of chromosome 5", "D. Missing the short arm (p arm) of chromosome 18", "E. Missing the long arm (q arm) of chromosome 15"], a: "A" },
+ { n: 78, s: "Genetics", q: "Baldness occurring more commonly in males than females, Baldness is an example of:", o: ["A. Y-linked dominant", "B. Sex-limited trait", "C. X-linked dominant", "D. Sex-influenced trait", "E. X-linked recessive"], a: "D" },
+
+ { n: 79, s: "Cell biology", q: "Which cyclin is activated in cdk-M complex?", o: ["A. Cyclin A", "B. Cyclin B", "C. Cyclin D", "D. Cyclin E", "E. Cyclin A & D "], a: "B" },
+  
+  { n: 80, s: "Cell biology", q: "Which of the following cells are arrested in G₀ phase?", o: ["A. Mature nerve cells and muscle cells", "B. Mature nerve cells and liver cells", "C. Mature nerve cells and skin cells", "D. Mature liver cells and skin cells", "E. Mature liver cells and muscle cells"], a: "A" },
+  
+    { n: 81, s: "Cell biology", q: "Which of the following is a correct match?", o: ["A. Ribosome: ATP synthesis", "B. Lysosome: protein synthesis", "C. Nucleus: lipid digestion", "D. Golgi apparatus: DNA replication", "E. Mitochondria: generate ATP, store Ca+"], a: "E" },
+ 
+
+  { n: 82, s: "Cell biology", q: "Tension-bearing components in cytoskeleton:", o: ["A. Intermediate filaments", "B. Microfilaments", "C. Microtubules", "D. Intermediate filaments and microfilaments", "E. Intermediate filamentes and microtubules"], a: "D" },
+
+{ n: 83, s: "Cell biology", q: "Which structure maintains membrane fluidity and stability?", o: ["A. Phospholipid bilayer", "B. Cholestrol", "C. Glycolipid", "D. Protein", "E. Lipoprotein"], a: "B" },
+
+{ n: 84, s: "Cell biology", q: "Glucose-6-phosphatase converts glucose-6-phosphate into glucose in:", o: ["A. Golgi apparatus", "B. Lumen of smooth endoplasmic reticulum", "C. Cytoplasm", "D. Matrix of Mitochondria", "E. Nucleolus"], a: "B" },
+
+  { n: 85, s: "Cell biology", q: "Which part of the cell membrane allows passage of ions and water?", o: ["A. Protein channels", "B. Carrier proteins", "C. Receptor proteins", "D. Glycoproteins", "E. Lipoproteins"], a: "A" },
+
+  { n: 86, s: "Cell biology", q: "Which of these controls the movement of molecules inside between the cytoplasm and the nucleoplasm?", o: ["A. Golgi apparatus", "B. Microtubules", "C. Nuclear pores", "D. Centrioles", "E. Lysosomes"], a: "C" },
+  
+  { n: 87, s: "Cell biology", q: "Glycolipids are found at:", o: ["A. Cytoplasm", "B. Outer leaflet of the cell membrane", "C. Inner leaflet of the nuclear membrane", "D. Mitochondrial matrix", "E. Rough endoplasmic reticulum"], a: "B" },
+
+  { n: 88, s: "Cell biology", q: "Source of genetic variation in meiosis:", o: ["A. Binary fission", "B. DNA repair", "C. Crossing over", "D. Cytokinesis", "E. Translation"], a: "C" },
+    { n: 89, s: "Cell biology", q: "A mutation in _______ causes Hutchinson-Gilford progeria.", o: ["A. Lamina A", "B. Lamina B", "C. Lamina C", "D. Lamina A & C", "E. Lamina B & C"], a: "A" },
+  
+
+  { n: 91, s: "Molecular biology", q: "Okazaki fragments considered as:", o: ["A. Leading strand, synthesis of the strand is said to be discontinuous", "B. Lagging strand, synthesis of the strand is said to be antiparallel", "C. Lagging strand, synthesis of the strand is said to be discontinuous", "D. Leading strand, synthesis of the strand is said to be continuous", "E. Lagging strand, synthesis of the strand is said to be continuous"], a: "C" },
+
+  { n: 91, s: "Molecular biology", q: "What is the most common type of genetic variation?", o: ["A. Chromosomal inversion", "B. Gene deletion", "C. Copy number variation (CNV)", "D. Single nucleotide polymorphism (SNP)", "E. Translocation"], a: "D" },
+  
+  
+  { n: 92, s: "Molecular biology", q: "Advantage of multiple cloning site (MCS):", o: ["A. It stops mutations", "B. It contains multiple restriction enzyme sites,making insertion of foreign DNA easier.", "C. It prevents replication", "D. It blocks transcription", "E. It destroys plasmids"], a: "B" },
+
+  { n: 93, s: "Molecular biology", q: "Which of following is a Frameshift mutation?", o: ["A. SNP", "B. Silent mutations", "C. Substitution only", "D. Missense mutation", "E. Indel not in multiples of three"], a: "E" },
+  
+   { n: 94, s: "Molecular biology", q: "Sticky restriction fragment ends?", o: ["A. Identical with blunt ends", "B. No hydrogen bonding", "C. Only found in RNA", "D. Formed by ligase", "E. Have overhanging single-stranded regions that can base pair"], a: "E" },
+
+  { n: 95, s: "Molecular biology", q: "Which of the following is NOT a structural chromosomal mutation?", o: ["A. Deletion", "B. Duplication", "C. Inversion", "D. Translocation", "E. Single nucleotide polymorphism (SNP)"], a: "E" },
+  
+  { n: 96, s: "Molecular biology", q: "DNA fingerprinting primarily used for:", o: ["A. Identifying diseases", "B. Diagnosing infections", "C. Identifying individuals based on unique DNA patterns", "D. Hormone regulation", "E. Enzyme activation"], a: "C" },
+
+
+  { n: 97, s: "Molecular biology", q: "Which enzyme is responsible for synthesizing the first cDNA ?", o: ["A. DNA ligase", "B. DNA polymerase I", "C. RNA primase", "D. Restriction enzyme", "E. Reverse transcriptase"], a: "E" },
+
+  { n: 98, s: "Molecular biology", q: "Which stage of gene cloning determines that bacteria survive only if they carry the plasmid?", o: ["A. Selection stage", "B. Transformation", "C. Ligation", "D. DNA replication", "E. Transcription"], a: "A" },
+
+  { n: 99, s: "Molecular biology", q: "What is the type of error in DNA that occurs during replication?", o: ["A. RNA splicing error", "B. Protein misfolding", "C. Chromosome segregation only", "D. Error in nucleotide substitution (e.g., A replaced with C)", "E. Cell cycle arrest"], a: "D" },
+  
+  
+{ n: 100, s: "Molecular biology", q: "Redundancy in code means:",
+  o: ["A. A codon codes for more than one amino acid, but an amino acid is coded for by only one codon",
+    "B. No codon codes for amino acids and protein synthesis does not occur in cells",
+    "C. A codon may code for more than one amino acid, but an amino acid is coded for by only one codon",
+    "D. Genetic code is universal and DNA never undergoes mutation in any organism",
+    "E. RNA is not translated and ribosomes do not participate in protein synthesis" ], a: "C"},
+
+
+  { n: 101, s: "Molecular biology", q: "What is the main function of mRNA?", o: ["A. Transport amino acids to ribosome", "B. Serve as intermediary between DNA and protein synthesis", "C. Store lipids", "D. Build ribosomes", "E. Replicate DNA"], a: "B" },
+  
+  { n: 102, s: "Molecular biology", q: "Which variation involves deletion or duplication of large genomic sequences?", o: ["A. SNP", "B. Point mutation", "C. Inversion", "D. Copy number variation (CNV)", "E. Silent mutation"], a: "D" },
+ 
+
+  { n: 103, s: "Molecular biology", q: "What is considered a beneficial mutation?", o: ["A. Always lethal", "B. No effect on phenotype", "C. Causes cancer only", "D. Adaptation advantage", "E. Always recessive"], a: "D" },
+
+  { n: 104, s: "Molecular biology", q: "Hayflick determines:", o: ["A. Maximum number of cell divisions", "B. DNA replication speed", "C. RNA transcription rate", "D. Protein synthesis rate", "E. Mutation frequency"], a: "A" },
+
+  { n: 105, s: "Molecular biology", q: "Which step immediately follows restriction digestion in gene cloning?", o: ["A. Transformation", "B. Selection", "C. Ligation", "D. Screening", "E. Expression"], a: "C" },
+  
+   { n: 106, s: "Molecular biology", q: "DNA is a very stable molecule because of:", o: ["A. A robust repetitive phosphate ± sugar backbone in each DNA strand", "B. An extensive hydrogen bonding between complimentary base pairing which is three betweeb C and G and two between A and T", "C. Peptide bonds", "D. Disulfide bonds", "E. Glycosidic bonds only"], a: "A" },
+
+  { n: 107, s: "Molecular biology", q: "What does the 5' → 3' direction mean in DNA?", o: ["A. Direction of protein folding", "B. Base pairing order only", "C. Direction of nucleic acid synthesis from 5th to 3rd carbon of sugar", "D. Chromosome movement direction", "E. RNA degradation pathway"], a: "C" },
+  
+   { n: 108, s: "Molecular biology", q: "What is the correct conclusion of DNA experiments Avery and his colleagues?", o: ["A. There are two nucelic acids, DNA and RNA", "B. Protein is genetic material", "C. Lipids carry genetic information", "D. DNA must contain the corresponding genetic information", "E. Carbohydrates are hereditary material"], a: "D" },
+
+
+  { n: 109, s: "Histology", q: "Which of these increase surface area?", o: ["A. Cilia", "B. Flagella", "C. Desmosomes", "D. Centrioles", "E. Microvilli"], a: "E" },
+  
+  { n: 110, s: "Histology", q: "Haversian canal is located in:", o: ["A. Compact bone", "B. Cartilage", "C. Spongy bone", "D. Muscle tissue", "E. Tendon"], a: "A" },
+
+  { n: 111, s: "Histology", q: "Gaps between myelin sheaths called:", o: ["A. Synapses", "B. Synaptic cleft", "C. Nodes of Ranvier", "D. Schwann cells", "E. B & C are correct"], a: "C" },
+
+  { n: 112, s: "Histology", q: "Which of following muscles has intercalated discs?", o: ["A. Smooth muscle", "B. Skeletal muscle", "C. Cardiac muscle", "D. Voluntary muscle", "E. Tendon muscle"], a: "C" },
+
+  { n: 113, s: "Histology", q: "Nissl body is absent in:", o: ["A. Dendrite", "B. Neuron cell body", "C. Schwann cell", "D. Axon hillock", "E. Synapse"], a: "D" },
+
+  { n: 114, s: "Histology", q: "Chondrocytes are located in:", o: ["A. Osteons", "B. Lacunae", "C. Canaliculi", "D. Periosteum", "E. Endosteum"], a: "B" },
+
+  { n: 115, s: "Histology", q: "Which of following is a blood clotting protein?", o: ["A. Hemoglobin", "B. Albumin", "C. Fibrinogen", "D. Keratin", "E. All of them"], a: "C" },
+
+  { n: 116, s: "Histology", q: "Which of the following has elastic and stretch feature?", o: ["A. Collagen fiber", "B. Reticular fiber", "C. Elastic fiber", "D. Muscle fiber", "E. All of them except D"], a: "C" },
+  
+   { n: 117, s: "Embryology", q: "Which of the following is characteristic of the fetal period of pregnancy?", o: ["A. Fertilization of ovum", "B. Implantation in the uterus", "C. Formation of the brain and spinal cord", "D. Development and growth of organs", "E. Formation of zygote"], a: "D" },
+
+  { n: 118, s: "Embryology", q: "Human gametes:", o: ["A. They are diploid", "B. They are haploid", "C. They are tetraploid", "D. They contain identical chromosomes", "E. They have double DNA content"], a: "B" },
+
+  
+  { n: 119, s: "Embryology", q: "Failure in implantation in the pre-embryonic stage will cause:", o: ["A. Ectopic pregnancy", "B. Molar pregnancy", "C. Early pregnancy loss", "D. Fetal defects", "E. C & D are correct"], a: "C" },
+
+  { n: 120, s: "Embryology", q: "Sperm enters the egg cell by:", o: ["A. Lysosome", "B. Ribosome", "C. Golgi body", "D. Nucleus", "E. Centriole"], a: "A" },
+
+ ];
+
+const filterLectures = [
+  { label: "All",                      val: "All" },
+  { label: "Anatomy 🦴",               val: "Anatomy" },
+  { label: "Physiology 🫀",            val: "Physiology" },
+  { label: "Microbiology 🦠",          val: "Microbiology" },
+  { label: "Genetics 🧬",              val: "Genetics" },
+  { label: "Cell biology 🔬",          val: "Cell biology" },
+  { label: "Molecular biology 🧬",     val: "Molecular biology" },
+  { label: "Histology 🫁",             val: "Histology" },
+  { label: "Embryology 👶",            val: "Embryology" },
+];
+
+let currentSubject = "All";
+
+const container = document.getElementById('quiz-content');
+const filterBar = document.getElementById('filter-bar');
+
+function renderFilterBar() {
+    filterBar.innerHTML = filterLectures.map(f =>
+        `<button class="filter-btn${f.val === currentSubject ? " active" : ""}" onclick="filterBySubject('${f.val}', this)">${f.label}</button>`
+    ).join('');
+}
+
+function getLectureLabel(val) {
+    if (val === "All") return "All";
+    const found = filterLectures.find(f => f.val === val);
+    return found ? found.label : val;
+}
+
+function updateSectionHeading() {
+    const existing = document.getElementById('section-heading');
+    const visibleBlocks = [...document.querySelectorAll('.q-block')].filter(b => b.style.display !== "none");
+    const count = visibleBlocks.length;
+
+    let noResultsMsg = document.getElementById('no-results-msg');
+    if (count === 0) {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.id = 'no-results-msg';
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.textContent = "No questions found.";
+            container.appendChild(noResultsMsg);
+        }
+    } else if (noResultsMsg) {
+        noResultsMsg.remove();
+    }
+
+    const label = getLectureLabel(currentSubject);
+    const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+
+    if (existing) {
+        existing.style.display = (count === 0) ? "none" : "flex";
+        existing.querySelector('.section-heading-title').textContent = label;
+        existing.querySelector('.mcq-count-badge').textContent = badgeText;
+    } else if (count > 0) {
+        const heading = document.createElement('div');
+        heading.id = 'section-heading';
+        heading.className = 'section-heading';
+        heading.innerHTML = `<span class="section-heading-title">${label}</span><span class="mcq-count-badge">${badgeText}</span>`;
+        container.insertBefore(heading, container.firstChild);
+    }
+}
+
+function renderQuiz() {
+    container.innerHTML = '';
+    allQuestions.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.lecture = item.s;
+        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+
+        const matchesSubject = currentSubject === "All" || item.s === currentSubject;
+        div.style.display = matchesSubject ? "block" : "none";
+
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <button class="ans-btn" data-answer="Answer: ${item.a}" onclick="toggleAnswer(this)">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+    updateSectionHeading();
+}
+
+function filterBySubject(val, btn) {
+    currentSubject = val;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    handleSearch();
+}
+
+function handleSearch() {
+    const term = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        resetBlock(block);
+        const matchesCategory = currentSubject === "All" || block.dataset.lecture === currentSubject;
+        const matchesSearch = term === "" || block.dataset.searchText.includes(term);
+        if (matchesCategory && matchesSearch) {
+            block.style.display = "block";
+            if (term !== "") highlight(block, term);
+        } else {
+            block.style.display = "none";
+        }
+    });
+    updateSectionHeading();
+}
+
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+    block.classList.remove('revealed');
+    const btn = block.querySelector('.ans-btn');
+    if (btn && btn.dataset.answer) btn.textContent = 'Answer';
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').innerHTML.replace(regex, '<mark>$1</mark>');
+    block.querySelectorAll('li').forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+}
+
+function toggleAnswer(btn) {
+    const block = btn.closest('.q-block');
+    const isRevealed = block.classList.toggle('revealed');
+    btn.textContent = isRevealed ? btn.dataset.answer : 'Answer';
+}
+
+function toggleTheme() {
+    const isLight = document.body.getAttribute('data-theme') === 'light';
+    const newTheme = isLight ? '' : 'light';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.getElementById('theme-icon').innerHTML = isLight 
+        ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
+        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
+
+(function () {
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}());
+
+renderFilterBar();
+renderQuiz();
+</script>
+</body>
+</html>
