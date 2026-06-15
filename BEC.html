@@ -251,10 +251,7 @@
             opacity: 1;
         }
 
-        #filter-mode-btn.glowing {
-            box-shadow: 0 0 0 1px #38bdf8, 0 0 12px rgba(56,189,248,0.45);
-            border-color: #38bdf8;
-        }
+        
 
         .section-heading {
             display: flex;
@@ -428,6 +425,36 @@ const allQuestions = [
   { n: 87, s: "U", y: "25", yt: "2025", q: "Which of the following conditions is directly associated with cerebral hypoperfusion?", o: ["A. Sinusitis", "B. Synovitis", "C. Scoliosis", "D. Syncope", "E. Steatosis"], a: "D" },
   { n: 88, s: "U", y: "25", yt: "2025", q: "An ECG reading that shows no electrical activity or signal is known as?", o: ["A. Bradycardia", "B. Tachycardia", "C. Asystole", "D. Fibrillation", "E. Ischemia"], a: "C" },
   { n: 89, s: "8", y: "25", yt: "2024-2025", q: "Which of the following is typically not associated with acute chest pain?", o: ["A. Pancreatitis", "B. Myocardial infarction", "C. Pulmonary embolism", "D. Pneumothorax", "E. Asthma"], a: "A" },
+  { n: 90, s: "11", y: "18", yt: "2017-2018", q: "All are included in clearing airway EXCEPT:", o: ["A. Head tilt", "B. Chin lift", "C. Mouth gag", "D. Neck tilt", "E. Suction of nasal secretion"], a: "D" },
+  { n: 91, s: "11", y: "18", yt: "2017-2018", q: "Regarding CPR which one is correct:", o: ["A. Most common presentation in ECG is a systole", "B. Adrenaline is not given if CPR fails", "C. Compression to ventilation ratio 15:2", "D. Ca gluconate is given immediately", "E. Atropine is the drug of choice"], a: "C" },
+  { n: 92, s: "11", y: "18", yt: "2017-2018", q: "Heimlich Maneuver is for:", o: ["A. Drawing", "B. Choking", "C. Tracheal Intubation", "D. Unconscious Patient", "E. None"], a: "B" },
+  { n: 93, s: "8", y: "18", yt: "2017-2018", q: "Your neighbor, a 65 year old man called you at 11pm, he is not feeling well, Which one of the following sensations should make you rushing him directly to the emergency room?", o: ["A. Sudden, strange desire to eat", "B. An uncomfortable, squeezing pain in the middle of his chest", "C. A long-tone ringing in either of his ears", "D. A tingling sensation on the bottoms of his feet", "E. Abdominal pain"], a: "B" },
+  { n: 94, s: "8", y: "18", yt: "2017-2018", q: "Shortness of breath is a warning sign for a heart attack when:", o: ["A. You experience a particularly beautiful wonder of nature, such as the Grand Canyon", "B. You see the love of your life", "C. You are also feeling some discomfort or pain in your chest", "D. You aren't feeling anything strange in your chest, except shortness of breath", "E. C and D"], a: "E" },
+  { n: 95, s: "12", y: "18", yt: "2017-2018", q: "The signs and symptoms of fracture include all of the following EXCEPT:", o: ["A. Swelling", "B. Tenderness", "C. Deformity", "D. Absence of pain", "E. Bruises"], a: "D" },
+  { n: 96, s: "12", y: "18", yt: "2017-2018", q: "The signs and symptoms of strain include all of the followings EXCEPT:", o: ["A. Loss of power", "B. Sharp intense pain at the site of injury", "C. Wound", "D. Tender muscle", "E. Numbness"], a: "C" },
+  
+  { n: 97, s: "5", y: "18", yt: "2017-2018", q: "Eye burn occur due to:", o: ["A. Knife", "B. Bullet", "C. Welding", "D. House hold detergents", "E. Electrico-Magnetic Waves"], a: "D" },
+  { n: 98, s: "7", y: "18", yt: "2017-2018", q: "In case of electrocution, DO NOT:", o: ["A. Disconnect the power supply", "B. Remove the victim from the site of the accident", "C. Turn off the current from the whole building to be more sure", "D. Rescue breathing when necessary", "E. Place the victim in recovery position"], a: "E" },
+  { n: 99, s: "8", y: "18", yt: "2017-2018", q: "Asthma is one of the chronic obstructive lung diseases, It is characterized by which of the following?", o: ["A. Cough at night", "B. Attacks of shortness of breath", "C. Noisy respiration when in an attack", "D. A, B and C are correct", "E. Chest pain only"], a: "D" },
+
+  
+  { n: 100, s: "6", y: "18", yt: "2017-2018", q: "What kind of animal leaves a sac and poison?", o: ["A. Bee", "B. Wasp", "C. Mosquito", "D. Spider", "E. Scorpion"], a: "A" },
+  { n: 101, s: "12", y: "18", yt: "2017-2018", q: "In the RICE acronym, what does each letter stand for?", o: ["A. Rest, Ice, Compression, Elevate", "B. Run, Incline, Cool, Energy", "C. Rescue, Inject, Clean, Examine", "D. Recover, Immobilize, Comfort, Evacuate", "E. Relief, Ibuprofen, Care, Exercise"], a: "A" },
+  { n: 102, s: "3", y: "18", yt: "2017-2018", q: "Which kind of bleeding is slow and dark?", o: ["A. Artery", "B. Vein", "C. Capillary", "D. Internal", "E. Arteriole"], a: "B" },
+  { n: 103, s: "8", y: "18", yt: "2017-2018", q: "A patient has asthma. Which of the following drugs should NOT be used?", o: ["A. Salbutamol", "B. Beclomethasone", "C. Montelukast", "D. Propranolol", "E. Ipratropium bromide"], a: "D" },
+  { n: 104, s: "11", y: "18", yt: "2017-2018", q: "In DRSABCD acronym, what does C stand for?", o: ["A. Circulation", "B. Call", "C. CPR", "D. Consciousness", "E. Choking"], a: "C" },
+  { n: 105, s: "11", y: "18", yt: "2017-2018", q: "CPR in an infant is performed using:", o: ["A. One hand placed on the center of the chest", "B. Two hands placed on the center of the chest", "C. Two fingers placed on the center of the chest", "D. Thumb and index finger pinching the nose", "E. Heel of one hand with forceful thrusts"], a: "C" },
+  { n: 106, s: "5", y: "18", yt: "2017-2018", q: "If someone has an eye wound, what is the first management?", o: ["A. Lie the patient on back", "B. Rub the eye gently", "C. Apply tight pressure bandage", "D. Flush with chemical solvents", "E. Remove embedded objects immediately"], a: "A" },
+  { n: 107, s: "7", y: "18", yt: "2017-2018", q: "Electrocution occurs more in bathrooms because:", o: ["A. It contains water", "B. The floor is always dry", "C. It lacks proper ventilation", "D. Mirrors reflect electricity", "E. Plastic items conduct current"], a: "A" },
+  { n: 108, s: "8", y: "18", yt: "2017-2018", q: "Which of the following is not a symptom of asthma?", o: ["A. Wheezing or noisy breathing", "B. Coughing", "C. A tight feeling in the chest", "D. Shortness of breath", "E. High fever"], a: "E" },
+  { n: 109, s: "3", y: "18", yt: "2017-2018", q: "Which of the following can you not use for bleeding if you don't have proper training:", o: ["A. Tourniquet", "B. Sterile gauze", "C. Clean cloth", "D. Direct pressure", "E. Adhesive bandage"], a: "A" },
+  { n: 110, s: "10", y: "18", yt: "2017-2018", q: "Which burn degree has no scar formation?", o: ["A. First degree burn", "B. Second degree burn", "C. Third degree burn", "D. A and B are correct", "E. All of them are correct"], a: "A" },
+  { n: 111, s: "10", y: "18", yt: "2017-2018", q: "What is the most common cause of burn in developed countries?", o: ["A. Scald", "B. Flame", "C. Chemical", "D. Electrical", "E. Radiation"], a: "B" },
+  { n: 112, s: "6", y: "18", yt: "2017-2018", q: "Which animal bite you don't have to use ice?", o: ["A. Snake bite", "B. Dog bite", "C. Cat bite", "D. Human bite", "E. Mosquito bite"], a: "A" },
+  { n: 113, s: "10", y: "18", yt: "2017-2018", q: "In case of a burn, when should you give IV fluid to the patient?", o: ["A. First degree case", "B. Second degree case", "C. Third degree case", "D. B and C are correct", "E. None of them"], a: "E" },
+  { n: 114, s: "9", y: "18", yt: "2017-2018", q: "If a patient came to the hospital and he is conscious, what should you do?", o: ["A. Treat him without permission", "B. Receive permission from the police", "C. Receive permission from the patient and then treat him", "D. Ask his neighbors for signature", "E. Wait for a court order"], a: "C" },
+  { n: 115, s: "11", y: "18", yt: "2017-2018", q: "If a child doesn't respond, what is the management?", o: ["A. Give pain killers immediately", "B. Shout for help and call ambulance", "C. Slap the child's face to wake up", "D. Leave the child alone to rest", "E. Check for blood pressure first"], a: "B" },
+  { n: 116, s: "11", y: "18", yt: "2017-2018", q: "If a child doesn't breathe, what is the management?", o: ["A. 5 rescue breathing", "B. Check airway", "C. Shout for help and call an ambulance", "D. Start chest compressions directly without breathing", "E. Put the child in a sitting position"], a: "A" }
  
   
 ];
@@ -456,6 +483,7 @@ const filterYears = [
   { label: "2022 - 2023",           val: "23"  },
   { label: "2023 - 2024",           val: "24"  },
   { label: "2024 - 2025",           val: "25"  },
+  { label: "2017 - 2018",           val: "18"  },
 ];
 
 let currentMode = "lectures"; 
