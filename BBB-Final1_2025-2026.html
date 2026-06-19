@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBB2_Theory_2025-2026</title>
+
+    <style>
+       :root {
+            --bg-body: #121212;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #2a2f36;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --filter-bg: transparent;
+            
+        }
+
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #eef6e4;
+            --ans-text: #2e7d32;
+            --filter-bg: transparent;
+            
+        }
+
+        .filter-btn.active {
+            background-color:   #728fcf;
+            color: #fff;
+            border-color:   #728fcf;
+        }
+
+        body {
+            -webkit-user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1150px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 7px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .filter-container {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            margin-top: 6px;
+        }
+
+        .divider { border: none; margin-bottom: 12px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+
+        .ans-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ans-btn {
+            background-color:   #728fcf;
+            color: #fff;
+            border: none;
+            padding: 7px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-weight: 650;
+            font-size: 16px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .q-block.revealed .ans-btn {
+            background-color: var(--ans-bg);
+            color: var(--ans-text);
+            font-weight: 700;
+            padding: 7px 12px;
+            font-size: 16px;
+        }
+
+        mark { background-color: #f0cf6a; color: #000; }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-opts);
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.6;
+            box-sizing: border-box;
+            width: 100%;
+            display: block; 
+        }
+
+        .section-heading-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mcq-count-badge {
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 2px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body oncontextmenu="return false;">
+
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">Final Exam 1</h3>
+            <p style="margin: 2px 0 0; font-size: 0.84rem; opacity: 0.8; font-weight:700;">BBB • Theory • 2025-2026</p>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+        
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="filter-container" id="filter-bar"></div>
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+<script>
+
+const allQuestions = [
+  { n: 1, s: "Biochemistry",q: "Is used as antifreeze:", o: ["A. 2-propanol", "B. Ethanol", "C. Methanol", "D. Ethylene glycol", "E. Glycerin"], a: "D" },
+   
+    { n:2,  s:"Biochemistry", q:"Used as a preservative for biological specimens: ", o:["A. Benzaldehyde","B. Formalin","C. Glutaraldehyde","D. Glycer aldehyde","E. Acetone"], a:"B" },
+    { n:3,  s:"Biochemistry", q:"2-Propanol oxidixed into: ",  o:["A. Acetone","B. Benzaldehyde","C. Formaldehyde","D. Acetophenone","E. Acetaldehyde"], a:"A" },
+    { n:4,  s:"Biochemistry", q:"In aldose contensation, reactants are:",  o:["A. Aldehyde and Alcohol","B. Aldehyde and Aldehyde","C. Aldehyde and H₂O","D. ","E. "], a:"B" },
+    
+    
+{ n:5, s:"Biochemistry", q:"Vitamin K:", o:["A. Vitamin K1 or phylloquinone is produced by the intestinal bacterial flora and also found in animals","B. Vitamin K2 is found in plants","C. Vitamin K3 is found in plants and animals ","D. Vitamin K is vital for synthesizing clotting factors (II, VII, IX, X)","E. Vitamin K1 (phylloquinone) is present in plants"], a:"D or E (not sure)" },
+
+{ n:6, s:"Biochemistry", q:"Riboflavin, which one is correct?", o:["A. Active forms of this vitamin are NAD and NADP","B. Deficiency of this vitamin causes Pellagra","C. Deficiency manifests only when stores are depleted","D. Vitamins of this class can generally be synthesized by the body","E. Deficiency of this vitamin causes cheilosis, glossitis, dermatitis "], a:"E" },
+
+ {
+  "n": 7,
+  "s": "Biochemistry",
+  "q": "Metabolic alkalosis causes:",
+  "o": [
+    "A. HCO3/H2CO3",
+    "B. Vomiting",
+    "C. Fever",
+    "D. Diabetes mellitus",
+    "E. Emphysema",
+    "F. Hyperkalaemia",
+    "G. Hypokalaemia",
+    "H. Insulin resistance",
+    "I. ",
+    "J. "
+  ],
+  "a": "G"
+ },
+ {
+  "n": 8,
+  "s": "Biochemistry",
+  "q": "Metabolic alkalosis is caused by:",
+  "o": [
+    "A. HCO3/H2CO3",
+    "B. Vomiting",
+    "C. Fever",
+    "D. Diabetes mellitus",
+    "E. Emphysema",
+    "F. Hyperkalaemia",
+    "G. Hypokalaemia",
+    "H. Insulin resistance",
+    "I. ",
+    "J. "
+  ],
+  "a": "B"
+ },
+ {
+  "n": 9,
+  "s": "Biochemistry",
+  "q": "Metabolic acidosis is caused by:",
+  "o": [
+    "A. HCO3/H2CO3",
+    "B. Vomiting",
+    "C. Fever",
+    "D. Diabetes mellitus",
+    "E. Emphysema",
+    "F. Hyperkalaemia",
+    "G. Hypokalaemia",
+    "H. Insulin resistance",
+    "I. ",
+    "J. "
+  ],
+  "a": "D"
+ },
+ {
+  "n": 10,
+  "s": "Biochemistry",
+  "q": "Respiratory acidosis is caused by:",
+  "o": [
+    "A. HCO3/H2CO3",
+    "B. Vomiting",
+    "C. Fever",
+    "D. Diabetes mellitus",
+    "E. Emphysema",
+    "F. Hyperkalaemia",
+    "G. Hypokalaemia",
+    "H. Insulin resistance",
+    "I. ",
+    "J. "
+  ],
+  "a": "E"
+ },
+ 
+ {
+  "n": 11,
+  "s": "Biochemistry",
+  "q": "1 molar of NaCl is equal to:",
+  "o": [
+    "A. 1 osmolar",
+    "B. 2 osmolars",
+    "C. Chylomicrons",
+    "D. Fructose",
+    "E. 0.3 osmolar",
+    "F. 0.15 osmolar",
+    "G. Glucose",
+    "H. ",
+    "I. ",
+    "J. "
+  ],
+  "a": "B"
+ },
+ {
+  "n": 12,
+  "s": "Biochemistry",
+  "q": "0.9% NaCl is equal to:",
+  "o": [
+    "A. 1 osmolar",
+    "B. 2 osmolars",
+    "C. Chylomicrons",
+    "D. Fructose",
+    "E. 0.3 osmolar",
+    "F. 0.15 osmolar",
+    "G. Glucose",
+    "H. ",
+    "I. ",
+    "J. "
+  ],
+  "a": "E"
+ },
+ {
+  "n": 13,
+  "s": "Biochemistry",
+  "q": "one of the functions of lymph is digestion of:",
+  "o": [
+    "A. 1 osmolar",
+    "B. 2 osmolars",
+    "C. Chylomicrons",
+    "D. Fructose",
+    "E. 0.3 osmolar",
+    "F. 0.15 osmolar",
+    "G. Glucose",
+    "H. ",
+    "I. ",
+    "J. "
+  ],
+  "a": "Not sure"
+ },
+ 
+ {
+  "n": 14,
+  "s": "Biochemistry",
+  "q": "Main source of energy in seminal fluid is __________",
+  "o": [
+    "A. 1 osmolar",
+    "B. 2 osmolars",
+    "C. Chylomicrons",
+    "D. Fructose",
+    "E. 0.3 osmolar",
+    "F. 0.15 osmolar",
+    "G. Glucose",
+    "H. Swelling",
+    "I. Shrinking",
+    "J. "
+  ],
+  "a": "D"
+ },
+ {
+  "n": 15,
+  "s": "Biochemistry",
+  "q": "In hypertonic solution: ",
+  "o": [
+    "A. 1 osmolar",
+    "B. 2 osmolars",
+    "C. Chylomicrons",
+    "D. Fructose",
+    "E. 0.3 osmolar",
+    "F. 0.15 osmolar",
+    "G. Glucose",
+    "H. Swelling",
+    "I. Shrinking",
+    "J. "
+  ],
+  "a": "I"
+ },
+ 
+ { n:16, s:"Biochemistry", q:"Is a derivative of purine:", o:["A. Adenine","B. Urea","C. Uric acid","D. Uracil ","E. Cytosine"], a:"A" },
+
+
+
+  
+{ n:17, s:"Biochemistry", q:"Carbohydrates with a low Glycemic Index (Gl) value (55 or less):", o:["A. Rapidly digested","B. Cause insulin spikes","C. Simple sugars","D. Highly refined","E. Slowly metablized"], a:"E" },
+  
+    { n:18, s:"Biochemistry", q:"HCAs are: ", o:["A. Synthetic food preservatives","B. End products of protein metabolism","C. Carcinogens","D. Artificial sweeteners","E. B-complex vitamins "], a:"C" },
+
+  {
+  "n": 19,
+  "s": "Biochemistry",
+  "q": "Saccharin is:",
+  "o": [
+    "A. Sugar alcohol",
+    "B. Natural sweetener",
+    "C. Artificial sweetener",
+    "D. Reducing sugar",
+    "E. Monosaccharide"
+  ],
+  "a": "C"
+  },
+
+{ n:20, s:"Biochemistry", q:"Tartaric acid is particularly found in:", o:["A. Apples","B. Oranges","C. Bananas","D. Grapes","E. Watermelon"], a:"D" },
+  
+  { n:21, s:"Biochemistry", q:"Vitamin B3 (Niacin):", o:["A. The active form of this vitamin is FAD and FMN ","B. Vitamins of this class require carrier proteins","C. Deficiency of this vitamin causes Beri-beri disease","D. It is essential for oxidation-reduction reactions","E. Deficiency manifests only when stores are depleted"], a:"D" },
+
+
+
+ {
+  "n": 22,
+  "s": "Biochemistry",
+  "q": "________ is a basic heterocyclic organic compound.",
+  "o": [
+    "A. Pyridine",
+    "B. Furan",
+    "C. Aspirin",
+    "D. Imidazole",
+    "E. Purine",
+    "F. pyrimidine",
+    "G. Pyrrole",
+    "H. Ethylene oxide",
+    "I. Diethyl ether",
+    "J. Tetrahydrofuran"
+  ],
+  "a": "A"
+ },
+ {
+  "n": 23,
+  "s": "Biochemistry",
+  "q": "________ is a heterocyclic organic compound containing one oxygen.",
+  "o": [
+    "A. Pyridine",
+    "B. Purine",
+    "C. Aspirin",
+    "D. Imidazole",
+    "E. Furan",
+    "F. pyrimidine",
+    "G. Pyrrole",
+    "H. Ethylene oxide",
+    "I. Diethyl ether",
+    "J. Tetrahydrofuran"
+  ],
+  "a": "E"
+ },
+ {
+  "n": 24,
+  "s": "Biochemistry",
+  "q": "________ is a heterocyclic organic compound containing two nitrogen atomes.",
+  "o": [
+    "A. Pyridine",
+    "B. Furan",
+    "C. Aspirin",
+    "D. Pyrrole",
+    "E. Purine",
+    "F. pyrimidine",
+    "G. Imidazole",
+    "H. Ethylene oxide",
+    "I. Diethyl ether",
+    "J. Tetrahydrofuran"
+  ],
+  "a": "G"
+ },
+
+
+{ n:25, s:"Biochemistry", q:"It is called wood alcohol:", o:["A. Methanol","B. Ethanol","C. 2-propanol","D. Ethylene glycol ","E. Glycerin"], a:"A" },
+  
+
+  
+{ n:26, s:"Biochemistry", q:"Is known as good cholesterol:", o:["A. VLDL","B. Chylomicrons","C. LDL","D. HDL","E. Glycerol"], a:"D" },
+  
+
+{ n:27, s:"Biochemistry", q:"Which one of the following is correct about oligosaccharides:", o:["A. Are found only in plants like legumes","B. Raffinose is an example of this class, which digested in the small intestine by pancreatic α-amylase","C. They belong to simple class of sugars","D. They are composed from 3-15 monosaccharide units","E. They function as prebiotics"], a:"E" },
+{ n:28, s:"Biochemistry", q:"Lactose intolerance:", o:["A. Caused by deficiency of pancreatic amylase","B. Results from an inability to digest fructose","C. Caused by deficiency of lactase enzyme","D. Caused by an allergy to milk proteins","E. Leads to increased absorption of lactose in the intestine"], a:"C" },
+
+  { n:29, s:"Biochemistry", q:"Cholecalciferol or vitamin D3:", o:["A. Excess of it can be excreted within urine","B. Found in plant and animal products","C. It's active form is (25-OH cholecalciferol)","D. It's most active form is produced in the liver","E. It regulates plasma levels of calcium and phosphate"], a:"E" },
+  
+
+  { n:30, s:"Biochemistry", q:"Base Hydrolysis of Esters is also called: ", o:["A. Decarboxylation","B. Reduction","C. Oxidation","D. Hydrolysis","E. Saponification"], a:"E" },
+
+  { n:31, s:"Biochemistry", q:"Which of the following is incorrect about reactions of free radicals:", o:["A. Reactions of free radicals are Initiation, Propagation, and Termination","B. In initiation reaction: a free radical is generated from a non-radical molecule","C. In termination reaction: many free radicals form","D. In propagation reaction: a free radical reacts with a stable molecule to generate another free radical","E. In termination reaction: two free radicals combine to form a stable non-radical product"], a:"C" },
+  
+
+  { n:32, s:"Biochemistry", q:"Is the end product of purine metabolism:", o:["A. Adenine","B. Urea","C. Uric acid","D. Uracil ","E. Cytosine"], a:"C" },
+  
+  
+  
+  { n: 33, s: "Biochemistry", q: "Arachidonic acid:", o: ["A. [20:1 ∆⁵·⁸·¹¹·¹⁴]", "B. [18:2 ∆⁹·¹²]", "C. [18:3Δ⁹·¹²·¹⁵]", "D. [20:4 ∆⁵·⁸·¹¹·¹⁴]", "E. [16:1Δ⁹]"], a: "D" },
+
+  { n: 34, s: "Biochemistry", q: "According to omega system numbering is considered as (ω3):", o: ["A. Stearic acid", "B. Linoleic acid", "C. Linolenic acid", "D. Olic acid", "E. Arachidonic acid"], a: "C" },
+
+  { n: 35, s: "Biochemistry", q: "Cerebroside will produced from ceramide by:", o: ["A. Ether linkage to glucose or galactose", "B. Ether linkage to glucose or fructose", "C. Adding three or more sugar residues", "D. An addition of phosphate group", "E. An addition of (choline or ethanolamine)"], a: "A" },
+
+  { n: 36, s: "Biochemistry", q: "Uncommon amino acid found in blood clotting protein prothrombin?", o: ["A. Gamma-Carboxyglutamate", "B. 6-N-Methyllysine", "C. 4-Hydroxyproline", "D. 5-Hydroxyproline", "E. 5-hydroxylysine"], a: "A" },
+  
+  { n: 37, s: "Biochemistry", q: "Which of the following is incorrect about free radicals:", o: ["A. Examples of ROS are H₂O₂, Singlet oxide, Superoxide radical", "B. Endogenous sources of free radicals are Ionizing radiation (x-ray & gamma ray) and Ultraviolet radiation", "C. High levels of free radicals play an important role in a number of biological processes for human health", "D. A free radical is a molecule with one or more unpaired electrons, making it highly reactive", "E. Nitric oxide (NO.) decreases blood pressure"], a: "C" },
+  
+
+{ n:38, s:"Biochemistry", q:"Is a non-essential, polar uncharged amino acid, and has Sulfur group:", o:["A. Cysteine","B. Glycine","C. Methionine","D. Threonine","E. Proline"], a:"A" },
+  
+{ n:39, s:"Biochemistry", q:"Which of the following is a nucleoside:", o:["A. Thymine","B. Guanosine","C. Uracil","D. Adenine","E. Cytosine"], a:"B" },
+  
+
+  { n:40, s:"Biochemistry", q:"Which eicosanoid's production is not inhibited by NSAIDs (aspirin)?", o:["A. Thromboxanes","B. Leukotrienes and lipoxin","C. Prostaglandins","D. Cyclic endoperoxides","E. Prostacyclins"], a:"B" },
+
+  { n:41, s:"Biochemistry", q:"Factors affecting water balance:", o:["A. Rate of metabolism","B. Urine volume","C. Osmolality of blood","D. Climate","E. All of them"], a:"E" },
+  
+  { n:42, s:"Biochemistry", q:"Which of the following is not the function of liver:", o:["A. Metabolism","B. Synthesis","C. Excreation","D. Electrolyte balance","E. Oxygen transport"], a:"D" },
+  
+  { n:43, s:"Biochemistry", q:"Which of the following is not a characteristic features of Cytochrome P 450 (CYT P450) system:", o:["A. Chemically they are haemoproteins","B. Enzyme is “NADPH-cyt P 450 reductase”","C. The enzyme requires NADPH","D. It is an inducible enzyme","E. The enzyme requires FADH"], a:"E" },
+  
+  { n:44, s:"Biochemistry", q:"Which of the following is Copper containing protein?", o:["A. Kinases","B. Carbonic anhydrase","C. Oxidase enzyme","D. Insulin","E. Myoglobin"], a:"C" },
+  
+  { n:45, s:"Biochemistry", q:"Iron is stored as:", o:["A. Albumin","B. Ferritin","C. Hemosiderin","D. Transferrin","E. Hemoglobin"], a:"B" },
+  
+  { n:46, s:"Biochemistry", q:"All of the following are correct about antioxidants EXCEPT:", o:["A. Prevent transfer electrons from o2 to organic molecules","B. One example of non-enzymatic antioxidant is glutathione","C. They are classified into more than two classes according to their function","D. They're generally synthesised by the body","E. Vitamin C is an antioxidant"], a:"B" },
+  
+  { n:47, s:"Biochemistry", q:"Which structure has hydrogen bonds:", o:["A. Primary structure","B. Secondary structure","C. Tertiary Structure","D. Amphipathic structure","E. Quaternary Structure"], a:"B" },
+  
+  
+{ "n":48, "s":"Biochemistry", "q":"Difference between starch and glycogen:", "o":["A. Starch contains α1-4 and α1-6 linkages, while glycogen only contains β1-4 linkages","B. Starch is a highly branched polymer, whereas glycogen forms a completely linear chain","C. Glycogen cannot be digested by human enzymes, while starch is fully digested","D. Starch is a polymer composed of glucose units, while glycogen is a polymer composed of galactose units","E. Starch is plant orign but glycogen is animal origin"], "a":"E" },
+
+  { n: 49, s: "Biochemistry", q: "The final digestive processes occur in the mucosal lining of the upper jejunum, which include:", o: ["A. Salivary amylase begins the initial breakdown of starch", "B. Pepsinogen is converted into active pepsin by gastric acid", "C. Some enzymes of this part are maltase, sucrase, and lactase", "D. Bile salts emulsify large fat globules within the lumen", "E. Trypsinogen is activated by enterokinase in the duodenum"], a: "C" },
+  
+  
+{ n: 50, s: "Biochemistry", q: "Which the following is correct about polysaccharides:", o: ["A. They consist of a short chain containing only 3 to 10 monosaccharide units", "B. They are considered simple carbohydrates", "C. They always contain multiple types of functional groups such as aldehydes combined with ketones", "D. Most of them are digested by human enzymes", "E. They serve exclusively as structural components of cell walls and cartilage"], a: "D" },
+  
+{ n: 51, s: "Biochemistry", q: "Cadaverine is a simple organic compound produced from which amino acid:", o: ["A. Glycine", "B. Proline", "C. Methionine", "D. Lysine", "E. Phenylalanine"], a: "D" },
+
+{ n: 52, s: "Biochemistry", q: "Rancidity of fat that caused by oxidation of unsaturated fatty acyl residues produce __________ which have a bad odor and taste.", o: ["A. Ketone", "B. Isoprene", "C. Cerebrosides", "D. Aldehyde", "E. Olic acid"], a: "D" },
+  
+  { n: 53, s: "Biochemistry", q: "Which of the following is incorrect about Alcohols:", o: ["A. Alcohols with 1-4 carbons are completely soluble in water", "B. Secondary alcohols oxidize to form ketones", "C. They have lower boiling points than Alkanes, Alkenes, and Alkynes", "D. They contain a hydroxyl (-OH) group attached to a carbon atom", "E. The carbon side of alcohols is nonpolar, while the OH side is polar"], a: "C" },
+
+
+{ n: 54, s: "Biochemistry", q: "Which of the following is NOT the Phase I detoxification reaction?", o: ["A. Oxidation", "B. Hydrolysis", "C. Reduction", "D. Synthesis", "E. Hydroxylation"], a: "D" },
+  
+{ n: 55, s: "Biochemistry", q: "Are different forms of enzymes:", o: ["A. Isoenzyme", "B. Isozyme", "C. They differ in chemical and physical properties", "D. Catalyse the same reaction", "E. All of them"], a: "E" },
+
+  { n: 56, s: "Biochemistry", q: "Benzoic acid undergoes conjugation with which substrate in the liver to produce hippuric acid?", o: ["A. Glycine", "B. Glucuronic acid", "C. Acetyl-CoA", "D. Urea", "E. Choline"], a: "A" },
+
+  { n: 57, s: "Biochemistry", q: "A free radical is an atom that contains one or more unpaired electron in its outer orbital and:", o: ["A. Superoxide is converted into oxygen and water by specific dismutase enzymes", "B. H₂O₂ is oxidized into less harmful substances by catalase and glutathione peroxides", "C. Cell membranes are protected from oxidative damage by lipid-soluble signaling", "D. Vitamin E is used as a primary defense against lipid peroxidation in the body", "E. Carbon dioxide is identified as a reactive oxygen species in cellular pathways"], a: "B" },
+
+   {
+  "n": 58,
+  "s": "Biochemistry",
+  "q": "________ is basic methyl phenol.",
+  "o": [
+    "A. NaOH",
+    "B. Resorcinol",
+    "C. Cresol",
+    "D. Chloroxylenol",
+    "E. hydroquinone",
+    "F. pyrimidine",
+    "G. Pyrrole",
+    "H. Ethylene oxide",
+    "I. Diethyl ether",
+    "J. Tetrahydrofuran"
+  ],
+  "a": "C"
+ },
+   {
+  "n": 59,
+  "s": "Biochemistry",
+  "q": "________ is para-dihydroxy benzene.",
+  "o": [
+    "A. NaOH",
+    "B. Resorcinol",
+    "C. Cresol",
+    "D. Chloroxylenol",
+    "E. hydroquinone",
+    "F. pyrimidine",
+    "G. Pyrrole",
+    "H. Ethylene oxide",
+    "I. Diethyl ether",
+    "J. Tetrahydrofuran"
+  ],
+  "a": "E"
+ },
+   {
+  "n": 60,
+  "s": "Biochemistry",
+  "q": "__________ reacts with Phenol to produce water and salt.",
+  "o": [
+    "A. NaOH",
+    "B. Resorcinol",
+    "C. Cresol",
+    "D. Chloroxylenol",
+    "E. hydroquinone",
+    "F. pyrimidine",
+    "G. Pyrrole",
+    "H. Ethylene oxide",
+    "I. Diethyl ether",
+    "J. Tetrahydrofuran"
+  ],
+  "a": "A"
+ },
+
+   
+
+  
+];
+
+const filterLectures = [
+  { label: "All",                      val: "All" },
+  { label: "Biochemistry 🧪",               val: "Biochemistry" },
+  { label: "Biophysics ⚛️",            val: "Biophysics" },
+  { label: "Basic emergency care 🚑",          val: "Basic emergency care" },
+];
+
+let currentSubject = "All";
+
+const container = document.getElementById('quiz-content');
+const filterBar = document.getElementById('filter-bar');
+
+function renderFilterBar() {
+    filterBar.innerHTML = filterLectures.map(f =>
+        `<button class="filter-btn${f.val === currentSubject ? " active" : ""}" onclick="filterBySubject('${f.val}', this)">${f.label}</button>`
+    ).join('');
+}
+
+function getLectureLabel(val) {
+    if (val === "All") return "All";
+    const found = filterLectures.find(f => f.val === val);
+    return found ? found.label : val;
+}
+
+function updateSectionHeading() {
+    const existing = document.getElementById('section-heading');
+    const visibleBlocks = [...document.querySelectorAll('.q-block')].filter(b => b.style.display !== "none");
+    const count = visibleBlocks.length;
+
+    let noResultsMsg = document.getElementById('no-results-msg');
+    if (count === 0) {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.id = 'no-results-msg';
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.textContent = "No questions found.";
+            container.appendChild(noResultsMsg);
+        }
+    } else if (noResultsMsg) {
+        noResultsMsg.remove();
+    }
+
+    const label = getLectureLabel(currentSubject);
+    const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+
+    if (existing) {
+        existing.style.display = (count === 0) ? "none" : "flex";
+        existing.querySelector('.section-heading-title').textContent = label;
+        existing.querySelector('.mcq-count-badge').textContent = badgeText;
+    } else if (count > 0) {
+        const heading = document.createElement('div');
+        heading.id = 'section-heading';
+        heading.className = 'section-heading';
+        heading.innerHTML = `<span class="section-heading-title">${label}</span><span class="mcq-count-badge">${badgeText}</span>`;
+        container.insertBefore(heading, container.firstChild);
+    }
+}
+
+function renderQuiz() {
+    container.innerHTML = '';
+    allQuestions.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.lecture = item.s;
+        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+
+        const matchesSubject = currentSubject === "All" || item.s === currentSubject;
+        div.style.display = matchesSubject ? "block" : "none";
+
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <button class="ans-btn" data-answer="Answer: ${item.a}" onclick="toggleAnswer(this)">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+    updateSectionHeading();
+}
+
+function filterBySubject(val, btn) {
+    currentSubject = val;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    handleSearch();
+}
+
+function handleSearch() {
+    const term = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        resetBlock(block);
+        const matchesCategory = currentSubject === "All" || block.dataset.lecture === currentSubject;
+        const matchesSearch = term === "" || block.dataset.searchText.includes(term);
+        if (matchesCategory && matchesSearch) {
+            block.style.display = "block";
+            if (term !== "") highlight(block, term);
+        } else {
+            block.style.display = "none";
+        }
+    });
+    updateSectionHeading();
+}
+
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+    block.classList.remove('revealed');
+    const btn = block.querySelector('.ans-btn');
+    if (btn && btn.dataset.answer) btn.textContent = 'Answer';
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').innerHTML.replace(regex, '<mark>$1</mark>');
+    block.querySelectorAll('li').forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+}
+
+function toggleAnswer(btn) {
+    const block = btn.closest('.q-block');
+    const isRevealed = block.classList.toggle('revealed');
+    btn.textContent = isRevealed ? btn.dataset.answer : 'Answer';
+}
+
+function toggleTheme() {
+    const isLight = document.body.getAttribute('data-theme') === 'light';
+    const newTheme = isLight ? '' : 'light';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.getElementById('theme-icon').innerHTML = isLight 
+        ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
+        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
+
+(function () {
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}());
+
+renderFilterBar();
+renderQuiz();
+</script>
+</body>
+</html>
+
