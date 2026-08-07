@@ -1,6 +1,6 @@
 /* ===== PROFILE ===== */
 const DEFAULT_IMG = 'https://i.imgur.com/AXJmZwo.png';
-const DEFAULT_NAME = 'MedQ';
+const DEFAULT_NAME = 'Med-Q';
 let pendingImageDataUrl = null;
 
 function openProfileModal() {
@@ -209,46 +209,31 @@ const CATEGORIES = {
   }
 };
 
-/* ===== LINK FLATTENING (Theory + Practice, one row per subject) ===== */
-/* Turns a card's [{label:'Theory', sublinks:[...]}, {label:'Practice', sublinks:[...]}] groups
-   into a flat, ordered list of single-line subject "blocks": all Theory subjects first,
-   then all Practice subjects after. Every block is exactly one row tall, so rows line up
-   in a straight, evenly-spaced column instead of some subjects being taller than others. */
+/* ===== LINK FLATTENING (group each subject with its "_ Practice" row) ===== */
+/* Walks a card's links in the order they're written and groups them: a row whose
+   label contains "_ Practice" is attached to the group started by the row right
+   before it (its matching subject). Every other row starts a brand-new group.
+   Each returned block is one group (1 or 2 rows) — a divider is drawn after the
+   whole group, never between a subject and its own Practice row. */
 function flattenCardLinks(links) {
-  const groups = {};
-  const simpleLinks = [];
+  const items = [];
 
   links.forEach(link => {
     if (link.sublinks) {
-      groups[link.label] = link.sublinks;
+      link.sublinks.forEach(sub => items.push(sub));
     } else {
-      simpleLinks.push(link);
+      items.push(link);
     }
   });
 
   const blocks = [];
-
-  if (groups['Theory'] || groups['Practice']) {
-    const theorySubs = groups['Theory'] || [];
-    const practiceSubs = groups['Practice'] || [];
-
-    theorySubs.forEach(sub => {
-      blocks.push({ main: { label: sub.label, badge: sub.badge, href: sub.href } });
-    });
-
-    practiceSubs.forEach(p => {
-      blocks.push({ main: { label: `${p.label} _ Practice`, badge: p.badge, href: p.href } });
-    });
-  } else {
-    Object.keys(groups).forEach(key => {
-      groups[key].forEach(sub => {
-        blocks.push({ main: { label: sub.label, badge: sub.badge, href: sub.href } });
-      });
-    });
-  }
-
-  simpleLinks.forEach(link => {
-    blocks.push({ main: { label: link.label, badge: link.badge, href: link.href } });
+  items.forEach(item => {
+    const isSuffixed = item.label.includes(' _ '); // catches "_ Practice", "_ Quiz", etc.
+    if (isSuffixed && blocks.length > 0) {
+      blocks[blocks.length - 1].push(item);
+    } else {
+      blocks.push([item]);
+    }
   });
 
   return blocks;
@@ -293,23 +278,17 @@ function renderView(filterType) {
 
       const blocks = flattenCardLinks(card.links);
 
-      blocks.forEach(block => {
+      blocks.forEach(group => {
         const blockEl = document.createElement('div');
         blockEl.className = 'subject-block';
 
-        const mainA = document.createElement('span');
-        mainA.className = 'mcq-link';
-        mainA.innerHTML = `${block.main.label} <span class="badge">${block.main.badge}</span>`;
-        mainA.onclick = () => location.href = block.main.href;
-        blockEl.appendChild(mainA);
-
-        if (block.practice) {
-          const pracA = document.createElement('span');
-          pracA.className = 'mcq-link mcq-link-practice';
-          pracA.innerHTML = `${block.practice.label} <span class="badge">${block.practice.badge}</span>`;
-          pracA.onclick = () => location.href = block.practice.href;
-          blockEl.appendChild(pracA);
-        }
+        group.forEach((item, idx) => {
+          const a = document.createElement('span');
+          a.className = idx === 0 ? 'mcq-link' : 'mcq-link mcq-link-practice';
+          a.innerHTML = `${item.label} <span class="badge">${item.badge}</span>`;
+          a.onclick = () => location.href = item.href;
+          blockEl.appendChild(a);
+        });
 
         linksContainer.appendChild(blockEl);
       });
@@ -334,10 +313,10 @@ function applySubjectCardScrollLimits() {
     container.style.overscrollBehavior = '';
 
     const blocks = container.querySelectorAll(':scope > .subject-block');
-    if (blocks.length <= 5) return; // everything already fits, no need to clip/scroll
+    if (blocks.length <= 2) return; // everything already fits, no need to clip/scroll
 
     const first = blocks[0];
-    const third = blocks[4];
+    const third = blocks[1];
     const visibleHeight = (third.offsetTop - first.offsetTop) + third.offsetHeight;
 
     container.style.maxHeight = visibleHeight + 'px';
