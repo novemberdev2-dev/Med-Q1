@@ -451,11 +451,10 @@
       background: rgba(38, 41, 43, 0.8); color: var(--accent-hdsf); font-weight: 500;
     }
 
-    .site-footer {
-      margin-top: 180px; padding: 20px; text-align: center;
-      font-size: 0.75rem; opacity: 0.6; 
+   .site-footer {
+      margin-top: auto; padding: 20px; text-align: center;
+      font-size: 0.75rem; opacity: 0.6; z-index: -1;
     }
-
     body.light-mode,
     html.light-mode-pre body {
       background-color: #eef2f7;
