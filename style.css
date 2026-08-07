@@ -380,10 +380,20 @@
       background: rgba(0,0,0,0.3);
     }
 
-    /* Each subject: its Theory link, with its Practice link (if any) directly beneath it */
+    /* Each subject: its Theory link, with its Practice link (if any) directly beneath it.
+       The divider line lives on the block itself, so it appears after the whole group
+       (subject + its Practice row) rather than between every single row. */
     .subject-block {
       display: flex;
       flex-direction: column;
+      border-bottom: 1px solid var(--border-theory-practical);
+      padding-bottom: 4px;
+      margin-bottom: 4px;
+    }
+    .links-container > .subject-block:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
     }
 
     .mcq-link {
@@ -393,17 +403,14 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px 0;
-      border-bottom: 1px solid var(--border-theory-practical);
       text-decoration: none;
       cursor: pointer;
     }
-    .subject-block .mcq-link:last-child { border-bottom: none; }
     .mcq-link:hover { color: var(--accent-bbb); font-weight:500; }
 
     .mcq-link-practice {
-      padding-left: 16px;
-      padding-top: 8px;
-      font-size: 0.9rem;
+      padding-top: 0;
+      padding-bottom: 8px;
       opacity: 0.8;
     }
     .mcq-link-practice:hover { opacity: 1; }
