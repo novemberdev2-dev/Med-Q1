@@ -128,33 +128,26 @@ const CATEGORIES = {
   hdsf: {
     label: 'HDSF 🦴',
     cards: [
-      { title: 'Anatomy 🦴', links: [
-        { label: 'Theory', badge: '196 MCQs', href: 'Anatomy.html' },
-        { label: 'Practice', badge: '70 Questions', href: 'Anatomylabs.html' }
+
+     
+ { title: '2021-2025 Year Exams', links: [
+        { label: 'Theory', badge: '847 MCQs', sublinks: [
+          { label: 'Anatomy 🦴', badge: '196 MCQs', href: 'Anatomy.html' },
+          { label: 'Microbiology 🦠', badge: '131 MCQs', href: 'Microbiology.html' },
+          { label: 'Physiology 🫀', badge: '204 MCQs', href: 'Physiology.html' },
+          { label: 'Molecular biology 🧬', badge: '82 MCQs', href: 'Molecular biology.html' },
+          { label: 'Genetics 🧬', badge: '54 MCQs', href: 'Genetics.html' },
+          { label: 'Cell biology 🔬', badge: '74 MCQs', href: 'Cell biology.html' },
+          { label: 'Histology 🫁', badge: '73 MCQs', href: 'Histology.html' },
+          { label: 'Embryology 👶', badge: '33 MCQs', href: 'Embryology.html' },
+        ]},
+        { label: 'Practice', badge: '106 Qs', sublinks: [
+          { label: 'Anatomy 🦴', badge: '70 Qs', href: 'Anatomylabs.html' },
+          { label: 'Microbiology 🦠', badge: '32 Qs', href: 'Microbiology labs.html' },
+          { label: 'Molecular biology 🧬', badge: '4 Qs', href: 'M.biology-practical.html' }
+        ]},
       ]},
-      { title: 'Microbiology 🦠', links: [
-        { label: 'Theory', badge: '131 MCQs', href: 'Microbiology.html' },
-        { label: 'Practice', badge: '32 Questions', href: 'Microbiology labs.html' }
-      ]},
-      { title: 'Molecular biology 🧬', links: [
-        { label: 'Theory', badge: '82 MCQs', href: 'Molecular biology.html' },
-        { label: 'Practice', badge: '4 Questions', href: 'M.biology-practical.html' }
-      ]},
-      { title: 'Physiology 🫀', links: [
-        { label: 'Theory', badge: '204 MCQs', href: 'Physiology.html' }
-      ]},
-      { title: 'Genetics 🧬', links: [
-        { label: 'Theory', badge: '54 MCQs', href: 'Genetics.html' }
-      ]},
-      { title: 'Cell biology 🔬', links: [
-        { label: 'Theory', badge: '74 MCQs', href: 'Cell biology.html' }
-      ]},
-      { title: 'Histology 🫁', links: [
-        { label: 'Theory', badge: '73 MCQs', href: 'Histology.html' }
-      ]},
-      { title: 'Embryology 👶', links: [
-        { label: 'Theory', badge: '33 MCQs', href: 'Embryology.html' }
-      ]},
+
 
        { title: '2025-2026 Year Exams', links: [
         { label: 'Theory', badge: '160 MCQs', sublinks: [
@@ -173,19 +166,23 @@ const CATEGORIES = {
   bbb: {
     label: 'BBB 🧪',
     cards: [
-      { title: 'Biochemistry 🧪', links: [
-        { label: 'Theory', badge: '435 MCQs', href: 'Biochemistry2.html' },
-        { label: 'Practice', badge: '44 Questions', href: 'Biochemistrylab.html' },
-        { label: 'Quizzes - Theory', badge: '167 MCQs', href: 'QuizBiochemstry.html' }
+
+
+        { title: '2021-2025 Year Exams', links: [
+        { label: 'Theory', badge: '983 MCQs', sublinks: [
+          { label: 'Biochemistry 🧪', badge: '435 MCQs', href: 'Biochemistry2.html' },
+          { label: 'Biochemistry 🧪 _ Quiz', badge: '167 MCQs', href: 'QuizBiochemstry.html' },
+          { label: 'Biophysics ⚛️', badge: '265 MCQs', href: 'Biophysics.html' },
+          { label: 'Basic Emergency Care 🚑', badge: '116 MCQs', href: 'BEC.html' },
+        ]},
+        { label: 'Practice', badge: '101 Qs', sublinks: [
+          { label: 'Biochemistry 🧪', badge: '44 Qs', href: 'Biochemistrylab.html' },
+          { label: 'Biophysics ⚛️', badge: '35 Qs', href: 'Biophysicslab.html' },
+          { label: 'Basic Emergency Care 🚑', badge: '22 Qs', href: 'BECpractical.html' }
+        ]},
+
       ]},
-      { title: 'Biophysics ⚛️', links: [
-        { label: 'Theory', badge: '265 MCQs', href: 'Biophysics.html' },
-        { label: 'Practice', badge: '35 Questions', href: 'Biophysicslab.html' }
-      ]},
-      { title: 'Basic emergency care 🚑', links: [
-        { label: 'Theory', badge: '116 MCQs', href: 'BEC.html' },
-        { label: 'Practice', badge: '22 Questions', href: 'BECpractical.html' }
-      ]},
+
 
         { title: '2025-2026 Year Exams', links: [
         { label: 'Theory', badge: '160 MCQs', sublinks: [
