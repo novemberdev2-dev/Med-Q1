@@ -77,7 +77,6 @@ function toggleSettingsDropdown() {
   } else {
     document.getElementById('filter-dropdown').classList.remove('open');
     document.getElementById('filter-btn').classList.remove('dropdown-open');
-    closeAllSubDropdowns();
     dropdown.classList.add('open');
     btn.classList.add('dropdown-open');
   }
@@ -133,33 +132,38 @@ const CATEGORIES = {
  { title: '2021-2025 Year Exams', links: [
         { label: 'Theory', badge: '847 MCQs', sublinks: [
           { label: 'Anatomy 🦴', badge: '196 MCQs', href: 'Anatomy.html' },
+          { label: 'Anatomy 🦴 _ Practice', badge: '70 Qs', href: 'Anatomylabs.html' },
+
           { label: 'Microbiology 🦠', badge: '131 MCQs', href: 'Microbiology.html' },
+          { label: 'Microbiology 🦠 _ Practice', badge: '32 Qs', href: 'Microbiology labs.html' },
+
           { label: 'Physiology 🫀', badge: '204 MCQs', href: 'Physiology.html' },
           { label: 'Molecular biology 🧬', badge: '82 MCQs', href: 'Molecular biology.html' },
+          { label: 'Mole. biology 🧬 _ Practice', badge: '4 Qs', href: 'M.biology-practical.html' },
+
           { label: 'Genetics 🧬', badge: '54 MCQs', href: 'Genetics.html' },
+
           { label: 'Cell biology 🔬', badge: '74 MCQs', href: 'Cell biology.html' },
           { label: 'Histology 🫁', badge: '73 MCQs', href: 'Histology.html' },
           { label: 'Embryology 👶', badge: '33 MCQs', href: 'Embryology.html' },
         ]},
-        { label: 'Practice', badge: '106 Qs', sublinks: [
-          { label: 'Anatomy 🦴', badge: '70 Qs', href: 'Anatomylabs.html' },
-          { label: 'Microbiology 🦠', badge: '32 Qs', href: 'Microbiology labs.html' },
-          { label: 'Molecular biology 🧬', badge: '4 Qs', href: 'M.biology-practical.html' }
-        ]},
+        
       ]},
 
 
        { title: '2025-2026 Year Exams', links: [
         { label: 'Theory', badge: '160 MCQs', sublinks: [
           { label: 'End-Rotation 1', badge: '20 MCQs', href: 'End-Rotation_HDSF_2025-2026.html' },
+          { label: 'End-Rotation 1 _ Practice', badge: '10 Qs', href: 'End-Rotation_HDSF-Practical_2025-2026.html' },
+
           { label: 'End-Rotation 2', badge: '20 MCQs', href: 'End-Rotation2_HDSF_2025-2026.html' },
-          { label: 'Final 1', badge: '120 MCQs', href: 'Final1_2025-2026.html' }
+          { label: 'End-Rotation 2 _ Practice', badge: '10 Qs', href: 'End-rotation2_Practical_HDSF.html' },
+
+          { label: 'Final 1', badge: '120 MCQs', href: 'Final1_2025-2026.html' },
+          { label: 'Final 1 _ Practice', badge: '20 Qs', href: 'Final1_HDSF_Practice_2025-2026.html' }
+
         ]},
-        { label: 'Practice', badge: '40 Qs', sublinks: [
-          { label: 'End-Rotation 1', badge: '10 Qs', href: 'End-Rotation_HDSF-Practical_2025-2026.html' },
-          { label: 'End-Rotation 2', badge: '10 Qs', href: 'End-rotation2_Practical_HDSF.html' },
-          { label: 'Final 1', badge: '20 Qs', href: 'Final1_HDSF_Practice_2025-2026.html' }
-        ]},
+        
       ]},
     ]
   },
@@ -171,15 +175,17 @@ const CATEGORIES = {
         { title: '2021-2025 Year Exams', links: [
         { label: 'Theory', badge: '983 MCQs', sublinks: [
           { label: 'Biochemistry 🧪', badge: '435 MCQs', href: 'Biochemistry2.html' },
+          { label: 'Biochemistry 🧪 _ Practice', badge: '44 Qs', href: 'Biochemistrylab.html' },
+
           { label: 'Biochemistry 🧪 _ Quiz', badge: '167 MCQs', href: 'QuizBiochemstry.html' },
           { label: 'Biophysics ⚛️', badge: '265 MCQs', href: 'Biophysics.html' },
+          { label: 'Biophysics ⚛️ _ Practice', badge: '35 Qs', href: 'Biophysicslab.html' },
+
           { label: 'Basic Emergency Care 🚑', badge: '116 MCQs', href: 'BEC.html' },
+          { label: 'BEC 🚑 _ Practice', badge: '22 Qs', href: 'BECpractical.html' }
+
         ]},
-        { label: 'Practice', badge: '101 Qs', sublinks: [
-          { label: 'Biochemistry 🧪', badge: '44 Qs', href: 'Biochemistrylab.html' },
-          { label: 'Biophysics ⚛️', badge: '35 Qs', href: 'Biophysicslab.html' },
-          { label: 'Basic Emergency Care 🚑', badge: '22 Qs', href: 'BECpractical.html' }
-        ]},
+       
 
       ]},
 
@@ -187,21 +193,66 @@ const CATEGORIES = {
         { title: '2025-2026 Year Exams', links: [
         { label: 'Theory', badge: '160 MCQs', sublinks: [
           { label: 'End-Rotation 1', badge: '20 MCQs', href: 'End-Rotation_BBB_2025-2026.html' },
+          { label: 'End-Rotation 1 _ Practice', badge: '10 Qs', href: 'End-rotation_Practical_BBB.html' },
+
           { label: 'End-Rotation 2', badge: '20 MCQs', href: 'End-Rotation2_BBB_2025-2026.html' },
-          { label: 'Final 1', badge: '120 MCQs', href: 'BBB-Final1_2025-2026.html' }
+          { label: 'End-Rotation 2 _ Practice', badge: '10 Qs', href: 'End-rotation2_Practical_BBB.html' },
+
+          { label: 'Final 1', badge: '120 MCQs', href: 'BBB-Final1_2025-2026.html' },
+          { label: 'Final 1 _ Practice', badge: '20 Qs', href: 'Final_BBB_Practice_2025-2026.html' }
+
         ]},
-        { label: 'Practice', badge: '40 Qs', sublinks: [
-          { label: 'End-Rotation 1', badge: '10 Qs', href: 'End-rotation_Practical_BBB.html' },
-          { label: 'End-Rotation 2', badge: '10 Qs', href: 'End-rotation2_Practical_BBB.html' },
-          { label: 'Final 1', badge: '20 Qs', href: 'Final_BBB_Practice_2025-2026.html' }
-        ]},
+       
 
       ]},
-     
-    
     ]
   }
 };
+
+/* ===== LINK FLATTENING (Theory + Practice, one row per subject) ===== */
+/* Turns a card's [{label:'Theory', sublinks:[...]}, {label:'Practice', sublinks:[...]}] groups
+   into a flat, ordered list of single-line subject "blocks": all Theory subjects first,
+   then all Practice subjects after. Every block is exactly one row tall, so rows line up
+   in a straight, evenly-spaced column instead of some subjects being taller than others. */
+function flattenCardLinks(links) {
+  const groups = {};
+  const simpleLinks = [];
+
+  links.forEach(link => {
+    if (link.sublinks) {
+      groups[link.label] = link.sublinks;
+    } else {
+      simpleLinks.push(link);
+    }
+  });
+
+  const blocks = [];
+
+  if (groups['Theory'] || groups['Practice']) {
+    const theorySubs = groups['Theory'] || [];
+    const practiceSubs = groups['Practice'] || [];
+
+    theorySubs.forEach(sub => {
+      blocks.push({ main: { label: sub.label, badge: sub.badge, href: sub.href } });
+    });
+
+    practiceSubs.forEach(p => {
+      blocks.push({ main: { label: `${p.label} _ Practice`, badge: p.badge, href: p.href } });
+    });
+  } else {
+    Object.keys(groups).forEach(key => {
+      groups[key].forEach(sub => {
+        blocks.push({ main: { label: sub.label, badge: sub.badge, href: sub.href } });
+      });
+    });
+  }
+
+  simpleLinks.forEach(link => {
+    blocks.push({ main: { label: link.label, badge: link.badge, href: link.href } });
+  });
+
+  return blocks;
+}
 
 /* ===== VIEW RENDERING ===== */
 function renderView(filterType) {
@@ -228,7 +279,7 @@ function renderView(filterType) {
     const grid = document.createElement('div');
     grid.className = 'subject-grid';
 
-    category.cards.forEach((card, cardIdx) => {
+    category.cards.forEach(card => {
       const cardEl = document.createElement('div');
       cardEl.className = 'subject-card';
 
@@ -240,40 +291,27 @@ function renderView(filterType) {
       const linksContainer = document.createElement('div');
       linksContainer.className = 'links-container';
 
-      card.links.forEach((link, linkIdx) => {
-        if (link.sublinks) {
-          const wrapper = document.createElement('div');
-          wrapper.className = 'mcq-link-wrapper';
+      const blocks = flattenCardLinks(card.links);
 
-          const dropdownId = `subdrop-${key}-${cardIdx}-${linkIdx}`;
+      blocks.forEach(block => {
+        const blockEl = document.createElement('div');
+        blockEl.className = 'subject-block';
 
-          const a = document.createElement('span');
-          a.className = 'mcq-link has-sublinks';
-          a.innerHTML = `${link.label} <span class="badge">${link.badge}</span>`;
-          a.onclick = (e) => { e.stopPropagation(); toggleSubDropdown(dropdownId); };
-          wrapper.appendChild(a);
+        const mainA = document.createElement('span');
+        mainA.className = 'mcq-link';
+        mainA.innerHTML = `${block.main.label} <span class="badge">${block.main.badge}</span>`;
+        mainA.onclick = () => location.href = block.main.href;
+        blockEl.appendChild(mainA);
 
-          const dropdown = document.createElement('div');
-          dropdown.className = 'sub-dropdown';
-          dropdown.id = dropdownId;
-
-          link.sublinks.forEach(sub => {
-            const opt = document.createElement('div');
-            opt.className = 'sub-dropdown-option';
-            opt.innerHTML = `${sub.label} <span class="badge">${sub.badge}</span>`;
-            opt.onclick = (e) => { e.stopPropagation(); location.href = sub.href; };
-            dropdown.appendChild(opt);
-          });
-
-          wrapper.appendChild(dropdown);
-          linksContainer.appendChild(wrapper);
-        } else {
-          const a = document.createElement('span');
-          a.className = 'mcq-link';
-          a.innerHTML = `${link.label} <span class="badge">${link.badge}</span>`;
-          a.onclick = () => location.href = link.href;
-          linksContainer.appendChild(a);
+        if (block.practice) {
+          const pracA = document.createElement('span');
+          pracA.className = 'mcq-link mcq-link-practice';
+          pracA.innerHTML = `${block.practice.label} <span class="badge">${block.practice.badge}</span>`;
+          pracA.onclick = () => location.href = block.practice.href;
+          blockEl.appendChild(pracA);
         }
+
+        linksContainer.appendChild(blockEl);
       });
 
       cardEl.appendChild(linksContainer);
@@ -283,34 +321,36 @@ function renderView(filterType) {
     sectionEl.appendChild(grid);
     container.appendChild(sectionEl);
   });
+
+  // Recompute the "3.5 subjects visible" scroll clamp once layout has settled.
+  requestAnimationFrame(applySubjectCardScrollLimits);
 }
 
-/* ===== SUB-DROPDOWN (Theory/Practice year-exam popover) ===== */
-function toggleSubDropdown(id) {
-  const dropdown = document.getElementById(id);
-  if (!dropdown) return;
-  const isOpen = dropdown.classList.contains('open');
+/* ===== CARD INTERNAL SCROLL (show exactly 3 subjects by default) ===== */
+function applySubjectCardScrollLimits() {
+  document.querySelectorAll('.links-container').forEach(container => {
+    container.style.maxHeight = '';
+    container.style.overflowY = '';
+    container.style.overscrollBehavior = '';
 
-  document.querySelectorAll('.sub-dropdown.open').forEach(el => {
-    el.classList.remove('open');
-    const trigger = el.previousElementSibling;
-    if (trigger) trigger.classList.remove('active');
-  });
+    const blocks = container.querySelectorAll(':scope > .subject-block');
+    if (blocks.length <= 3) return; // everything already fits, no need to clip/scroll
 
-  if (!isOpen) {
-    dropdown.classList.add('open');
-    const trigger = dropdown.previousElementSibling;
-    if (trigger) trigger.classList.add('active');
-  }
-}
+    const first = blocks[0];
+    const third = blocks[2];
+    const visibleHeight = (third.offsetTop - first.offsetTop) + third.offsetHeight;
 
-function closeAllSubDropdowns() {
-  document.querySelectorAll('.sub-dropdown.open').forEach(el => {
-    el.classList.remove('open');
-    const trigger = el.previousElementSibling;
-    if (trigger) trigger.classList.remove('active');
+    container.style.maxHeight = visibleHeight + 'px';
+    container.style.overflowY = 'auto';
+    container.style.overscrollBehavior = 'contain';
   });
 }
+
+let subjectScrollResizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(subjectScrollResizeTimer);
+  subjectScrollResizeTimer = setTimeout(applySubjectCardScrollLimits, 150);
+});
 
 /* ===== FILTER DROPDOWN ===== */
 function setFilter(filterType) {
@@ -335,7 +375,6 @@ function toggleFilterDropdown() {
   } else {
     document.getElementById('settings-dropdown').classList.remove('open');
     document.getElementById('settings-btn').classList.remove('dropdown-open');
-    closeAllSubDropdowns();
     dropdown.classList.add('open');
     btn.classList.add('dropdown-open');
   }
@@ -353,15 +392,6 @@ document.addEventListener('click', function(e) {
     document.getElementById('filter-dropdown').classList.remove('open');
     document.getElementById('filter-btn').classList.remove('dropdown-open');
   }
-
-  document.querySelectorAll('.sub-dropdown.open').forEach(dropdown => {
-    const wrapper = dropdown.closest('.mcq-link-wrapper');
-    if (wrapper && !wrapper.contains(e.target)) {
-      dropdown.classList.remove('open');
-      const trigger = dropdown.previousElementSibling;
-      if (trigger) trigger.classList.remove('active');
-    }
-  });
 });
 
 /* ===== INIT ===== */
