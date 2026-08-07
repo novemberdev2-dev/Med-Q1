@@ -631,7 +631,7 @@ function renderContent() {
         if (groupQuestions.length === 0) return;
         const count = groupQuestions.length;
         html += `<div class="lab-wrapper" data-group="${group.key}">
-            <div class="lab-title">${group.label}<span class="Q-number">${count} Question${count !== 1 ? 's' : ''}</span></div>
+            <div class="lab-title">${group.label}<span class="Q-number">${count} Q ${count !== 1 ? 's' : ''}</span></div>
             ${groupQuestions.map(renderCard).join('')}
         </div>`;
     });
