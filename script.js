@@ -1,6 +1,6 @@
 /* ===== PROFILE ===== */
 const DEFAULT_IMG = 'https://i.imgur.com/AXJmZwo.png';
-const DEFAULT_NAME = 'Med-Q';
+const DEFAULT_NAME = 'MedQ';
 let pendingImageDataUrl = null;
 
 function openProfileModal() {
@@ -334,10 +334,10 @@ function applySubjectCardScrollLimits() {
     container.style.overscrollBehavior = '';
 
     const blocks = container.querySelectorAll(':scope > .subject-block');
-    if (blocks.length <= 3) return; // everything already fits, no need to clip/scroll
+    if (blocks.length <= 5) return; // everything already fits, no need to clip/scroll
 
     const first = blocks[0];
-    const third = blocks[2];
+    const third = blocks[4];
     const visibleHeight = (third.offsetTop - first.offsetTop) + third.offsetHeight;
 
     container.style.maxHeight = visibleHeight + 'px';
