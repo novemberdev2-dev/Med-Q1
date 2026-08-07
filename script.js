@@ -181,7 +181,7 @@ const CATEGORIES = {
           { label: 'Biophysics ⚛️', badge: '265 MCQs', href: 'Biophysics.html' },
           { label: 'Biophysics ⚛️ _ Practice', badge: '35 Qs', href: 'Biophysicslab.html' },
 
-          { label: 'Basic Emergency Care 🚑', badge: '116 MCQs', href: 'BEC.html' },
+          { label: 'BEC 🚑', badge: '116 MCQs', href: 'BEC.html' },
           { label: 'BEC 🚑 _ Practice', badge: '22 Qs', href: 'BECpractical.html' }
 
         ]},
