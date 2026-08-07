@@ -326,75 +326,18 @@
               border-color 0.2s ease,
               transform 0.2s ease;
 }
+.subject-card:has(.sub-dropdown.open) {
+  z-index: 50;
+}
     .subject-card:hover {
       border-color: rgba(255,255,255,0.2);
       background: rgba(40, 42, 45, 0.8);
       transform: translateY(-2px);
     }
 
-    .card-header {
-      flex-shrink: 0;
-      position: relative;
-      z-index: 2;
-      background: transparent;
-    }
     .card-header h1 { font-size: 1.3rem; margin: 0 0 15px 0; color: var(--text-main); }
 
-    /* Card body: header stays put, this scrolls internally showing ~3.5 subjects by default */
-    .subject-card {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .links-container {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(255,255,255,0.25) transparent;
-    }
-
-    .links-container::-webkit-scrollbar { width: 6px; }
-    .links-container::-webkit-scrollbar-track { background: transparent; }
-    .links-container::-webkit-scrollbar-thumb {
-      background: rgba(255,255,255,0.22);
-      border-radius: 3px;
-    }
-    .links-container::-webkit-scrollbar-thumb:hover {
-      background: rgba(255,255,255,0.38);
-    }
-
-    body.light-mode .links-container,
-    html.light-mode-pre body .links-container {
-      scrollbar-color: rgba(0,0,0,0.22) transparent;
-    }
-    body.light-mode .links-container::-webkit-scrollbar-thumb,
-    html.light-mode-pre body .links-container::-webkit-scrollbar-thumb {
-      background: rgba(0,0,0,0.18);
-    }
-    body.light-mode .links-container::-webkit-scrollbar-thumb:hover,
-    html.light-mode-pre body .links-container::-webkit-scrollbar-thumb:hover {
-      background: rgba(0,0,0,0.3);
-    }
-
-    /* Each subject: its Theory link, with its Practice link (if any) directly beneath it.
-       The divider line lives on the block itself, so it appears after the whole group
-       (subject + its Practice row) rather than between every single row. */
-    .subject-block {
-      display: flex;
-      flex-direction: column;
-      border-bottom: 1px solid var(--border-theory-practical);
-      padding-bottom: 4px;
-      margin-bottom: 4px;
-    }
-    .links-container > .subject-block:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-      margin-bottom: 0;
-    }
+    .links-container { display: flex; flex-direction: column; gap: 4px; }
 
     .mcq-link {
       color: var(--text-dim);
@@ -403,17 +346,107 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px 0;
+      border-bottom: 1px solid var(--border-theory-practical);
       text-decoration: none;
       cursor: pointer;
     }
+    .mcq-link:last-child { border-bottom: none; }
     .mcq-link:hover { color: var(--accent-bbb); font-weight:500; }
 
-    .mcq-link-practice {
-      padding-top: 0;
-      padding-bottom: 8px;
-      opacity: 0.8;
+    .links-container > .mcq-link-wrapper:last-child > .mcq-link {
+      border-bottom: none;
     }
-    .mcq-link-practice:hover { opacity: 1; }
+
+    /* ===== SUB-DROPDOWN (Theory/Practice year-exam popover) ===== */
+    .mcq-link-wrapper {
+      position: relative;
+    }
+
+    .mcq-link-wrapper .mcq-link:not(:last-child) {
+      border-bottom: 1px solid var(--border-theory-practical);
+    }
+
+    .mcq-link.has-sublinks.active {
+      color: var(--accent-bbb);
+      font-weight: 500;
+    }
+
+    body.light-mode .mcq-link.has-sublinks.active,
+    html.light-mode-pre body .mcq-link.has-sublinks.active {
+      color: #111;
+      font-weight: 700;
+    }
+
+    .sub-dropdown {
+      position: absolute;
+      top: calc(100% - 2px);
+      left: 0;
+      right: 0;
+      background: #111111;
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 10px;
+      overflow: hidden;
+      z-index: 300;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px) scale(0.98);
+      transform-origin: top;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.55);
+      margin-top: 2px;
+      
+    }
+
+    .sub-dropdown.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+
+    body.light-mode .sub-dropdown,
+    html.light-mode-pre body .sub-dropdown {
+      background: #ffffff;
+      border-color: rgba(0,0,0,0.13);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.14);
+    }
+
+    .sub-dropdown-option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 11px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #aaa;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+      user-select: none;
+    }
+
+    .sub-dropdown-option:not(:last-child) {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .sub-dropdown-option:hover {
+      background: rgba(255,255,255,0.06);
+      color: #e2e8f0;
+    }
+
+    body.light-mode .sub-dropdown-option,
+    html.light-mode-pre body .sub-dropdown-option {
+      color: #666;
+    }
+
+    body.light-mode .sub-dropdown-option:not(:last-child),
+    html.light-mode-pre body .sub-dropdown-option:not(:last-child) {
+      border-bottom-color: rgba(0,0,0,0.06);
+    }
+
+    body.light-mode .sub-dropdown-option:hover,
+    html.light-mode-pre body .sub-dropdown-option:hover {
+      background: rgba(0,0,0,0.04);
+      color: #111;
+    }
 
     .badge {
       font-size: 0.75rem; padding: 3px 10px; border-radius: 4px;
