@@ -20,6 +20,8 @@
             --input-bg: #1a1c1e;
             --input-border: #2a2f36;
             --correct-color: #2e7d32;
+            --close-icon: #fff;
+
         
         }
 
@@ -33,10 +35,11 @@
             --card-border: #cccccc;
            --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
-          
             --input-bg: #fcfcfc;
             --input-border: #cccccc;
             --correct-color: #2e7d32;
+            --close-icon: #000;
+
         }
 
         @media print {
@@ -276,12 +279,14 @@
 
         .subject-dropdown-close:hover {
             background-color: rgba(255,255,255,0.08);
-            color: #000;
+             color: var( --close-icon);
+
         }
 
         [data-theme="light"] .subject-dropdown-close:hover {
             background-color: rgba(0,0,0,0.06);
-            color: #000;
+             color: var( --close-icon);
+            
         }
 
         .subject-dropdown-list {
