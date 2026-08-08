@@ -1,6 +1,6 @@
 /* ===== PROFILE ===== */
-const DEFAULT_IMG = 'https://i.imgur.com/AXJmZwo.png';
-const DEFAULT_NAME = 'Med-Q';
+const DEFAULT_IMG = 'icon-192.png';
+const DEFAULT_NAME = 'MedQ';
 let pendingImageDataUrl = null;
 
 function openProfileModal() {
@@ -132,33 +132,33 @@ const CATEGORIES = {
      
  { title: '2021-2025 Year Exams', links: [
         { label: 'Theory', badge: '847 MCQs', sublinks: [
-          { label: 'Anatomy 🦴', badge: '196 MCQs', href: 'Anatomy.html' },
-          { label: 'Microbiology 🦠', badge: '131 MCQs', href: 'Microbiology.html' },
-          { label: 'Physiology 🫀', badge: '204 MCQs', href: 'Physiology.html' },
-          { label: 'Molecular biology 🧬', badge: '82 MCQs', href: 'Molecular biology.html' },
-          { label: 'Genetics 🧬', badge: '54 MCQs', href: 'Genetics.html' },
-          { label: 'Cell biology 🔬', badge: '74 MCQs', href: 'Cell biology.html' },
-          { label: 'Histology 🫁', badge: '73 MCQs', href: 'Histology.html' },
-          { label: 'Embryology 👶', badge: '33 MCQs', href: 'Embryology.html' },
+          { label: 'Anatomy 🦴', badge: '196 MCQs', href: 'HDSF_Anatomy_Theory_2021-2025.html' },
+          { label: 'Microbiology 🦠', badge: '131 MCQs', href: 'HDSF_Microbiology_Theory_2021-2025.html' },
+          { label: 'Physiology 🫀', badge: '204 MCQs', href: 'HDSF_Physiology_2021-2025.html' },
+          { label: 'Molecular biology 🧬', badge: '82 MCQs', href: 'HDSF_Molecular Biology_Theory_2021-2025.html' },
+          { label: 'Genetics 🧬', badge: '54 MCQs', href: 'HDSF_Genetics_2021-2025.html' },
+          { label: 'Cell biology 🔬', badge: '75 MCQs', href: 'HDSF_Cell Biology_2021-2025.html' },
+          { label: 'Histology 🫁', badge: '73 MCQs', href: 'HDSF_Histology_2021-2025.html' },
+          { label: 'Embryology 👶', badge: '33 MCQs', href: 'HDSF_Embryology_2021-2025.html' },
         ]},
         { label: 'Practice', badge: '106 Qs', sublinks: [
-          { label: 'Anatomy 🦴', badge: '70 Qs', href: 'Anatomylabs.html' },
-          { label: 'Microbiology 🦠', badge: '32 Qs', href: 'Microbiology labs.html' },
-          { label: 'Molecular biology 🧬', badge: '4 Qs', href: 'M.biology-practical.html' }
+          { label: 'Anatomy 🦴', badge: '70 Qs', href: 'HDSF_Anatomy_Practice_2021-2025.html' },
+          { label: 'Microbiology 🦠', badge: '32 Qs', href: 'HDSF_Microbiology_Practice_2021-2025.html' },
+          { label: 'Molecular biology 🧬', badge: '4 Qs', href: 'HDSF_Molecular Biology_Practice_2021-2025.html' }
         ]},
       ]},
 
 
        { title: '2025-2026 Year Exams', links: [
         { label: 'Theory', badge: '160 MCQs', sublinks: [
-          { label: 'End-Rotation 1', badge: '20 MCQs', href: 'End-Rotation_HDSF_2025-2026.html' },
-          { label: 'End-Rotation 2', badge: '20 MCQs', href: 'End-Rotation2_HDSF_2025-2026.html' },
-          { label: 'Final 1', badge: '120 MCQs', href: 'Final1_2025-2026.html' }
+          { label: 'End-Rotation 1', badge: '20 MCQs', href: 'HDSF_End-Rotation1_Theory_2025-2026.html' },
+          { label: 'End-Rotation 2', badge: '20 MCQs', href: 'HDSF_End-Rotation2_Theory_2025-2026.html' },
+          { label: 'Final 1', badge: '120 MCQs', href: 'HDSF_Final1_Theory_2025-2026' }
         ]},
         { label: 'Practice', badge: '40 Qs', sublinks: [
-          { label: 'End-Rotation 1', badge: '10 Qs', href: 'End-Rotation_HDSF-Practical_2025-2026.html' },
-          { label: 'End-Rotation 2', badge: '10 Qs', href: 'End-rotation2_Practical_HDSF.html' },
-          { label: 'Final 1', badge: '20 Qs', href: 'Final1_HDSF_Practice_2025-2026.html' }
+          { label: 'End-Rotation 1', badge: '10 Qs', href: 'HDSF_End-Rotation1_Practice_2025-2026.html' },
+          { label: 'End-Rotation 2', badge: '10 Qs', href: 'HDSF_End-Rotation2_Practice_2025-2026.html' },
+          { label: 'Final 1', badge: '20 Qs', href: 'HDSF_Final1_Practice_2025-2026.html' }
         ]},
       ]},
     ]
@@ -170,15 +170,15 @@ const CATEGORIES = {
 
         { title: '2021-2025 Year Exams', links: [
         { label: 'Theory', badge: '983 MCQs', sublinks: [
-          { label: 'Biochemistry 🧪', badge: '435 MCQs', href: 'Biochemistry2.html' },
-          { label: 'Biochemistry 🧪 _ Quiz', badge: '167 MCQs', href: 'QuizBiochemstry.html' },
-          { label: 'Biophysics ⚛️', badge: '265 MCQs', href: 'Biophysics.html' },
-          { label: 'Basic Emergency Care 🚑', badge: '116 MCQs', href: 'BEC.html' },
+          { label: 'Biochemistry 🧪', badge: '435 MCQs', href: 'BBB_Biochemistry_Theory_2021-2025.html' },
+          { label: 'Biochemistry 🧪 _ Quiz', badge: '167 MCQs', href: 'BBB_BiochemistryQuiz_Theory_2017-2025.html' },
+          { label: 'Biophysics ⚛️', badge: '265 MCQs', href: 'BBB_Biophysics_Theory_2021-2025.html' },
+          { label: 'Basic Emergency Care 🚑', badge: '116 MCQs', href: 'BBB_BEC_Theory_2021-2025.html' },
         ]},
         { label: 'Practice', badge: '101 Qs', sublinks: [
-          { label: 'Biochemistry 🧪', badge: '44 Qs', href: 'Biochemistrylab.html' },
-          { label: 'Biophysics ⚛️', badge: '35 Qs', href: 'Biophysicslab.html' },
-          { label: 'Basic Emergency Care 🚑', badge: '22 Qs', href: 'BECpractical.html' }
+          { label: 'Biochemistry 🧪', badge: '44 Qs', href: 'BBB_Biochemistry_Practice_2021-2025.html' },
+          { label: 'Biophysics ⚛️', badge: '35 Qs', href: 'BBB_Biophysics_Practice_2021-2025.html' },
+          { label: 'Basic Emergency Care 🚑', badge: '22 Qs', href: 'BBB_BEC_Practice_2021-2025.html' }
         ]},
 
       ]},
@@ -186,14 +186,14 @@ const CATEGORIES = {
 
         { title: '2025-2026 Year Exams', links: [
         { label: 'Theory', badge: '160 MCQs', sublinks: [
-          { label: 'End-Rotation 1', badge: '20 MCQs', href: 'End-Rotation_BBB_2025-2026.html' },
-          { label: 'End-Rotation 2', badge: '20 MCQs', href: 'End-Rotation2_BBB_2025-2026.html' },
-          { label: 'Final 1', badge: '120 MCQs', href: 'BBB-Final1_2025-2026.html' }
+          { label: 'End-Rotation 1', badge: '20 MCQs', href: 'BBB_End-Rotation1_Theory_2025-2026.html' },
+          { label: 'End-Rotation 2', badge: '20 MCQs', href: 'BBB_End-Rotation2_Theory_2025-2026.html' },
+          { label: 'Final 1', badge: '120 MCQs', href: 'BBB_Final1_Theory_2025-2026' }
         ]},
         { label: 'Practice', badge: '40 Qs', sublinks: [
-          { label: 'End-Rotation 1', badge: '10 Qs', href: 'End-rotation_Practical_BBB.html' },
-          { label: 'End-Rotation 2', badge: '10 Qs', href: 'End-rotation2_Practical_BBB.html' },
-          { label: 'Final 1', badge: '20 Qs', href: 'Final_BBB_Practice_2025-2026.html' }
+          { label: 'End-Rotation 1', badge: '10 Qs', href: 'BBB_End-Rotation1_Practice_2025-2026.html' },
+          { label: 'End-Rotation 2', badge: '10 Qs', href: 'BBB_End-Rotation2_Practice_2025-2026.html' },
+          { label: 'Final 1', badge: '20 Qs', href: 'BBB_Final1_Practice_2025-2026.html' }
         ]},
 
       ]},
