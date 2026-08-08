@@ -21,7 +21,6 @@
             --input-border: #2a2f36;
             --correct-color: #2e7d32;
             --close-icon: #fff;
-
         
         }
 
@@ -39,7 +38,6 @@
             --input-border: #cccccc;
             --correct-color: #2e7d32;
             --close-icon: #000;
-
         }
 
         @media print {
@@ -279,14 +277,12 @@
 
         .subject-dropdown-close:hover {
             background-color: rgba(255,255,255,0.08);
-             color: var( --close-icon);
-
+            color: var( --close-icon);
         }
 
         [data-theme="light"] .subject-dropdown-close:hover {
             background-color: rgba(0,0,0,0.06);
-             color: var( --close-icon);
-            
+            color: var( --close-icon);
         }
 
         .subject-dropdown-list {
@@ -643,10 +639,10 @@
                     <div class="subject-dropdown-list" id="subject-dropdown-list">
                         <div class="subject-dropdown-item selected" data-subject="All" onclick="selectSubjectFilter('All', this)"><span class="filter-option-dot"></span>All</div>
                         
-                        <div class="subject-dropdown-item" data-subject="Lab1" onclick="selectSubjectFilter('Lab1', this)"><span class="filter-option-dot"></span>Aseptic Techmique 🧤</div>
+                        <div class="subject-dropdown-item" data-subject="Lab1" onclick="selectSubjectFilter('Lab1', this)"><span class="filter-option-dot"></span>Aseptic Techmique</div>
                        
-                        <div class="subject-dropdown-item" data-subject="Lab2" onclick="selectSubjectFilter('Lab2', this)"><span class="filter-option-dot"></span>Types of Culture Media 🧫</div>
-                        <div class="subject-dropdown-item" data-subject="Lab3" onclick="selectSubjectFilter('Lab3', this)"><span class="filter-option-dot"></span>Sample Collection, Inoculation & Incubation 🧫</div>
+                        <div class="subject-dropdown-item" data-subject="Lab2" onclick="selectSubjectFilter('Lab2', this)"><span class="filter-option-dot"></span>Types of Culture Media</div>
+                        <div class="subject-dropdown-item" data-subject="Lab3" onclick="selectSubjectFilter('Lab3', this)"><span class="filter-option-dot"></span>Sample Collection, Inoculation & Incubation</div>
                         <div class="subject-dropdown-item" data-subject="Lab4" onclick="selectSubjectFilter('Lab4', this)"><span class="filter-option-dot"></span>Staining Techniques & Gram Stain</div>
                         <div class="subject-dropdown-item" data-subject="Lab5" onclick="selectSubjectFilter('Lab5', this)"><span class="filter-option-dot"></span>Serological Technique</div>
                         <div class="subject-dropdown-item" data-subject="Lab6" onclick="selectSubjectFilter('Lab6', this)"><span class="filter-option-dot"></span>General Stool Examination</div>
@@ -722,7 +718,7 @@ const questions = [
         img: 'Stage1_Images/HDSF _ Microbiology _ 2021-2025/HDSF_Microbiology_Practice_2021-2025_006.jpg'
     },
     {
-        id: 'q7', lab: 'Lab2', number: '7',
+        id: 'q7', lab: 'Lab2', number: '7', repeat: 'Two Times',
         parts: [
             { question: '<strong>A.</strong> What is this called?', answer: 'Transport medium (cary-blair medium).' },
             { question: '<strong>B.</strong> What is used for?', answer: 'For transporting specimens.' }
@@ -976,11 +972,14 @@ function renderCard(q) {
     const parts = q.parts || [{ question: q.question, answer: q.answer, options: q.options }];
     const isSingleQuestion = !q.parts;
 
-    const numberText = q.repeat ? q.repeat : (q.number ? `${q.number}.` : '');
+    const repeatHtml = q.repeat ? `<h3 class="question-number repeat-badge">${q.repeat}</h3>` : '';
+    const numberText = q.number ? `${q.number}.` : '';
 
-    const headerHtml = (numberText || q.case)
-        ? `<h3 class="question-number${q.repeat ? ' repeat-badge' : ''}">${numberText} ${q.case ? q.case : ''}</h3>`
+    const numberHtml = (numberText || q.case)
+        ? `<h3 class="question-number">${numberText} ${q.case ? q.case : ''}</h3>`
         : '';
+
+    const headerHtml = repeatHtml + numberHtml;
 
     const pinned = isPinned(q.id);
 
