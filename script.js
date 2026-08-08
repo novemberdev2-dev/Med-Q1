@@ -144,7 +144,7 @@ const CATEGORIES = {
         { label: 'Practice', badge: '106 Qs', sublinks: [
           { label: 'Anatomy 🦴', badge: '70 Qs', href: 'HDSF_Anatomy_Practice_2021-2025.html' },
           { label: 'Microbiology 🦠', badge: '32 Qs', href: 'HDSF_Microbiology_Practice_2021-2025.html' },
-          { label: 'Molecular biology 🧬', badge: '4 Qs', href: 'HDSF_Molecular Biology_Practice_2021-2025.html' }
+          { label: 'Molecular biology 🧬', badge: '4 Qs', href: 'HSDF_Molecular Biology_Practice_2021-2025.html' }
         ]},
       ]},
 
@@ -153,7 +153,7 @@ const CATEGORIES = {
         { label: 'Theory', badge: '160 MCQs', sublinks: [
           { label: 'End-Rotation 1', badge: '20 MCQs', href: 'HDSF_End-Rotation1_Theory_2025-2026.html' },
           { label: 'End-Rotation 2', badge: '20 MCQs', href: 'HDSF_End-Rotation2_Theory_2025-2026.html' },
-          { label: 'Final 1', badge: '120 MCQs', href: 'HDSF_Final1_Theory_2025-2026' }
+          { label: 'Final 1', badge: '120 MCQs', href: 'HDSF_Final1_Theory_2025-2026.html' }
         ]},
         { label: 'Practice', badge: '40 Qs', sublinks: [
           { label: 'End-Rotation 1', badge: '10 Qs', href: 'HDSF_End-Rotation1_Practice_2025-2026.html' },
@@ -185,10 +185,10 @@ const CATEGORIES = {
 
 
         { title: '2025-2026 Year Exams', links: [
-        { label: 'Theory', badge: '160 MCQs', sublinks: [
+        { label: 'Theory', badge: '152 MCQs', sublinks: [
           { label: 'End-Rotation 1', badge: '20 MCQs', href: 'BBB_End-Rotation1_Theory_2025-2026.html' },
           { label: 'End-Rotation 2', badge: '20 MCQs', href: 'BBB_End-Rotation2_Theory_2025-2026.html' },
-          { label: 'Final 1', badge: '120 MCQs', href: 'BBB_Final1_Theory_2025-2026' }
+          { label: 'Final 1', badge: '112 MCQs', href: 'BBB_Final1_Theory_2025-2026.html' }
         ]},
         { label: 'Practice', badge: '40 Qs', sublinks: [
           { label: 'End-Rotation 1', badge: '10 Qs', href: 'BBB_End-Rotation1_Practice_2025-2026.html' },
