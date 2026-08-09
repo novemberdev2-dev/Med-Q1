@@ -6,33 +6,34 @@
     <title>HDSF_End-Rotation2_Practice_2025-2026</title>
     
     <style>
-      :root {
+          :root {
             --bg-body: #0c0d0e;
             --text-main: #f1f5f9;
             --header-bg: #1e293b;
             --header-text: #38bdf8;
             --card-bg: #1a1c1e;
             --card-border: #26292b;
-            --ans-bg: #1e293b;
+               --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
-            --input-border:#26292b;
-            --q-number:#f1f5f9
-        }
+            --ans-border: #2e7d32;
+            --input-border: #26292b;
         
+        }
+
         [data-theme="light"] {
           
-            --bg-body: #f4f4f9;
+            --bg-body: #FAFAFC;
             --text-main: #333333;
             --header-bg: #2D2D2D;
             --header-text: #ffffff;
             --card-bg: #ffffff;
             --card-border: #cccccc;
-             --ans-bg: #eef6e4;
+           --ans-bg: #eef6e4;
             --ans-text: #2e7d32;
-            --input-border: #cccccc;
-            --q-number:#0c0d0e
-        }
           
+            --input-border: #cccccc;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-body);
@@ -54,18 +55,17 @@
             background-color: var(--header-bg);
             color: var(--header-text);
             padding: 12px;
-            border-radius: 9px;
+            border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 700;
             margin-bottom: 20px;
         }
 
         .controls-row {
             display: flex;
             gap: 10px;
-            margin-bottom: 8px;
+            margin-bottom: 25px;
             align-items: center;
         }
 
@@ -74,8 +74,8 @@
             flex: 1;
             gap: 8px;
             background-color: var(--card-bg);
-            padding: 7px;
-            border-radius: 8px;
+            padding: 6px;
+            border-radius: 10px;
             border: 1px solid var(--card-border);
             overflow-x: auto;
         }
@@ -84,7 +84,7 @@
             background-color: transparent;
             border: 1px solid transparent;
             color: var(--text-main);
-            padding: 8px 12px;
+            padding: 8px 13px;
             border-radius: 6px;
             font-size: 0.85rem;
             font-weight: 800;
@@ -104,7 +104,8 @@
             color: var(--text-main);
             width: 48px;
             height: 48px;
-            border-radius: 8px;
+            border-radius: 10px;
+            
             display: flex;
             align-items: center;
             justify-content: center;
@@ -117,7 +118,7 @@
             text-align: center;
             font-size: 0.75rem;
             opacity: 0.5;
-           
+            
         }
         
         .question-number{
@@ -153,9 +154,11 @@
         .question-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--card-border); }
         .question-item:last-child { border-bottom: none; }
         
-        .answer-box { display: none !important;}
+        .answer-box { display: none !important;
+          
+        }
 
-.ans-btn{
+          .ans-btn{
   background-color: var(--ans-bg);
   color: var(--ans-text);
 }
@@ -174,7 +177,6 @@ button.ans-btn {
     width: auto;    
     display: inline-block;
     white-space: pre-line;
-    cursor: pointer;
     transition: background-color 0.1s, color 0.1s;
 }
 
@@ -184,31 +186,29 @@ button.ans-btn.revealed {
     font-size: 0.9rem;
     font-weight: 900;
 }
-
+        
+        .Q-number {
+  font-size: 12px;
+  border: 1px solid var(--text-main);
+  padding: 3px 5px;
+  border-radius: 3px;
+  color: var(--text-main);
+}
+    
 
         .lab-title {
-            text-align: left;
-            margin: 60px 0 20px 0;
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #729fcf;
-            padding-bottom: 5px;
-            display: flex;
-            align-items:center;
-            justify-content: space-between;
-            width: 100%;      
-            
-        }
-            
-        .lab-center { text-align: left; width: 100%; }
-        
-        .Q-number{
-          font-size:12px;
-          border:1px solid var(--q-number);
-          padding:3px 5px ;
-          border-radius:3px;
-          color:var(--q-number);
+    text-align: center;
+    margin: 40px 0 20px 0;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #729fcf;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
+        .lab-center { text-align: left; width: 100%; }
 
         @media (max-width: 700px) {
             .quiz-card { flex-direction: column-reverse; }
@@ -219,293 +219,235 @@ button.ans-btn.revealed {
     </style>
 </head>
 <body oncontextmenu="return false;">
-  <script>
-    
-    (function() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            document.body.setAttribute('data-theme', 'light');
-        }
-    })();
-</script>
-
-
+  
 <div class="container">
     <div class="header">
         <div style="text-align: left;">
-            <h3 style="margin: 0; font-size: 1.4rem;">End-Rotation 2</h3>
-            <p style="margin: 2px 0 0; font-size: 0.86rem; opacity: 0.8;">HDSF • Practice • 2025-2026</p>
+   <h3 style="margin: 0; font-size: 1.4rem;">End-Rotation 2</h3>
+            <p style="margin: 2px 0 0; font-size: 0.86rem; opacity: 0.8; font-weight:700;">HDSF • Practice • 2025-2026</p>
         </div>
     </div>
 
     <div class="controls-row">
         <div class="filter-container">
             <button class="filter-btn active" onclick="filterLabs('All', this)">All Labs</button>
-            <button class="filter-btn" onclick="filterLabs('Anatomy', this)">Anatomy 🦴</button>
-            <button class="filter-btn" onclick="filterLabs('Microbiology', this)">️Microbiology 🧫</button>
-            
-            
-        </div>
+            <button class="filter-btn" onclick="filterLabs('L1', this)">Anatomy 🦴</button>
+            <button class="filter-btn" onclick="filterLabs('L2', this)">Microbiology 🧫</button>
         
-        <button class="theme-toggle" onclick="toggleTheme()">
+          
+        </div>
+            <button class="theme-toggle" onclick="toggleTheme()">
     <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
     </svg>
 </button>
+        
+        
     </div>
 
-    <div id="quiz-content">
-      
-         <div class="lab-wrapper" data-subject="Anatomy">
-            <div class="lab-center"><div class="lab-title">Anatomy 🦴<span class="Q-number">7 Questions</span></div></div>
-            
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">1. </h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed area called?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans1a', this)">Show Answer</button>
-                        <div id="ans1a" class="answer-box">Carina.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Indicate the level of the structure.</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans1b', this)">Show Answer</button>
-                        <div id="ans1b" class="answer-box">At the level of T4 or sternal angle.</div>
-                    </div>
-                </div>
-              <div class="image-section"> <img src="https://i.imgur.com/nbqLNoJ.jpeg" alt="Exam Image"></div>
-            </div>
-
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">2.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What type of vertebra is shown?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans2a', this)">Show Answer</button>
-                        <div id="ans2a" class="answer-box">Thoracic vertebra.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is the pointed structure?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans2b', this)">Show Answer</button>
-                        <div id="ans2b" class="answer-box">Pedicle.</div>
-                    </div>
-                </div>
-                <div class="image-section"> <img src="https://i.imgur.com/DInVU0W.jpeg" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">3.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed structure?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans3a', this)">Show Answer</button>
-                        <div id="ans3a" class="answer-box">Common bile duct.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> Where does it terminate?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans3b', this)">Show Answer</button>
-                        <div id="ans3b" class="answer-box">It opens into the second part of the duodenum.</div>
-                    </div>
-                </div>
-                <div class="image-section"> <img src="https://i.imgur.com/R92XnxO.jpeg" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">4.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed structure?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans4a', this)">Show Answer</button>
-                        <div id="ans4a" class="answer-box">Coracobrachialis muscle.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is its nerve supply?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans4b', this)">Show Answer</button>
-                        <div id="ans4b" class="answer-box">Musculocutaneous nerve.</div>
-                    </div>
-                </div>
-                <div class="image-section"> <img src="https://i.imgur.com/LMddcRV.jpeg" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">5.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed structure?
-</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans5a', this)">Show Answer</button>
-                        <div id="ans5a" class="answer-box">Greater omentum.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> It attaches what to what?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans5b', this)">Show Answer</button>
-                        <div id="ans5b" class="answer-box">It connects the stomach to the transverse colon.</div>
-                    </div>
-                </div>
-                <div class="image-section"> <img src="https://i.imgur.com/y2nbRyg.jpeg" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">6.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed structure?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans6a', this)">Show Answer</button>
-                        <div id="ans6a" class="answer-box">Anterior superior iliac spine (ASIS).</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> It is attached to what?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans6b', this)">Show Answer</button>
-                        <div id="ans6b" class="answer-box">Muscles.</div>
-                    </div>
-                </div>
-                <div class="image-section"> <img src="https://i.imgur.com/yh2UZDu.jpeg" alt="Exam Image"></div>
-            </div>
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">7.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the pointed structure?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans7a', this)">Show Answer</button>
-                        <div id="ans7a" class="answer-box">Coronary sinus.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> It drains into what?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans7b', this)">Show Answer</button>
-                        <div id="ans7b" class="answer-box">Right atrium of the heart.</div>
-                    </div>
-                </div>
-                <div class="image-section"> <img src="https://i.imgur.com/WYgVgPa.jpeg" alt="Exam Image"></div>
-            </div>
-            </div>
-        
-      
-
-      
-              <div class="lab-wrapper" data-subject="Microbiology">
-            <div class="lab-center"><div class="lab-title">Microbiology 🧫<span class="Q-number">3 Questions</span></div></div>
-            
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">8.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What is the name of this culture media?
-</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans8a', this)">Show Answer</button>
-                        <div id="ans8a" class="answer-box">Blood agar.</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What is its type according to consistency?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans8b', this)">Show Answer</button>
-                        <div id="ans8b" class="answer-box">Solid media.</div>
-                    </div>
-                </div>
-              <div class="image-section"> <img src="https://i.imgur.com/B5oULUD.jpeg" alt="Exam Image"></div>
-            </div>
-
-            <div class="quiz-card">
-                <div class="question-section">
-                    <h3 class="question-number">9.</h3>
-                    <div class="question-item">
-                        <span><strong>A.</strong> What type of physical sterilization is shown in the figure?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans9a', this)">Show Answer</button>
-                        <div id="ans9a" class="answer-box">Non-ionizing radiation (UV light).</div>
-                    </div>
-                    <div class="question-item">
-                        <span><strong>B.</strong> What are its applications?</span><br><br>
-                        <button class="ans-btn" onclick="toggleAnswer('ans9b', this)">Show Answer</button>
-                        <div id="ans9b" class="answer-box">Sterilization of operating rooms, hospital rooms, and viral rooms.</div>
-                    </div>
-                </div>
-                <div class="image-section"> <img src="https://i.imgur.com/vk2uQVT.jpeg" alt="Exam Image"></div>
-            </div>
-             <div class="quiz-card">
-                <div class="question-section">
-                        
-                    <div class="question-item">
-                        <span class="question-text"><strong>10.</strong> What is the name of stain used to detect flagella?</span>
-    
-    <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
-        <div>A. Indian ink</div>
-        <div>B. Leifson flagella</div>
-        <div>C. Malachite green</div>
-        <div>D. Acid fast stain</div>
-        <div>E. Gram stain</div>
-    </ul>
-                        <button class="ans-btn" onclick="toggleAnswer('ans10d', this)">Show Answer</button>
-                        <div id="ans10d" class="answer-box">Answer: B</div>
-                    </div>
-                </div>
-                <div class="image-section"><img src="https://i.imgur.com/fkEaEFG.jpeg" alt="Exam Image"></div>
-            </div>
-           
-            
-            </div>
-            </div>
+    <div id="main-content"></div>
+</div>
 
 <footer class="site-footer">© Developed by <strong>Nove</strong></footer>
 
+<script>
 
-    <script>
-    
-    function updateIcon(isLight) {
-        const icon = document.getElementById('theme-icon');
-        if (isLight) {
-        
-            icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-        } else {
-            
-            icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-        }
-    }
-
-    
-    window.addEventListener('DOMContentLoaded', () => {
-    const isLight = document.body.getAttribute('data-theme') === 'light';
-    updateIcon(isLight);
-});
-
-
-    function toggleTheme() {
-        const body = document.body;
-        const isLight = body.getAttribute('data-theme') === 'light';
-
-        if (isLight) {
-        
-            body.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'dark'); 
-            updateIcon(false);
-        } else {
-        
-            body.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light'); 
-            updateIcon(true);
-        }
-    }
-
-    
-    function filterLabs(subject, btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const wrappers = document.querySelectorAll('.lab-wrapper');
-        wrappers.forEach(wrap => {
-            wrap.style.display = (subject === 'All' || wrap.dataset.subject === subject) ? "block" : "none";
-        });
-    }
-
-    function toggleAnswer(id, btn) {
-    const answerDiv = document.getElementById(id);
-    const answerText = answerDiv.innerText;
-
+const questions = [
   
+ {
+    id: 'q1', lab: 'L1', number: '1',
+    parts: [
+        { question: 'A. What is the pointed area called?', answer: 'Carina.' },
+        { question: 'B. Indicate the level of the structure.', answer: 'At the level of T4 or sternal angle.' }
+    ],
+    img: 'Stage1_Images/HDSF _ Anatomy _ 2021-2025/HDSF_Anatomy_Practice_2021-2025_028.jpg'
+},
+
+{
+    id: 'q2', lab: 'L1', number: '2',
+    parts: [
+        { question: 'A. What type of vertebra is shown?', answer: 'Thoracic vertebra.' },
+        { question: 'B. What is the pointed structure?', answer: 'Pedicle.' }
+    ],
+    img: 'Stage1_Images/HDSF _ ER2 _ 2025-2026/HDSF_ER2_2025-2026_002.jpg'
+},
+
+{
+    id: 'q3', lab: 'L1', number: '3',
+    parts: [
+        { question: 'A. What is the pointed structure?', answer: 'Common bile duct.' },
+        { question: 'B. Where does it terminate?', answer: 'It opens into the second part of the duodenum.' }
+    ],
+    img: 'Stage1_Images/HDSF _ ER2 _ 2025-2026/HDSF_ER2_2025-2026_003.jpg'
+},
+
+{
+    id: 'q4', lab: 'L1', number: '4',
+    parts: [
+        { question: 'A. What is the pointed structure?', answer: 'Coracobrachialis muscle.' },
+        { question: 'B. What is its nerve supply?', answer: 'Musculocutaneous nerve.' }
+    ],
+    img: 'Stage1_Images/HDSF _ ER2 _ 2025-2026/HDSF_ER2_2025-2026_004.jpg'
+},
+
+{
+    id: 'q5', lab: 'L1', number: '5',
+    parts: [
+        { question: 'A. What is the pointed structure?', answer: 'Greater omentum.' },
+        { question: 'B. It attaches what to what?', answer: 'It connects the stomach to the transverse colon.' }
+    ],
+    img: 'Stage1_Images/HDSF _ ER2 _ 2025-2026/HDSF_ER2_2025-2026_005.jpg'
+},
+
+{
+    id: 'q6', lab: 'L1', number: '6',
+    parts: [
+        { question: 'A. What is the pointed structure?', answer: 'Anterior superior iliac spine (ASIS).' },
+        { question: 'B. It is attached to what?', answer: 'Muscles.' }
+    ],
+    img: 'Stage1_Images/HDSF _ ER2 _ 2025-2026/HDSF_ER2_2025-2026_006.jpg'
+},
+
+{
+    id: 'q7', lab: 'L1', number: '7',
+    parts: [
+        { question: 'A. What is the pointed structure?', answer: 'Coronary sinus.' },
+        { question: 'B. It drains into what?', answer: 'Right atrium of the heart.' }
+    ],
+    img: 'Stage1_Images/HDSF _ ER2 _ 2025-2026/HDSF_ER2_2025-2026_007.jpg'
+},
+
+{
+    id: 'q8', lab: 'L2', number: '8',
+    parts: [
+        { question: 'A. What is the name of this culture media?', answer: 'Blood agar.' },
+        { question: 'B. What is its type according to consistency?', answer: 'Solid media.' }
+    ],
+    img: 'Stage1_Images/HDSF _ ER2 _ 2025-2026/HDSF_ER2_2025-2026_008.jpg'
+},
+
+{
+    id: 'q9', lab: 'L2', number: '9',
+    parts: [
+        { question: 'A. What type of physical sterilization is shown in the figure?', answer: 'Non-ionizing radiation (UV light).' },
+        { question: 'B. What are its applications?', answer: 'Sterilization of operating rooms, hospital rooms, and viral rooms.' }
+    ],
+    img: 'Stage1_Images/HDSF _ Microbiology _ 2021-2025/HDSF_Microbiology_Practice_2021-2025_005.jpg'
+},
+
+{
+    id: 'q10', lab: 'L2',
+    question: '<strong>10.</strong> What is the name of stain used to detect flagella?<ul style="list-style-type:disc;margin-left:20px;padding:0;line-height:1.8"><div>A. Indian ink</div><div>B. Leifson flagella</div><div>C. Malachite green</div><div>D. Acid fast stain</div><div>E. Gram stain</div></ul>',
+    answer: 'B. Leifson flagella',
+    img: 'Stage1_Images/HDSF _ Microbiology _ 2021-2025/HDSF_Microbiology_Practice_2021-2025_015.jpg'
+},
+];
+
+const labGroups = [
+    { key: 'L1',  label: 'Anatomy 🦴' },
+    { key: 'L2',  label: 'Microbiology 🧫' },
+    
+];
+
+
+function renderCard(q) {
+    const parts = q.parts || [{ question: q.question, answer: q.answer }];
+
+
+const repeatHtml = q.number
+    ? `<h3 class="question-number">${q.number}. ${q.repeat ? `<span class="repeat">${q.repeat}</span>` : ''}</h3>`
+    : (q.repeat ? `<h3 class="question-number"><span class="repeat">${q.repeat}</span></h3>` : '');
+
+    const partsHtml = parts.map((part, i) => `
+        <div class="question-item">
+            <span>${part.question}</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('${q.id}_${i}', this)">Show Answer</button>
+            <div id="${q.id}_${i}" class="answer-box">${part.answer}</div>
+        </div>`).join('');
+
+    const imgSection = q.img
+    ? `<div class="image-section">
+        ${
+            Array.isArray(q.img)
+? `<div style="display:flex;flex-direction:column;width:100%; gap:10px;">
+    ${q.img.map((src, idx) => `
+      <div style="position:relative;">
+        <span style="position:absolute;top:8px;left:10px;z-index:1;font-weight:bold;font-size:1.1rem;color:white;background:rgba(0,0,0,0.5);padding:2px 8px;border-radius:4px;">${String.fromCharCode(65+idx)}</span>
+        <img src="${src}" alt="Exam Image" style="width:100%;display:block;">
+        
+      </div>`).join('')}
+  </div>`
+            : `<img src="${q.img}" alt="Exam Image" ${q.imgStyle ? `style="${q.imgStyle}"` : ''}>`
+        }
+       </div>`
+    : '';
+
+    return `
+        <div class="quiz-card" data-lab="${q.lab}">
+            <div class="question-section">
+                ${repeatHtml}${partsHtml}
+            </div>
+            ${imgSection}
+        </div>`;
+}
+
+function renderContent() {
+    const container = document.getElementById('main-content');
+    let html = '';
+    labGroups.forEach(group => {
+        const groupQuestions = questions.filter(q => q.lab === group.key);
+        if (groupQuestions.length === 0) return;
+        html += `<div class="lab-wrapper" data-subject="${group.key}">
+    <div class="lab-center"><div class="lab-title">${group.label}<span class="Q-number">${groupQuestions.length} Questions</span></div></div>
+            ${groupQuestions.map(renderCard).join('')}
+        </div>`;
+    });
+    container.innerHTML = html;
+}
+
+
+function filterLabs(subject, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.lab-wrapper').forEach(wrap => {
+        wrap.style.display = (subject === 'All' || wrap.dataset.subject === subject) ? 'block' : 'none';
+    });
+}
+
+
+function toggleAnswer(id, btn) {
+    const answerDiv = document.getElementById(id);
     if (!btn.classList.contains('revealed')) {
-      
-        btn.innerText = answerText;
+        btn.innerText = answerDiv.innerText;
         btn.classList.add('revealed');
     } else {
-    
-        btn.innerText = "Show Answer";
+        btn.innerText = 'Show Answer';
         btn.classList.remove('revealed');
     }
 }
 
-</script>
 
+function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    const isLight = body.getAttribute('data-theme') === 'light';
+    if (isLight) {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+        body.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}
+
+if (localStorage.getItem('theme') === 'light') {
+    document.body.setAttribute('data-theme', 'light');
+    document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
+
+renderContent();
+</script>
 </body>
 </html>
