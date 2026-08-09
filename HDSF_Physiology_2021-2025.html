@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDSF_Physiology_2021-2025</title>
+
+    <style>
+       :root {
+            --bg-body: #121212;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e283b;
+            --header-text: #38bdf8;
+            --border-color: #26282b;
+            --input-bg: #1a1c1e;
+            --input-border: #2a2f36;
+            --ans-bg: #1e283b;
+            --ans-text: #f0cf6a;
+            --filter-bg: transparent;
+            
+        }
+
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #eef6e4;
+            --ans-text: #2e7d32;
+            --filter-bg: transparent;
+            
+        }
+
+        .filter-btn.active {
+            background-color: #728fcf;
+            color: #fff;
+            border-color:  #728fcf;
+        }
+
+        body {
+            -webkit-user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1150px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 7px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .filter-container {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-wrap: nowrap;
+            max-width: 100%;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 750;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            margin-top: 6px;
+        }
+
+        .divider { border: none; margin-bottom: 12px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+
+        .ans-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ans-btn {
+            background-color:  #728fcf;
+            color:  #fff;
+            border: none;
+            padding: 7px 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-weight: 650;
+            font-size: 16px;
+            transition: background-color 0.2s, color 0.2s;
+
+        }
+
+        .q-block.revealed .ans-btn {
+            background-color: var(--ans-bg);
+            color: var(--ans-text);
+            font-weight: 700;
+            padding: 7px 12px;
+            font-size: 16px;
+        }
+
+        mark { background-color: #f0cf6a; color: #000; }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-opts);
+            font-size: 1.15rem;
+            font-weight: 500;
+            opacity: 0.6;
+            box-sizing: border-box;
+            width: 100%;
+            display: block; 
+        }
+
+        .section-heading-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .mcq-count-badge {
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 2px 5px;
+            border-radius: 3px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+
+<body oncontextmenu="return false;">
+
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.45rem;font-weight:800;">Final & End-Rotation</h3>
+            <p style="margin: 2px 0 0; font-size: 0.87rem; opacity: 0.8; font-weight:700;">Physiology 🫀 • 2021-2025</p>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+        
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="filter-container" id="filter-bar"></div>
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+<script>
+
+const allQuestions = [
+{ n: 1, s: "9", q: "Glucose and amino acid are mainly transported through the cell membrane by the mechanism which is the principal mechanism by which insulin controls glucose use in the body:", o: ["A. Osmosis", "B. Simple diffusion", "C. Facilitated diffusion", "D. Primary active transport", "E. Endocytosis"], a: "C" },
+  { n: 2, s: "8", q: "When there is no protein in the diet, a certain amount of the body proteins will _________.", o: ["A. Synthesize", "B. Degrade", "C. Stabilize", "D. Multiply", "E. Transform into lipids"], a: "B" },
+  { n: 3, s: "17", q: "Cell membrane is composed of:", o: ["A. Lipids and phospholipids", "B. Cholesterol", "C. Integral and peripheral protein", "D. Carbohydrates", "E. All of the above"], a: "E" },
+  { n: 4, s: "6", q: "The nutrient responsible for calcium regulation is __________", o: ["A. Vitamin C", "B. Vitamin K", "C. Iron", "D. Magnesium", "E. Vitamin D"], a: "E" },
+  { n: 5, s: "12", q: "What causes thermogenesis?", o: ["A. Radiation", "B. Conduction", "C. Metabolism", "D. Vasodilation", "E. Evaporation"], a: "C" },
+  { n: 6, s: "11", q: "Which crine affect its neighboring cells?", o: ["A. Paracrine", "B. Autocrine", "C. Endocrine", "D. Exocrine", "E. Holocrine"], a: "A" },
+  { n: 7, s: "7", q: "Alpha cells of pancreas secret which hormone?", o: ["A. Insulin", "B. Glucagon", "C. Somatostatin", "D. Gastrin", "E. Epinephrine"], a: "B" },
+    { n: 8, s: "10", q: "Which glucose transporter is specifically involved in the absorption of glucose into intestinal cells?", o: ["A. GLUT2 transporter", "B. GLUT4 transporter", "C. Na-K ATPase pump", "D. Na-glucose symporter", "E. H-K antiporter"], a: "D" },
+
+  { n: 9, s: "15", q: "First line of defense against invading microorganisms, Powerful and effective killer machine also secretes Platelet Aggregation Factor (PAF)- accelerates the aggregation of platelet during injury to the blood vessels:", o: ["A. Lymphocytes", "B. Monocytes", "C. Basophils", "D. Neutrophils", "E. Eosinophils"], a: "D" },
+  { n: 10, s: "8", q: "Lipoprotein lipase hydrolyzes the triglycerides of chylomicrons. As a result ________ will be released.", o: ["A. Amino acids", "B. Glucose", "C. Fatty acids", "D. Nucleotides", "E. Glycogen"], a: "C" },
+  { n: 11, s: "16", q: "Which neuron projection transmits signals towards cell body?", o: ["A. Dendrites", "B. Axon", "C. Synapse", "D. Myelin sheath", "E. Node of Ranvier"], a: "A" },
+  { n: 12, s: "absent", q: "What is the pathway of electrical signals in the heart?", o: ["A. AV node- SA node- bundle of His - purkinje fibers", "B. Purkinje fibers - bundle of His - AV node - SA node", "C. Bundle of His - SA node - AV node - purkinje fibers", "D. SA node - bundle of His - AV node - purkinje fibers", "E. SA node- AV node - bundle of His - purkinje fibers"], a: "E" },
+  { n: 13, s: "6", q: "High concentration of cholesterol in the blood may contribute to:", o: ["A. Hypotension", "B. Atherosclerosis", "C. Anemia", "D. Leukopenia", "E. Hypoglycemia"], a: "B" },
+  { n: 14, s: "15", q: "A 60 years old man, it's found that he got a bacterial infection in his lungs, which peripheral blood cells will increase?", o: ["A. Erythrocytes", "B. Basophils", "C. Nutrophils", "D. Platelets", "E. Monocytes"], a: "C" },
+  { n: 15, s: "11", q: "Which type of cell signaling affects the behavior of neighboring cells?", o: ["A. Endocrine signaling", "B. Autocrine signaling", "C. Synaptic signaling", "D. Paracrine signaling", "E. Direct signaling"], a: "D" },
+  { n: 16, s: "12", q: "Which of the following is thermogenesis:", o: ["A. Increased metabolic rate", "B. Convection", "C. Sweating", "D. Vasodilation", "E. Conduction"], a: "A" },
+  { n: 17, s: "7", q: "Which hormone is secreted by Alpha cells and it is increasing the level of sugar in the blood:", o: ["A. Insulin", "B. Glucagon", "C. Somatostatin", "D. Epinephrine", "E. Cortisol"], a: "B" },
+  { n: 18, s: "absent", q: "Cells of epidermis which involve in inflammation and immune response:", o: ["A. Keratinocytes", "B. Melanocytes", "C. Merkel cells", "D. Langerhans cells", "E. Basal cells"], a: "D" },
+  { n: 19, s: "18", q: "Includes physical and chemical factors, natural killer cells, inflammation:", o: ["A. Adaptive immunity", "B. Humoral immunity", "C. Passive immunity", "D. Cell-mediated immunity", "E. Innate immunity"], a: "E" },
+  { n: 20, s: "10", q: "The process which WBC engulf the foreign body:", o: ["A. Pinocytosis", "B. Exocytosis", "C. Phagocytosis", "D. Apoptosis", "E. Osmosis"], a: "C" },
+  { n: 21, s: "absent", q: "Produce platelets:", o: ["A. Megakaryocyte", "B. Reticulocyte", "C. Erythrocyte", "D. Lymphocyte", "E. Osteoclast"], a: "A" },
+  { n: 22, s: "9", q: "Solute flow from high concentration to low concentration:", o: ["A. Active transport", "B. Osmosis", "C. Filtration", "D. Endocytosis", "E. Diffusion"], a: "E" },
+  { n: 23, s: "16", q: "In CNS myelin sheath produced by:", o: ["A. Schwann cells", "B. Oligodendrocytes", "C. Astrocytes", "D. Ependymal cells", "E. Microglia"], a: "B" },
+   { n: 24, s: "7", q: "Which hormone is responsible for stimulating the process of glycogenesis?", o: ["A. Glucagon", "B. Epinephrine", "C. Insulin", "D. Cortisol", "E. Growth hormone"], a: "C" },
+
+  { n: 25, s: "11", q: "Is a type of cellular signaling which affects distance cells:", o: ["A. Paracrine signaling", "B. Autocrine signaling", "C. Synaptic signaling", "D. Endocrine signaling", "E. Direct signaling"], a: "D" },
+  { n: 26, s: "2", q: "Response to change in position of different parts of the body:", o: ["A. Proprioceptors", "B. Nociceptors", "C. Photoreceptors", "D. Chemoreceptors", "E. Thermoreceptors"], a: "A" },
+  { n: 27, s: "19", q: "Cell membrane separate intracellular fluid and extracellular fluid, the extracellular fluid called:", o: ["A. Cytoplasm", "B. Nucleoplasm", "C. Matrix", "D. Internal environment", "E. Protoplasm"], a: "D" },
+  { n: 28, s: "17", q: "Channel proteins of the cell membrane are:", o: ["A. Peripheral proteins", "B. Integral proteins", "C. Glycoproteins", "D. Cytoskeletal proteins", "E. Extrinsic proteins"], a: "B" },
+  { n: 29, s: "11", q: "Which of the following is incorrect about gap junction:", o: ["A. Allow for electrical coupling", "B. Built out of membrane proteins", "C. Permit passage of small ions", "D. Is the fastest mode of cell-cell communication", "E. Found in skeletal and cardiac muscle"], a: "E" },
+  { n: 30, s: "16", q: "Which of the following is correct about the dendrites:", o: ["A. Transmit impulses away from the cell body", "B. Are usually myelinated", "C. Increase the surface area and transmit impulses toward the cell body", "D. Contain the nucleus of the cell", "E. Release neurotransmitters into the synapse"], a: "C" },
+  { n: 31, s: "absent", q: "Absorption of ions and production of vitamin K:", o: ["A. Large intestine", "B. Small intestine", "C. Esophagus", "D. Stomach", "E. Pancreas"], a: "A" },
+  { n: 32, s: "10", q: "Receptor-mediated endocytosis create:", o: ["A. Tubulin", "B. Clathrin", "C. Actin", "D. Myosin", "E. Keratin"], a: "B" },
+  { n: 33, s: "14", q: "Accumulation of fat in __________ increase risk of heart disease and atherosclerosis hypertension.", o: ["A. Thighs", "B. Arms", "C. Hips", "D. Calves", "E. Abdomen"], a: "E" },
+  { n: 34, s: "5", q: "What's the percentage of carbohydrate in a diet?", o: ["A. 12%-15%", "B. 80%-90%", "C. 5%-15%", "D. 50%-60%", "E. 5%-30%"], a: "D" },
+  { n: 35, s: "12", q: "A way to heat lose:", o: ["A. Shivering", "B. Vasoconstriction", "C. Evaporation", "D. Thyroid hormones", "E. Food ingestion"], a: "C" },
+  { n: 36, s: "8", q: "Ketone bodies are produced during the normal catabolism of which of the following?", o: ["A. Fatty acids", "B. Carbohydrates", "C. Nucleic acids", "D. Proteins", "E. Vitamins"], a: "A" },
+  { n: 37, s: "2", q: "Response to stimulus from CNS:", o: ["A. Receptor", "B. Afferent path", "C. Integrator", "D. Sensory neuron", "E. Effector"], a: "E" },
+  { n: 38, s: "19", q: "The body fluid is distributed inside and outside the cells of the body. The fluid outside the cells of the body is also known as:", o: ["A. Intracellular fluid", "B. Internal environment", "C. Cytosol", "D. Nucleoplasm", "E. Protoplast"], a: "B" },
+  { n: 39, s: "9", q: "The rate of simple diffusion through an open channel increases proportionately with the concentration of the diffusing substance, but facilitated diffusion has a limit and reaches a maximum, What limits the rate of facilitated diffusion is:", o: ["A. The number of mitochondria in the cell", "B. The availability of ATP", "C. The rate at which the carrier protein molecules undergo a conformational change", "D. The thickness of the lipid bilayer", "E. The temperature of the solution"], a: "C" },
+  { n: 40, s: "absent", q: "Maintenance of blood osmotic pressure is the main function of:", o: ["A. Globulin", "B. Fibrinogen", "C. Hemoglobin", "D. Albumin", "D. Prothrombin"], a: "D" },
+  { n: 41, s: "6", q: "Athletes should have a diet rich in:", o: ["A. Nutrition rich in carbohydrates", "B. Nutrition rich in saturated fats", "C. Nutrition rich in fiber only", "D. Nutrition rich in simple sugars", "E. Nutrition rich in cholesterol"], a: "A" },
+  { n: 42, s: "absent", q: "Which of the following is Bhor's effect?", o: ["A. Increase affinity of Hbg to bind with O2", "B. Increase solubility of O2 in plasma", "C. Decrease production of 2,3-DPG", "D. Decrease affinity of Hbg to bind with CO2", "E. Decrease affinity of Hbg to bind with O2"], a: "E" },
+  { n: 43, s: "1", q: "Decrease in stimulus results in more decrease, this is..........", o: ["A. Negative feedback", "B. Positive feedback", "C. Feed-forward control", "D. Adaptive control", "E. Homeostatic equilibrium"], a: "B" },
+  { n: 44, s: "10", q: "Digoxin is given to a patient with heart failure to increase muscle contraction, to achieve this, Digoxin depends on which transport mechanism?", o: ["A. Simple diffusion", "B. Facilitated diffusion", "C. Primary active transport", "D. Secondary active transport", "E. Endocytosis"], a: "D" },
+  { n: 45, s: "11", q: "Is a way to affect the behavior of neighboring cells:", o: ["A. Endocrine signaling", "B. Autocrine signaling", "C. Paracrine signaling", "D. Direct signaling", "E. Synaptic signaling"], a: "C" },
+  { n: 46, s: "2", q: "Respond to stimuli arise far away from body:", o: ["A. Telereceptor", "B. Mechanoreceptor", "C. Proprioreceptor", "D. Baroreceptor", "E. Interoreceptor"], a: "A" },
+  { n: 47, s: "14", q: "Which of the following about obesity is not true?", o: ["A. Obesity is defined as having 25% or greater total body fat in men and 35% or greater total body fat in women", "B. Genetic factors, eating habits, sedentary lifestyle, and social customs can contribute to obesity", "C. Leptin increases appetite", "D. Trauma or tumors in the food-regulating centers in the hypothalamus can lead to obesity in some cases", "E. All of the above are true"], a: "C" },
+  { n: 48, s: "absent", q: "The nerve supply of Hearing & Balance organs:", o: ["A. Optic nerve", "B. Vestilocochlear nerve", "C. Facial nerve", "D. Vagus nerve", "E. Trigeminal nerve"], a: "B" },
+  { n: 49, s: "17", q: "Allow passage of ions across membrane:", o: ["A. Peripheral proteins", "B. Cholesterol", "C. Integral proteins", "D. Phospholipid tails", "E. Glycolipids"], a: "C" },
+  { n: 50, s: "17", q: "The plasma membrane contains a molecule that has a hydrophilic end and a hydrophobic end:", o: ["A. Glucose", "B. Triglyceride", "C. Protein", "D. Phospholipid", "E. Glycogen"], a: "D" },
+  { n: 51, s: "absent", q: "Major basic protein is characteristic of which type of white blood cell?", o: ["A. Eosinophils", "B. Neutrophils", "C. Basophils", "D. Lymphocytes", "E. Monocytes"], a: "A" },
+  { n: 52, s: "2", q: "Which type of receptors give response to change in the position of different parts of the body?", o: ["A. Nociceptors", "B. Thermoreceptors", "C. Photoreceptors", "D. Proprioceptors", "E. Chemoreceptors"], a: "D" },
+  { n: 53, s: "absent", q: "Which one of these hormones is secreted by posterior pituitary gland?", o: ["A. Insulin", "B. ADH", "C. Growth hormone", "D. Prolactin", "E. Thyroxine"], a: "B" },
+  { n: 54, s: "7", q: "Which is the fastest way to provide muscles with energy?", o: ["A. Aerobic respiration", "B. Glycolysis", "C. Beta oxidation", "D. Krebs cycle", "E. Phosphagen system"], a: "E" },
+  { n: 55, s: "6", q: "What provides the athletes with the largest amount of energy before they get exhausted?", o: ["A. High protein diet", "B. Fasting", "C. Carbohydrate diet", "D. Mineral supplements", "E. Fiber intake"], a: "C" },
+  { n: 56, s: "1", q: "In the blood clotting process, the release of chemicals increases clot formation, and accelerated clotting leads to the release of even more chemicals. This process is an example of:", o: ["A. Positive feedback", "B. Negative feedback", "C. Feed-forward control", "D. Homeostasis", "E. Inhibition"], a: "A" },
+  { n: 57, s: "absent", q: "Is a region of skin which contain Thin collagen and fine elastic fibers and nerve endings (touch), Free nerve endings sensations of warmth, coolness, pain, tickling, and itching:", o: ["A. Reticular region", "B. Papillary region", "C. Hypodermis", "D. Stratum corneum", "E. Stratum basale"], a: "B" },
+    { n: 58, s: "3", q: "Which organelle modifies, sorts, and packages proteins established via the Rough Endoplasmic Reticulum (RER)?", o: ["A. Peroxisome", "B. Lysosome", "C. Smooth ER", "D. Ribosome", "E. Golgi complex"], a: "E" },
+ 
+  { n: 59, s: "absent", q: "The new resynthesized form of triglycerides (chylomicron) will be absorbed to?", o: ["A. Portal vein", "B. Hepatic artery", "C. Gastric capillaries", "D. Intestinal lymph", "E. Bile duct"], a: "D" },
+  { n: 60, s: "absent", q: "Thoracic duct will drain the lymph and then enter the circulation from these places EXCEPT?", o: ["A. Left subclavian vein", "B. Lower limbs", "C. Right arm", "D. Abdomen", "E. Left side of head"], a: "C" },
+  { n: 61, s: "8", q: "Lipoprotein lipase hydrolyzes the triglycerides of chylomicrons into?", o: ["A. Fatty acid", "B. Amino acid", "C. Nucleic acid", "D. Glycogen", "E. Glucose"], a: "A" },
+  { n: 62, s: "absent", q: "All of these enzymes will be secreted from kidneys except?", o: ["A. Renin", "B. Erythropoietin", "C. Calcitriol", "D. Kinins", "E. B12"], a: "E" },
+    { n: 63, s: "12", q: "If the core body temperature rises above normal, negative feedback mechanisms lead to?", o: ["A. Sweating", "B. Shivering", "C. Vasoconstriction", "D. Piloerection", "E. Increased metabolism"], a: "A" },
+
+  { n: 64, s: "19", q: "What is the extracellular fluid (ECF) found within a joint called?", o: ["A. Serous fluid", "B. Synovial fluid", "C. Interstitial fluid", "D. Cerebrospinal fluid", "E. Pleural fluid"], a: "B" },
+  { n: 65, s: "19", q: "The blood plasma that presents in the blood vessels is part of?", o: ["A. Intracellular fluid", "B. Cytoplasm", "C. Organelle matrix", "D. Internal environment", "E. Lymphatic fluid"], a: "D" },
+  { n: 66, s: "15", q: "The type of the WBC that Secrete Platelet Aggregation Factor (PAF)- accelerates the aggregation of platelet during injury to the blood vessels is?", o: ["A. Neutrophils", "B. Monocytes", "C. Lymphocytes", "D. Basophils", "E. Eosinophils"], a: "A" },
+  { n: 67, s: "absent", q: "Exchange between blood and tissue?", o: ["A. External respiration", "B. Internal respiration", "C. Pulmonary ventilation", "D. Cellular metabolism", "E. Diffusion"], a: "B" },
+    { n: 68, s: "3", q: "Tay-Sachs disease, which most often affects children of Ashkenazi(eastern European Jewish) descent, is an inherited condition caused by faulty or absence of :", o: ["A. Mitochondrial mutation", "B. Peroxisomal deficiency", "C. Lysosomal enzyme", "D. Ribosomal defect", "E. Cytoskeletal instability"], a: "C" },
+
+  { n: 69, s: "10", q: "Transport that is coupled indirectly to an energy source, such as that due to an ion gradient, is referred to as?", o: ["A. Simple diffusion", "B. Primary active transport", "C. Facilitated diffusion", "D. Osmosis", "E. Secondary active transport"], a: "E" },
+   { n: 70, s: "3", q: "In those who smoke, they often cough to get rid of particles stuck in their respiratory tract because the nicotine paralyzes __________.", o: ["A. Cilia", "B. Bronchioles", "C. Alveoli ", "D. Goblet cells", "E. Pleura"], a: "A" },
+ 
+  { n: 71, s: "absent", q: "Stress test:", o: ["A. Measure the electrical activity during exercise", "B. Measure the resting metabolic rate", "C. Measure the lung capacity", "D. Measure the blood glucose level", "E. Measure the bone density"], a: "A" },
+  { n: 72, s: "17", q: "Plasma protein contains both integral and peripheral protein, the percentage of protein in the cell membrane is about?", o: ["A. 25%", "B. 40%", "C. 70%", "D. 85%", "E. 55%"], a: "E" },
+  { n: 73, s: "absent", q: "Through renin-angiotensin -aldosterone mechanism the kidney can maintain?", o: ["A. Body temperature", "B. Blood pressure", "C. Blood sugar", "D. Oxygen level", "E. Cholesterol level"], a: "B" },
+  { n: 74, s: "4", q: "A water-soluble hormone diffuses from the blood then binds to its receptor at the exterior surface of the target cell. The hormone-receptor complex activates a membrane protein called a G protein. Cyclic AMP is then produced after the activation of which protein by G protein?", o: ["A. Phosphodiesterase", "B. Protein kinase", "C. Adenylate cyclase", "D. ATPase", "E. Tyrosine kinase"], a: "C" },
+  { n: 75, s: "6", q: "...........have many roles in the body and are largely responsible for the structure of body tissues.", o: ["A. Carbohydrates", "B. Lipids", "C. Nucleic acids", "D. Proteins", "E. Vitamins"], a: "D" },
+  { n: 76, s: "1", q: "Body is monitored and re-monitored. Each monitored variable is termed:", o: ["A. Controlled condition", "B. Stimulus point", "C. Set point", "D. Feedback loop", "E. Homeostatic center"], a: "A" },
+  { n: 77, s: "1", q: "In the negative feedback system for regulating blood pressure, which component acts as the effector?", o: ["A. Baroreceptors", "B. Brain stem", "C. Hypothalamus", "D. Heart and blood vessels", "E. Spinal cord"], a: "D" },
+  { n: 78, s: "16", q: "................... a molecule released from a synaptic vesicle in synaptic end bulb that excites or inhibits another neuron, muscle fiber, or gland cell.", o: ["A. Hormone", "B. Neurotransmitter", "C. Enzyme", "D. Secondary messenger", "E. Cytokine"], a: "B" },
+  { n: 79, s: "1", q: "Output from the control center typically occurs as:", o: ["A. Nerve impulses", "B. Hormones", "C. Chemical signals", "D. All of the above", "E. None of the above"], a: "D" },
+  { n: 80, s: "12", q: "............ increase the metabolic rate and thus the rate of heat producton.", o: ["A. Sleeping", "B. Conduction", "C. Exercise", "D. Evaporation", "E. Vasodilation"], a: "C" },
+  { n: 81, s: "12", q: "If core body temperature rises above normal, negative feedback lead to:", o: ["A. Vasodilatation", "B. Shivering", "C. Increased release of epinephrine and norepinephrine", "D. Increased metabolism", "E. Increased thyroid hormones"], a: "A" },
+  { n: 82, s: "4", q: "Which of the following hormone bind to receptors and directly alters gene expression?", o: ["A. Water-Soluble Hormones", "B. Lipid-Soluble Hormones", "C. Peptide Hormones", "D. Amine Hormones", "E. Protein Hormones"], a: "B" },
+  { n: 83, s: "absent", q: "Which cranial nerve is responsible for vision?", o: ["A. Oculomotor nerve", "B. Trochlear nerve", "C. Abducens nerve", "D. Facial nerve", "E. Optic nerve"], a: "E" },
+  { n: 84, s: "absent", q: "Which cranial nerve is responsible hearing and balance organs?", o: ["A. Trigeminal nerve", "B. Glossopharyngeal nerve", "C. Vagus nerve", "D. Vestibular nerve", "E. Hypoglossal nerve"], a: "D" },
+  { n: 85, s: "absent", q: "Which cranial nerve is responsible for Sense of smell?", o: ["A. Optic nerve", "B. Facial nerve", "C. Olfactory nerve", "D. Accessory nerve", "E. Trigeminal nerve"], a: "C" },
+  { n: 86, s: "16", q: "Which neuroglia function as phagocytes?", o: ["A. Microglia", "B. Astrocytes", "C. Oligodendrocytes", "D. Ependymal cells", "E. Schwann cells"], a: "A" },
+  { n: 87, s: "19", q: "Most body water is in:", o: ["A. Blood", "B. Extracellular fluid", "C. Interstitial fluid", "D. Lymph", "E. Intracellular fluid"], a: "E" },
+  { n: 88, s: "9", q: "When all of the ________ in the plasma membrane are occupied, the transport maximum is reached.", o: ["A. Channels", "B. Carriers", "C. Receptors", "D. Transporters", "E. Membrane pores"], a: "B" },
+  { n: 89, s: "3", q: "Detoxification of ethanol occurs in the liver by:", o: ["A. Rough endoplasmic reticulum", "B. Lysosome", "C. Smooth endoplasmic reticulum", "D. Nucleus", "E. Golgi apparatus"], a: "C" },
+  { n: 90, s: "11", q: "Which type of signaling transports molecules by the gap junctions?", o: ["A. Endocrine signaling", "B. Synaptic signaling", "C. Paracrine signaling", "D. Direct signaling", "E. Autocrine signaling"], a: "D" },
+  { n: 91, s: "2", q: "The receptors responsible for recognizing the position of cells and sensing their location in the body are called:", o: ["A. Proprioceptors", "B. Teloreceptors", "C. Osmoreceptors", "D. Chemoreceptors", "E. Nociceptors"], a: "A" },
+  { n: 92, s: "6", q: "The transport of dietary fats to adipose tissue for storage is carried out by:", o: ["A. Low-density lipoproteins (LDL)", "B. High-density lipoproteins (HDL)", "C. Very-low-density lipoproteins (VLDL)", "D. Free fatty acids", "E. Chylomicrons"], a: "E" },
+  { n: 93, s: "6", q: "The protein that is involved in contraction in muscle is:", o: ["A. Tubulin", "B. Myosin", "C. Keratin", "D. Collagen", "E. Elastin"], a: "B" },
+  { n: 94, s: "4", q: "Second messenger of the non - steroid hormones is:", o: ["A. GTP", "B. ATP", "C. NADH", "D. DNA", "E. CAMP"], a: "E" },
+  { n: 95, s: "16", q: "Which one of the following is true regarding to axons ?", o: ["A. Receive incoming signals", "B. Contain most of the organelles", "C. Carry impulses away from the cell body", "D. Lack a myelin sheath always", "E. Synthesize all cellular proteins"], a: "C" },
+  { n: 96, s: "16", q: "What type of electrical signal is used for short-distant communication?", o: ["A. Graded potential", "B. Action potential", "C. Resting potential", "D. Threshold potential", "E. Refractory potential"], a: "A" },
+  { n: 97, s: "9", q: "Which of the following is transported by carrier-mediated facilitated diffusion?", o: ["A. Oxygen", "B. Carbon dioxide", "C. Water", "D. Steroids", "E. Glucose"], a: "E" },
+  { n: 98, s: "13", q: "The organelle that plays an important and early role in apoptosis is:", o: ["A. Ribosomes", "B. Mitochondria", "C. Peroxisomes", "D. Nucleolus", "E. Centrosomes"], a: "B" },
+  { n: 99, s: "absent", q: "A lymphocyte that undergoes clonal selection gives rise to two major types of cells in the clone:", o: ["A. Red and White cells", "B. Stem and Somatic cells", "C. Effector and Memory cells", "D. Helper and Suppressor cells", "E. Active and Passive cells"], a: "C" },
+  { n: 100, s: "19", q: "ECF within blood vessel called:", o: ["A. Blood plasma", "B. Aqueous humor and vitreous body", "C. Synovial fluid", "D. CSF", "E. Interstitial fluid"], a: "A" },
+
+  { n: 101, s: "16", q: "The first channels that open and cause the depolarizing phase?", o: ["A. Na voltage-gated channel", "B. K voltage-gated channel", "C. Cl leak channel", "D. Ca ligand-gated channel", "E. Mg pump"], a: "A" },
+  { n: 102, s: "6", q: "Which of the followings are original cis-fatty acids and hydrogenated and increase risk of heart diseases?", o: ["A. Saturated fatty acid", "B. Omega-3 fatty acid", "C. Essential fatty acid", "D. Trans fatty acid", "E. Phospholipids"], a: "D" },
+  { n: 103, s: "13", q: "Cells usually swell and burst due to loss of cell membrane integrity, may spill their contents, causing inflammation and injury to neighboring cells by .......... .", o: ["A. Apoptosis", "B. Cell necrosis", "C. Autophagy", "D. Mitosis", "E. Phagocytosis"], a: "B" },
+  { n: 104, s: "18", q: "By taking immunoglobulin injections, what type of immunity is provided?", o: ["A. Innate immunity", "B. Natural active immunity", "C. Artificial active immunity", "D. Natural passive immunity", "E. Acquired artificial passive immunity"], a: "E" },
+  { n: 105, s: "absent", q: "...............a molecular In outer cell membrane that acts like a molecular signature that enables cells to recognize one another.", o: ["A. Cholesterol", "B. Cytoskeleton", "C. Glycocalyx", "D. Centrosome", "E. Ribosome"], a: "C" },
+  { n: 106, s: "2", q: "Which one of following is a cutaneous receptor sensitive for pressure?", o: ["A. Pacinian corpuscle", "B. Meissner corpuscle", "C. Merkel disc", "D. Ruffini ending", "E. Free nerve ending"], a: "A" },
+  { n: 107, s: "15", q: "What is the process by which W.B.C. engulf worn-out cells?", o: ["A. Pinocytosis", "B. Phagocytosis", "C. Exocytosis", "D. Osmosis", "E. Facilitated diffusion"], a: "B" },
+  { n: 108, s: "1", q: "Blood clotting?", o: ["A. Negative feedback", "B. Neutral feedback", "C. Feed-forward control", "D. Adaptive response", "E. Positive feedback"], a: "E" },
+  { n: 109, s: "12", q: "The thermoregulatory center contains in the hypothalamus. So in exposure to cold, the hypothalamus will:", o: ["A. Decrease metabolic rate", "B. Promote vasodilation", "C. Increase sweating", "D. Increase voluntary activity", "E. Decrease shivering"], a: "D" },
+  { n: 110, s: "7", q: "Which one is correct about carbohydrate?", o: ["A. Glucagon sensitive for hyperglycemia", "B. Insulin sensitive for hypoglycemia", "C. Insulin sensitive for hyperglycemia", "D. Cortisol sensitive for hyperglycemia", "E. Adrenaline sensitive for hyperglycemia"], a: "C" },
+    { n: 111, s: "10", q: "Which transport mechanism is responsible for eliminating Calcium ions (Ca²⁺) from the cell?", o: ["A. Na-Ca antiporter", "B. Ca-H symporter", "C. Na-K pump", "D. Cl-bicarbonate exchanger", "E. Ca-glucose symporter"], a: "A" },
+   
+ 
+  { n: 112, s: "absent", q: "Ability of muscle to recoil to original resting length after stretched.", o: ["A. Contractility", "B. Excitability", "C. Extensibility", "D. Conductivity", "E. Elasticity"], a: "E" },
+   { n: 113, s: "6", q: "Which substance reduces the risk of coronary heart disease and is commonly called 'good cholesterol'?", o: ["A. VLDL", "B. Chylomicrons", "C. IDL", "D. LDL", "E. HDL"], a: "E" },
+
+  { n: 114, s: "absent", q: "The enzyme which is responsible of phosphorylation of the glucose in the liver?", o: ["A. Amylase", "B. Pepsin", "C. Glucokinase", "D. Lipase", "E. Trypsin"], a: "C" },
+  { n: 115, s: "absent", q: "Which one is an exclusive endocrine gland?", o: ["A. Pancreas", "B. Liver", "C. Kidney", "D. Pituitary gland", "E. Ovary"], a: "D" },
+  { n: 116, s: "11", q: "The type of cell signaling that effects the behavior of neighbor cells by secreting chemical molecules:", o: ["A. Paracrine signaling", "B. Endocrine signaling", "C. Autocrine signaling", "D. Synaptic signaling", "E. Direct signaling"], a: "A" },
+  { n: 117, s: "7", q: "Which process produces more ATP?", o: ["A. Glycolysis", "B. Phosphagen system", "C. Krebs cycle", "D. Beta oxidation", "E. Electron transport chain"], a: "E" },
+  { n: 118, s: "10", q: "Sodium-glucose cotransporter is?", o: ["A. Antiport", "B. Uniport", "C. Simple diffusion", "D. Facilitated diffusion", "E. Symport"], a: "E" },
+    { n: 155, s: "9", q: "In a 2% NaCl hypertonic solution, what process does a Red Blood Cell (RBC) undergo?", o: ["A. Hemolysis", "B. Plasmolysis", "C. Turgidity", "D. Cytolysis", "E. Crenation"], a: "E" },
+
+  { n: 120, s: "absent", q: "During Inhalation:", o: ["A. Both alveolar and intrapleural pressure increase", "B. Alveolar pressure increases but intrapleural pressure decreases", "C. Both alveolar and intrapleural pressure decrease", "D. Intrapleural pressure increases but alveolar pressure decreases", "E. Pressure remains constant"], a: "C" },
+  { n: 121, s: "7", q: "Which one is correct about carbohydrate?", o: ["A. Thyroid hormone sensitive for hypoglycemia", "B. Glucagon sensitive for hypoglycemia", "C. Insulin sensitive for hypoglycemia", "D. Estrogen sensitive for hypoglycemia", "E. Progesterone sensitive for hypoglycemia"], a: "B" },
+  { n: 122, s: "absent", q: "Hormones secreted by the kidneys include all of the following except:", o: ["A. Erythropoitein", "B. Renin", "C. Vitamin D3", "D. Prostaglandin", "E. Thrombopoietin"], a: "E" },
+  { n: 123, s: "absent", q: "The __________ system is used by muscles to provide energy for sudden power surges lasting a few seconds.", o: ["A. Glycogen- lactic acid system", "B. Phosphagen", "C. Aerobic system", "D. Anaerobic glycolysis", "E. Beta-oxidation"], a: "B" },
+    { n: 124, s: "16", q: "What is a collection of cell bodies located in the Peripheral Nervous System (PNS) called?", o: ["A. Nuclei", "B. Tracts", "C. Nerves", "D. Ganglia", "E. Plexus"], a: "D" },
+  
+  { n: 125, s: "absent", q: "Iband contains _________ .", o: ["A. Only myosin", "B. Actin and myosin", "C. Only troponin", "D. Only actin", "E. None of these"], a: "D" },
+  { n: 126, s: "absent", q: "Is especially important for giving extra power during races as the 200-to 800-meter runs.", o: ["A. Glycogen-Lactic acid system", "B. Phosphagen", "C. Aerobic system", "D. Beta oxidation", "E. Krebs cycle"], a: "A" },
+  { n: 127, s: "absent", q: "The body normally contains about _________ liters of stored oxygen.", o: ["A. 1", "B. 1.5", "C. 3", "D. 2", "E. 2.5"], a: "D" },
+  { n: 128, s: "absent", q: "Which of the following is incorrect:", o: ["A. Venous blood 40-50", "B. Arterial blood pressure 120-180", "C. High pressure oxygen inhibits bacterial growth", "D. None", "E. All are correct"], a: "B" },
+   { n: 129, s: "10", q: "In carrier-mediated endocytosis, what happens to LDL receptors after the internalization of the LDL complex?", o: ["A. The receptor is degraded by lysosomes", "B. The LDL receptor is recycled back to the plasma membrane for reuse", "C. The receptor is converted into a hormone", "D. The receptor remains permanently in the cytoplasm", "E. The receptor is secreted out of the cell"], a: "B" },
+
+ 
+  { n: 130, s: "absent", q: "23 years old female, complaining of hearing changes and balance issues. Which cranial nerve is most likely involved with her problems?", o: ["A. CnⅨ", "B. CnⅪ", "C. CnⅧ", "D. CnⅤ", "E. CnⅢ"], a:"C"},
+  { n: 131, s: "absent", q: "Which cranial nerve is responsible for sight?", o: ["A. Cranial nerve Ⅱ", "B. Cranial nerve Ⅳ", "C. Trochlear", "D. Oculomotor", "E. Cranial nerve Ⅰ "], a: "A" },
+  { n: 132, s: "1", q: "Carry information from sensory receptors to the CNS:", o: ["A. Efferent neurons", "B. Afferent neurons", "C. Interneurons", "D. Neuroglia", "E. Motor neurons"], a: "B" },
+    { n: 133, s: "17", q: "Which of the following is a true statement regarding the glycolipids of the cell membrane?", o: ["A. They are found exclusively on the inner cytoplasmic leaflet", "B. They serve as the primary source of ATP for the cell", "C. They are located only on the outer layer of the membrane", "D. They are completely absent in the membranes of animal cells", "E. They function primarily as transmembrane ion channels"], a: "C" },
+    {n: 134, s:"6", q: "What is the function of bile salts?", o: ["A. To break down complex carbohydrates", "B. To regulate blood glucose levels", "C. To neutralize stomach acid in the duodenum", "D. To help in digesting lipids", "E. To stimulate the release of pepsinogen"], a: "D" },
+      { n: 135, s: "2", q: "Which type of receptor is stimulated by distant stimuli away from the body?", o: ["A. Mechano-receptor", "B. Tele-receptor", "C. Proprio-receptor", "D. Intero-receptor", "E. Chemo-receptor"], a: "B" },
+
+ 
+
+  { n: 136, s: "absent", q: "Thick filaments are composed mostly of which protein?", o: ["A. Myosin", "B. Actin", "C. Actin & Myosin", "D. Troponin", "E. Tropomyosin"], a: "A" },
+ { n: 137, s: "10", q: "By what mechanism is glucose absorbed into the intestinal cells?", o: ["A. Simple diffusion", "B. Facilitated diffusion", "C. Secondary active transport", "D. Primary active transport", "E. Endocytosis"], a: "C" },
+   { n: 138, s: "8", q: "The metabolic process of fatty acid catabolism is known as?", o: ["A. Glycolysis", "B. Lipogenesis", "C. Ketogenesis", "D. Alpha oxidation", "E. Beta oxidation"], a: "E" },
+  
+  { n: 139, s: "absent", q: "Gas exchange between the lungs and the blood is called:", o: ["A. Pulmonary ventilation", "B. Internal respiration", "C. External respiration", "D. Cellular metabolism", "E. Respiration rate"], a: "C" },
+  { n: 140, s: "absent", q: "_________ Is the ability of muscles to generate force against resistance.", o: ["A. Muscle power", "B. Muscle indurance", "C. Muscle tone", "D. Muscle strength", "E. Muscle flexibility"], a: "D" },
+  { n: 141, s: "7", q: "The alpha cell release which hormone?", o: ["A. Glucagon", "B. Insulin", "C. Somatostatin", "D. Gastrin", "E. Epinephrine"], a: "A" },
+  { n: 142, s: "absent", q: "Located on the left side of the abdomen and filters blood?", o: ["A. Liver", "B. Pancreas", "C. Kidney", "D. Stomach", "E. Spleen"], a: "E" },
+    { n: 143, s: "17", q: "Which of the following describes a primary function of the plasma membrane?", o: ["A. Site of protein synthesis", "B. Energy production center", "C. Genetic storage unit", "D. Providing enzyme activity, structural support, and stability", "E. Waste elimination portal"], a: "D" },
+
+  { n: 144, s: "absent", q: "Where does the chemical digestion of food begin?", o: ["A. Esophagus", "B. Stomach", "C. Small intestine", "D. Pharynx", "E. Mouth with saliva"], a: "E" },
+  { n: 145, s: "absent", q: "Capture and destroy bacteria in the intestine:", o: ["A. Lymph nodes", "B. Tonsils", "C. Peyer's patches", "D. Appendix", "E. Thymus"], a: "C" },
+  { n: 146, s: "absent", q: "The largest internal organ in the human body is:", o: ["A. Heart", "B. Brain", "C. Skin", "D. Liver", "E. Lungs"], a: "D" },
+  { n: 147, s: "10", q: "__________ directly uses energy (ATP) to transport molecules across the plasma membrane:", o: ["A. Simple diffusion", "B. Facilitated diffusion", "C. Primary active transport", "D. Secondary active transport", "E. Osmosis"], a: "C" },
+ 
+  { n: 148, s: "8", q: "Where does deamination occur?", o: ["A. Erythrocytes ", "B. Neurons", "C. Muscle fibers", "D. Adipocytes", "E. Hepatocytes"], a: "E" },
+{ n: 149, s: "7", q: "Where does oxidative phosphorylation occur?", o: ["A. Cytosol", "B. Inner mitochondrial membrane", "C. Outer mitochondrial membrane", "D. Nucleus", "E. Golgi apparatus"], a: "B" },
+
+{ n: 150, s: "19", q: "ECF in joint called:", o: ["A. Blood plasma", "B. Aqueous humor and vitreous body", "C. Synovial fluid", "D. CSF", "E. Interstitial fluid"], a: "C" },
+{ n: 151, s: "11", q: "Which type of signaling involves secretion of a hormone into bloodstream to act on distant cells?", o: ["A. Paracrine signaling", "B. Autocrine signaling", "C. Endocrine signaling", "D. Direct signaling", "E. Synaptic signaling"], a: "C" },
+{ n: 152, s: "10", q: "What is the process when a cell engulfs a foreign particle?", o: ["A. Phagocytosis", "B. Exocytosis", "C. Osmosis", "D. Diffusion", "E. Pinocytosis"], a: "A" },
+{ n: 153, s: "11", q: "What kind of signaling happens when nitric oxide (NO) is released?", o: ["A. Endocrine signaling", "B. Paracrine signaling", "C. Autocrine signaling", "D. Direct signaling", "E. Synaptic signaling"], a: "B" },
+{ n: 154, s: "16", q: "Collection of neuron cell bodies in CNS is called?", o: ["A. Synapse", "B. Ganglia", "C. Tract", "D. Nerve", "E. Nucleus"], a: "E" },
+{ n: 155, s: "16", q: "Which neurons integrate sensory input and produce motor output?", o: ["A. Motor neurons ", "B. Sensory neurons", "C. Interneurons", "D. Schwann cells", "E. Astrocytes"], a: "C" },
+{ n: 156, s: "4", q: "What protein phosphorylates cellular proteins in signaling?", o: ["A. Tyrosine kinase", "B. Protein kinase", "C. G protein", "D. Adenylyl cyclase", "E. Phosphatase"], a: "B" },
+{ n: 157, s: "4", q: "What is the first messenger in water-soluble signaling?", o: ["A. The molecule itself", "B. cAMP", "C. Receptor", "D. Second messenger", "E. G protein"], a: "A" },
+{ n: 158, s: "absent", q: "Which cranial nerves control eye movement?", o: ["A. 1,4,6", "B. 2,4,6", "C. 3,4,6", "D. 1,3,6", "E. 2,3,6"], a: "C" },
+{ n: 159, s: "9", q: "When injecting a 0.9% sodium chloride solution into the blood, which is isotonic to red blood cells, what is the effect on blood cells?", o: ["A. Shrink", "B. Swell and burst", "C. Volume maintained", "D. Hemolysis", "E. Crenation"], a: "C" },
+{ n: 160, s: "16", q: "Stage when potassium channels remain open in action potential?", o: ["A. Depolarization", "B. Repolarization", "C. Resting", "D. Threshold", "E. After-hyperpolarization"], a: "E" },
+{ n: 161, s: "6", q: "Which is a catalytic protein?", o: ["A. Insulin", "B. Salivary amylase", "C. Myosin", "D. Hemoglobin", "E. Albumin"], a: "B" },
+{ n: 162, s: "2", q: "What receptors respond to deep pressure in the dermis layer?", o: ["A. Krause end bulb", "B. Ruffini end organ", "C. Meisnner Corpuscle", "D. Pacinian Corpuscle", "E. Free nerve ending"], a: "D" },
+{ n: 163, s: "6", q: "Which of the following is a mineral found in Vitamin B12?", o: ["A. Iron", "B. Iodine", "C. Cobalt", "D. Zinc", "E. Magnesium"], a: "C" },
+  { n: 164, s: "9", q: "Which of the following decreases the rate of diffusion?", o: ["A. Higher temperature", "B. Larger surface area", "C. Greater concentration gradient", "D. Larger mass of the substance", "E. Reduced membrane thickness"], a: "D" },
+  { n: 165, s: "8", q: "Which hormone inhibits lipolysis?", o: ["A. Cortisol", "B. Epinephrine", "C. Insulin-like growth factor", "D. Insulin", "E. Thyroid hormone"], a: "D" },
+
+{ n: 166, s: "19", q: "ECF in eye called:", o: ["A. Blood plasma", "B. Aqueous humor and vitreous body", "C. Synovial fluid", "D. CSF", "E. Lymph"], a: "B" },
+{ n: 167, s: "9", q: "Glucose enters most cells via?", o: ["A. Secondary active transport", "B. Facilitated diffusion", "C. Simple diffusion", "D. Endocytosis", "E. Primary active transport"], a: "B" },
+
+{ n: 168, s: "7", q: "Chemical reactions of aerobic cellular respiration generate ATP within:", o: ["A. Ribosome", "B. Golgi apparatus", "C. Mitochondria", "D. Lysosome", "E. Nucleus"], a: "C" },
+
+{ n: 169, s: "19", q: "Cellular function depends on the regulation of composition of it, body's internal environment :", o: ["A. Intracellular fluid", "B. Blood plasma", "C. Interstitial fluid", "D. Cytoplasm", "E. Lymph"], a: "C" },
+
+{ n: 170, s: "19", q: "ECF in the brain and spinal cord is called:", o: ["A. Blood plasma", "B. Synovial fluid", "C. Interstitial fluid", "D. Cerebrospinal fluid", "E. Lymph"], a: "D" },
+
+{ n: 171, s: "13", q: "A normal type of cell death that removes unneeded cells during embryological development, regulates the number of cells in tissues, and eliminates many potentially dangerous cells such as cancer cells :", o: ["A. Necrosis", "B. Autophagy", "C. Apoptosis", "D. Phagocytosis", "E. Mitosis"], a: "C" },
+
+
+{ n: 172, s: "9", q: "Substances that move across the plasma membrane by carrier mediated facilitated diffusion include :", o: ["A. Oxygen", "B. Carbon dioxide", "C. Sodium ions", "D. Glucose", "E. Steroid hormones"], a: "D" },
+
+{ n: 173, s: "10", q: "Cell projections that extend to engulf bacteria :", o: ["A. Cilia", "B. Flagella", "C. Microvilli", "D. Pseudopods", "E. Axons"], a: "D" },
+
+
+{ n: 174, s: "10", q: "The other name of bulk phase endocytosis :", o: ["A. Phagocytosis", "B. Pinocytosis", "C. Exocytosis", "D. Osmosis", "E. Diffusion"], a: "B" },
+
+{ n: 175, s: "10", q: "Directly uses ATP to move ions across the plasma membrane :", o: ["A. Facilitated diffusion", "B. Osmosis", "C. Primary active transport", "D. Secondary active transport", "E. Endocytosis"], a: "C" },
+
+{ n: 176, s: "4", q: "Local hormones acting on the same cell that secreted them are called:", o: ["A. Endocrine hormones", "B. Paracrine hormones", "C. Autocrine hormones", "D. Neurotransmitters", "E. Cytokines"], a: "C" },
+
+{ n: 177, s: "8", q: "As part of normal fatty acid catabolism, hepatocytes can take two acetyl CoA molecules at a time and condense them to form:", o: ["A. Pyruvic acid", "B. Acetoacetic acid", "C. Lactic acid", "D. Citric acid", "E. Oxaloacetic acid"], a: "B" },
+
+
+{ n: 178, s: "10", q: "What happens to clathrin molecules after vesicle formation in receptor-mediated endocytosis?", o: ["A. They are destroyed immediately", "B. They become part of lysosomes", "C. They return to the plasma membrane or help form other vesicle coats", "D. They convert into receptors", "E. They remain permanently attached to vesicles"], a: "C" },
+
+
+{ n: 179, s: "absent", q: "An autopsy is:", o: ["A. Surgical operation", "B. Post mortem examination", "C. Blood transfusion", "D. Tissue biopsy", "E. Microscopic examination"], a: "B" },
+
+{ n: 180, s: "3", q: "Ribosomes are associated with what in the synthesis of proteins destined for insertion in the plasma membrane or secretion from the cell?", o: ["A. Smooth endoplasmic reticulum", "B. Lysosome", "C. Endoplasmic reticulum", "D. Golgi apparatus", "E. Mitochondria"], a: "C" },
+
+
+{ n: 181, s: "13", q: "In this process, a cell cuts itself, typically due to injury or infection, and lysosomal enzymes are responsible for cell destruction:", o: ["A. Apoptosis", "B. Necrosis", "C. Autolysis", "D. Phagocytosis", "E. Mitosis"], a: "C" },
+
+{ n: 182, s: "7", q: "Is the sum of all chemical processes that occur in the body, has both catabolism and anabolism phases:", o: ["A. Digestion", "B. Metabolism", "C. Homeostasis", "D. Respiration", "E. Oxidation"], a: "B" },
+
+{ n: 183, s: "9", q: "Which solution is used to treat patients that have cerebral edema?", o: ["A. Glucose solution", "B. Saline solution", "C. Mannitol", "D. Distilled water", "E. Lactated Ringer"], a: "C" },
+
+
+
+{ n: 184, s: "13", q: "Apoptosis is initiated by activation of a family of proteases, these enzymes are synthesized and stored in the cell as inactive procaspases, the enzymes are called:", o: ["A. Kinases", "B. Caspases", "C. Lysozymes", "D. Polymerases", "E. Ligases"], a: "B" },
+
+{ n: 185, s: "9", q: "Which of the following decreases the rate of diffusion across the plasma membrane?", o: ["A. Increased temperature", "B. Greater concentration gradient", "C. Increased surface area", "D. Increasing mass of diffusing particles", "E. Reduced membrane thickness"], a: "D" },
+
+{ n: 186, s: "1", q: "The body's ability to detect and respond to changes is called:", o: ["A. Metabolism", "B. Responsiveness", "C. Homeostasis", "D. Conductivity", "E. Adaptation"], a: "B" },
+
+{ n: 187, s: "3", q: "Serves as a scaffold that helps determine a cell's shape, aids in the movement of organelles within a cell, of chromosomes during cell division:", o: ["A. Cytoskeleton", "B. Ribosome", "C. Golgi apparatus", "D. Nucleus", "E. Lysosome"], a: "A" },
+{ n: 188, s: "4", q: "The mechanism of action of lipid soluble hormones is by..................", o: ["A. Binding to membrane receptors", "B. Activation of second messenger system (cAMP)", "C. Direct gene activation", "D. Opening ion channels", "E. Facilitated diffusion"], a: "C" },
+{ n: 189, s: "17", q: "Which type of proteins allow the passage of ions across the membrane?", o: ["A. Peripheral proteins", "B. Integral proteins", "C. Receptors", "D. Phospholipids", "E. Glycolipids"], a: "B" },
+
+{ n: 190, s: "9", q: "Which of the following decreases the rate of diffusion?", o: ["A. The smaller mass of the substance", "B. The larger mass of the substance", "C. The higher the temperature", "D. The larger the membrane surface area", "E. The lesser the distance over which diffusion must occur"], a: "B" },
+
+{ n: 191, s: "absent", q: "Which cranial nerve is responsible for the movement of the shoulder?", o: ["A. IV cranial nerve", "B. IX cranial nerve", "C. X cranial nerve", "D. XI cranial nerve", "E. VI cranial nerve"], a: "D" },
+
+{ n: 192, s: "12", q: "The thermoregulatory center contains in the hypothalamus. So in exposure to cold, the hypothalamus will:", o: ["A. Increase voluntary activity", "B. Decrease voluntary activity", "C. Increase involuntary activity", "D. Decrease involuntary activity", "E. No change in activity"], a: "C" },
+
+{ n: 193, s: "1", q: "Which one is a positive feedback?", o: ["A. Blood pressure regulation", "B. Body temperature regulation", "C. Childbirth", "D. Blood glucose regulation", "E. None of the above"], a: "C" },
+
+{ n: 194, s: "3", q: "Which of the following is not a function of the smooth endoplasmic reticulum (ER)?", o: ["A. Storage and release of calcium ions", "B. Dephosphorylation of glucose-6-phosphate", "C. Synthesis of proteins", "D. Synthesis of lipids", "E. Detoxification of drugs"], a: "C" },
+
+{ n: 195, s: "16", q: "These are the cells that form the myelin sheaths of the PNS.", o: ["A. Oligodendrocytes", "B. Satellite cells", "C. Schwann cells", "D. Ependymal cells", "E. Astrocytes"], a: "C" },
+
+{ n: 196, s: "7", q: "In what type of cells, is a type of GLUT always present in the plasma membrane, so glucose entry is always “turned on.”", o: ["A. Neurons and Hepatocytes", "B. Myocytes and Osteocytes", "C. Melanocytes and Keratinocytes", "D. Mast cells", "E. Kidney cells"], a: "A" },
+
+{ n: 197, s: "13", q: "The process which the entire worn - out organelles are digested:", o: ["A. Phagocytosis", "B. Autophagy", "C. Exocytosis", "D. Pinocytosis", "E. Endocytosis"], a: "B" },
+
+{ n: 198, s: "17", q: "Which structure enables Na⁺ to enter the cell?", o: ["A. Lipid bilayer", "B. Integral protein", "C. Glycocalyx", "D. Cytoplasm", "E. Nucleus"], a: "B" },
+
+{ n: 199, s: "absent", q: "Is unique to each person's body cells:", o: ["A. DNA", "B. MHC", "C. ATP", "D. RNA", "E. Enzymes"], a: "B" },
+
+
+{ n: 200, s: "4", q: "A water-soluble hormone diffuses from the blood then binds to its receptor at the exterior surface of the target cell. The hormone-receptor complex activates a membrane protein called a G protein. Cyclic AMP is then produced after the activation of which protein by G protein?", o: ["A. Adenylate cyclase", "B. Protein kinase", "C. Lingual Lipase", "D. Phosphodiesterase", "E. Tyrosine kinase"], a: "A" },
+
+{ n: 201, s: "7", q: "Those chemical reactions that break down complex organic molecules into simpler ones are collectively known as _______.", o: ["A. Anabolism", "B. Catabolism", "C. Metabolism", "D. Homeostasis", "E. Digestion"], a: "B" },
+
+{ n: 202, s: "6", q: "In addition to other functions, vitamins—C, E, and beta-carotene (a provitamin) are termed _______ because they inactivate oxygen free radicals", o: ["A. Hormones", "B. Enzymes", "C. Antioxidants", "D. Minerals", "E. Proteins"], a: "C" },
+
+{ n: 203, s: "5", q: "Is the nutrient needed in the largest amount by the body:", o: ["A. Protein", "B. Fat", "C. Carbohydrate", "D. Water", "E. Vitamins"], a: "D" },
+{ n: 204, s: "15", q: "When there is a wound and phagocytes go to the injured place through blood, this process is called:", o: ["A. Chemotaxis", "B. Diapedesis", "C. Emigration", "D. Phagocytosis", "E. Pinocytosis"], a: "C" },
+
+];
+
+const filterLectures = [
+  { label: "All",                     val: "All" },
+  { label: "The Feedback Systems 🔁", val: "1" },
+  { label: "Receptor Physiology 🎯", val: "2" },
+  { label: "Cell Physiology 🔵", val: "3" },
+  { label: "Hormone Physiology ⚡", val: "4" },
+  { label: "Nutrition: Types 🥗", val: "5" },
+  { label: "Nutrition: Functions 🥩", val: "6" },
+  { label: "Physiology: Metabolism Part 1 🔥", val: "7" },
+  { label: "Physiology: Metabolism Part 2 ⚡", val: "8" },
+  { label: "Passive Transport ⬇️", val: "9" },
+  { label: "Active Transport ⬆️", val: "10" },
+  { label: "Signal Transduction ⚡", val: "11" },
+  { label: "Thermoregulation 🌡️", val: "12" },
+  { label: "Apoptosis 💀", val: "13" },
+  { label: "Obesity 🍔", val: "14" },
+  { label: "Physiology Of Inflammation ️️🦠", val: "15" },
+  { label: "Physiology of Neurons 🧠", val: "16" },
+  { label: "Plasma Membrane 🔵", val: "17" },
+  { label: "The Immune System 🛡️", val: "18" },
+  { label: "Introduction to Medical Physiology 🏥", val: "19" },
+  { label: "Unkown",            val: "absent" },
+
+];
+
+let currentSubject = "All";
+
+const container = document.getElementById('quiz-content');
+const filterBar = document.getElementById('filter-bar');
+
+function renderFilterBar() {
+    filterBar.innerHTML = filterLectures.map(f =>
+        `<button class="filter-btn${f.val === currentSubject ? " active" : ""}" onclick="filterBySubject('${f.val}', this)">${f.label}</button>`
+    ).join('');
+}
+
+function getLectureLabel(val) {
+    if (val === "All") return "All";
+    const found = filterLectures.find(f => f.val === val);
+    return found ? found.label : val;
+}
+
+function updateSectionHeading() {
+    const existing = document.getElementById('section-heading');
+    const visibleBlocks = [...document.querySelectorAll('.q-block')].filter(b => b.style.display !== "none");
+    const count = visibleBlocks.length;
+
+    let noResultsMsg = document.getElementById('no-results-msg');
+    if (count === 0) {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.id = 'no-results-msg';
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.textContent = "No questions found.";
+            container.appendChild(noResultsMsg);
+        }
+    } else if (noResultsMsg) {
+        noResultsMsg.remove();
+    }
+
+    const label = getLectureLabel(currentSubject);
+    const badgeText = count === 1 ? "1 MCQ" : `${count} MCQs`;
+
+    if (existing) {
+        existing.style.display = (count === 0) ? "none" : "flex";
+        existing.querySelector('.section-heading-title').textContent = label;
+        existing.querySelector('.mcq-count-badge').textContent = badgeText;
+    } else if (count > 0) {
+        const heading = document.createElement('div');
+        heading.id = 'section-heading';
+        heading.className = 'section-heading';
+        heading.innerHTML = `<span class="section-heading-title">${label}</span><span class="mcq-count-badge">${badgeText}</span>`;
+        container.insertBefore(heading, container.firstChild);
+    }
+}
+
+function renderQuiz() {
+    container.innerHTML = '';
+    allQuestions.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.lecture = item.s;
+        div.dataset.searchText = (item.q + " " + item.o.join(" ")).toLowerCase();
+
+        const matchesSubject = currentSubject === "All" || item.s === currentSubject;
+        div.style.display = matchesSubject ? "block" : "none";
+
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <button class="ans-btn" data-answer="Answer: ${item.a}" onclick="toggleAnswer(this)">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+    updateSectionHeading();
+}
+
+function filterBySubject(val, btn) {
+    currentSubject = val;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    handleSearch();
+}
+
+function handleSearch() {
+    const term = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        resetBlock(block);
+        const matchesCategory = currentSubject === "All" || block.dataset.lecture === currentSubject;
+        const matchesSearch = term === "" || block.dataset.searchText.includes(term);
+        if (matchesCategory && matchesSearch) {
+            block.style.display = "block";
+            if (term !== "") highlight(block, term);
+        } else {
+            block.style.display = "none";
+        }
+    });
+    updateSectionHeading();
+}
+
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+    block.classList.remove('revealed');
+    const btn = block.querySelector('.ans-btn');
+    if (btn && btn.dataset.answer) btn.textContent = 'Answer';
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').innerHTML.replace(regex, '<mark>$1</mark>');
+    block.querySelectorAll('li').forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+}
+
+function toggleAnswer(btn) {
+    const block = btn.closest('.q-block');
+    const isRevealed = block.classList.toggle('revealed');
+    btn.textContent = isRevealed ? btn.dataset.answer : 'Answer';
+}
+
+function toggleTheme() {
+    const isLight = document.body.getAttribute('data-theme') === 'light';
+    const newTheme = isLight ? '' : 'light';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.getElementById('theme-icon').innerHTML = isLight 
+        ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
+        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+}
+
+(function () {
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}());
+
+renderFilterBar();
+renderQuiz();
+</script>
+</body>
+</html>
