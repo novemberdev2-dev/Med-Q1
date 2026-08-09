@@ -61,7 +61,9 @@
             align-items: center;
             margin-bottom: 20px;
         }
-
+  * {
+            -webkit-tap-highlight-color: transparent;
+        }
         .controls-row {
             display: flex;
             gap: 10px;
@@ -90,6 +92,7 @@
             font-weight: 800;
             white-space: nowrap;
             transition: all 0.2s;
+             cursor: pointer;
         }
 
         .filter-btn.active {
@@ -105,7 +108,7 @@
             width: 48px;
             height: 48px;
             border-radius: 10px;
-            
+             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -178,6 +181,7 @@ button.ans-btn {
     display: inline-block;
     white-space: pre-line;
     transition: background-color 0.1s, color 0.1s;
+     cursor: pointer;
 }
 
 button.ans-btn.revealed {
